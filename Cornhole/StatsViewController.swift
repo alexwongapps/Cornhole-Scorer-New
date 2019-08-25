@@ -44,7 +44,6 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // background
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var portraitView: UIView!
     
     // board pie chart
     var inDataEntry = PieChartDataEntry(value: 0)
@@ -58,7 +57,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // Do any additional setup after loading the view.
         
         // landscape/portrait
-        portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        // portraitView.isHidden = UIDevice.current.orientation.isLandscape
         
         backgroundImageView.image = backgroundImage
         
@@ -203,7 +202,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        // portraitView.isHidden = UIDevice.current.orientation.isLandscape
     }
     
     // picker view
