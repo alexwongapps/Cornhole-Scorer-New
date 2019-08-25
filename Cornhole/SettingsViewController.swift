@@ -17,21 +17,22 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     var editingPlayerName: String = "" // name of player
     var firstThrowWinners: Bool = false // do winners throw first? (or does it alternate?)
     
-    @IBOutlet weak var settingsLabel: UILabel!
-    @IBOutlet weak var resetMatchesButton: UIButton!
-    @IBOutlet weak var editPlayerNameButton: UIButton!
-    @IBOutlet weak var versionLabel: UILabel!
-    @IBOutlet weak var editInstructionsLabel: UILabel!
-    @IBOutlet weak var editStackView: UIStackView!
-    @IBOutlet weak var leftArrowButton: UIButton!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var rightArrowButton: UIButton!
-    @IBOutlet weak var doneEditingButton: UIButton!
-    @IBOutlet weak var firstThrowLabel: UILabel!
-    @IBOutlet weak var firstThrowButton: UIButton!
+    @IBOutlet var settingsLabel: [UILabel]!
+    @IBOutlet var resetMatchesButton: [UIButton]!
+    @IBOutlet var editPlayerNameButton: [UIButton]!
+    @IBOutlet var versionLabel: [UILabel]!
+    @IBOutlet var editInstructionsLabel: [UILabel]!
+    @IBOutlet var editStackView: [UIStackView]!
+    @IBOutlet var leftArrowButton: [UIButton]!
+    @IBOutlet var nameTextField: [UITextField]!
+    @IBOutlet var rightArrowButton: [UIButton]!
+    @IBOutlet var doneEditingButton: [UIButton]!
+    @IBOutlet var firstThrowLabel: [UILabel]!
+    @IBOutlet var firstThrowButton: [UIButton]!
     
     // background
-    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet var backgroundImageView: [UIImageView]!
+    @IBOutlet weak var portraitView: UIView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -41,71 +42,76 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backgroundImageView.image = backgroundImage
+        for i in 0..<backgroundImageView.count {
         
-        self.nameTextField.delegate = self
-        nameTextField.autocorrectionType = .no
-        
-        // get first throw setting
-        
-        firstThrowWinners = UserDefaults.standard.bool(forKey: "firstThrowWinners")
-        if(firstThrowWinners) {
-            firstThrowButton.setTitle("Winners", for: .normal)
-            firstThrowButton.setTitle("Winners", for: .selected)
-        } else {
-            firstThrowButton.setTitle("Alternate", for: .normal)
-            firstThrowButton.setTitle("Alternate", for: .selected)
-        }
-        
-        // version
-        
-        let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
-        let version = nsObject as! String
-        versionLabel.text = "The Cornhole Scorer Version \(version)"
-        
-        // devices
-        
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+            backgroundImageView[i].image = backgroundImage
             
-            settingsLabel.font = UIFont(name: systemFont, size: 75)
-            resetMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            editPlayerNameButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            editInstructionsLabel.font = UIFont(name: systemFont, size: 25)
-            nameTextField.font = UIFont(name: systemFont, size: 20)
-            doneEditingButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
-            firstThrowLabel.font = UIFont(name: systemFont, size: 30)
-            firstThrowButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            versionLabel.font = UIFont(name: systemFont, size: 30)
+            self.nameTextField[i].delegate = self
+            nameTextField[i].autocorrectionType = .no
+        
+            // get first throw setting
             
-        } else if smallDevice() {
+            firstThrowWinners = UserDefaults.standard.bool(forKey: "firstThrowWinners")
+            if(firstThrowWinners) {
+                firstThrowButton[i].setTitle("Winners", for: .normal)
+                firstThrowButton[i].setTitle("Winners", for: .selected)
+            } else {
+                firstThrowButton[i].setTitle("Alternate", for: .normal)
+                firstThrowButton[i].setTitle("Alternate", for: .selected)
+            }
+        
+            // version
             
-            settingsLabel.font = UIFont(name: systemFont, size: 30)
-            resetMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            editPlayerNameButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            editInstructionsLabel.font = UIFont(name: systemFont, size: 12)
-            nameTextField.font = UIFont(name: systemFont, size: 17)
-            doneEditingButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            firstThrowLabel.font = UIFont(name: systemFont, size: 17)
-            firstThrowButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            versionLabel.font = UIFont(name: systemFont, size: 17)
+            let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
+            let version = nsObject as! String
+            versionLabel[i].text = "The Cornhole Scorer Version \(version)"
+        
+            // devices
+            
+            if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+                
+                settingsLabel[i].font = UIFont(name: systemFont, size: 75)
+                resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                editPlayerNameButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                editInstructionsLabel[i].font = UIFont(name: systemFont, size: 25)
+                nameTextField[i].font = UIFont(name: systemFont, size: 20)
+                doneEditingButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
+                firstThrowLabel[i].font = UIFont(name: systemFont, size: 30)
+                firstThrowButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                versionLabel[i].font = UIFont(name: systemFont, size: 30)
+                
+            } else if smallDevice() {
+                
+                settingsLabel[i].font = UIFont(name: systemFont, size: 30)
+                resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                editPlayerNameButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                editInstructionsLabel[i].font = UIFont(name: systemFont, size: 12)
+                nameTextField[i].font = UIFont(name: systemFont, size: 17)
+                doneEditingButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                firstThrowLabel[i].font = UIFont(name: systemFont, size: 17)
+                firstThrowButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                versionLabel[i].font = UIFont(name: systemFont, size: 17)
 
-        } else {
-            
-            settingsLabel.font = UIFont(name: systemFont, size: 30)
-            resetMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            editPlayerNameButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            editInstructionsLabel.font = UIFont(name: systemFont, size: 15)
-            nameTextField.font = UIFont(name: systemFont, size: 17)
-            doneEditingButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            firstThrowLabel.font = UIFont(name: systemFont, size: 17)
-            firstThrowButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            versionLabel.font = UIFont(name: systemFont, size: 17)
-            
+            } else {
+                
+                settingsLabel[i].font = UIFont(name: systemFont, size: 30)
+                resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                editPlayerNameButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                editInstructionsLabel[i].font = UIFont(name: systemFont, size: 15)
+                nameTextField[i].font = UIFont(name: systemFont, size: 17)
+                doneEditingButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                firstThrowLabel[i].font = UIFont(name: systemFont, size: 17)
+                firstThrowButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                versionLabel[i].font = UIFont(name: systemFont, size: 17)
+                
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        portraitView.isHidden = UIDevice.current.orientation.isLandscape
         
         players.removeAll()
         
@@ -135,10 +141,28 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         players = players.sorted()
         
-        // hide edit menu
-        editInstructionsLabel.isHidden = true
-        editStackView.isHidden = true
-        doneEditingButton.isHidden = true
+        for i in 0..<backgroundImageView.count {
+            // hide edit menu
+            editInstructionsLabel[i].isHidden = true
+            editStackView[i].isHidden = true
+            doneEditingButton[i].isHidden = true
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if tabBarController?.selectedIndex == SETTINGS_TAB_INDEX {
+            portraitView.isHidden = UIDevice.current.orientation.isLandscape
+            
+            if nameTextField[0].isEditing {
+                nameTextField[0].resignFirstResponder()
+                nameTextField[1].becomeFirstResponder()
+            } else if nameTextField[1].isEditing {
+                nameTextField[1].resignFirstResponder()
+                nameTextField[0].becomeFirstResponder()
+            }
+        }
     }
 
     @IBAction func resetMatches(_ sender: UIButton) {
@@ -165,12 +189,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             editingPlayerIndex = 0
             editingPlayerName = players[0]
             
-            // show edit menu
-            editInstructionsLabel.isHidden = false
-            editStackView.isHidden = false
-            doneEditingButton.isHidden = false
-            
-            nameTextField.text = players[editingPlayerIndex]
+            for i in 0..<backgroundImageView.count {
+                // show edit menu
+                editInstructionsLabel[i].isHidden = false
+                editStackView[i].isHidden = false
+                doneEditingButton[i].isHidden = false
+                
+                nameTextField[i].text = players[editingPlayerIndex]
+            }
         }
     }
     
@@ -181,25 +207,40 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             editingPlayerIndex += 1
         }
         editingPlayerName = players[editingPlayerIndex]
-        nameTextField.text = editingPlayerName
+        
+        for i in 0..<backgroundImageView.count {
+            nameTextField[i].text = editingPlayerName
+        }
     }
     
     // check if name already taken
     @IBAction func textFieldEditingChanged(_ sender: Any) {
-        if players.contains(nameTextField.text!) {
-            nameTextField.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+        
+        if portraitView.isHidden { // landscape mode
+            nameTextField[1].text = nameTextField[0].text
         } else {
-            nameTextField.backgroundColor = UIColor.white
+            nameTextField[0].text = nameTextField[1].text
+        }
+        
+        for i in 0..<backgroundImageView.count {
+            if players.contains(nameTextField[i].text!) {
+                nameTextField[i].backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+            } else {
+                nameTextField[i].backgroundColor = UIColor.white
+            }
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField.tag == 0 {
-            if !players.contains(nameTextField.text!) {
+            if !players.contains(nameTextField[0].text!) {
                 textField.resignFirstResponder()
+                for i in 0..<backgroundImageView.count {
+                    nameTextField[i].backgroundColor = UIColor.white
+                }
             }
-            saveName(doneEditingButton)
+            saveName(doneEditingButton[0])
         }
         
         return true
@@ -209,7 +250,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         // make sure name isn't taken
         
-        if !players.contains(nameTextField.text!) {
+        if !players.contains(nameTextField[0].text!) {
         
             // core data
             
@@ -228,13 +269,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                     for result in results as! [NSManagedObject] {
                         if let name = result.value(forKey: "name") as? String {
                             if name == editingPlayerName {
-                                result.setValue(nameTextField.text, forKey: "name") // change name
+                                result.setValue(nameTextField[0].text, forKey: "name") // change name
                             }
                         }
                     }
                 }
                 
-                players[editingPlayerIndex] = nameTextField.text!
+                players[editingPlayerIndex] = nameTextField[0].text!
             } catch {
                 print("Error")
             }
@@ -255,7 +296,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                             var newNames = pNames
                             for i in 0..<newNames.count {
                                 if newNames[i] == editingPlayerName { // if names match
-                                    newNames[i] = nameTextField.text! // change it
+                                    newNames[i] = nameTextField[0].text! // change it
                                 }
                             }
                             result.setValue(newNames, forKey: "playerNamesArray") // set
@@ -266,7 +307,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                             var newPlayers = rPlayers
                             for i in 0..<newPlayers.count {
                                 if newPlayers[i] == editingPlayerName {
-                                    newPlayers[i] = nameTextField.text!
+                                    newPlayers[i] = nameTextField[0].text!
                                 }
                             }
                             result.setValue(newPlayers, forKey: "roundPlayersArray")
@@ -277,15 +318,19 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 print("Error")
             }
             
-            editingPlayerName = nameTextField.text!
+            editingPlayerName = nameTextField[0].text!
             
-            // hide edit menu
-            editInstructionsLabel.isHidden = true
-            editStackView.isHidden = true
-            doneEditingButton.isHidden = true
+            for i in 0..<backgroundImageView.count {
+                // hide edit menu
+                editInstructionsLabel[i].isHidden = true
+                editStackView[i].isHidden = true
+                doneEditingButton[i].isHidden = true
+            }
         }
         
-        nameTextField.resignFirstResponder() // hide keyboard
+        for i in 0..<backgroundImageView.count {
+            nameTextField[i].resignFirstResponder() // hide keyboard
+        }
     }
     
     // change who throws first
@@ -294,12 +339,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         firstThrowWinners = !firstThrowWinners
         UserDefaults.standard.set(firstThrowWinners, forKey: "firstThrowWinners")
         
-        if(firstThrowWinners) {
-            firstThrowButton.setTitle("Winners", for: .normal)
-            firstThrowButton.setTitle("Winners", for: .selected)
-        } else {
-            firstThrowButton.setTitle("Alternate", for: .normal)
-            firstThrowButton.setTitle("Alternate", for: .selected)
+        for i in 0..<backgroundImageView.count {
+            if(firstThrowWinners) {
+                firstThrowButton[i].setTitle("Winners", for: .normal)
+                firstThrowButton[i].setTitle("Winners", for: .selected)
+            } else {
+                firstThrowButton[i].setTitle("Alternate", for: .normal)
+                firstThrowButton[i].setTitle("Alternate", for: .selected)
+            }
         }
     }
     

@@ -29,8 +29,8 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let YEAR = 4
     
     @IBOutlet var statsLabel: [UILabel]!
-    @IBOutlet weak var playersPickerView: UIPickerView!
-    @IBOutlet weak var timePickerView: UIPickerView!
+    @IBOutlet var playersPickerView: [UIPickerView]!
+    @IBOutlet var timePickerView: [UIPickerView]!
     @IBOutlet var singlesRecordLabel: [UILabel]!
     @IBOutlet var matchRecordLabel: [UILabel]!
     @IBOutlet var doublesRecordLabel: [UILabel]!
@@ -39,11 +39,11 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet var inPerRoundLabel: [UILabel]!
     @IBOutlet var onPerRoundLabel: [UILabel]!
     @IBOutlet var offPerRoundLabel: [UILabel]!
-    @IBOutlet weak var bagLocationLabel: UILabel!
-    @IBOutlet weak var boardPieChartView: PieChartView! // displays in, on, off
+    @IBOutlet var bagLocationLabel: [UILabel]!
+    @IBOutlet var boardPieChartView: [PieChartView]! // displays in, on, off
     
     // background
-    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet var backgroundImageView: [UIImageView]!
     @IBOutlet weak var portraitView: UIView!
     
     // board pie chart
@@ -57,18 +57,14 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         // Do any additional setup after loading the view.
         
-        // landscape/portrait
-        portraitView.isHidden = UIDevice.current.orientation.isLandscape
-        
-        backgroundImageView.image = backgroundImage
-        
-        let boardWidthConstraint = boardPieChartView.widthAnchor.constraint(equalToConstant: 220)
-        boardWidthConstraint.isActive = true
+        for i in 0..<matchRecordLabel.count {
+            backgroundImageView[i].image = backgroundImage
+        }
         
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
-            
-            bagLocationLabel.font = UIFont(name: systemFont, size: 25)
+        
             for i in 0..<matchRecordLabel.count {
+                bagLocationLabel[i].font = UIFont(name: systemFont, size: 25)
                 statsLabel[i].font = UIFont(name: systemFont, size: 75)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 25)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -78,15 +74,13 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 inPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
                 onPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
                 offPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
+                boardPieChartView[i].widthAnchor.constraint(equalToConstant: 450).isActive = true
             }
-            
-            boardPieChartView.widthAnchor.constraint(equalToConstant: 450).isActive = true
-            boardWidthConstraint.isActive = false
             
         } else if smallDevice() {
             
-            bagLocationLabel.font = UIFont(name: systemFont, size: 15)
             for i in 0..<matchRecordLabel.count {
+                bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
                 statsLabel[i].font = UIFont(name: systemFont, size: 30)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 11)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
@@ -96,15 +90,14 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 inPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
                 onPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
                 offPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
+                
+                 boardPieChartView[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
             }
-            
-            boardPieChartView.widthAnchor.constraint(equalToConstant: 180).isActive = true
-            boardWidthConstraint.isActive = false
             
         } else {
             
-            bagLocationLabel.font = UIFont(name: systemFont, size: 15)
             for i in 0..<matchRecordLabel.count {
+                bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
                 statsLabel[i].font = UIFont(name: systemFont, size: 30)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 15)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
@@ -114,6 +107,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 inPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
                 onPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
                 offPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
+                boardPieChartView[i].widthAnchor.constraint(equalToConstant: 220).isActive = true
             }
             
         }
@@ -131,28 +125,39 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        playersPickerView.selectRow(0, inComponent: 0, animated: false)
-        timePickerView.selectRow(0, inComponent: 0, animated: false)
+        // landscape/portrait
+        portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        
+        for i in 0..<matchRecordLabel.count {
+            playersPickerView[i].selectRow(0, inComponent: 0, animated: false)
+            timePickerView[i].selectRow(0, inComponent: 0, animated: false)
+        }
         
         // core data
         
         matches = getMatchesFromCoreData()
         allPlayers = getMatchPlayers(array: matches)
-        playersPickerView.reloadAllComponents()
-        playersPickerView.reloadInputViews()
         
-        // chart settings
-        boardPieChartView.chartDescription?.text = ""
-        boardPieChartView.drawHoleEnabled = false
-        let legend = boardPieChartView.legend
-        legend.font = UIFont(name: systemFont, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 20 : 12)!
+        for i in 0..<matchRecordLabel.count {
+            playersPickerView[i].reloadAllComponents()
+            playersPickerView[i].reloadInputViews()
+            
+            // chart settings
+            boardPieChartView[i].chartDescription?.text = ""
+            boardPieChartView[i].drawHoleEnabled = false
+            let legend = boardPieChartView[i].legend
+            legend.font = UIFont(name: systemFont, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 20 : 12)!
+        }
         
         // initialize player
         if allPlayers.count > 0 {
-            playersPickerView.isHidden = false
             
-            player = allPlayers[playersPickerView.selectedRow(inComponent: 0)] // just for load
-            
+            for i in 0..<matchRecordLabel.count {
+                playersPickerView[i].isHidden = false
+                
+                player = allPlayers[playersPickerView[i].selectedRow(inComponent: 0)] // just for load
+            }
+                
             // set labels
             let m = getMatchResults(p: player, m: matches)
             let s = getSinglesResults(p: player, m: matches)
@@ -176,9 +181,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 inPerRoundLabel[i].text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
                 onPerRoundLabel[i].text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
                 offPerRoundLabel[i].text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+                
+                boardPieChartView[i].isHidden = false
             }
-            
-            boardPieChartView.isHidden = false
             
             inDataEntry.value = Double(bagData[0])
             onDataEntry.value = Double(bagData[1])
@@ -191,7 +196,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             bagsDataEntries = [inDataEntry, onDataEntry, offDataEntry]
             updateChartData()
         } else {
-            playersPickerView.isHidden = true
+            for i in 0..<matchRecordLabel.count {
+                playersPickerView[i].isHidden = true
+            }
             
             noMatchesDisplay()
         }
@@ -242,12 +249,21 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        // set for landscape/portrait
+        for i in 0..<matchRecordLabel.count {
+            if pickerView.tag == 0 {
+                playersPickerView[i].selectRow(row, inComponent: 0, animated: false)
+            } else {
+                timePickerView[i].selectRow(row, inComponent: 0, animated: false)
+            }
+        }
+        
         var statsMatches = [Match]() // matches to use for stats
         
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         
-        switch timePickerView.selectedRow(inComponent: 0) {
+        switch timePickerView[0].selectedRow(inComponent: 0) {
             
         case ALL_TIME:
             statsMatches = matches
@@ -308,7 +324,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
             
             // get bag info
-            var bagData = getBagData(p: player, m: matches)
+            var bagData = getBagData(p: player, m: statsMatches)
             
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
             for i in 0..<matchRecordLabel.count {
@@ -323,7 +339,10 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
             bagsDataEntries = [inDataEntry, onDataEntry, offDataEntry]
             updateChartData()
-            boardPieChartView.isHidden = false
+                
+            for i in 0..<matchRecordLabel.count {
+                boardPieChartView[i].isHidden = false
+            }
         } else {
             noMatchesDisplay()
         }
@@ -346,7 +365,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         let colors = [UIColor(red: 0, green: (100.0 / 255.0), blue: 0, alpha: 1), UIColor(red: (153.0 / 255.0), green: (153.0 / 255.0), blue: 0, alpha: 1), UIColor(red: (139.0 / 255.0), green: 0, blue: 0, alpha: 1)]
         chartDataSet.colors = colors
         
-        boardPieChartView.data = chartData
+        for i in 0..<matchRecordLabel.count {
+            boardPieChartView[i].data = chartData
+        }
     }
     
     // export
@@ -476,7 +497,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // what to do with no matches
     func noMatchesDisplay() {
-        boardPieChartView.isHidden = true
+        for i in 0..<matchRecordLabel.count {
+            boardPieChartView[i].isHidden = true
+        }
         
         for i in 0..<matchRecordLabel.count {
             matchRecordLabel[i].text = "Match Record: "
