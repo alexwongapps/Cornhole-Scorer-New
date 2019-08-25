@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1386,6 +1387,74 @@
                                     <outlet property="delegate" destination="uQZ-18-tki" id="h0i-7H-cV4"/>
                                 </connections>
                             </pickerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HtS-f4-m1h">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="343"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Icd-9u-oIE">
+                                        <rect key="frame" x="66" y="53" width="150" height="208"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Match Record:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqM-Tq-YqS">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Singles Record:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gY7-tK-8RT">
+                                                <rect key="frame" x="0.0" y="27" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doubles Record:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxe-Yd-jbS">
+                                                <rect key="frame" x="0.0" y="54" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round Record:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBc-aQ-wuf">
+                                                <rect key="frame" x="0.0" y="81" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points/Round: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNd-vA-LAg">
+                                                <rect key="frame" x="0.0" y="108" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bags In/Round: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBI-q4-0r7">
+                                                <rect key="frame" x="0.0" y="135" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bags On/Round: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dts-BX-5xC">
+                                                <rect key="frame" x="0.0" y="162" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bags Off/Round: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvL-Ae-eRl">
+                                                <rect key="frame" x="0.0" y="189" width="150" height="19"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <variation key="heightClass=regular-widthClass=regular" spacing="35"/>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMj-1b-Jrg">
+                                        <rect key="frame" x="295" y="31" width="76" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1394,6 +1463,7 @@
                             <constraint firstAttribute="trailing" secondItem="64Q-tK-sAd" secondAttribute="trailing" id="3JM-bY-ona"/>
                             <constraint firstAttribute="bottom" secondItem="64Q-tK-sAd" secondAttribute="bottom" id="3lg-hI-B7j"/>
                             <constraint firstItem="ASf-Lr-DOo" firstAttribute="trailing" secondItem="Vyo-pC-qjw" secondAttribute="trailing" constant="20" id="5As-Ly-b0E"/>
+                            <constraint firstItem="HtS-f4-m1h" firstAttribute="trailing" secondItem="ASf-Lr-DOo" secondAttribute="trailing" id="9I8-eT-FxN"/>
                             <constraint firstItem="eIz-z9-IBO" firstAttribute="top" secondItem="Vyo-pC-qjw" secondAttribute="bottom" constant="5" id="B2d-h1-wq2">
                                 <variation key="heightClass=regular-widthClass=regular" constant="95"/>
                             </constraint>
@@ -1410,7 +1480,10 @@
                             <constraint firstItem="ASf-Lr-DOo" firstAttribute="trailing" secondItem="OJG-iH-6eb" secondAttribute="trailing" constant="20" id="Q4W-CC-DOm"/>
                             <constraint firstItem="FJ7-Vx-OAr" firstAttribute="top" secondItem="DSA-Oq-EnG" secondAttribute="top" id="Sbm-08-bLe"/>
                             <constraint firstItem="mWK-P7-mnu" firstAttribute="top" secondItem="ASf-Lr-DOo" secondAttribute="top" id="V2I-RM-5zG"/>
+                            <constraint firstItem="HtS-f4-m1h" firstAttribute="leading" secondItem="ASf-Lr-DOo" secondAttribute="leading" id="c9Z-yw-r1g"/>
+                            <constraint firstItem="HtS-f4-m1h" firstAttribute="bottom" secondItem="ASf-Lr-DOo" secondAttribute="bottom" id="eac-2p-Itj"/>
                             <constraint firstItem="DSA-Oq-EnG" firstAttribute="centerX" secondItem="k2J-ta-kG6" secondAttribute="centerX" id="ox8-xl-51t"/>
+                            <constraint firstItem="HtS-f4-m1h" firstAttribute="top" secondItem="k2J-ta-kG6" secondAttribute="top" id="qDC-VZ-Q04"/>
                             <constraint firstItem="mWK-P7-mnu" firstAttribute="leading" secondItem="ASf-Lr-DOo" secondAttribute="leading" constant="20" id="uc4-mX-XaZ"/>
                             <constraint firstItem="64Q-tK-sAd" firstAttribute="leading" secondItem="k2J-ta-kG6" secondAttribute="leading" id="yaI-Lo-C8y"/>
                         </constraints>
@@ -1421,17 +1494,27 @@
                         <outlet property="backgroundImageView" destination="64Q-tK-sAd" id="WhQ-Bp-aF8"/>
                         <outlet property="bagLocationLabel" destination="cj7-H3-mnd" id="38D-v2-Kxp"/>
                         <outlet property="boardPieChartView" destination="eIz-z9-IBO" id="w3d-Mu-SEM"/>
-                        <outlet property="doublesRecordLabel" destination="NxI-DP-bbW" id="2E1-zs-9we"/>
-                        <outlet property="inPerRoundLabel" destination="jVh-JD-30P" id="8vB-Kl-qMU"/>
-                        <outlet property="offPerRoundLabel" destination="tZY-2c-adO" id="Ach-FQ-sZ4"/>
-                        <outlet property="onPerRoundLabel" destination="hNy-Yl-eJF" id="POr-L8-x15"/>
                         <outlet property="playersPickerView" destination="mWK-P7-mnu" id="1f3-Km-p70"/>
-                        <outlet property="pointsPerRoundLabel" destination="De2-Zs-yFN" id="xb2-sS-Rpf"/>
-                        <outlet property="roundRecordLabel" destination="Mc1-Ar-Efq" id="LYX-hU-q1k"/>
-                        <outlet property="singlesRecordLabel" destination="J4o-Vb-5Wz" id="EfF-FK-p1D"/>
-                        <outlet property="statsLabel" destination="DSA-Oq-EnG" id="DWd-gh-M63"/>
+                        <outlet property="portraitView" destination="HtS-f4-m1h" id="PJm-1N-p40"/>
                         <outlet property="timePickerView" destination="Vyo-pC-qjw" id="QFA-hK-lKg"/>
                         <outletCollection property="matchRecordLabel" destination="yrh-Is-hSy" collectionClass="NSMutableArray" id="cMw-GD-p6S"/>
+                        <outletCollection property="matchRecordLabel" destination="xqM-Tq-YqS" collectionClass="NSMutableArray" id="TGe-UP-XEZ"/>
+                        <outletCollection property="singlesRecordLabel" destination="gY7-tK-8RT" collectionClass="NSMutableArray" id="mWr-05-mbU"/>
+                        <outletCollection property="doublesRecordLabel" destination="cxe-Yd-jbS" collectionClass="NSMutableArray" id="8vS-sC-4MU"/>
+                        <outletCollection property="roundRecordLabel" destination="KBc-aQ-wuf" collectionClass="NSMutableArray" id="EiL-Zc-ag4"/>
+                        <outletCollection property="pointsPerRoundLabel" destination="bNd-vA-LAg" collectionClass="NSMutableArray" id="pSb-lB-sQu"/>
+                        <outletCollection property="inPerRoundLabel" destination="UBI-q4-0r7" collectionClass="NSMutableArray" id="3AT-AC-xvP"/>
+                        <outletCollection property="onPerRoundLabel" destination="dts-BX-5xC" collectionClass="NSMutableArray" id="c7N-L0-X6u"/>
+                        <outletCollection property="offPerRoundLabel" destination="uvL-Ae-eRl" collectionClass="NSMutableArray" id="ikH-r0-gnY"/>
+                        <outletCollection property="singlesRecordLabel" destination="J4o-Vb-5Wz" collectionClass="NSMutableArray" id="Ihl-M4-BQk"/>
+                        <outletCollection property="doublesRecordLabel" destination="NxI-DP-bbW" collectionClass="NSMutableArray" id="vc0-6N-TPE"/>
+                        <outletCollection property="roundRecordLabel" destination="Mc1-Ar-Efq" collectionClass="NSMutableArray" id="5k9-HJ-5n4"/>
+                        <outletCollection property="pointsPerRoundLabel" destination="De2-Zs-yFN" collectionClass="NSMutableArray" id="snM-rB-g7U"/>
+                        <outletCollection property="inPerRoundLabel" destination="jVh-JD-30P" collectionClass="NSMutableArray" id="iUu-JN-wzj"/>
+                        <outletCollection property="onPerRoundLabel" destination="hNy-Yl-eJF" collectionClass="NSMutableArray" id="wv5-K3-z8B"/>
+                        <outletCollection property="offPerRoundLabel" destination="tZY-2c-adO" collectionClass="NSMutableArray" id="GED-WP-XeU"/>
+                        <outletCollection property="statsLabel" destination="DSA-Oq-EnG" collectionClass="NSMutableArray" id="QyM-m3-OEz"/>
+                        <outletCollection property="statsLabel" destination="HMj-1b-Jrg" collectionClass="NSMutableArray" id="ghc-pG-OzK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g6x-na-CTf" userLabel="First Responder" sceneMemberID="firstResponder"/>

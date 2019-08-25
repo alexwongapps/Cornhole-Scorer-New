@@ -28,22 +28,23 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let MONTH = 3
     let YEAR = 4
     
-    @IBOutlet weak var statsLabel: UILabel!
+    @IBOutlet var statsLabel: [UILabel]!
     @IBOutlet weak var playersPickerView: UIPickerView!
     @IBOutlet weak var timePickerView: UIPickerView!
-    @IBOutlet weak var singlesRecordLabel: UILabel!
+    @IBOutlet var singlesRecordLabel: [UILabel]!
     @IBOutlet var matchRecordLabel: [UILabel]!
-    @IBOutlet weak var doublesRecordLabel: UILabel!
-    @IBOutlet weak var roundRecordLabel: UILabel!
-    @IBOutlet weak var pointsPerRoundLabel: UILabel!
-    @IBOutlet weak var inPerRoundLabel: UILabel!
-    @IBOutlet weak var onPerRoundLabel: UILabel!
-    @IBOutlet weak var offPerRoundLabel: UILabel!
+    @IBOutlet var doublesRecordLabel: [UILabel]!
+    @IBOutlet var roundRecordLabel: [UILabel]!
+    @IBOutlet var pointsPerRoundLabel: [UILabel]!
+    @IBOutlet var inPerRoundLabel: [UILabel]!
+    @IBOutlet var onPerRoundLabel: [UILabel]!
+    @IBOutlet var offPerRoundLabel: [UILabel]!
     @IBOutlet weak var bagLocationLabel: UILabel!
     @IBOutlet weak var boardPieChartView: PieChartView! // displays in, on, off
     
     // background
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var portraitView: UIView!
     
     // board pie chart
     var inDataEntry = PieChartDataEntry(value: 0)
@@ -57,7 +58,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // Do any additional setup after loading the view.
         
         // landscape/portrait
-        // portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        portraitView.isHidden = UIDevice.current.orientation.isLandscape
         
         backgroundImageView.image = backgroundImage
         
@@ -66,57 +67,54 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
             
-            statsLabel.font = UIFont(name: systemFont, size: 75)
             bagLocationLabel.font = UIFont(name: systemFont, size: 25)
-            for label in matchRecordLabel {
-                label.font = UIFont(name: systemFont, size: 25)
+            for i in 0..<matchRecordLabel.count {
+                statsLabel[i].font = UIFont(name: systemFont, size: 75)
+                matchRecordLabel[i].font = UIFont(name: systemFont, size: 25)
+                singlesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
+                doublesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
+                roundRecordLabel[i].font = UIFont(name: systemFont, size: 25)
+                pointsPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
+                inPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
+                onPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
+                offPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
             }
-            // matchRecordLabel.font = UIFont(name: systemFont, size: 25)
-            singlesRecordLabel.font = UIFont(name: systemFont, size: 25)
-            doublesRecordLabel.font = UIFont(name: systemFont, size: 25)
-            roundRecordLabel.font = UIFont(name: systemFont, size: 25)
-            pointsPerRoundLabel.font = UIFont(name: systemFont, size: 25)
-            inPerRoundLabel.font = UIFont(name: systemFont, size: 25)
-            onPerRoundLabel.font = UIFont(name: systemFont, size: 25)
-            offPerRoundLabel.font = UIFont(name: systemFont, size: 25)
             
             boardPieChartView.widthAnchor.constraint(equalToConstant: 450).isActive = true
             boardWidthConstraint.isActive = false
             
         } else if smallDevice() {
             
-            statsLabel.font = UIFont(name: systemFont, size: 30)
             bagLocationLabel.font = UIFont(name: systemFont, size: 15)
-            for label in matchRecordLabel {
-                label.font = UIFont(name: systemFont, size: 11)
+            for i in 0..<matchRecordLabel.count {
+                statsLabel[i].font = UIFont(name: systemFont, size: 30)
+                matchRecordLabel[i].font = UIFont(name: systemFont, size: 11)
+                singlesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
+                doublesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
+                roundRecordLabel[i].font = UIFont(name: systemFont, size: 11)
+                pointsPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
+                inPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
+                onPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
+                offPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
             }
-            // matchRecordLabel.font = UIFont(name: systemFont, size: 11)
-            singlesRecordLabel.font = UIFont(name: systemFont, size: 11)
-            doublesRecordLabel.font = UIFont(name: systemFont, size: 11)
-            roundRecordLabel.font = UIFont(name: systemFont, size: 11)
-            pointsPerRoundLabel.font = UIFont(name: systemFont, size: 11)
-            inPerRoundLabel.font = UIFont(name: systemFont, size: 11)
-            onPerRoundLabel.font = UIFont(name: systemFont, size: 11)
-            offPerRoundLabel.font = UIFont(name: systemFont, size: 11)
             
             boardPieChartView.widthAnchor.constraint(equalToConstant: 180).isActive = true
             boardWidthConstraint.isActive = false
             
         } else {
             
-            statsLabel.font = UIFont(name: systemFont, size: 30)
             bagLocationLabel.font = UIFont(name: systemFont, size: 15)
-            for label in matchRecordLabel {
-                label.font = UIFont(name: systemFont, size: 15)
+            for i in 0..<matchRecordLabel.count {
+                statsLabel[i].font = UIFont(name: systemFont, size: 30)
+                matchRecordLabel[i].font = UIFont(name: systemFont, size: 15)
+                singlesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
+                doublesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
+                roundRecordLabel[i].font = UIFont(name: systemFont, size: 15)
+                pointsPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
+                inPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
+                onPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
+                offPerRoundLabel[i].font = UIFont(name: systemFont, size: 15)
             }
-            // matchRecordLabel.font = UIFont(name: systemFont, size: 15)
-            singlesRecordLabel.font = UIFont(name: systemFont, size: 15)
-            doublesRecordLabel.font = UIFont(name: systemFont, size: 15)
-            roundRecordLabel.font = UIFont(name: systemFont, size: 15)
-            pointsPerRoundLabel.font = UIFont(name: systemFont, size: 15)
-            inPerRoundLabel.font = UIFont(name: systemFont, size: 15)
-            onPerRoundLabel.font = UIFont(name: systemFont, size: 15)
-            offPerRoundLabel.font = UIFont(name: systemFont, size: 15)
             
         }
         
@@ -162,22 +160,23 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             let r = getRoundResults(p: player, m: matches)
             let ppr = getPointsPerRound(p: player, m: matches)
             
-            for label in matchRecordLabel {
-                label.text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
+            for i in 0..<matchRecordLabel.count {
+                matchRecordLabel[i].text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
+                singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1])) (\(s[2])%)"
+                doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1])) (\(d[2])%)"
+                roundRecordLabel[i].text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
+                pointsPerRoundLabel[i].text = "Points/Round: \(ppr)"
             }
-            // matchRecordLabel.text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
-            singlesRecordLabel.text = "Singles Record: \(Int(s[0]))-\(Int(s[1])) (\(s[2])%)"
-            doublesRecordLabel.text = "Doubles Record: \(Int(d[0]))-\(Int(d[1])) (\(d[2])%)"
-            roundRecordLabel.text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
-            pointsPerRoundLabel.text = "Points/Round: \(ppr)"
             
             // get bag info
             var bagData = getBagData(p: player, m: matches)
             
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
-            inPerRoundLabel.text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
-            onPerRoundLabel.text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
-            offPerRoundLabel.text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+            for i in 0..<matchRecordLabel.count {
+                inPerRoundLabel[i].text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
+                onPerRoundLabel[i].text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
+                offPerRoundLabel[i].text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+            }
             
             boardPieChartView.isHidden = false
             
@@ -201,8 +200,10 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        // portraitView.isHidden = UIDevice.current.orientation.isLandscape
+    
+        if tabBarController?.selectedIndex == STATS_TAB_INDEX {
+            portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        }
     }
     
     // picker view
@@ -297,22 +298,24 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             let d = getDoublesResults(p: player, m: statsMatches)
             let r = getRoundResults(p: player, m: statsMatches)
             let ppr = getPointsPerRound(p: player, m: statsMatches)
-        
-            for label in matchRecordLabel {
-                label.text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
+            
+            for i in 0..<matchRecordLabel.count {
+                matchRecordLabel[i].text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
+                singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1])) (\(s[2])%)"
+                doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1])) (\(d[2])%)"
+                roundRecordLabel[i].text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
+                pointsPerRoundLabel[i].text = "Points/Round: \(ppr)"
             }
-            // matchRecordLabel.text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
-            singlesRecordLabel.text = "Singles Record: \(Int(s[0]))-\(Int(s[1])) (\(s[2])%)"
-            doublesRecordLabel.text = "Doubles Record: \(Int(d[0]))-\(Int(d[1])) (\(d[2])%)"
-            roundRecordLabel.text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
-            pointsPerRoundLabel.text = "Points/Round: \(ppr)"
-        
-            let bagData = getBagData(p: player, m: statsMatches)
-        
+            
+            // get bag info
+            var bagData = getBagData(p: player, m: matches)
+            
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
-            inPerRoundLabel.text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
-            onPerRoundLabel.text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
-            offPerRoundLabel.text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+            for i in 0..<matchRecordLabel.count {
+                inPerRoundLabel[i].text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
+                onPerRoundLabel[i].text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
+                offPerRoundLabel[i].text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+            }
         
             inDataEntry.value = Double(bagData[0])
             onDataEntry.value = Double(bagData[1])
@@ -475,17 +478,16 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func noMatchesDisplay() {
         boardPieChartView.isHidden = true
         
-        for label in matchRecordLabel {
-            label.text = "Match Record: "
+        for i in 0..<matchRecordLabel.count {
+            matchRecordLabel[i].text = "Match Record: "
+            singlesRecordLabel[i].text = "Singles Record: "
+            doublesRecordLabel[i].text = "Doubles Record: "
+            roundRecordLabel[i].text = "Round Record: "
+            pointsPerRoundLabel[i].text = "Points/Round: "
+            inPerRoundLabel[i].text = "Bags In/Round: "
+            onPerRoundLabel[i].text = "Bags On/Round: "
+            offPerRoundLabel[i].text = "Bags Off/Round: "
         }
-        // matchRecordLabel.text = "Match Record: "
-        singlesRecordLabel.text = "Singles Record: "
-        doublesRecordLabel.text = "Doubles Record: "
-        roundRecordLabel.text = "Round Record: "
-        pointsPerRoundLabel.text = "Points/Round: "
-        inPerRoundLabel.text = "Bags In/Round: "
-        onPerRoundLabel.text = "Bags On/Round: "
-        offPerRoundLabel.text = "Bags Off/Round: "
     }
     
     func getMatchesAfter(matches: [Match], date: Date) -> [Match] {
