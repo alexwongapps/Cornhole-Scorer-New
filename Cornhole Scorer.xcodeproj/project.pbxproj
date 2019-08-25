@@ -1,0 +1,675 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00B7C5CFDBAA341BB5363785 /* Pods_Cornhole_ScorerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8642E931DCCEDFF5C2C18 /* Pods_Cornhole_ScorerTests.framework */; };
+		54DABE1001C6368E8D992886 /* Pods_Cornhole_Scorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F9A766BA04AFB8D1372560 /* Pods_Cornhole_Scorer.framework */; };
+		5718783E20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */; };
+		57217385227FD0C400C95351 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57217384227FD0C400C95351 /* WebKit.framework */; };
+		5723CD57227BFD2100994D15 /* beige.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5723CD56227BFD2100994D15 /* beige.jpg */; };
+		5729F83220F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5729F83120F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift */; };
+		573CC26C20EBFB8500BAAFB0 /* CornholeLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CC26B20EBFB8500BAAFB0 /* CornholeLibrary.swift */; };
+		5747BCD1211555280000EE3F /* cornholeLogo_320.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD0211555270000EE3F /* cornholeLogo_320.jpeg */; };
+		5747BCD32115554B0000EE3F /* cornholeLogo_64.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD22115554A0000EE3F /* cornholeLogo_64.jpeg */; };
+		5747BCD5211555650000EE3F /* cornholeLogo_44.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */; };
+		5747BCD7211555820000EE3F /* cornholeLogo_22.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */; };
+		5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766497A20EEAC6100DDA39C /* StatsViewController.swift */; };
+		57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B4FAD92106813F00109981 /* SettingsViewController.swift */; };
+		57D6187C20EADC1400A72C9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6187B20EADC1400A72C9C /* AppDelegate.swift */; };
+		57D6187E20EADC1400A72C9C /* ScoreboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6187D20EADC1400A72C9C /* ScoreboardViewController.swift */; };
+		57D6188020EADC1400A72C9C /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6187F20EADC1400A72C9C /* MatchesViewController.swift */; };
+		57D6188320EADC1400A72C9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57D6188120EADC1400A72C9C /* Main.storyboard */; };
+		57D6188520EADC1500A72C9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57D6188420EADC1500A72C9C /* Assets.xcassets */; };
+		57D6188820EADC1500A72C9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57D6188620EADC1500A72C9C /* LaunchScreen.storyboard */; };
+		57D6189320EADC1500A72C9C /* CornholeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6189220EADC1500A72C9C /* CornholeTests.swift */; };
+		57D618CE20EB1B3300A72C9C /* Cornhole.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 57D618CC20EB1B3300A72C9C /* Cornhole.xcdatamodeld */; };
+		57EA7B9A2287497200440CEA /* CenturyGothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57EA7B992287492900440CEA /* CenturyGothic.ttf */; };
+		57EA7B9D22874C1B00440CEA /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57EA7B9C22874C1900440CEA /* SourceSansPro-Bold.ttf */; };
+		57EA7BA722875E3000440CEA /* CornholeBackground5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 57EA7BA622875E2F00440CEA /* CornholeBackground5.jpg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		57D6188F20EADC1500A72C9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57D6187020EADC1400A72C9C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57D6187720EADC1400A72C9C;
+			remoteInfo = Cornhole;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2C801A36F0B46D8CE13D97C5 /* Pods-Cornhole Scorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole Scorer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole Scorer/Pods-Cornhole Scorer.release.xcconfig"; sourceTree = "<group>"; };
+		3BDEAE40A974F0796C00EEC8 /* Pods-Cornhole Scorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole Scorer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole Scorer/Pods-Cornhole Scorer.debug.xcconfig"; sourceTree = "<group>"; };
+		45F9A766BA04AFB8D1372560 /* Pods_Cornhole_Scorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cornhole_Scorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewControllerMatchInfoTableViewCell.swift; sourceTree = "<group>"; };
+		57217384227FD0C400C95351 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		5723CD56227BFD2100994D15 /* beige.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beige.jpg; sourceTree = "<group>"; };
+		5729F83120F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewControllerMatchTableViewCell.swift; sourceTree = "<group>"; };
+		573CC26B20EBFB8500BAAFB0 /* CornholeLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholeLibrary.swift; sourceTree = "<group>"; };
+		5747BCD0211555270000EE3F /* cornholeLogo_320.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_320.jpeg; sourceTree = "<group>"; };
+		5747BCD22115554A0000EE3F /* cornholeLogo_64.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_64.jpeg; sourceTree = "<group>"; };
+		5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_44.jpeg; sourceTree = "<group>"; };
+		5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_22.jpeg; sourceTree = "<group>"; };
+		5766497A20EEAC6100DDA39C /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		57B4FAD92106813F00109981 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		57D6187820EADC1400A72C9C /* Cornhole Scorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cornhole Scorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D6187B20EADC1400A72C9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		57D6187D20EADC1400A72C9C /* ScoreboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewController.swift; sourceTree = "<group>"; };
+		57D6187F20EADC1400A72C9C /* MatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
+		57D6188220EADC1400A72C9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		57D6188420EADC1500A72C9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		57D6188720EADC1500A72C9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		57D6188920EADC1500A72C9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57D6188E20EADC1500A72C9C /* Cornhole ScorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cornhole ScorerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D6189220EADC1500A72C9C /* CornholeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholeTests.swift; sourceTree = "<group>"; };
+		57D6189420EADC1500A72C9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57D618CD20EB1B3300A72C9C /* Cornhole.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cornhole.xcdatamodel; sourceTree = "<group>"; };
+		57DC924F21097A6000162DB6 /* Cornhole Scorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cornhole Scorer.entitlements"; sourceTree = "<group>"; };
+		57EA7B992287492900440CEA /* CenturyGothic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CenturyGothic.ttf; sourceTree = "<group>"; };
+		57EA7B9C22874C1900440CEA /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
+		57EA7BA622875E2F00440CEA /* CornholeBackground5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CornholeBackground5.jpg; sourceTree = "<group>"; };
+		9CC8642E931DCCEDFF5C2C18 /* Pods_Cornhole_ScorerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cornhole_ScorerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9D24FE8A8A8199096B7558B /* Pods-Cornhole ScorerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole ScorerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole ScorerTests/Pods-Cornhole ScorerTests.release.xcconfig"; sourceTree = "<group>"; };
+		D82F22497271F0E4CBDECBAB /* Pods-Cornhole ScorerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole ScorerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole ScorerTests/Pods-Cornhole ScorerTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		57D6187520EADC1400A72C9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57217385227FD0C400C95351 /* WebKit.framework in Frameworks */,
+				54DABE1001C6368E8D992886 /* Pods_Cornhole_Scorer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57D6188B20EADC1500A72C9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00B7C5CFDBAA341BB5363785 /* Pods_Cornhole_ScorerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15243D4BE3AE2F3BA5D192EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3BDEAE40A974F0796C00EEC8 /* Pods-Cornhole Scorer.debug.xcconfig */,
+				2C801A36F0B46D8CE13D97C5 /* Pods-Cornhole Scorer.release.xcconfig */,
+				D82F22497271F0E4CBDECBAB /* Pods-Cornhole ScorerTests.debug.xcconfig */,
+				C9D24FE8A8A8199096B7558B /* Pods-Cornhole ScorerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		57D6186F20EADC1400A72C9C = {
+			isa = PBXGroup;
+			children = (
+				57DC924F21097A6000162DB6 /* Cornhole Scorer.entitlements */,
+				57D6187A20EADC1400A72C9C /* Cornhole */,
+				57D6189120EADC1500A72C9C /* CornholeTests */,
+				57D6187920EADC1400A72C9C /* Products */,
+				15243D4BE3AE2F3BA5D192EC /* Pods */,
+				EBF2746E9F308829743D1F29 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		57D6187920EADC1400A72C9C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57D6187820EADC1400A72C9C /* Cornhole Scorer.app */,
+				57D6188E20EADC1500A72C9C /* Cornhole ScorerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57D6187A20EADC1400A72C9C /* Cornhole */ = {
+			isa = PBXGroup;
+			children = (
+				57E75EE922A5B0760077159E /* Images */,
+				57E75EE822A5B0570077159E /* Fonts */,
+				57D6187B20EADC1400A72C9C /* AppDelegate.swift */,
+				57B4FAD92106813F00109981 /* SettingsViewController.swift */,
+				573CC26B20EBFB8500BAAFB0 /* CornholeLibrary.swift */,
+				5729F83120F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift */,
+				5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */,
+				57D6187D20EADC1400A72C9C /* ScoreboardViewController.swift */,
+				57D618CC20EB1B3300A72C9C /* Cornhole.xcdatamodeld */,
+				57D6187F20EADC1400A72C9C /* MatchesViewController.swift */,
+				5766497A20EEAC6100DDA39C /* StatsViewController.swift */,
+				57D6188120EADC1400A72C9C /* Main.storyboard */,
+				57D6188420EADC1500A72C9C /* Assets.xcassets */,
+				57D6188620EADC1500A72C9C /* LaunchScreen.storyboard */,
+				57D6188920EADC1500A72C9C /* Info.plist */,
+			);
+			path = Cornhole;
+			sourceTree = "<group>";
+		};
+		57D6189120EADC1500A72C9C /* CornholeTests */ = {
+			isa = PBXGroup;
+			children = (
+				57D6189220EADC1500A72C9C /* CornholeTests.swift */,
+				57D6189420EADC1500A72C9C /* Info.plist */,
+			);
+			path = CornholeTests;
+			sourceTree = "<group>";
+		};
+		57E75EE822A5B0570077159E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				57EA7B992287492900440CEA /* CenturyGothic.ttf */,
+				57EA7B9C22874C1900440CEA /* SourceSansPro-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		57E75EE922A5B0760077159E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5723CD56227BFD2100994D15 /* beige.jpg */,
+				5747BCD0211555270000EE3F /* cornholeLogo_320.jpeg */,
+				5747BCD22115554A0000EE3F /* cornholeLogo_64.jpeg */,
+				5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */,
+				5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */,
+				57EA7BA622875E2F00440CEA /* CornholeBackground5.jpg */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		EBF2746E9F308829743D1F29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				57217384227FD0C400C95351 /* WebKit.framework */,
+				45F9A766BA04AFB8D1372560 /* Pods_Cornhole_Scorer.framework */,
+				9CC8642E931DCCEDFF5C2C18 /* Pods_Cornhole_ScorerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		57D6187720EADC1400A72C9C /* Cornhole Scorer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57D6189720EADC1500A72C9C /* Build configuration list for PBXNativeTarget "Cornhole Scorer" */;
+			buildPhases = (
+				BCE8F005DBC9665C12DC6881 /* [CP] Check Pods Manifest.lock */,
+				57D6187420EADC1400A72C9C /* Sources */,
+				57D6187520EADC1400A72C9C /* Frameworks */,
+				57D6187620EADC1400A72C9C /* Resources */,
+				CF9EC24D7819BD5B8502FC6F /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cornhole Scorer";
+			productName = Cornhole;
+			productReference = 57D6187820EADC1400A72C9C /* Cornhole Scorer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		57D6188D20EADC1500A72C9C /* Cornhole ScorerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57D6189A20EADC1500A72C9C /* Build configuration list for PBXNativeTarget "Cornhole ScorerTests" */;
+			buildPhases = (
+				BD44B4F42B8116840404E093 /* [CP] Check Pods Manifest.lock */,
+				57D6188A20EADC1500A72C9C /* Sources */,
+				57D6188B20EADC1500A72C9C /* Frameworks */,
+				57D6188C20EADC1500A72C9C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57D6189020EADC1500A72C9C /* PBXTargetDependency */,
+			);
+			name = "Cornhole ScorerTests";
+			productName = CornholeTests;
+			productReference = 57D6188E20EADC1500A72C9C /* Cornhole ScorerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		57D6187020EADC1400A72C9C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = kidscancode;
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Kids Can Code";
+				TargetAttributes = {
+					57D6187720EADC1400A72C9C = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
+					};
+					57D6188D20EADC1500A72C9C = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+						TestTargetID = 57D6187720EADC1400A72C9C;
+					};
+				};
+			};
+			buildConfigurationList = 57D6187320EADC1400A72C9C /* Build configuration list for PBXProject "Cornhole Scorer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 57D6186F20EADC1400A72C9C;
+			productRefGroup = 57D6187920EADC1400A72C9C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				57D6187720EADC1400A72C9C /* Cornhole Scorer */,
+				57D6188D20EADC1500A72C9C /* Cornhole ScorerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		57D6187620EADC1400A72C9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5747BCD32115554B0000EE3F /* cornholeLogo_64.jpeg in Resources */,
+				57D6188820EADC1500A72C9C /* LaunchScreen.storyboard in Resources */,
+				57EA7B9A2287497200440CEA /* CenturyGothic.ttf in Resources */,
+				5723CD57227BFD2100994D15 /* beige.jpg in Resources */,
+				5747BCD5211555650000EE3F /* cornholeLogo_44.jpeg in Resources */,
+				57D6188520EADC1500A72C9C /* Assets.xcassets in Resources */,
+				5747BCD1211555280000EE3F /* cornholeLogo_320.jpeg in Resources */,
+				5747BCD7211555820000EE3F /* cornholeLogo_22.jpeg in Resources */,
+				57D6188320EADC1400A72C9C /* Main.storyboard in Resources */,
+				57EA7B9D22874C1B00440CEA /* SourceSansPro-Bold.ttf in Resources */,
+				57EA7BA722875E3000440CEA /* CornholeBackground5.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57D6188C20EADC1500A72C9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BCE8F005DBC9665C12DC6881 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Cornhole Scorer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD44B4F42B8116840404E093 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Cornhole ScorerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF9EC24D7819BD5B8502FC6F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Cornhole Scorer/Pods-Cornhole Scorer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Cornhole Scorer/Pods-Cornhole Scorer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		57D6187420EADC1400A72C9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57D6188020EADC1400A72C9C /* MatchesViewController.swift in Sources */,
+				57D6187C20EADC1400A72C9C /* AppDelegate.swift in Sources */,
+				57D6187E20EADC1400A72C9C /* ScoreboardViewController.swift in Sources */,
+				573CC26C20EBFB8500BAAFB0 /* CornholeLibrary.swift in Sources */,
+				5729F83220F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift in Sources */,
+				5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */,
+				5718783E20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift in Sources */,
+				57D618CE20EB1B3300A72C9C /* Cornhole.xcdatamodeld in Sources */,
+				57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57D6188A20EADC1500A72C9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57D6189320EADC1500A72C9C /* CornholeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		57D6189020EADC1500A72C9C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57D6187720EADC1400A72C9C /* Cornhole Scorer */;
+			targetProxy = 57D6188F20EADC1500A72C9C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		57D6188120EADC1400A72C9C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57D6188220EADC1400A72C9C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		57D6188620EADC1500A72C9C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57D6188720EADC1500A72C9C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		57D6189520EADC1500A72C9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		57D6189620EADC1500A72C9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		57D6189820EADC1500A72C9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BDEAE40A974F0796C00EEC8 /* Pods-Cornhole Scorer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 625H5P8M26;
+				INFOPLIST_FILE = Cornhole/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kidscancode.CornholeScorer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		57D6189920EADC1500A72C9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C801A36F0B46D8CE13D97C5 /* Pods-Cornhole Scorer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 625H5P8M26;
+				INFOPLIST_FILE = Cornhole/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kidscancode.CornholeScorer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		57D6189B20EADC1500A72C9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D82F22497271F0E4CBDECBAB /* Pods-Cornhole ScorerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 625H5P8M26;
+				INFOPLIST_FILE = CornholeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CornholeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cornhole Scorer.app/Cornhole Scorer";
+			};
+			name = Debug;
+		};
+		57D6189C20EADC1500A72C9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9D24FE8A8A8199096B7558B /* Pods-Cornhole ScorerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 625H5P8M26;
+				INFOPLIST_FILE = CornholeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CornholeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cornhole Scorer.app/Cornhole Scorer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		57D6187320EADC1400A72C9C /* Build configuration list for PBXProject "Cornhole Scorer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57D6189520EADC1500A72C9C /* Debug */,
+				57D6189620EADC1500A72C9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57D6189720EADC1500A72C9C /* Build configuration list for PBXNativeTarget "Cornhole Scorer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57D6189820EADC1500A72C9C /* Debug */,
+				57D6189920EADC1500A72C9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57D6189A20EADC1500A72C9C /* Build configuration list for PBXNativeTarget "Cornhole ScorerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57D6189B20EADC1500A72C9C /* Debug */,
+				57D6189C20EADC1500A72C9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		57D618CC20EB1B3300A72C9C /* Cornhole.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				57D618CD20EB1B3300A72C9C /* Cornhole.xcdatamodel */,
+			);
+			currentVersion = 57D618CD20EB1B3300A72C9C /* Cornhole.xcdatamodel */;
+			path = Cornhole.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 57D6187020EADC1400A72C9C /* Project object */;
+}

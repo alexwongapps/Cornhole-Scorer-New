@@ -1,0 +1,6 @@
+framework module Pods_Cornhole_Scorer {
+  umbrella header "Pods-Cornhole Scorer-umbrella.h"
+
+  export *
+  module * { export * }
+}

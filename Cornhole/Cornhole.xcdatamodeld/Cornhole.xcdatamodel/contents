@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Matches" representedClassName="Matches" syncable="YES" codeGenerationType="class">
+        <attribute name="blueColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="[Int]" syncable="YES"/>
+        <attribute name="playerNamesArray" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
+        <attribute name="redColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="roundDataArray" optional="YES" attributeType="Transformable" customClassName="[Int]" syncable="YES"/>
+        <attribute name="roundPlayersArray" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="Players" representedClassName="Players" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Matches" positionX="-63" positionY="-9" width="128" height="165"/>
+        <element name="Players" positionX="-63" positionY="-18" width="128" height="60"/>
+    </elements>
+</model>
