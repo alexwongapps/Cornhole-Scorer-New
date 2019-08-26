@@ -36,19 +36,19 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     var blueColor: UIColor = UIColor.blue
     
     // outlets
-    @IBOutlet weak var selectPlayersLabel: UILabel!
-    @IBOutlet weak var playersSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var swapColorsButton: UIButton!
-    @IBOutlet weak var teamRedLabel: UILabel!
-    @IBOutlet weak var redPlayer1Label: UILabel!
-    @IBOutlet weak var redPlayer2Label: UILabel!
-    @IBOutlet weak var redPlayer1Button: UIButton!
-    @IBOutlet weak var redPlayer2Button: UIButton!
-    @IBOutlet weak var teamBlueLabel: UILabel!
-    @IBOutlet weak var bluePlayer1Label: UILabel!
-    @IBOutlet weak var bluePlayer2Label: UILabel!
-    @IBOutlet weak var bluePlayer1Button: UIButton!
-    @IBOutlet weak var bluePlayer2Button: UIButton!
+    @IBOutlet var selectPlayersLabel: [UILabel]!
+    @IBOutlet var playersSegmentedControl: [UISegmentedControl]!
+    @IBOutlet var swapColorsButton: [UIButton]!
+    @IBOutlet var teamRedLabel: [UILabel]!
+    @IBOutlet var redPlayer1Label: [UILabel]!
+    @IBOutlet var redPlayer2Label: [UILabel]!
+    @IBOutlet var redPlayer1Button: [UIButton]!
+    @IBOutlet var redPlayer2Button: [UIButton]!
+    @IBOutlet var teamBlueLabel: [UILabel]!
+    @IBOutlet var bluePlayer1Label: [UILabel]!
+    @IBOutlet var bluePlayer2Label: [UILabel]!
+    @IBOutlet var bluePlayer1Button: [UIButton]!
+    @IBOutlet var bluePlayer2Button: [UIButton]!
     @IBOutlet weak var trackingStatsButton: UIButton!
     @IBOutlet weak var selectExistingPlayerLabel: UILabel!
     @IBOutlet weak var playerTableView: UITableView!
@@ -57,8 +57,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var addNewPlayerButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var sePlayButton: UIButton! // for iphone se
-    @IBOutlet weak var helpButton: UIButton!
-    @IBOutlet weak var rulesButton: UIButton!
+    @IBOutlet var helpButton: [UIButton]!
+    @IBOutlet var rulesButton: [UIButton]!
     
     // login view outlet
     @IBOutlet weak var gameViewPortrait: UIView!
@@ -70,35 +70,37 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var blueTeamLabel: UILabel!
     
     // backgrounds
-    @IBOutlet weak var gameBackgroundImageView: UIImageView!
-    @IBOutlet weak var loginBackgroundImageView: UIImageView!
+    @IBOutlet var gameBackgroundImageView: [UIImageView]!
+    @IBOutlet var loginBackgroundImageView: [UIImageView]!
     
     // close login view/play button
     @IBAction func hideLogin(_ sender: Any) {
         
-        // reset player select button colors
-        redPlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-        redPlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
-        bluePlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-        bluePlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
+        for i in 0..<help0Label.count {
+            // reset player select button colors
+            redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+        }
         
         // set player 1 names
-        redPlayer1 = redPlayer1Label.text!
-        bluePlayer1 = bluePlayer1Label.text!
+        redPlayer1 = redPlayer1Label[0].text!
+        bluePlayer1 = bluePlayer1Label[0].text!
         
         // set first thrower
         firstThrowerColor = Match.RED
         firstThrowerPlayer1 = true
         
         // set if game is 1v1 or 2v2
-        if playersSegmentedControl.selectedSegmentIndex == 0 {
+        if playersSegmentedControl[0].selectedSegmentIndex == 0 {
             oneVOne = true
             redTeamLabel.text = "\(redPlayer1) •"
             blueTeamLabel.text = "✕ \(bluePlayer1)"
         } else {
             oneVOne = false
-            redPlayer2 = redPlayer2Label.text!
-            bluePlayer2 = bluePlayer2Label.text!
+            redPlayer2 = redPlayer2Label[0].text!
+            bluePlayer2 = bluePlayer2Label[0].text!
             redTeamLabel.text = "\(redPlayer1) •\n\(redPlayer2)"
             blueTeamLabel.text = "✕ \(bluePlayer1)\n\(bluePlayer2)"
         }
@@ -168,10 +170,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         showSelectPlayerMenu(show: false)
         playerTableView.reloadData()
         
-        redPlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-        redPlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
-        bluePlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-        bluePlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
+        for i in 0..<help0Label.count {
+            redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -197,13 +201,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         var segmentFont = UIFont(name: systemFont, size: 14)
         
-        let segmentHeightConstraint = playersSegmentedControl.heightAnchor.constraint(equalToConstant: 28)
         let redTeamLabelHeightConstraint = redTeamLabel.heightAnchor.constraint(equalToConstant: 150)
         let blueTeamLabelHeightConstraint = blueTeamLabel.heightAnchor.constraint(equalToConstant: 150)
         let playerTableViewWidthConstraint = playerTableView.widthAnchor.constraint(equalToConstant: 270)
         playerTableViewWidthConstraint.isActive = true // handles warning
         
-        segmentHeightConstraint.isActive = true
         redTeamLabelHeightConstraint.isActive = true
         blueTeamLabelHeightConstraint.isActive = true
         
@@ -227,39 +229,40 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 help9Label[i].font = UIFont(name: systemFont, size: 20)
                 help10Label[i].font = UIFont(name: systemFont, size: 20)
                 help11Label[i].font = UIFont(name: systemFont, size: 20)
+                
+                // login view
+                
+                segmentFont = UIFont(name: systemFont, size: 30)
+                
+                selectPlayersLabel[i].font = UIFont(name: systemFont, size: 75)
+                teamRedLabel[i].font = UIFont(name: systemFont, size: 30)
+                redPlayer1Label[i].font = UIFont(name: systemFont, size: 30)
+                redPlayer2Label[i].font = UIFont(name: systemFont, size: 30)
+                teamBlueLabel[i].font = UIFont(name: systemFont, size: 30)
+                bluePlayer1Label[i].font = UIFont(name: systemFont, size: 30)
+                bluePlayer2Label[i].font = UIFont(name: systemFont, size: 30)
+                
+                helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 45)
+                rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 45)
+                swapColorsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                redPlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                
+                // constraints
+                playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
             }
             
-            
-            // login view
-            
-            segmentFont = UIFont(name: systemFont, size: 30)
-            
-            selectPlayersLabel.font = UIFont(name: systemFont, size: 75)
-            teamRedLabel.font = UIFont(name: systemFont, size: 30)
-            teamBlueLabel.font = UIFont(name: systemFont, size: 30)
-            redPlayer1Label.font = UIFont(name: systemFont, size: 30)
-            redPlayer2Label.font = UIFont(name: systemFont, size: 30)
-            bluePlayer1Label.font = UIFont(name: systemFont, size: 30)
-            bluePlayer2Label.font = UIFont(name: systemFont, size: 30)
             selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 25)
             
             createNewPlayerLabel.font = UIFont(name: systemFont, size: 20)
             newPlayerTextField.font = UIFont(name: systemFont, size: 20)
             addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
             
-            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 45)
-            rulesButton.titleLabel?.font = UIFont(name: systemFont, size: 45)
-            swapColorsButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             playButton.titleLabel?.font = UIFont(name: systemFont, size: 50)
             trackingStatsButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            redPlayer1Button.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            redPlayer2Button.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            bluePlayer1Button.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            bluePlayer2Button.titleLabel?.font = UIFont(name: systemFont, size: 30)
             
-            // constraints
-            playersSegmentedControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            segmentHeightConstraint.isActive = false
             playerTableView.widthAnchor.constraint(equalToConstant: 400).isActive = true
             playerTableViewWidthConstraint.isActive = false
             
@@ -310,31 +313,34 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 help11Label[i].font = UIFont(name: systemFont, size: 12)
                 help6Label[i].textAlignment = .left
                 help9Label[i].textAlignment = .right
+                
+                // login view
+                
+                segmentFont = UIFont(name: systemFont, size: 11)
+                
+                selectPlayersLabel[i].font = UIFont(name: systemFont, size: 20)
+                teamRedLabel[i].font = UIFont(name: systemFont, size: 14)
+                redPlayer1Label[i].font = UIFont(name: systemFont, size: 14)
+                redPlayer2Label[i].font = UIFont(name: systemFont, size: 14)
+                teamBlueLabel[i].font = UIFont(name: systemFont, size: 14)
+                bluePlayer1Label[i].font = UIFont(name: systemFont, size: 14)
+                bluePlayer2Label[i].font = UIFont(name: systemFont, size: 14)
+                
+                helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                swapColorsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                redPlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                
+                // constraints
+                playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 23).isActive = true
             }
             
-            
-            
-            // login view
-            
-            segmentFont = UIFont(name: systemFont, size: 11)
-            
-            selectPlayersLabel.font = UIFont(name: systemFont, size: 20)
-            teamRedLabel.font = UIFont(name: systemFont, size: 14)
-            teamBlueLabel.font = UIFont(name: systemFont, size: 14)
-            redPlayer1Label.font = UIFont(name: systemFont, size: 14)
-            redPlayer2Label.font = UIFont(name: systemFont, size: 14)
-            bluePlayer1Label.font = UIFont(name: systemFont, size: 14)
-            bluePlayer2Label.font = UIFont(name: systemFont, size: 14)
             selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 14)
             
-            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            rulesButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            swapColorsButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
             trackingStatsButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            redPlayer1Button.titleLabel?.font = UIFont(name: systemFont, size: 14)
-            redPlayer2Button.titleLabel?.font = UIFont(name: systemFont, size: 14)
-            bluePlayer1Button.titleLabel?.font = UIFont(name: systemFont, size: 14)
-            bluePlayer2Button.titleLabel?.font = UIFont(name: systemFont, size: 14)
             
             sePlayButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
             sePlayButton.isHidden = false
@@ -343,9 +349,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             newPlayerTextField.font = UIFont(name: systemFont, size: 14)
             addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
             
-            // constraints
-            playersSegmentedControl.heightAnchor.constraint(equalToConstant: 23).isActive = true
-            segmentHeightConstraint.isActive = false
+            
             trackingStatsButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
             selectExistingPlayerLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
             playerTableView.widthAnchor.constraint(equalToConstant: 220).isActive = true
@@ -402,34 +406,38 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 help9Label[i].font = UIFont(name: systemFont, size: 12)
                 help10Label[i].font = UIFont(name: systemFont, size: 12)
                 help11Label[i].font = UIFont(name: systemFont, size: 12)
+                
+                // login view
+                
+                segmentFont = UIFont(name: systemFont, size: 14)
+                
+                selectPlayersLabel[i].font = UIFont(name: systemFont, size: 30)
+                teamRedLabel[i].font = UIFont(name: systemFont, size: 17)
+                redPlayer1Label[i].font = UIFont(name: systemFont, size: 17)
+                redPlayer2Label[i].font = UIFont(name: systemFont, size: 17)
+                teamBlueLabel[i].font = UIFont(name: systemFont, size: 17)
+                bluePlayer1Label[i].font = UIFont(name: systemFont, size: 17)
+                bluePlayer2Label[i].font = UIFont(name: systemFont, size: 17)
+                
+                helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                swapColorsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                redPlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                
+                playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 28).isActive = true
             }
-            
-            // login view
-            
-            segmentFont = UIFont(name: systemFont, size: 14)
-            
-            selectPlayersLabel.font = UIFont(name: systemFont, size: 30)
-            teamRedLabel.font = UIFont(name: systemFont, size: 17)
-            teamBlueLabel.font = UIFont(name: systemFont, size: 17)
-            redPlayer1Label.font = UIFont(name: systemFont, size: 17)
-            redPlayer2Label.font = UIFont(name: systemFont, size: 17)
-            bluePlayer1Label.font = UIFont(name: systemFont, size: 17)
-            bluePlayer2Label.font = UIFont(name: systemFont, size: 17)
+
             selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 17)
             
             createNewPlayerLabel.font = UIFont(name: systemFont, size: 12)
             newPlayerTextField.font = UIFont(name: systemFont, size: 14)
             addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
             
-            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            rulesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            swapColorsButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             playButton.titleLabel?.font = UIFont(name: systemFont, size: 20)
             trackingStatsButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            redPlayer1Button.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            redPlayer2Button.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            bluePlayer1Button.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            bluePlayer2Button.titleLabel?.font = UIFont(name: systemFont, size: 17)
             
             // game view
             
@@ -455,26 +463,29 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
         }
         
-        playersSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: segmentFont!], for: .normal)
-        
         // set backgrounds
 
-        gameBackgroundImageView.image = backgroundImage
-        loginBackgroundImageView.image = backgroundImage
+        for i in 0..<help0Label.count {
+            
+            playersSegmentedControl[i].setTitleTextAttributes([NSAttributedString.Key.font: segmentFont!], for: .normal)
+            
+            gameBackgroundImageView[i].image = backgroundImage
+            loginBackgroundImageView[i].image = backgroundImage
+            
+            if firstLaunch() {
+                help(helpButton[i])
+                UserDefaults.standard.set(true, forKey: "firstThrowWinners") // initialize setting for who throws first, winners or alternating
+            }
+        }
         
         playerTableView.backgroundColor = .clear
  
         helpView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         
-        if firstLaunch() {
-            help(helpButton)
-            UserDefaults.standard.set(true, forKey: "firstThrowWinners") // initialize setting for who throws first, winners or alternating
-        }
-        
         self.newPlayerTextField.delegate = self
         newPlayerTextField.autocorrectionType = .no
     }
-    
+
     // dtermine if stats are tracked or not
     @IBAction func changeStatsTracking(_ sender: UIButton) {
         trackingStats = !trackingStats
@@ -514,31 +525,34 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // hide select player menu
         showSelectPlayerMenu(show: false)
         
-        // chabe appropriate name
-        switch buttonSelect {
+        for i in 0..<help0Label.count {
             
-        case 1:
-            redPlayer1Label.text = players[indexPath.row]
-            redPlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-        break
-            
-        case 2:
-            redPlayer2Label.text = players[indexPath.row]
-            redPlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
-        break
-            
-        case 3:
-            bluePlayer1Label.text = players[indexPath.row]
-            bluePlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-        break
-            
-        case 4:
-            bluePlayer2Label.text = players[indexPath.row]
-            bluePlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
-        break
-            
-        default:
-        break
+            // choose appropriate name
+            switch buttonSelect {
+                
+            case 1:
+                redPlayer1Label[i].text = players[indexPath.row]
+                redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                break
+                
+            case 2:
+                redPlayer2Label[i].text = players[indexPath.row]
+                redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                break
+                
+            case 3:
+                bluePlayer1Label[i].text = players[indexPath.row]
+                bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                break
+                
+            case 4:
+                bluePlayer2Label[i].text = players[indexPath.row]
+                bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                break
+                
+            default:
+                break
+            }
         }
     }
     
@@ -633,32 +647,35 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             showSelectPlayerMenu(show: false)
             
-            // edit appropriate name
-            switch buttonSelect {
+            for i in 0..<help0Label.count {
                 
-            case 1:
-                redPlayer1Label.text = newPlayerTextField.text
-                redPlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-            break
-                
-            case 2:
-                redPlayer2Label.text = newPlayerTextField.text
-                redPlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
-            break
-                
-            case 3:
-                bluePlayer1Label.text = newPlayerTextField.text
-                bluePlayer1Button.setTitleColor(self.view.tintColor, for: .normal)
-            break
-                
-            case 4:
-                bluePlayer2Label.text = newPlayerTextField.text
-                bluePlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
-            break
-                
-            default:
-            break
-                
+                // edit appropriate name
+                switch buttonSelect {
+                    
+                case 1:
+                    redPlayer1Label[i].text = newPlayerTextField.text
+                    redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                    break
+                    
+                case 2:
+                    redPlayer2Label[i].text = newPlayerTextField.text
+                    redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                    break
+                    
+                case 3:
+                    bluePlayer1Label[i].text = newPlayerTextField.text
+                    bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                    break
+                    
+                case 4:
+                    bluePlayer2Label[i].text = newPlayerTextField.text
+                    bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+                    break
+                    
+                default:
+                    break
+                    
+                }
             }
             
             playerTableView.reloadData()
@@ -668,33 +685,47 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // change 1v1/2v2
     @IBAction func changeNumPlayers(_ sender: UISegmentedControl) {
-        if playersSegmentedControl.selectedSegmentIndex == 1 {
-            redPlayer2Label.isHidden = false
-            redPlayer2Button.isHidden = false
-            bluePlayer2Label.isHidden = false
-            bluePlayer2Button.isHidden = false
+        if sender.tag == 0 { // landscape pressed
+            playersSegmentedControl[1].selectedSegmentIndex = playersSegmentedControl[0].selectedSegmentIndex
         } else {
-            redPlayer2Label.isHidden = true
-            redPlayer2Button.isHidden = true
-            bluePlayer2Label.isHidden = true
-            bluePlayer2Button.isHidden = true
+            playersSegmentedControl[0].selectedSegmentIndex = playersSegmentedControl[1].selectedSegmentIndex
+        }
+        if playersSegmentedControl[0].selectedSegmentIndex == 1 {
+            for i in 0..<help0Label.count {
+                redPlayer2Label[i].isHidden = false
+                bluePlayer2Label[i].isHidden = false
+                redPlayer2Button[i].isHidden = false
+                bluePlayer2Button[i].isHidden = false
+            }
+        } else {
+            for i in 0..<help0Label.count {
+                redPlayer2Label[i].isHidden = true
+                bluePlayer2Label[i].isHidden = true
+                redPlayer2Button[i].isHidden = true
+                bluePlayer2Button[i].isHidden = true
+            }
         }
     }
     
     // change colors
     @IBAction func swapColors(_ sender: UIButton) {
-        let teamRedText = teamRedLabel.text
-        let teamRedColor = teamRedLabel.textColor
         
-        teamRedLabel.text = teamBlueLabel.text
-        teamRedLabel.textColor = teamBlueLabel.textColor
-        redPlayer1Label.textColor = teamBlueLabel.textColor
-        redPlayer2Label.textColor = teamBlueLabel.textColor
-        
-        teamBlueLabel.text = teamRedText
-        teamBlueLabel.textColor = teamRedColor
-        bluePlayer1Label.textColor = teamRedColor
-        bluePlayer2Label.textColor = teamRedColor
+        for i in 0..<help0Label.count {
+            
+            let teamRedText = teamRedLabel[i].text
+            let teamRedColor = teamRedLabel[i].textColor
+            
+            teamRedLabel[i].text = teamBlueLabel[i].text
+            teamRedLabel[i].textColor = teamBlueLabel[i].textColor
+            redPlayer1Label[i].textColor = teamBlueLabel[i].textColor
+            redPlayer2Label[i].textColor = teamBlueLabel[i].textColor
+            
+            teamBlueLabel[i].text = teamRedText
+            teamBlueLabel[i].textColor = teamRedColor
+            bluePlayer1Label[i].textColor = teamRedColor
+            bluePlayer2Label[i].textColor = teamRedColor
+            
+        }
         
         // maybe change later
         if redColor == UIColor.red {
@@ -714,10 +745,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let selectedColor: UIColor = UIColor.purple
         
-        redPlayer1Button.setTitleColor((redPlayer1Button.tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
-        redPlayer2Button.setTitleColor((redPlayer2Button.tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
-        bluePlayer1Button.setTitleColor((bluePlayer1Button.tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
-        bluePlayer2Button.setTitleColor((bluePlayer2Button.tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
+        for i in 0..<help0Label.count {
+            redPlayer1Button[i].setTitleColor((redPlayer1Button[i].tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
+            redPlayer2Button[i].setTitleColor((redPlayer2Button[i].tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
+            bluePlayer1Button[i].setTitleColor((bluePlayer1Button[i].tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
+            bluePlayer2Button[i].setTitleColor((bluePlayer2Button[i].tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
+        }
     }
     
     // web
@@ -785,7 +818,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 1:
-            createHole(inView: helpView, aroundView: playersSegmentedControl)
+            createHole(inView: helpView, aroundView: playersSegmentedControl[0])
+            createHole(inView: helpViewPortrait, aroundView: playersSegmentedControl[1])
             
             for i in 0..<help0Label.count {
                 help0Label[i].isHidden = true
@@ -796,7 +830,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 2:
-            createHole(inView: helpView, aroundView: redPlayer1Button)
+            createHole(inView: helpView, aroundView: redPlayer1Button[0])
+            createHole(inView: helpViewPortrait, aroundView: redPlayer1Button[1])
             
             for i in 0..<help0Label.count {
                 help1Label[i].isHidden = true
@@ -1227,10 +1262,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         reset()
         showSelectPlayerMenu(show: false)
         
-        redPlayer1Label.text = "Player 1"
-        redPlayer2Label.text = "Player 2"
-        bluePlayer1Label.text = "Player 1"
-        bluePlayer2Label.text = "Player 2"
+        for i in 0..<help0Label.count {
+            redPlayer1Label[i].text = "Player 1"
+            redPlayer2Label[i].text = "Player 2"
+            bluePlayer1Label[i].text = "Player 1"
+            bluePlayer2Label[i].text = "Player 2"
+        }
     }
     
     // undo last round
