@@ -61,7 +61,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var rulesButton: UIButton!
     
     // login view outlet
+    @IBOutlet weak var gameViewPortrait: UIView!
     @IBOutlet weak var loginView: UIView!
+    @IBOutlet weak var loginViewPortrait: UIView!
     
     // team name labels on game view
     @IBOutlet weak var redTeamLabel: UILabel!
@@ -131,6 +133,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        gameViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+        loginViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+        helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+        
         players.removeAll()
         
         // core data
@@ -168,6 +174,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         bluePlayer2Button.setTitleColor(self.view.tintColor, for: .normal)
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if tabBarController?.selectedIndex == SCOREBOARD_TAB_INDEX {
+            gameViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+            loginViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+            helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+        }
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -196,19 +212,23 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // size classes
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) { // big device
             
-            // help view
-            help0Label.font = UIFont(name: systemFont, size: 50)
-            help1Label.font = UIFont(name: systemFont, size: 20)
-            help2Label.font = UIFont(name: systemFont, size: 20)
-            help3Label.font = UIFont(name: systemFont, size: 25)
-            help4Label.font = UIFont(name: systemFont, size: 23)
-            help5Label.font = UIFont(name: systemFont, size: 20)
-            help6Label.font = UIFont(name: systemFont, size: 20)
-            help7Label.font = UIFont(name: systemFont, size: 25)
-            help8Label.font = UIFont(name: systemFont, size: 20)
-            help9Label.font = UIFont(name: systemFont, size: 20)
-            help10Label.font = UIFont(name: systemFont, size: 20)
-            help11Label.font = UIFont(name: systemFont, size: 20)
+            for i in 0..<help0Label.count {
+                
+                // help view
+                help0Label[i].font = UIFont(name: systemFont, size: 50)
+                help1Label[i].font = UIFont(name: systemFont, size: 20)
+                help2Label[i].font = UIFont(name: systemFont, size: 20)
+                help3Label[i].font = UIFont(name: systemFont, size: 25)
+                help4Label[i].font = UIFont(name: systemFont, size: 23)
+                help5Label[i].font = UIFont(name: systemFont, size: 20)
+                help6Label[i].font = UIFont(name: systemFont, size: 20)
+                help7Label[i].font = UIFont(name: systemFont, size: 25)
+                help8Label[i].font = UIFont(name: systemFont, size: 20)
+                help9Label[i].font = UIFont(name: systemFont, size: 20)
+                help10Label[i].font = UIFont(name: systemFont, size: 20)
+                help11Label[i].font = UIFont(name: systemFont, size: 20)
+            }
+            
             
             // login view
             
@@ -272,24 +292,27 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             blueTeamLabelHeightConstraint.isActive = false
             
         } else if smallDevice() {
-                
-            // help view
             
-            // help view
-            help0Label.font = UIFont(name: systemFont, size: 30)
-            help1Label.font = UIFont(name: systemFont, size: 12)
-            help2Label.font = UIFont(name: systemFont, size: 11)
-            help3Label.font = UIFont(name: systemFont, size: 16)
-            help4Label.font = UIFont(name: systemFont, size: 17)
-            help5Label.font = UIFont(name: systemFont, size: 12)
-            help6Label.font = UIFont(name: systemFont, size: 12)
-            help7Label.font = UIFont(name: systemFont, size: 16)
-            help8Label.font = UIFont(name: systemFont, size: 14)
-            help9Label.font = UIFont(name: systemFont, size: 12)
-            help10Label.font = UIFont(name: systemFont, size: 12)
-            help11Label.font = UIFont(name: systemFont, size: 12)
-            help6Label.textAlignment = .left
-            help9Label.textAlignment = .right
+            for i in 0..<help0Label.count {
+                
+                // help view
+                help0Label[i].font = UIFont(name: systemFont, size: 30)
+                help1Label[i].font = UIFont(name: systemFont, size: 12)
+                help2Label[i].font = UIFont(name: systemFont, size: 11)
+                help3Label[i].font = UIFont(name: systemFont, size: 16)
+                help4Label[i].font = UIFont(name: systemFont, size: 17)
+                help5Label[i].font = UIFont(name: systemFont, size: 12)
+                help6Label[i].font = UIFont(name: systemFont, size: 12)
+                help7Label[i].font = UIFont(name: systemFont, size: 16)
+                help8Label[i].font = UIFont(name: systemFont, size: 14)
+                help9Label[i].font = UIFont(name: systemFont, size: 12)
+                help10Label[i].font = UIFont(name: systemFont, size: 12)
+                help11Label[i].font = UIFont(name: systemFont, size: 12)
+                help6Label[i].textAlignment = .left
+                help9Label[i].textAlignment = .right
+            }
+            
+            
             
             // login view
             
@@ -364,19 +387,22 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
         } else { // normal phone
             
-            // help view
-            help0Label.font = UIFont(name: systemFont, size: 30)
-            help1Label.font = UIFont(name: systemFont, size: 12)
-            help2Label.font = UIFont(name: systemFont, size: 12)
-            help3Label.font = UIFont(name: systemFont, size: 16)
-            help4Label.font = UIFont(name: systemFont, size: 18)
-            help5Label.font = UIFont(name: systemFont, size: 12)
-            help6Label.font = UIFont(name: systemFont, size: 12)
-            help7Label.font = UIFont(name: systemFont, size: 16)
-            help8Label.font = UIFont(name: systemFont, size: 14)
-            help9Label.font = UIFont(name: systemFont, size: 12)
-            help10Label.font = UIFont(name: systemFont, size: 12)
-            help11Label.font = UIFont(name: systemFont, size: 12)
+            for i in 0..<help0Label.count {
+                
+                // help view
+                help0Label[i].font = UIFont(name: systemFont, size: 30)
+                help1Label[i].font = UIFont(name: systemFont, size: 12)
+                help2Label[i].font = UIFont(name: systemFont, size: 12)
+                help3Label[i].font = UIFont(name: systemFont, size: 16)
+                help4Label[i].font = UIFont(name: systemFont, size: 18)
+                help5Label[i].font = UIFont(name: systemFont, size: 12)
+                help6Label[i].font = UIFont(name: systemFont, size: 12)
+                help7Label[i].font = UIFont(name: systemFont, size: 16)
+                help8Label[i].font = UIFont(name: systemFont, size: 14)
+                help9Label[i].font = UIFont(name: systemFont, size: 12)
+                help10Label[i].font = UIFont(name: systemFont, size: 12)
+                help11Label[i].font = UIFont(name: systemFont, size: 12)
+            }
             
             // login view
             
@@ -704,9 +730,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func help(_ sender: UIButton) {
         helpState = 1
         helpView.isHidden = false
+        
         helpView.layer.mask = nil
-        help0Label.isHidden = false
-        help0Label.text = "Welcome to Cornhole!\n\nTap to go through instructions"
+        helpViewPortrait.layer.mask = nil
+        
+        for i in 0..<help0Label.count {
+            help0Label[i].isHidden = false
+            help0Label[i].text = "Welcome to Cornhole!\n\nTap to go through instructions"
+        }
     }
     
     // show menu
@@ -723,18 +754,19 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     //////////////////////////////////////////////////////
     
     @IBOutlet weak var helpView: UIView!
-    @IBOutlet weak var help0Label: UILabel!
-    @IBOutlet weak var help1Label: UILabel!
-    @IBOutlet weak var help2Label: UILabel!
-    @IBOutlet weak var help3Label: UILabel!
-    @IBOutlet weak var help4Label: UILabel!
-    @IBOutlet weak var help5Label: UILabel!
-    @IBOutlet weak var help6Label: UILabel!
-    @IBOutlet weak var help7Label: UILabel!
-    @IBOutlet weak var help8Label: UILabel!
-    @IBOutlet weak var help9Label: UILabel!
-    @IBOutlet weak var help10Label: UILabel!
-    @IBOutlet weak var help11Label: UILabel!
+    @IBOutlet weak var helpViewPortrait: UIView!
+    @IBOutlet var help0Label: [UILabel]!
+    @IBOutlet var help1Label: [UILabel]!
+    @IBOutlet var help2Label: [UILabel]!
+    @IBOutlet var help3Label: [UILabel]!
+    @IBOutlet var help4Label: [UILabel]!
+    @IBOutlet var help5Label: [UILabel]!
+    @IBOutlet var help6Label: [UILabel]!
+    @IBOutlet var help7Label: [UILabel]!
+    @IBOutlet var help8Label: [UILabel]!
+    @IBOutlet var help9Label: [UILabel]!
+    @IBOutlet var help10Label: [UILabel]!
+    @IBOutlet var help11Label: [UILabel]!
     
     var helpState = 0
     
@@ -755,17 +787,21 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         case 1:
             createHole(inView: helpView, aroundView: playersSegmentedControl)
             
-            help0Label.isHidden = true
-            help1Label.isHidden = false
-            help1Label.text = "Select game mode here\n"
+            for i in 0..<help0Label.count {
+                help0Label[i].isHidden = true
+                help1Label[i].isHidden = false
+                help1Label[i].text = "Select game mode here\n"
+            }
             helpState += 1
         break
             
         case 2:
             createHole(inView: helpView, aroundView: redPlayer1Button)
             
-            help1Label.isHidden = true
-            help2Label.isHidden = false
+            for i in 0..<help0Label.count {
+                help1Label[i].isHidden = true
+                help2Label[i].isHidden = false
+            }
             helpState += 1
         break
             
@@ -773,17 +809,22 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             createHole(inView: helpView, aroundView: newPlayerTextField)
             
             showSelectPlayerMenu(show: true)
-            help2Label.isHidden = true
-            help3Label.isHidden = false
+            
+            for i in 0..<help0Label.count {
+                help2Label[i].isHidden = true
+                help3Label[i].isHidden = false
+            }
             helpState += 1
         break
             
         case 4:
             createHole(inView: helpView, aroundView: playerTableView)
             
-            help3Label.isHidden = true
-            help4Label.isHidden = false
-            help4Label.text = "Or select it from the list.\n\nFor 2v2, players standing physically next to each other should be the same player number for their respective teams."
+            for i in 0..<help0Label.count {
+                help3Label[i].isHidden = true
+                help4Label[i].isHidden = false
+                help4Label[i].text = "Or select it from the list.\n\nFor 2v2, players standing physically next to each other should be the same player number for their respective teams."
+            }
             helpState += 1
         break
             
@@ -791,9 +832,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             createHole(inView: helpView, aroundView: trackingStatsButton)
             
             showSelectPlayerMenu(show: false)
-            help4Label.isHidden = true
-            help5Label.isHidden = false
-            help5Label.text = "Click this toggle to set whether or not you want to track stats from this game\n"
+            
+            for i in 0..<help0Label.count {
+                help4Label[i].isHidden = true
+                help5Label[i].isHidden = false
+                help5Label[i].text = "Click this toggle to set whether or not you want to track stats from this game\n"
+            }
             helpState += 1
         break
             
@@ -804,9 +848,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 createHole(inView: helpView, aroundView: playButton)
             }
             
-            help5Label.isHidden = true
-            help6Label.isHidden = false
-            help6Label.text = "When you're done, press play\n"
+            for i in 0..<help0Label.count {
+                help5Label[i].isHidden = true
+                help6Label[i].isHidden = false
+                help6Label[i].text = "When you're done, press play\n"
+            }
             helpState += 1
         break
             
@@ -814,48 +860,61 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             createHoleIPad(inView: helpView, aroundView: stepperStackView)
             
             loginView.isHidden = true
-            help6Label.isHidden = true
-            help7Label.isHidden = false
+            
+            for i in 0..<help0Label.count {
+                help6Label[i].isHidden = true
+                help7Label[i].isHidden = false
+            }
             helpState += 1
         break
             
         case 8:
             createHoleIPad(inView: helpView, aroundView: roundCompleteButton)
             
-            help7Label.isHidden = true
-            help8Label.isHidden = false
-            help8Label.text = "Click Round Complete after all bags for the round have been thrown\n"
+            for i in 0..<help0Label.count {
+                help7Label[i].isHidden = true
+                help8Label[i].isHidden = false
+                help8Label[i].text = "Click Round Complete after all bags for the round have been thrown\n"
+            }
             helpState += 1
         break
             
         case 9:
             createHoleIPad(inView: helpView, aroundView: resetButton)
             
-            help8Label.isHidden = true
-            help9Label.isHidden = false
-            help9Label.text = "Click Reset/Restart to restart the game with the same players\n"
+            for i in 0..<help0Label.count {
+                help8Label[i].isHidden = true
+                help9Label[i].isHidden = false
+                help9Label[i].text = "Click Reset/Restart to restart the game with the same players\n"
+            }
             helpState += 1
         break
             
         case 10:
             createHoleIPad(inView: helpView, aroundView: selectNewPlayersButton)
             
-            help9Label.isHidden = true
-            help10Label.isHidden = false
-            help10Label.text = "Click Select New Players to restart the game with different players\n"
+            for i in 0..<help0Label.count {
+                help9Label[i].isHidden = true
+                help10Label[i].isHidden = false
+                help10Label[i].text = "Click Select New Players to restart the game with different players\n"
+            }
             helpState += 1
         break
             
         case 11:
             createHoleIPad(inView: helpView, aroundView: redTeamLabel)
             
-            help10Label.isHidden = true
-            help11Label.isHidden = false
+            for i in 0..<help0Label.count {
+                help10Label[i].isHidden = true
+                help11Label[i].isHidden = false
+            }
             helpState += 1
         break
             
         case 12:
-            help11Label.isHidden = true
+            for i in 0..<help0Label.count {
+                help11Label[i].isHidden = true
+            }
             loginView.isHidden = false
             helpView.isHidden = true
             helpState = 0
