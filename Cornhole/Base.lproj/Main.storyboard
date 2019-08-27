@@ -716,15 +716,18 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xmq-wI-vx4">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                             </imageView>
-                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-Wz-oE1">
-                                                <rect key="frame" x="354" y="146.5" width="0.0" height="441.5"/>
+                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-Wz-oE1">
+                                                <rect key="frame" x="37.5" y="384.5" width="300" height="161.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="300" id="BcC-8a-ytE"/>
+                                                </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerCell" id="PJv-zB-hIZ">
-                                                        <rect key="frame" x="0.0" y="28" width="0.0" height="44"/>
+                                                        <rect key="frame" x="0.0" y="28" width="300" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PJv-zB-hIZ" id="QN5-LS-E0o">
-                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="43.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
@@ -740,8 +743,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="zlH-wZ-VKb">
-                                                <rect key="frame" x="207" y="77" width="120" height="30"/>
+                                            <textField hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="zlH-wZ-VKb">
+                                                <rect key="frame" x="167.5" y="308" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="yGe-vi-kqb">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="150"/>
@@ -755,13 +758,13 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new player:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5Y-Fa-056">
-                                                <rect key="frame" x="60" y="84.5" width="127" height="15.5"/>
+                                                <rect key="frame" x="20.5" y="315" width="127" height="15.5"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7l6-Mt-reF">
-                                                <rect key="frame" x="332" y="77" width="33" height="30"/>
+                                                <rect key="frame" x="307.5" y="308" width="33" height="30"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="14"/>
                                                 <state key="normal" title="Add"/>
                                                 <connections>
@@ -817,32 +820,32 @@
                                                 <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0z-3z-al0">
-                                                <rect key="frame" x="264" y="141.5" width="55" height="34"/>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0z-3z-al0">
+                                                <rect key="frame" x="280" y="141.5" width="55" height="34"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                 <state key="normal" title="Select"/>
                                                 <connections>
                                                     <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="F9G-Rb-Tit"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSk-yw-DTF">
-                                                <rect key="frame" x="264" y="168" width="55" height="34"/>
+                                            <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSk-yw-DTF">
+                                                <rect key="frame" x="280" y="168" width="55" height="34"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                 <state key="normal" title="Select"/>
                                                 <connections>
                                                     <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="nFM-lF-opN"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2b-Me-F7d">
-                                                <rect key="frame" x="264" y="231" width="55" height="34"/>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2b-Me-F7d">
+                                                <rect key="frame" x="280" y="231" width="55" height="34"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                 <state key="normal" title="Select"/>
                                                 <connections>
                                                     <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Rxu-88-cQH"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfE-HG-yvk">
-                                                <rect key="frame" x="264" y="257.5" width="55" height="34"/>
+                                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfE-HG-yvk">
+                                                <rect key="frame" x="280" y="257.5" width="55" height="34"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                 <state key="normal" title="Select"/>
                                                 <connections>
@@ -850,7 +853,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select existing player:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eba-yj-1ep">
-                                                <rect key="frame" x="265.5" y="115" width="64.5" height="21.5"/>
+                                                <rect key="frame" x="82.5" y="353" width="210.5" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -935,13 +938,14 @@
                                             <constraint firstItem="zBr-Ma-YRQ" firstAttribute="top" secondItem="O2e-Pa-IVN" secondAttribute="bottom" constant="15" id="Emw-ah-C1Z">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
+                                            <constraint firstItem="o5Y-Fa-056" firstAttribute="top" secondItem="4XY-cf-RxX" secondAttribute="bottom" constant="30" id="FzN-Ka-bTF"/>
                                             <constraint firstItem="hfE-HG-yvk" firstAttribute="leading" secondItem="f2b-Me-F7d" secondAttribute="leading" id="IHQ-Gs-8A7"/>
                                             <constraint firstItem="MYI-L2-ade" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="125" id="Ica-1z-NJO">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="250"/>
                                             </constraint>
                                             <constraint firstItem="hfE-HG-yvk" firstAttribute="centerY" secondItem="4XY-cf-RxX" secondAttribute="centerY" id="Ja4-6R-PDj"/>
                                             <constraint firstItem="zlH-wZ-VKb" firstAttribute="centerY" secondItem="o5Y-Fa-056" secondAttribute="centerY" id="Lvz-Sf-SLs"/>
-                                            <constraint firstAttribute="bottom" secondItem="enJ-Wz-oE1" secondAttribute="bottom" constant="10" id="MNn-qO-MPI">
+                                            <constraint firstItem="FBV-RB-beG" firstAttribute="top" secondItem="enJ-Wz-oE1" secondAttribute="bottom" constant="15" id="MNn-qO-MPI">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                             </constraint>
                                             <constraint firstItem="Xmq-wI-vx4" firstAttribute="leading" secondItem="E7y-Pq-30e" secondAttribute="leading" id="MZ2-63-Ocx"/>
@@ -950,6 +954,7 @@
                                             <constraint firstItem="Huv-TN-b4e" firstAttribute="top" secondItem="8Gc-Zu-3W5" secondAttribute="bottom" constant="5" id="OXG-EX-chb">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="25"/>
                                             </constraint>
+                                            <constraint firstItem="eba-yj-1ep" firstAttribute="centerX" secondItem="E7y-Pq-30e" secondAttribute="centerX" id="Opq-NB-pg8"/>
                                             <constraint firstItem="f2b-Me-F7d" firstAttribute="trailing" secondItem="VSk-yw-DTF" secondAttribute="trailing" id="Ppl-ie-7YI"/>
                                             <constraint firstItem="TBC-XD-ly5" firstAttribute="leading" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="20" id="Q37-CS-QBL"/>
                                             <constraint firstAttribute="trailing" secondItem="Xmq-wI-vx4" secondAttribute="trailing" id="Q9O-qd-ku4"/>
@@ -960,7 +965,6 @@
                                             <constraint firstItem="FBV-RB-beG" firstAttribute="leading" secondItem="gZw-9e-DTg" secondAttribute="trailing" constant="52" id="VfG-q5-3tI">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                             </constraint>
-                                            <constraint firstItem="o5Y-Fa-056" firstAttribute="centerY" secondItem="MYI-L2-ade" secondAttribute="centerY" id="XGd-Xx-gCi"/>
                                             <constraint firstItem="AYS-1i-pbP" firstAttribute="centerY" secondItem="ahW-Go-ulZ" secondAttribute="centerY" id="XKk-es-fdf"/>
                                             <constraint firstItem="Cmv-sa-7K4" firstAttribute="leading" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="20" id="Ya1-Ao-9cX"/>
                                             <constraint firstItem="O2e-Pa-IVN" firstAttribute="top" secondItem="Huv-TN-b4e" secondAttribute="bottom" constant="5" id="Ywg-xA-xug">
@@ -969,20 +973,19 @@
                                             <constraint firstItem="Xmq-wI-vx4" firstAttribute="top" secondItem="E7y-Pq-30e" secondAttribute="top" id="ZWU-XN-WGq"/>
                                             <constraint firstAttribute="trailing" secondItem="AYS-1i-pbP" secondAttribute="trailing" constant="20" id="aPR-8J-wze"/>
                                             <constraint firstItem="VSk-yw-DTF" firstAttribute="centerY" secondItem="O2e-Pa-IVN" secondAttribute="centerY" id="axK-mv-dlx"/>
+                                            <constraint firstItem="zlH-wZ-VKb" firstAttribute="centerX" secondItem="E7y-Pq-30e" secondAttribute="centerX" constant="40" id="azd-cv-bSN"/>
                                             <constraint firstItem="a0z-3z-al0" firstAttribute="centerY" secondItem="Huv-TN-b4e" secondAttribute="centerY" id="cGB-kV-X8Z"/>
-                                            <constraint firstAttribute="trailing" secondItem="7l6-Mt-reF" secondAttribute="trailing" constant="10" id="cSu-iO-GOt">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
-                                            </constraint>
                                             <constraint firstItem="ahW-Go-ulZ" firstAttribute="top" secondItem="E7y-Pq-30e" secondAttribute="top" constant="20" id="dYl-UV-h7q"/>
                                             <constraint firstItem="eba-yj-1ep" firstAttribute="centerX" secondItem="enJ-Wz-oE1" secondAttribute="centerX" id="eZE-Hk-lg5"/>
                                             <constraint firstItem="zBr-Ma-YRQ" firstAttribute="leading" secondItem="8Gc-Zu-3W5" secondAttribute="leading" id="eym-8U-pkh"/>
                                             <constraint firstItem="gZw-9e-DTg" firstAttribute="leading" secondItem="4XY-cf-RxX" secondAttribute="leading" id="f7c-gm-pJg"/>
+                                            <constraint firstAttribute="trailing" secondItem="a0z-3z-al0" secondAttribute="trailing" constant="40" id="fs8-xb-CRr"/>
                                             <constraint firstItem="8Gc-Zu-3W5" firstAttribute="leading" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="20" id="gDX-Em-ARh"/>
                                             <constraint firstItem="zBP-Ps-Roi" firstAttribute="leading" secondItem="zBr-Ma-YRQ" secondAttribute="leading" constant="10" id="hVu-w2-i3b"/>
                                             <constraint firstItem="8Gc-Zu-3W5" firstAttribute="top" secondItem="MYI-L2-ade" secondAttribute="bottom" constant="15" id="i1l-er-lCC">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
-                                            <constraint firstItem="7l6-Mt-reF" firstAttribute="leading" secondItem="zlH-wZ-VKb" secondAttribute="trailing" constant="5" id="idc-eh-VSi">
+                                            <constraint firstItem="7l6-Mt-reF" firstAttribute="leading" secondItem="zlH-wZ-VKb" secondAttribute="trailing" constant="20" id="idc-eh-VSi">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                             </constraint>
                                             <constraint firstItem="MYI-L2-ade" firstAttribute="leading" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="15" id="jCL-a3-teF">
@@ -992,22 +995,15 @@
                                             <constraint firstAttribute="bottom" secondItem="gZw-9e-DTg" secondAttribute="bottom" constant="1" id="pvv-1m-Prg">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="10"/>
                                             </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="eba-yj-1ep" secondAttribute="trailing" constant="45" id="qbI-qV-smC">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="90"/>
-                                            </constraint>
                                             <constraint firstItem="VSk-yw-DTF" firstAttribute="leading" secondItem="a0z-3z-al0" secondAttribute="leading" id="qg4-NK-iSg"/>
-                                            <constraint firstItem="eba-yj-1ep" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="265.5" id="rUX-Xn-9q4"/>
                                             <constraint firstItem="f2b-Me-F7d" firstAttribute="centerY" secondItem="zBP-Ps-Roi" secondAttribute="centerY" id="rv5-lT-ljk"/>
                                             <constraint firstItem="ahW-Go-ulZ" firstAttribute="centerX" secondItem="E7y-Pq-30e" secondAttribute="centerX" id="sYi-kL-nhz"/>
                                             <constraint firstItem="zBP-Ps-Roi" firstAttribute="trailing" secondItem="O2e-Pa-IVN" secondAttribute="trailing" id="tNN-Kn-U7I"/>
                                             <constraint firstItem="ahW-Go-ulZ" firstAttribute="centerY" secondItem="TBC-XD-ly5" secondAttribute="centerY" id="tlD-17-WQe"/>
-                                            <constraint firstItem="eba-yj-1ep" firstAttribute="top" secondItem="zlH-wZ-VKb" secondAttribute="bottom" constant="8" id="vgM-ds-ZUA">
+                                            <constraint firstItem="eba-yj-1ep" firstAttribute="top" secondItem="zlH-wZ-VKb" secondAttribute="bottom" constant="15" id="vgM-ds-ZUA">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="f2b-Me-F7d" firstAttribute="leading" secondItem="VSk-yw-DTF" secondAttribute="leading" id="w8W-2u-LdV"/>
-                                            <constraint firstItem="enJ-Wz-oE1" firstAttribute="leading" secondItem="a0z-3z-al0" secondAttribute="trailing" constant="35" id="xfP-5U-HNW">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
-                                            </constraint>
                                             <constraint firstItem="O2e-Pa-IVN" firstAttribute="trailing" secondItem="Huv-TN-b4e" secondAttribute="trailing" id="ylY-U7-ztF"/>
                                         </constraints>
                                     </view>
@@ -1496,7 +1492,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Scoreboard" image="Scoreboard" selectedImage="Scoreboard" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="addNewPlayerButton" destination="B32-pk-QhA" id="lkA-tX-ruM"/>
                         <outlet property="blueInLabel" destination="VT9-pE-aIe" id="7h2-KZ-RAX"/>
                         <outlet property="blueInStepper" destination="uTG-hk-07o" id="Dlg-8n-7JU"/>
                         <outlet property="blueOnLabel" destination="OYc-J1-9UQ" id="BWE-e8-2uy"/>
@@ -1504,13 +1499,11 @@
                         <outlet property="blueRoundScoreLabel" destination="2Cd-yO-T1U" id="SBB-LU-DUr"/>
                         <outlet property="blueTeamLabel" destination="0Ym-tI-Rym" id="Oq3-Zy-d8V"/>
                         <outlet property="blueTotalScoreLabel" destination="mkn-Ie-B7I" id="tDc-XK-Mou"/>
-                        <outlet property="createNewPlayerLabel" destination="Gle-V3-dJE" id="cwc-7R-de7"/>
                         <outlet property="gameViewPortrait" destination="f3l-cU-blO" id="6DU-02-wtI"/>
                         <outlet property="helpView" destination="zsd-U3-VCe" id="vZn-7w-kaq"/>
                         <outlet property="helpViewPortrait" destination="8fX-jU-S7U" id="6LZ-SF-cmZ"/>
                         <outlet property="loginView" destination="ISr-1L-Y6J" id="s8U-GW-hqc"/>
                         <outlet property="loginViewPortrait" destination="E7y-Pq-30e" id="N2F-UT-Md7"/>
-                        <outlet property="newPlayerTextField" destination="1vZ-9F-WQP" id="Mug-0U-KKQ"/>
                         <outlet property="playerTableView" destination="tnS-R2-qg9" id="KMj-6a-edA"/>
                         <outlet property="redInLabel" destination="BzW-7D-LSr" id="a6Z-v4-jwy"/>
                         <outlet property="redInStepper" destination="dgG-fP-tQ3" id="5Lv-uD-Zmd"/>
@@ -1524,7 +1517,6 @@
                         <outlet property="roundDashLabel" destination="JLt-Gf-cBm" id="oYS-hr-QOU"/>
                         <outlet property="roundLabel" destination="xoh-fb-Y0s" id="HMT-sd-dRG"/>
                         <outlet property="seTotalDashLabel" destination="H3y-IT-ZPV" id="Izf-ei-Arm"/>
-                        <outlet property="selectExistingPlayerLabel" destination="im8-w7-zZu" id="D7a-g9-v0g"/>
                         <outlet property="selectNewPlayersButton" destination="wW9-Gc-vto" id="V49-mE-oe5"/>
                         <outlet property="stepperStackView" destination="Ee2-Z0-3aE" id="vPu-lk-C1X"/>
                         <outlet property="totalDashLabel" destination="3x7-mX-7xW" id="SPm-Tb-slr"/>
@@ -1594,6 +1586,14 @@
                         <outletCollection property="sePlayButton" destination="ZMS-43-nkJ" collectionClass="NSMutableArray" id="bQQ-Mn-qjv"/>
                         <outletCollection property="playButton" destination="gZw-9e-DTg" collectionClass="NSMutableArray" id="fXQ-te-Y3c"/>
                         <outletCollection property="sePlayButton" destination="Cmv-sa-7K4" collectionClass="NSMutableArray" id="DmG-jJ-aYP"/>
+                        <outletCollection property="createNewPlayerLabel" destination="Gle-V3-dJE" collectionClass="NSMutableArray" id="U8A-sv-Tn0"/>
+                        <outletCollection property="createNewPlayerLabel" destination="o5Y-Fa-056" collectionClass="NSMutableArray" id="Lah-I7-EMw"/>
+                        <outletCollection property="newPlayerTextField" destination="1vZ-9F-WQP" collectionClass="NSMutableArray" id="wmU-yc-kNH"/>
+                        <outletCollection property="newPlayerTextField" destination="zlH-wZ-VKb" collectionClass="NSMutableArray" id="xJo-aA-Bv4"/>
+                        <outletCollection property="addNewPlayerButton" destination="B32-pk-QhA" collectionClass="NSMutableArray" id="pvL-p9-51p"/>
+                        <outletCollection property="addNewPlayerButton" destination="7l6-Mt-reF" collectionClass="NSMutableArray" id="2uZ-zc-esC"/>
+                        <outletCollection property="selectExistingPlayerLabel" destination="im8-w7-zZu" collectionClass="NSMutableArray" id="Fcd-fe-adk"/>
+                        <outletCollection property="selectExistingPlayerLabel" destination="eba-yj-1ep" collectionClass="NSMutableArray" id="cVZ-l8-qUs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

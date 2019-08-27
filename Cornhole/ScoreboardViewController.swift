@@ -50,11 +50,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var bluePlayer1Button: [UIButton]!
     @IBOutlet var bluePlayer2Button: [UIButton]!
     @IBOutlet var trackingStatsButton: [UIButton]!
-    @IBOutlet weak var selectExistingPlayerLabel: UILabel!
+    @IBOutlet var selectExistingPlayerLabel: [UILabel]!
     @IBOutlet weak var playerTableView: UITableView!
-    @IBOutlet weak var createNewPlayerLabel: UILabel!
-    @IBOutlet weak var newPlayerTextField: UITextField!
-    @IBOutlet weak var addNewPlayerButton: UIButton!
+    @IBOutlet var createNewPlayerLabel: [UILabel]!
+    @IBOutlet var newPlayerTextField: [UITextField]!
+    @IBOutlet var addNewPlayerButton: [UIButton]!
     @IBOutlet var playButton: [UIButton]!
     @IBOutlet var sePlayButton: [UIButton]! // for iphone se
     @IBOutlet var helpButton: [UIButton]!
@@ -185,6 +185,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             gameViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
             loginViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
             helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+            
+            if newPlayerTextField[0].isEditing {
+                newPlayerTextField[0].resignFirstResponder()
+                newPlayerTextField[1].becomeFirstResponder()
+            } else if newPlayerTextField[1].isEditing {
+                newPlayerTextField[1].resignFirstResponder()
+                newPlayerTextField[0].becomeFirstResponder()
+            }
         }
     }
     
@@ -241,6 +249,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 teamBlueLabel[i].font = UIFont(name: systemFont, size: 30)
                 bluePlayer1Label[i].font = UIFont(name: systemFont, size: 30)
                 bluePlayer2Label[i].font = UIFont(name: systemFont, size: 30)
+                createNewPlayerLabel[i].font = UIFont(name: systemFont, size: 20)
+                selectExistingPlayerLabel[i].font = UIFont(name: systemFont, size: 25)
+                
+                newPlayerTextField[i].font = UIFont(name: systemFont, size: 20)
                 
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 45)
                 rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 45)
@@ -251,17 +263,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 50)
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 
                 // constraints
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
             }
-            
-            selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 25)
-            
-            createNewPlayerLabel.font = UIFont(name: systemFont, size: 20)
-            newPlayerTextField.font = UIFont(name: systemFont, size: 20)
-            addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
-            
             
             playerTableView.widthAnchor.constraint(equalToConstant: 400).isActive = true
             playerTableViewWidthConstraint.isActive = false
@@ -325,6 +331,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 teamBlueLabel[i].font = UIFont(name: systemFont, size: 14)
                 bluePlayer1Label[i].font = UIFont(name: systemFont, size: 14)
                 bluePlayer2Label[i].font = UIFont(name: systemFont, size: 14)
+                createNewPlayerLabel[i].font = UIFont(name: systemFont, size: 12)
+                selectExistingPlayerLabel[i].font = UIFont(name: systemFont, size: 14)
+                
+                newPlayerTextField[i].font = UIFont(name: systemFont, size: 14)
                 
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
@@ -336,19 +346,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 sePlayButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 sePlayButton[i].isHidden = false
+                addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 
                 // constraints
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 23).isActive = true
                 trackingStatsButton[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
+                selectExistingPlayerLabel[i].widthAnchor.constraint(equalToConstant: 200).isActive = true
             }
             
-            selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 14)
-            
-            createNewPlayerLabel.font = UIFont(name: systemFont, size: 12)
-            newPlayerTextField.font = UIFont(name: systemFont, size: 14)
-            addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
-            
-            selectExistingPlayerLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
             playerTableView.widthAnchor.constraint(equalToConstant: 220).isActive = true
             playerTableViewWidthConstraint.isActive = false
             
@@ -415,6 +420,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 teamBlueLabel[i].font = UIFont(name: systemFont, size: 17)
                 bluePlayer1Label[i].font = UIFont(name: systemFont, size: 17)
                 bluePlayer2Label[i].font = UIFont(name: systemFont, size: 17)
+                createNewPlayerLabel[i].font = UIFont(name: systemFont, size: 12)
+                selectExistingPlayerLabel[i].font = UIFont(name: systemFont, size: 17)
+                
+                newPlayerTextField[i].font = UIFont(name: systemFont, size: 14)
                 
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -425,15 +434,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 20)
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 28).isActive = true
             }
-
-            selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 17)
-            
-            createNewPlayerLabel.font = UIFont(name: systemFont, size: 12)
-            newPlayerTextField.font = UIFont(name: systemFont, size: 14)
-            addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
             
             // game view
             
@@ -472,14 +476,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 help(helpButton[i])
                 UserDefaults.standard.set(true, forKey: "firstThrowWinners") // initialize setting for who throws first, winners or alternating
             }
+            
+            self.newPlayerTextField[i].delegate = self
+            newPlayerTextField[i].autocorrectionType = .no
         }
         
         playerTableView.backgroundColor = .clear
  
         helpView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
-        
-        self.newPlayerTextField.delegate = self
-        newPlayerTextField.autocorrectionType = .no
     }
 
     // dtermine if stats are tracked or not
@@ -595,20 +599,35 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // check if name already taken
     @IBAction func textFieldEditingChanged(_ sender: Any) {
-        if players.contains(newPlayerTextField.text!) {
-            newPlayerTextField.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+        if (sender as AnyObject).tag == 0 { // landscape
+            newPlayerTextField[1].text = newPlayerTextField[0].text
         } else {
-            newPlayerTextField.backgroundColor = UIColor.white
+            newPlayerTextField[0].text = newPlayerTextField[1].text
+        }
+        
+        if players.contains(newPlayerTextField[0].text!) {
+            for i in 0..<help0Label.count {
+                newPlayerTextField[i].backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+            }
+        } else {
+            for i in 0..<help0Label.count {
+                newPlayerTextField[i].backgroundColor = UIColor.white
+            }
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        if textField.tag == 0 {
-            if !players.contains(newPlayerTextField.text!) {
+        if textField.tag == 0 { // landscape
+            if !players.contains(newPlayerTextField[0].text!) {
                 textField.resignFirstResponder()
             }
-            addNewPlayer(addNewPlayerButton!)
+            addNewPlayer(addNewPlayerButton[0])
+        } else {
+            if !players.contains(newPlayerTextField[1].text!) {
+                textField.resignFirstResponder()
+            }
+            addNewPlayer(addNewPlayerButton[0])
         }
         
         return true
@@ -617,23 +636,33 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // add new player with button
     @IBAction func addNewPlayer(_ sender: Any) {
         
+        // get name
+        
+        var newName = ""
+        
+        if (sender as AnyObject).tag == 0 { // landscape
+            newName = newPlayerTextField[0].text ?? ""
+        } else {
+            newName = newPlayerTextField[1].text ?? ""
+        }
+        
         // make sure name isn't taken
         
-        if !players.contains(newPlayerTextField.text!) {
+        if !players.contains(newName) {
         
             // resign keyboard
             view.endEditing(true)
             
             // save player
-            if newPlayerTextField.text != "" && !players.contains(newPlayerTextField.text!) {
-                players.append(newPlayerTextField.text!)
+            if newName != "" && !players.contains(newName) {
+                players.append(newName)
                 
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 
                 let context = appDelegate.persistentContainer.viewContext
                 
                 let newUser = NSEntityDescription.insertNewObject(forEntityName: "Players", into: context)
-                newUser.setValue(newPlayerTextField.text, forKey: "name")
+                newUser.setValue(newName, forKey: "name")
                 
                 do {
                     try context.save()
@@ -651,22 +680,22 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 switch buttonSelect {
                     
                 case 1:
-                    redPlayer1Label[i].text = newPlayerTextField.text
+                    redPlayer1Label[i].text = newName
                     redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
                     break
                     
                 case 2:
-                    redPlayer2Label[i].text = newPlayerTextField.text
+                    redPlayer2Label[i].text = newName
                     redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
                     break
                     
                 case 3:
-                    bluePlayer1Label[i].text = newPlayerTextField.text
+                    bluePlayer1Label[i].text = newName
                     bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
                     break
                     
                 case 4:
-                    bluePlayer2Label[i].text = newPlayerTextField.text
+                    bluePlayer2Label[i].text = newName
                     bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
                     break
                     
@@ -677,7 +706,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             playerTableView.reloadData()
-            newPlayerTextField.text = ""
+            for i in 0..<help0Label.count {
+                newPlayerTextField[i].text = ""
+            }
         }
     }
     
@@ -773,11 +804,13 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // show menu
     func showSelectPlayerMenu(show: Bool) {
-        selectExistingPlayerLabel.isHidden = !show
+        for i in 0..<help0Label.count {
+            createNewPlayerLabel[i].isHidden = !show
+            newPlayerTextField[i].isHidden = !show
+            addNewPlayerButton[i].isHidden = !show
+            selectExistingPlayerLabel[i].isHidden = !show
+        }
         playerTableView.isHidden = !show
-        createNewPlayerLabel.isHidden = !show
-        newPlayerTextField.isHidden = !show
-        addNewPlayerButton.isHidden = !show
     }
     
     //////////////////////////////////////////////////////
@@ -839,7 +872,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 3:
-            createHole(inView: helpView, aroundView: newPlayerTextField)
+            createHole(inView: helpView, aroundView: newPlayerTextField[0])
+            createHole(inView: helpViewPortrait, aroundView: newPlayerTextField[1])
             
             showSelectPlayerMenu(show: true)
             
