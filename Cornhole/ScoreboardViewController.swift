@@ -51,7 +51,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var bluePlayer2Button: [UIButton]!
     @IBOutlet var trackingStatsButton: [UIButton]!
     @IBOutlet var selectExistingPlayerLabel: [UILabel]!
-    @IBOutlet weak var playerTableView: UITableView!
+    @IBOutlet var playerTableView: [UITableView]!
     @IBOutlet var createNewPlayerLabel: [UILabel]!
     @IBOutlet var newPlayerTextField: [UITextField]!
     @IBOutlet var addNewPlayerButton: [UIButton]!
@@ -168,9 +168,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         players = players.sorted()
         
         showSelectPlayerMenu(show: false)
-        playerTableView.reloadData()
         
         for i in 0..<help0Label.count {
+            playerTableView[i].reloadData()
             redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
             redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
             bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
@@ -211,8 +211,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let redTeamLabelHeightConstraint = redTeamLabel.heightAnchor.constraint(equalToConstant: 150)
         let blueTeamLabelHeightConstraint = blueTeamLabel.heightAnchor.constraint(equalToConstant: 150)
-        let playerTableViewWidthConstraint = playerTableView.widthAnchor.constraint(equalToConstant: 270)
-        playerTableViewWidthConstraint.isActive = true // handles warning
         
         redTeamLabelHeightConstraint.isActive = true
         blueTeamLabelHeightConstraint.isActive = true
@@ -267,10 +265,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 // constraints
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
+                playerTableView[i].widthAnchor.constraint(equalToConstant: 400).isActive = true
             }
-            
-            playerTableView.widthAnchor.constraint(equalToConstant: 400).isActive = true
-            playerTableViewWidthConstraint.isActive = false
             
             // game view
             
@@ -352,10 +348,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 23).isActive = true
                 trackingStatsButton[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
                 selectExistingPlayerLabel[i].widthAnchor.constraint(equalToConstant: 200).isActive = true
+                playerTableView[i].widthAnchor.constraint(equalToConstant: 220).isActive = true
             }
-            
-            playerTableView.widthAnchor.constraint(equalToConstant: 220).isActive = true
-            playerTableViewWidthConstraint.isActive = false
             
             // game view
             
@@ -437,6 +431,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 28).isActive = true
+                playerTableView[i].widthAnchor.constraint(equalToConstant: 270).isActive = true
             }
             
             // game view
@@ -479,9 +474,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             self.newPlayerTextField[i].delegate = self
             newPlayerTextField[i].autocorrectionType = .no
+            
+            playerTableView[i].backgroundColor = .clear
         }
-        
-        playerTableView.backgroundColor = .clear
  
         helpView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
     }
@@ -589,7 +584,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             do {
                 try context.save()
                 players.remove(at: indexPath.row)
-                playerTableView.deleteRows(at: [indexPath], with: .fade)
+                
+                for i in 0..<help0Label.count {
+                    playerTableView[i].deleteRows(at: [indexPath], with: .fade)
+                }
             } catch {
                 let saveError = error as NSError
                 print(saveError)
@@ -705,8 +703,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
             
-            playerTableView.reloadData()
             for i in 0..<help0Label.count {
+                playerTableView[i].reloadData()
                 newPlayerTextField[i].text = ""
             }
         }
@@ -809,8 +807,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             newPlayerTextField[i].isHidden = !show
             addNewPlayerButton[i].isHidden = !show
             selectExistingPlayerLabel[i].isHidden = !show
+            playerTableView[i].isHidden = !show
         }
-        playerTableView.isHidden = !show
     }
     
     //////////////////////////////////////////////////////
@@ -885,7 +883,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 4:
-            createHole(inView: helpView, aroundView: playerTableView)
+            createHole(inView: helpView, aroundView: playerTableView[0])
+            createHole(inView: helpViewPortrait, aroundView: playerTableView[1])
             
             for i in 0..<help0Label.count {
                 help3Label[i].isHidden = true
