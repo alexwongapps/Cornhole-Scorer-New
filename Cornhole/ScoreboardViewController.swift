@@ -49,14 +49,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var bluePlayer2Label: [UILabel]!
     @IBOutlet var bluePlayer1Button: [UIButton]!
     @IBOutlet var bluePlayer2Button: [UIButton]!
-    @IBOutlet weak var trackingStatsButton: UIButton!
+    @IBOutlet var trackingStatsButton: [UIButton]!
     @IBOutlet weak var selectExistingPlayerLabel: UILabel!
     @IBOutlet weak var playerTableView: UITableView!
     @IBOutlet weak var createNewPlayerLabel: UILabel!
     @IBOutlet weak var newPlayerTextField: UITextField!
     @IBOutlet weak var addNewPlayerButton: UIButton!
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var sePlayButton: UIButton! // for iphone se
+    @IBOutlet var playButton: [UIButton]!
+    @IBOutlet var sePlayButton: [UIButton]! // for iphone se
     @IBOutlet var helpButton: [UIButton]!
     @IBOutlet var rulesButton: [UIButton]!
     
@@ -249,6 +249,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 50)
+                trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 
                 // constraints
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -260,8 +262,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             newPlayerTextField.font = UIFont(name: systemFont, size: 20)
             addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
             
-            playButton.titleLabel?.font = UIFont(name: systemFont, size: 50)
-            trackingStatsButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             
             playerTableView.widthAnchor.constraint(equalToConstant: 400).isActive = true
             playerTableViewWidthConstraint.isActive = false
@@ -333,24 +333,21 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                sePlayButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                sePlayButton[i].isHidden = false
                 
                 // constraints
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 23).isActive = true
+                trackingStatsButton[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
             }
             
             selectExistingPlayerLabel.font = UIFont(name: systemFont, size: 14)
-            
-            trackingStatsButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            
-            sePlayButton.titleLabel?.font = UIFont(name: systemFont, size: 15)
-            sePlayButton.isHidden = false
             
             createNewPlayerLabel.font = UIFont(name: systemFont, size: 12)
             newPlayerTextField.font = UIFont(name: systemFont, size: 14)
             addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
             
-            
-            trackingStatsButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
             selectExistingPlayerLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
             playerTableView.widthAnchor.constraint(equalToConstant: 220).isActive = true
             playerTableViewWidthConstraint.isActive = false
@@ -426,6 +423,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 20)
+                trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 28).isActive = true
             }
@@ -435,9 +434,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             createNewPlayerLabel.font = UIFont(name: systemFont, size: 12)
             newPlayerTextField.font = UIFont(name: systemFont, size: 14)
             addNewPlayerButton.titleLabel?.font = UIFont(name: systemFont, size: 14)
-            
-            playButton.titleLabel?.font = UIFont(name: systemFont, size: 20)
-            trackingStatsButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             
             // game view
             
@@ -489,10 +485,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // dtermine if stats are tracked or not
     @IBAction func changeStatsTracking(_ sender: UIButton) {
         trackingStats = !trackingStats
-        if trackingStats {
-            trackingStatsButton.setTitle("Tracking Stats: On", for: .normal)
-        } else {
-            trackingStatsButton.setTitle("Tracking Stats: Off", for: .normal)
+        for i in 0..<help0Label.count {
+            if trackingStats {
+                trackingStatsButton[i].setTitle("Tracking Stats: On", for: .normal)
+            } else {
+                trackingStatsButton[i].setTitle("Tracking Stats: Off", for: .normal)
+            }
         }
     }
     
@@ -864,7 +862,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 5:
-            createHole(inView: helpView, aroundView: trackingStatsButton)
+            createHole(inView: helpView, aroundView: trackingStatsButton[0])
+            createHole(inView: helpViewPortrait, aroundView: trackingStatsButton[1])
             
             showSelectPlayerMenu(show: false)
             
@@ -878,9 +877,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
         case 6:
             if smallDevice() {
-                createHole(inView: helpView, aroundView: sePlayButton)
+                createHole(inView: helpView, aroundView: sePlayButton[0])
+                createHole(inView: helpViewPortrait, aroundView: sePlayButton[1])
             } else {
-                createHole(inView: helpView, aroundView: playButton)
+                createHole(inView: helpView, aroundView: playButton[0])
+                createHole(inView: helpViewPortrait, aroundView: playButton[1])
             }
             
             for i in 0..<help0Label.count {
