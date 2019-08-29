@@ -66,8 +66,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var loginViewPortrait: UIView!
     
     // team name labels on game view
-    @IBOutlet weak var redTeamLabel: UILabel!
-    @IBOutlet weak var blueTeamLabel: UILabel!
+    @IBOutlet var redTeamLabel: [UILabel]!
+    @IBOutlet var blueTeamLabel: [UILabel]!
     
     // backgrounds
     @IBOutlet var gameBackgroundImageView: [UIImageView]!
@@ -95,14 +95,20 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // set if game is 1v1 or 2v2
         if playersSegmentedControl[0].selectedSegmentIndex == 0 {
             oneVOne = true
-            redTeamLabel.text = "\(redPlayer1) •"
-            blueTeamLabel.text = "✕ \(bluePlayer1)"
+            
+            for i in 0..<help0Label.count {
+                redTeamLabel[i].text = "\(redPlayer1) •"
+                blueTeamLabel[i].text = "✕ \(bluePlayer1)"
+            }
         } else {
             oneVOne = false
             redPlayer2 = redPlayer2Label[0].text!
             bluePlayer2 = bluePlayer2Label[0].text!
-            redTeamLabel.text = "\(redPlayer1) •\n\(redPlayer2)"
-            blueTeamLabel.text = "✕ \(bluePlayer1)\n\(bluePlayer2)"
+            
+            for i in 0..<help0Label.count {
+                redTeamLabel[i].text = "\(redPlayer1) •\n\(redPlayer2)"
+                blueTeamLabel[i].text = "✕ \(bluePlayer1)\n\(bluePlayer2)"
+            }
         }
         
         // read max bags text field
@@ -111,18 +117,22 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // set match data
         startDate = Date()
         
-        // set colors
-        redTotalScoreLabel.textColor = redColor
-        redTeamLabel.textColor = redColor
-        redRoundScoreLabel.textColor = redColor
+        for i in 0..<help0Label.count {
+            // set colors
+            redTotalScoreLabel[i].textColor = redColor
+            redRoundScoreLabel[i].textColor = redColor
+            redTeamLabel[i].textColor = redColor
+            
+            blueTotalScoreLabel[i].textColor = blueColor
+            blueRoundScoreLabel[i].textColor = blueColor
+            blueTeamLabel[i].textColor = blueColor
+        }
+        
         redOnLabel.textColor = redColor
         redInLabel.textColor = redColor
         redOnStepper.tintColor = redColor
         redInStepper.tintColor = redColor
         
-        blueTotalScoreLabel.textColor = blueColor
-        blueTeamLabel.textColor = blueColor
-        blueRoundScoreLabel.textColor = blueColor
         blueOnLabel.textColor = blueColor
         blueInLabel.textColor = blueColor
         blueOnStepper.tintColor = blueColor
@@ -209,12 +219,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         var segmentFont = UIFont(name: systemFont, size: 14)
         
-        let redTeamLabelHeightConstraint = redTeamLabel.heightAnchor.constraint(equalToConstant: 150)
-        let blueTeamLabelHeightConstraint = blueTeamLabel.heightAnchor.constraint(equalToConstant: 150)
-        
-        redTeamLabelHeightConstraint.isActive = true
-        blueTeamLabelHeightConstraint.isActive = true
-        
         // adjust for size classes/small devices
         
         // size classes
@@ -266,20 +270,25 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 // constraints
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
                 playerTableView[i].widthAnchor.constraint(equalToConstant: 400).isActive = true
+                
+                // game view
+                
+                totalLabel[i].font = UIFont(name: systemFont, size: 100)
+                redTotalScoreLabel[i].font = UIFont(name: systemFont, size: 225)
+                blueTotalScoreLabel[i].font = UIFont(name: systemFont, size: 225)
+                totalDashLabel[i].font = UIFont(name: systemFont, size: 225)
+                roundLabel[i].font = UIFont(name: systemFont, size: 50)
+                redRoundScoreLabel[i].font = UIFont(name: systemFont, size: 100)
+                blueRoundScoreLabel[i].font = UIFont(name: systemFont, size: 100)
+                roundDashLabel[i].font = UIFont(name: systemFont, size: 120)
+                redTeamLabel[i].font = UIFont(name: systemFont, size: 25)
+                blueTeamLabel[i].font = UIFont(name: systemFont, size: 25)
+                
+                // constraints
+                redTeamLabel[i].heightAnchor.constraint(equalToConstant: 250).isActive = true
+                blueTeamLabel[i].heightAnchor.constraint(equalToConstant: 250).isActive = true
             }
             
-            // game view
-            
-            totalLabel.font = UIFont(name: systemFont, size: 100)
-            redTeamLabel.font = UIFont(name: systemFont, size: 25)
-            blueTeamLabel.font = UIFont(name: systemFont, size: 25)
-            redTotalScoreLabel.font = UIFont(name: systemFont, size: 225)
-            blueTotalScoreLabel.font = UIFont(name: systemFont, size: 225)
-            totalDashLabel.font = UIFont(name: systemFont, size: 225)
-            roundLabel.font = UIFont(name: systemFont, size: 50)
-            redRoundScoreLabel.font = UIFont(name: systemFont, size: 100)
-            blueRoundScoreLabel.font = UIFont(name: systemFont, size: 100)
-            roundDashLabel.font = UIFont(name: systemFont, size: 120)
             redInLabel.font = UIFont(name: systemFont, size: 30)
             redOnLabel.font = UIFont(name: systemFont, size: 30)
             blueInLabel.font = UIFont(name: systemFont, size: 30)
@@ -289,12 +298,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             roundCompleteButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             undoButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             resetButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            
-            // constraints
-            redTeamLabel.heightAnchor.constraint(equalToConstant: 250).isActive = true
-            redTeamLabelHeightConstraint.isActive = false
-            blueTeamLabel.heightAnchor.constraint(equalToConstant: 250).isActive = true
-            blueTeamLabelHeightConstraint.isActive = false
             
         } else if smallDevice() {
             
@@ -330,6 +333,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 createNewPlayerLabel[i].font = UIFont(name: systemFont, size: 12)
                 selectExistingPlayerLabel[i].font = UIFont(name: systemFont, size: 14)
                 
+                totalLabel[i].text = "Score"
+                
                 newPlayerTextField[i].font = UIFont(name: systemFont, size: 14)
                 
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
@@ -349,15 +354,29 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 trackingStatsButton[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
                 selectExistingPlayerLabel[i].widthAnchor.constraint(equalToConstant: 200).isActive = true
                 playerTableView[i].widthAnchor.constraint(equalToConstant: 220).isActive = true
+                
+                // game view
+                
+                totalLabel[i].font = UIFont(name: systemFont, size: 40)
+                redTotalScoreLabel[i].font = UIFont(name: systemFont, size: 80)
+                blueTotalScoreLabel[i].font = UIFont(name: systemFont, size: 80)
+                totalDashLabel[i].font = UIFont(name: systemFont, size: 80)
+                redTeamLabel[i].font = UIFont(name: systemFont, size: 14)
+                blueTeamLabel[i].font = UIFont(name: systemFont, size: 14)
+                
+                totalDashLabel[i].isHidden = true
+                redRoundScoreLabel[i].isHidden = true
+                blueRoundScoreLabel[i].isHidden = true
+                roundDashLabel[i].isHidden = true
+                roundLabel[i].isHidden = true
+                
+                // constraints
+                redTeamLabel[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
+                blueTeamLabel[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
             }
             
             // game view
             
-            redTeamLabel.font = UIFont(name: systemFont, size: 14)
-            blueTeamLabel.font = UIFont(name: systemFont, size: 14)
-            redTotalScoreLabel.font = UIFont(name: systemFont, size: 80)
-            blueTotalScoreLabel.font = UIFont(name: systemFont, size: 80)
-            totalDashLabel.font = UIFont(name: systemFont, size: 80)
             redInLabel.font = UIFont(name: systemFont, size: 14)
             redOnLabel.font = UIFont(name: systemFont, size: 14)
             blueInLabel.font = UIFont(name: systemFont, size: 14)
@@ -368,22 +387,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             undoButton.titleLabel?.font = UIFont(name: systemFont, size: 12.5)
             resetButton.titleLabel?.font = UIFont(name: systemFont, size: 11)
         
-            totalLabel.font = UIFont(name: systemFont, size: 40)
             seTotalDashLabel.font = UIFont(name: systemFont, size: 100)
             
-            totalLabel.text = "Score"
-            redRoundScoreLabel.isHidden = true
-            blueRoundScoreLabel.isHidden = true
-            roundDashLabel.isHidden = true
-            roundLabel.isHidden = true
             seTotalDashLabel.isHidden = false
-            totalDashLabel.isHidden = true
-            
-            // constraints
-            redTeamLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            redTeamLabelHeightConstraint.isActive = false
-            blueTeamLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            blueTeamLabelHeightConstraint.isActive = false
             
         } else { // normal phone
             
@@ -432,20 +438,23 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 playersSegmentedControl[i].heightAnchor.constraint(equalToConstant: 28).isActive = true
                 playerTableView[i].widthAnchor.constraint(equalToConstant: 270).isActive = true
+                redTeamLabel[i].heightAnchor.constraint(equalToConstant: 150).isActive = true
+                blueTeamLabel[i].heightAnchor.constraint(equalToConstant: 150).isActive = true
+                
+                // game view
+                
+                totalLabel[i].font = UIFont(name: systemFont, size: 40)
+                redTotalScoreLabel[i].font = UIFont(name: systemFont, size: 150)
+                blueTotalScoreLabel[i].font = UIFont(name: systemFont, size: 150)
+                totalDashLabel[i].font = UIFont(name: systemFont, size: 150)
+                roundLabel[i].font = UIFont(name: systemFont, size: 25)
+                redRoundScoreLabel[i].font = UIFont(name: systemFont, size: 60)
+                blueRoundScoreLabel[i].font = UIFont(name: systemFont, size: 60)
+                roundDashLabel[i].font = UIFont(name: systemFont, size: 60)
+                redTeamLabel[i].font = UIFont(name: systemFont, size: 17)
+                blueTeamLabel[i].font = UIFont(name: systemFont, size: 17)
             }
             
-            // game view
-            
-            totalLabel.font = UIFont(name: systemFont, size: 40)
-            redTeamLabel.font = UIFont(name: systemFont, size: 17)
-            blueTeamLabel.font = UIFont(name: systemFont, size: 17)
-            redTotalScoreLabel.font = UIFont(name: systemFont, size: 150)
-            blueTotalScoreLabel.font = UIFont(name: systemFont, size: 150)
-            totalDashLabel.font = UIFont(name: systemFont, size: 150)
-            roundLabel.font = UIFont(name: systemFont, size: 25)
-            redRoundScoreLabel.font = UIFont(name: systemFont, size: 60)
-            blueRoundScoreLabel.font = UIFont(name: systemFont, size: 60)
-            roundDashLabel.font = UIFont(name: systemFont, size: 60)
             redInLabel.font = UIFont(name: systemFont, size: 17)
             redOnLabel.font = UIFont(name: systemFont, size: 17)
             blueInLabel.font = UIFont(name: systemFont, size: 17)
@@ -971,7 +980,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 11:
-            createHoleIPad(inView: helpView, aroundView: redTeamLabel)
+            createHoleIPad(inView: helpView, aroundView: redTeamLabel[0])
+            createHoleIPad(inView: helpViewPortrait, aroundView: redTeamLabel[1])
             
             for i in 0..<help0Label.count {
                 help10Label[i].isHidden = true
@@ -1075,14 +1085,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     var lastBlueScore = 0
     
     // outlets
-    @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var redTotalScoreLabel: UILabel!
-    @IBOutlet weak var totalDashLabel: UILabel!
-    @IBOutlet weak var blueTotalScoreLabel: UILabel!
-    @IBOutlet weak var roundLabel: UILabel!
-    @IBOutlet weak var redRoundScoreLabel: UILabel!
-    @IBOutlet weak var roundDashLabel: UILabel!
-    @IBOutlet weak var blueRoundScoreLabel: UILabel!
+    @IBOutlet var totalLabel: [UILabel]!
+    @IBOutlet var redTotalScoreLabel: [UILabel]!
+    @IBOutlet var totalDashLabel: [UILabel]!
+    @IBOutlet var blueTotalScoreLabel: [UILabel]!
+    @IBOutlet var roundLabel: [UILabel]!
+    @IBOutlet var redRoundScoreLabel: [UILabel]!
+    @IBOutlet var roundDashLabel: [UILabel]!
+    @IBOutlet var blueRoundScoreLabel: [UILabel]!
     @IBOutlet weak var redInLabel: UILabel!
     @IBOutlet weak var redInStepper: UIStepper!
     @IBOutlet weak var redOnLabel: UILabel!
@@ -1104,8 +1114,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // calculate round scores
         redRoundScore = Int(redInStepper.value * 3 + redOnStepper.value)
         blueRoundScore = Int(blueInStepper.value * 3 + blueOnStepper.value)
-        redRoundScoreLabel.text = "\(redRoundScore)"
-        blueRoundScoreLabel.text = "\(blueRoundScore)"
+        
+        for i in 0..<help0Label.count {
+            redRoundScoreLabel[i].text = "\(redRoundScore)"
+            blueRoundScoreLabel[i].text = "\(blueRoundScore)"
+        }
         
         // update labels
         redInLabel.text = "In: \(Int(redInStepper.value))"
@@ -1150,15 +1163,17 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             blueTotalScore += blueRoundScore - redRoundScore
         }
         
-        redTotalScoreLabel.text = "\(redTotalScore)"
-        blueTotalScoreLabel.text = "\(blueTotalScore)"
-        
-        // reset round score
-        redRoundScore = 0
-        blueRoundScore = 0
-        
-        redRoundScoreLabel.text = "\(redRoundScore)"
-        blueRoundScoreLabel.text = "\(blueRoundScore)"
+        for i in 0..<help0Label.count {
+            redTotalScoreLabel[i].text = "\(redTotalScore)"
+            blueTotalScoreLabel[i].text = "\(blueTotalScore)"
+            
+            // reset round score
+            redRoundScore = 0
+            blueRoundScore = 0
+            
+            redRoundScoreLabel[i].text = "\(redRoundScore)"
+            blueRoundScoreLabel[i].text = "\(blueRoundScore)"
+        }
         
         // reset steppers
         resetSteppers()
@@ -1310,8 +1325,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         redTotalScore = lastRedScore
         blueTotalScore = lastBlueScore
         
-        redTotalScoreLabel.text = "\(redTotalScore)"
-        blueTotalScoreLabel.text = "\(blueTotalScore)"
+        for i in 0..<help0Label.count {
+            redTotalScoreLabel[i].text = "\(redTotalScore)"
+            blueTotalScoreLabel[i].text = "\(blueTotalScore)"
+        }
         
         // backup round
         round -= 1
@@ -1373,14 +1390,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         redTotalScore = 0
         blueTotalScore = 0
     
-        redTotalScoreLabel.text = "\(redTotalScore)"
-        blueTotalScoreLabel.text = "\(blueTotalScore)"
-    
-        redRoundScore = 0
-        blueRoundScore = 0
-    
-        redRoundScoreLabel.text = "\(redRoundScore)"
-        blueRoundScoreLabel.text = "\(blueRoundScore)"
+        for i in 0..<help0Label.count {
+            redTotalScoreLabel[i].text = "\(redTotalScore)"
+            blueTotalScoreLabel[i].text = "\(blueTotalScore)"
+            
+            redRoundScore = 0
+            blueRoundScore = 0
+            
+            redRoundScoreLabel[i].text = "\(redRoundScore)"
+            blueRoundScoreLabel[i].text = "\(blueRoundScore)"
+        }
     
         // update buttons
     
@@ -1503,27 +1522,30 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         // write labels
-        if oneVOne {
-            if firstThrowerColor == Match.RED { // red team going
-                redTeamLabel.text = "\(redPlayer1) •"
-                blueTeamLabel.text = "✕ \(bluePlayer1)"
-            } else { // blue team going
-                redTeamLabel.text = "\(redPlayer1) ✕"
-                blueTeamLabel.text = "• \(bluePlayer1)"
-            }
-        } else {
-            if(firstThrowerColor == Match.RED && firstThrowerPlayer1) { // red player 1
-                redTeamLabel.text = "\(redPlayer1) •\n\(redPlayer2)"
-                blueTeamLabel.text = "✕ \(bluePlayer1)\n\(bluePlayer2)"
-            } else if(firstThrowerColor == Match.RED) { // red player 2
-                redTeamLabel.text = "\(redPlayer1)\n\(redPlayer2) •"
-                blueTeamLabel.text = "\(bluePlayer1)\n✕ \(bluePlayer2)"
-            } else if(firstThrowerPlayer1) { // blue player 1
-                redTeamLabel.text = "\(redPlayer1) ✕\n\(redPlayer2)"
-                blueTeamLabel.text = "• \(bluePlayer1)\n\(bluePlayer2)"
-            } else { // blue player 2
-                redTeamLabel.text = "\(redPlayer1)\n\(redPlayer2) ✕"
-                blueTeamLabel.text = "\(bluePlayer1)\n• \(bluePlayer2)"
+        
+        for i in 0..<help0Label.count {
+            if oneVOne {
+                if firstThrowerColor == Match.RED { // red team going
+                    redTeamLabel[i].text = "\(redPlayer1) •"
+                    blueTeamLabel[i].text = "✕ \(bluePlayer1)"
+                } else { // blue team going
+                    redTeamLabel[i].text = "\(redPlayer1) ✕"
+                    blueTeamLabel[i].text = "• \(bluePlayer1)"
+                }
+            } else {
+                if(firstThrowerColor == Match.RED && firstThrowerPlayer1) { // red player 1
+                    redTeamLabel[i].text = "\(redPlayer1) •\n\(redPlayer2)"
+                    blueTeamLabel[i].text = "✕ \(bluePlayer1)\n\(bluePlayer2)"
+                } else if(firstThrowerColor == Match.RED) { // red player 2
+                    redTeamLabel[i].text = "\(redPlayer1)\n\(redPlayer2) •"
+                    blueTeamLabel[i].text = "\(bluePlayer1)\n✕ \(bluePlayer2)"
+                } else if(firstThrowerPlayer1) { // blue player 1
+                    redTeamLabel[i].text = "\(redPlayer1) ✕\n\(redPlayer2)"
+                    blueTeamLabel[i].text = "• \(bluePlayer1)\n\(bluePlayer2)"
+                } else { // blue player 2
+                    redTeamLabel[i].text = "\(redPlayer1)\n\(redPlayer2) ✕"
+                    blueTeamLabel[i].text = "\(bluePlayer1)\n• \(bluePlayer2)"
+                }
             }
         }
     }

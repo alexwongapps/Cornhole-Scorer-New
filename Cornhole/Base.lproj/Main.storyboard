@@ -1516,9 +1516,6 @@
                         <outlet property="blueInStepper" destination="uTG-hk-07o" id="Dlg-8n-7JU"/>
                         <outlet property="blueOnLabel" destination="OYc-J1-9UQ" id="BWE-e8-2uy"/>
                         <outlet property="blueOnStepper" destination="Y6s-hr-rNn" id="eT5-Tj-clC"/>
-                        <outlet property="blueRoundScoreLabel" destination="2Cd-yO-T1U" id="SBB-LU-DUr"/>
-                        <outlet property="blueTeamLabel" destination="0Ym-tI-Rym" id="Oq3-Zy-d8V"/>
-                        <outlet property="blueTotalScoreLabel" destination="mkn-Ie-B7I" id="tDc-XK-Mou"/>
                         <outlet property="gameViewPortrait" destination="f3l-cU-blO" id="6DU-02-wtI"/>
                         <outlet property="helpView" destination="zsd-U3-VCe" id="vZn-7w-kaq"/>
                         <outlet property="helpViewPortrait" destination="8fX-jU-S7U" id="6LZ-SF-cmZ"/>
@@ -1528,18 +1525,11 @@
                         <outlet property="redInStepper" destination="dgG-fP-tQ3" id="5Lv-uD-Zmd"/>
                         <outlet property="redOnLabel" destination="HwP-ET-IY3" id="OCq-Be-pjE"/>
                         <outlet property="redOnStepper" destination="vwM-JA-MdZ" id="VYI-LO-6cP"/>
-                        <outlet property="redRoundScoreLabel" destination="mHb-dK-eZg" id="2Lw-Wo-HKB"/>
-                        <outlet property="redTeamLabel" destination="yaE-iv-2Ku" id="4l4-Oc-Wce"/>
-                        <outlet property="redTotalScoreLabel" destination="CGZ-el-nMR" id="Xne-dD-ELQ"/>
                         <outlet property="resetButton" destination="asz-dV-UJi" id="GhR-IC-zgo"/>
                         <outlet property="roundCompleteButton" destination="nuD-Xu-BnN" id="H97-J2-Qpk"/>
-                        <outlet property="roundDashLabel" destination="JLt-Gf-cBm" id="oYS-hr-QOU"/>
-                        <outlet property="roundLabel" destination="xoh-fb-Y0s" id="HMT-sd-dRG"/>
                         <outlet property="seTotalDashLabel" destination="H3y-IT-ZPV" id="Izf-ei-Arm"/>
                         <outlet property="selectNewPlayersButton" destination="wW9-Gc-vto" id="V49-mE-oe5"/>
                         <outlet property="stepperStackView" destination="Ee2-Z0-3aE" id="vPu-lk-C1X"/>
-                        <outlet property="totalDashLabel" destination="3x7-mX-7xW" id="SPm-Tb-slr"/>
-                        <outlet property="totalLabel" destination="Esv-kV-HL6" id="Fmn-WK-3cq"/>
                         <outlet property="undoButton" destination="L0o-Wo-oLS" id="Pjq-iD-VXR"/>
                         <outletCollection property="help0Label" destination="f9x-qp-UwK" collectionClass="NSMutableArray" id="3eI-Jw-m0s"/>
                         <outletCollection property="help0Label" destination="px6-xk-PAC" collectionClass="NSMutableArray" id="eFK-GR-uKv"/>
@@ -1615,6 +1605,26 @@
                         <outletCollection property="selectExistingPlayerLabel" destination="eba-yj-1ep" collectionClass="NSMutableArray" id="cVZ-l8-qUs"/>
                         <outletCollection property="playerTableView" destination="tnS-R2-qg9" collectionClass="NSMutableArray" id="QBk-we-4rU"/>
                         <outletCollection property="playerTableView" destination="enJ-Wz-oE1" collectionClass="NSMutableArray" id="hku-AQ-DR4"/>
+                        <outletCollection property="totalLabel" destination="Esv-kV-HL6" collectionClass="NSMutableArray" id="mcu-k3-akQ"/>
+                        <outletCollection property="totalLabel" destination="3tX-Wj-HzU" collectionClass="NSMutableArray" id="CUE-O6-c7A"/>
+                        <outletCollection property="redTotalScoreLabel" destination="CGZ-el-nMR" collectionClass="NSMutableArray" id="QQ6-ZL-cWQ"/>
+                        <outletCollection property="totalDashLabel" destination="3x7-mX-7xW" collectionClass="NSMutableArray" id="7SU-Gi-hPI"/>
+                        <outletCollection property="blueTotalScoreLabel" destination="mkn-Ie-B7I" collectionClass="NSMutableArray" id="S8G-bD-J8t"/>
+                        <outletCollection property="redTotalScoreLabel" destination="CeY-yE-7AQ" collectionClass="NSMutableArray" id="655-U4-f1L"/>
+                        <outletCollection property="totalDashLabel" destination="Iwz-7b-ijH" collectionClass="NSMutableArray" id="gp3-kh-c1O"/>
+                        <outletCollection property="blueTotalScoreLabel" destination="xkD-71-fal" collectionClass="NSMutableArray" id="Yj4-Nn-Shx"/>
+                        <outletCollection property="roundLabel" destination="xoh-fb-Y0s" collectionClass="NSMutableArray" id="qLH-ur-FKT"/>
+                        <outletCollection property="redRoundScoreLabel" destination="mHb-dK-eZg" collectionClass="NSMutableArray" id="56C-aG-u6e"/>
+                        <outletCollection property="roundDashLabel" destination="JLt-Gf-cBm" collectionClass="NSMutableArray" id="DYg-AX-FMx"/>
+                        <outletCollection property="blueRoundScoreLabel" destination="2Cd-yO-T1U" collectionClass="NSMutableArray" id="AKS-vF-kyf"/>
+                        <outletCollection property="roundLabel" destination="idS-XG-Iye" collectionClass="NSMutableArray" id="yD5-UM-Zfv"/>
+                        <outletCollection property="redRoundScoreLabel" destination="ewm-jU-eIS" collectionClass="NSMutableArray" id="Ia6-sV-W5l"/>
+                        <outletCollection property="roundDashLabel" destination="Q5W-69-s6r" collectionClass="NSMutableArray" id="iFo-vR-Zxf"/>
+                        <outletCollection property="blueRoundScoreLabel" destination="cSL-FE-Jjw" collectionClass="NSMutableArray" id="wby-6i-XA9"/>
+                        <outletCollection property="redTeamLabel" destination="yaE-iv-2Ku" collectionClass="NSMutableArray" id="eBR-KO-DEy"/>
+                        <outletCollection property="blueTeamLabel" destination="0Ym-tI-Rym" collectionClass="NSMutableArray" id="xIZ-Wf-MHE"/>
+                        <outletCollection property="redTeamLabel" destination="HPj-vf-CQ5" collectionClass="NSMutableArray" id="PBI-Oj-uGR"/>
+                        <outletCollection property="blueTeamLabel" destination="tgt-aM-PLe" collectionClass="NSMutableArray" id="IXf-dW-KCm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
