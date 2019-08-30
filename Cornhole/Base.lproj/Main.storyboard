@@ -29,7 +29,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ee2-Z0-3aE" userLabel="Stepper Stack View">
                                 <rect key="frame" x="-45.5" y="536" width="466" height="29"/>
                                 <subviews>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="vwM-JA-MdZ">
+                                    <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="vwM-JA-MdZ">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="ilR-e1-SFj"/>
@@ -49,7 +49,7 @@
                                             <action selector="stepperChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="gxg-GW-l3a"/>
                                         </connections>
                                     </stepper>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="uTG-hk-07o">
+                                    <stepper opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="uTG-hk-07o">
                                         <rect key="frame" x="248" y="0.0" width="94" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="D3t-Tb-gGg"/>
@@ -59,7 +59,7 @@
                                             <action selector="stepperChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="Kts-n9-iQP"/>
                                         </connections>
                                     </stepper>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Y6s-hr-rNn">
+                                    <stepper opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Y6s-hr-rNn">
                                         <rect key="frame" x="372" y="0.0" width="94" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="qDt-DY-jXF"/>
@@ -282,7 +282,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="bSL-hT-2Rk">
+                                    <stepper opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="bSL-hT-2Rk">
                                         <rect key="frame" x="222.5" y="471" width="94" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="CPx-pA-0Ve"/>
@@ -436,14 +436,13 @@
                                         </subviews>
                                         <variation key="heightClass=regular-widthClass=regular" spacing="50"/>
                                     </stackView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="–" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zp1-X4-7o0">
-                                        <rect key="frame" x="269" y="0.0" width="65" height="126.5"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="–" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zp1-X4-7o0">
+                                        <rect key="frame" x="155" y="82.5" width="65" height="126.5"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="100"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-Fw-d86">
+                                    <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-Fw-d86">
                                         <rect key="frame" x="58.5" y="471" width="94" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="66v-Lw-eDg"/>
@@ -463,7 +462,7 @@
                                             <action selector="stepperChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="WUF-Wr-8CP"/>
                                         </connections>
                                     </stepper>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="PV8-8K-d9f">
+                                    <stepper opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="PV8-8K-d9f">
                                         <rect key="frame" x="222.5" y="405.5" width="94" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="v5a-RC-Uoh"/>
@@ -517,6 +516,7 @@
                                     <constraint firstItem="Xht-nE-H2q" firstAttribute="centerX" secondItem="Bub-AL-7mr" secondAttribute="centerX" id="hc0-t4-ska"/>
                                     <constraint firstItem="bSL-hT-2Rk" firstAttribute="centerY" secondItem="hNn-Fw-d86" secondAttribute="centerY" id="jSf-sN-qeU"/>
                                     <constraint firstItem="3tX-Wj-HzU" firstAttribute="centerX" secondItem="f3l-cU-blO" secondAttribute="centerX" id="lFn-wc-m3b"/>
+                                    <constraint firstItem="Zp1-X4-7o0" firstAttribute="centerX" secondItem="Iwz-7b-ijH" secondAttribute="centerX" id="lhm-rP-Ixa"/>
                                     <constraint firstItem="bSL-hT-2Rk" firstAttribute="leading" secondItem="f3l-cU-blO" secondAttribute="centerX" constant="35" id="mOT-3h-Yb6"/>
                                     <constraint firstItem="DsR-cA-Ftb" firstAttribute="centerY" secondItem="Bub-AL-7mr" secondAttribute="centerY" id="pNq-jE-nLd"/>
                                     <constraint firstItem="VKo-b1-iiX" firstAttribute="top" secondItem="AaL-Kd-bCz" secondAttribute="bottom" constant="15" id="pm3-09-d2g"/>
@@ -527,6 +527,7 @@
                                     <constraint firstItem="Ykr-73-Rv0" firstAttribute="centerY" secondItem="hlI-rd-eix" secondAttribute="centerY" id="uHR-ZT-OU0"/>
                                     <constraint firstItem="bSL-hT-2Rk" firstAttribute="centerX" secondItem="Ykr-73-Rv0" secondAttribute="centerX" id="viO-aV-dFj"/>
                                     <constraint firstItem="3tX-Wj-HzU" firstAttribute="top" secondItem="f3l-cU-blO" secondAttribute="top" constant="30" id="xWs-l7-NFR"/>
+                                    <constraint firstItem="Zp1-X4-7o0" firstAttribute="centerY" secondItem="Iwz-7b-ijH" secondAttribute="centerY" id="y8Z-I4-xjU"/>
                                     <constraint firstItem="PV8-8K-d9f" firstAttribute="centerX" secondItem="DsR-cA-Ftb" secondAttribute="centerX" id="ywl-bu-0px"/>
                                     <constraint firstItem="VKo-b1-iiX" firstAttribute="centerX" secondItem="AaL-Kd-bCz" secondAttribute="centerX" id="zcl-9x-5P9"/>
                                 </constraints>
@@ -1512,25 +1513,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Scoreboard" image="Scoreboard" selectedImage="Scoreboard" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="blueInLabel" destination="VT9-pE-aIe" id="7h2-KZ-RAX"/>
-                        <outlet property="blueInStepper" destination="uTG-hk-07o" id="Dlg-8n-7JU"/>
-                        <outlet property="blueOnLabel" destination="OYc-J1-9UQ" id="BWE-e8-2uy"/>
-                        <outlet property="blueOnStepper" destination="Y6s-hr-rNn" id="eT5-Tj-clC"/>
                         <outlet property="gameViewPortrait" destination="f3l-cU-blO" id="6DU-02-wtI"/>
                         <outlet property="helpView" destination="zsd-U3-VCe" id="vZn-7w-kaq"/>
                         <outlet property="helpViewPortrait" destination="8fX-jU-S7U" id="6LZ-SF-cmZ"/>
                         <outlet property="loginView" destination="ISr-1L-Y6J" id="s8U-GW-hqc"/>
                         <outlet property="loginViewPortrait" destination="E7y-Pq-30e" id="N2F-UT-Md7"/>
-                        <outlet property="redInLabel" destination="BzW-7D-LSr" id="a6Z-v4-jwy"/>
-                        <outlet property="redInStepper" destination="dgG-fP-tQ3" id="5Lv-uD-Zmd"/>
-                        <outlet property="redOnLabel" destination="HwP-ET-IY3" id="OCq-Be-pjE"/>
-                        <outlet property="redOnStepper" destination="vwM-JA-MdZ" id="VYI-LO-6cP"/>
-                        <outlet property="resetButton" destination="asz-dV-UJi" id="GhR-IC-zgo"/>
-                        <outlet property="roundCompleteButton" destination="nuD-Xu-BnN" id="H97-J2-Qpk"/>
-                        <outlet property="seTotalDashLabel" destination="H3y-IT-ZPV" id="Izf-ei-Arm"/>
-                        <outlet property="selectNewPlayersButton" destination="wW9-Gc-vto" id="V49-mE-oe5"/>
                         <outlet property="stepperStackView" destination="Ee2-Z0-3aE" id="vPu-lk-C1X"/>
-                        <outlet property="undoButton" destination="L0o-Wo-oLS" id="Pjq-iD-VXR"/>
                         <outletCollection property="help0Label" destination="f9x-qp-UwK" collectionClass="NSMutableArray" id="3eI-Jw-m0s"/>
                         <outletCollection property="help0Label" destination="px6-xk-PAC" collectionClass="NSMutableArray" id="eFK-GR-uKv"/>
                         <outletCollection property="help1Label" destination="qhi-7X-oid" collectionClass="NSMutableArray" id="TCZ-cl-oYw"/>
@@ -1625,6 +1613,32 @@
                         <outletCollection property="blueTeamLabel" destination="0Ym-tI-Rym" collectionClass="NSMutableArray" id="xIZ-Wf-MHE"/>
                         <outletCollection property="redTeamLabel" destination="HPj-vf-CQ5" collectionClass="NSMutableArray" id="PBI-Oj-uGR"/>
                         <outletCollection property="blueTeamLabel" destination="tgt-aM-PLe" collectionClass="NSMutableArray" id="IXf-dW-KCm"/>
+                        <outletCollection property="redInLabel" destination="BzW-7D-LSr" collectionClass="NSMutableArray" id="1Ad-Us-3IZ"/>
+                        <outletCollection property="redOnLabel" destination="HwP-ET-IY3" collectionClass="NSMutableArray" id="Eth-c5-iLw"/>
+                        <outletCollection property="blueInLabel" destination="VT9-pE-aIe" collectionClass="NSMutableArray" id="iZF-TG-0yu"/>
+                        <outletCollection property="blueOnLabel" destination="OYc-J1-9UQ" collectionClass="NSMutableArray" id="Yeg-j7-D2J"/>
+                        <outletCollection property="redInLabel" destination="Bub-AL-7mr" collectionClass="NSMutableArray" id="CN0-JX-amc"/>
+                        <outletCollection property="redOnLabel" destination="hlI-rd-eix" collectionClass="NSMutableArray" id="PIe-ia-6cr"/>
+                        <outletCollection property="blueInLabel" destination="DsR-cA-Ftb" collectionClass="NSMutableArray" id="mdO-jk-5ds"/>
+                        <outletCollection property="blueOnLabel" destination="Ykr-73-Rv0" collectionClass="NSMutableArray" id="eq8-ZJ-ykc"/>
+                        <outletCollection property="redInStepper" destination="dgG-fP-tQ3" collectionClass="NSMutableArray" id="8iT-0C-zYf"/>
+                        <outletCollection property="redOnStepper" destination="vwM-JA-MdZ" collectionClass="NSMutableArray" id="d3T-Dm-1v3"/>
+                        <outletCollection property="blueInStepper" destination="uTG-hk-07o" collectionClass="NSMutableArray" id="LNZ-eq-dfe"/>
+                        <outletCollection property="blueOnStepper" destination="Y6s-hr-rNn" collectionClass="NSMutableArray" id="sdA-P3-TJd"/>
+                        <outletCollection property="redInStepper" destination="Xht-nE-H2q" collectionClass="NSMutableArray" id="qG3-Rg-jfy"/>
+                        <outletCollection property="redOnStepper" destination="hNn-Fw-d86" collectionClass="NSMutableArray" id="IeU-WN-rmd"/>
+                        <outletCollection property="blueInStepper" destination="PV8-8K-d9f" collectionClass="NSMutableArray" id="9WK-06-6ed"/>
+                        <outletCollection property="blueOnStepper" destination="bSL-hT-2Rk" collectionClass="NSMutableArray" id="wp2-8Z-0US"/>
+                        <outletCollection property="selectNewPlayersButton" destination="wW9-Gc-vto" collectionClass="NSMutableArray" id="aoE-o5-30q"/>
+                        <outletCollection property="selectNewPlayersButton" destination="VKo-b1-iiX" collectionClass="NSMutableArray" id="P1r-Rm-QTw"/>
+                        <outletCollection property="roundCompleteButton" destination="nuD-Xu-BnN" collectionClass="NSMutableArray" id="ecz-6d-RFr"/>
+                        <outletCollection property="roundCompleteButton" destination="AaL-Kd-bCz" collectionClass="NSMutableArray" id="1Cw-Vs-Nd3"/>
+                        <outletCollection property="undoButton" destination="L0o-Wo-oLS" collectionClass="NSMutableArray" id="jbw-m6-TUo"/>
+                        <outletCollection property="undoButton" destination="6um-1R-gXP" collectionClass="NSMutableArray" id="oeQ-YF-Y8I"/>
+                        <outletCollection property="resetButton" destination="asz-dV-UJi" collectionClass="NSMutableArray" id="pgG-6e-gBA"/>
+                        <outletCollection property="resetButton" destination="Zok-ej-rjM" collectionClass="NSMutableArray" id="mRa-iy-yiW"/>
+                        <outletCollection property="seTotalDashLabel" destination="H3y-IT-ZPV" collectionClass="NSMutableArray" id="PK5-ky-xe8"/>
+                        <outletCollection property="seTotalDashLabel" destination="Zp1-X4-7o0" collectionClass="NSMutableArray" id="5yM-a1-pJu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

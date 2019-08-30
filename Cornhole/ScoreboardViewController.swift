@@ -122,21 +122,19 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             redTotalScoreLabel[i].textColor = redColor
             redRoundScoreLabel[i].textColor = redColor
             redTeamLabel[i].textColor = redColor
+            redOnLabel[i].textColor = redColor
+            redInLabel[i].textColor = redColor
+            redOnStepper[i].tintColor = redColor
+            redInStepper[i].tintColor = redColor
             
             blueTotalScoreLabel[i].textColor = blueColor
             blueRoundScoreLabel[i].textColor = blueColor
             blueTeamLabel[i].textColor = blueColor
+            blueOnLabel[i].textColor = blueColor
+            blueInLabel[i].textColor = blueColor
+            blueOnStepper[i].tintColor = blueColor
+            blueInStepper[i].tintColor = blueColor
         }
-        
-        redOnLabel.textColor = redColor
-        redInLabel.textColor = redColor
-        redOnStepper.tintColor = redColor
-        redInStepper.tintColor = redColor
-        
-        blueOnLabel.textColor = blueColor
-        blueInLabel.textColor = blueColor
-        blueOnStepper.tintColor = blueColor
-        blueInStepper.tintColor = blueColor
         
         loginView.isHidden = true
         // animateCloseLogin()
@@ -283,22 +281,20 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 roundDashLabel[i].font = UIFont(name: systemFont, size: 120)
                 redTeamLabel[i].font = UIFont(name: systemFont, size: 25)
                 blueTeamLabel[i].font = UIFont(name: systemFont, size: 25)
+                redInLabel[i].font = UIFont(name: systemFont, size: 30)
+                redOnLabel[i].font = UIFont(name: systemFont, size: 30)
+                blueInLabel[i].font = UIFont(name: systemFont, size: 30)
+                blueOnLabel[i].font = UIFont(name: systemFont, size: 30)
+                
+                selectNewPlayersButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                roundCompleteButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                undoButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                resetButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 
                 // constraints
                 redTeamLabel[i].heightAnchor.constraint(equalToConstant: 250).isActive = true
                 blueTeamLabel[i].heightAnchor.constraint(equalToConstant: 250).isActive = true
             }
-            
-            redInLabel.font = UIFont(name: systemFont, size: 30)
-            redOnLabel.font = UIFont(name: systemFont, size: 30)
-            blueInLabel.font = UIFont(name: systemFont, size: 30)
-            blueOnLabel.font = UIFont(name: systemFont, size: 30)
-            
-            selectNewPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            roundCompleteButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            undoButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            resetButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            
         } else if smallDevice() {
             
             for i in 0..<help0Label.count {
@@ -363,33 +359,28 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 totalDashLabel[i].font = UIFont(name: systemFont, size: 80)
                 redTeamLabel[i].font = UIFont(name: systemFont, size: 14)
                 blueTeamLabel[i].font = UIFont(name: systemFont, size: 14)
+                redInLabel[i].font = UIFont(name: systemFont, size: 14)
+                redOnLabel[i].font = UIFont(name: systemFont, size: 14)
+                blueInLabel[i].font = UIFont(name: systemFont, size: 14)
+                blueOnLabel[i].font = UIFont(name: systemFont, size: 14)
+                seTotalDashLabel[i].font = UIFont(name: systemFont, size: 100)
                 
+                seTotalDashLabel[i].isHidden = false
                 totalDashLabel[i].isHidden = true
                 redRoundScoreLabel[i].isHidden = true
                 blueRoundScoreLabel[i].isHidden = true
                 roundDashLabel[i].isHidden = true
                 roundLabel[i].isHidden = true
                 
+                selectNewPlayersButton[i].titleLabel?.font = UIFont(name: systemFont, size: 12.5)
+                roundCompleteButton[i].titleLabel?.font = UIFont(name: systemFont, size: 12.5)
+                undoButton[i].titleLabel?.font = UIFont(name: systemFont, size: 12.5)
+                resetButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
+                
                 // constraints
                 redTeamLabel[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
                 blueTeamLabel[i].heightAnchor.constraint(equalToConstant: 50).isActive = true
             }
-            
-            // game view
-            
-            redInLabel.font = UIFont(name: systemFont, size: 14)
-            redOnLabel.font = UIFont(name: systemFont, size: 14)
-            blueInLabel.font = UIFont(name: systemFont, size: 14)
-            blueOnLabel.font = UIFont(name: systemFont, size: 14)
-            
-            selectNewPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 12.5)
-            roundCompleteButton.titleLabel?.font = UIFont(name: systemFont, size: 12.5)
-            undoButton.titleLabel?.font = UIFont(name: systemFont, size: 12.5)
-            resetButton.titleLabel?.font = UIFont(name: systemFont, size: 11)
-        
-            seTotalDashLabel.font = UIFont(name: systemFont, size: 100)
-            
-            seTotalDashLabel.isHidden = false
             
         } else { // normal phone
             
@@ -453,18 +444,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 roundDashLabel[i].font = UIFont(name: systemFont, size: 60)
                 redTeamLabel[i].font = UIFont(name: systemFont, size: 17)
                 blueTeamLabel[i].font = UIFont(name: systemFont, size: 17)
+                redInLabel[i].font = UIFont(name: systemFont, size: 17)
+                redOnLabel[i].font = UIFont(name: systemFont, size: 17)
+                blueInLabel[i].font = UIFont(name: systemFont, size: 17)
+                blueOnLabel[i].font = UIFont(name: systemFont, size: 17)
+                
+                selectNewPlayersButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                roundCompleteButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                undoButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                resetButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
             }
-            
-            redInLabel.font = UIFont(name: systemFont, size: 17)
-            redOnLabel.font = UIFont(name: systemFont, size: 17)
-            blueInLabel.font = UIFont(name: systemFont, size: 17)
-            blueOnLabel.font = UIFont(name: systemFont, size: 17)
-            
-            selectNewPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            roundCompleteButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            undoButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            resetButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            
         }
         
         // set backgrounds
@@ -936,6 +925,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
         case 7:
             createHoleIPad(inView: helpView, aroundView: stepperStackView)
+            createHoleIPad(inView: helpViewPortrait, aroundView: redInStepper[1])
             
             loginView.isHidden = true
             
@@ -947,7 +937,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 8:
-            createHoleIPad(inView: helpView, aroundView: roundCompleteButton)
+            createHoleIPad(inView: helpView, aroundView: roundCompleteButton[0])
+            createHoleIPad(inView: helpViewPortrait, aroundView: roundCompleteButton[1])
             
             for i in 0..<help0Label.count {
                 help7Label[i].isHidden = true
@@ -958,7 +949,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 9:
-            createHoleIPad(inView: helpView, aroundView: resetButton)
+            createHoleIPad(inView: helpView, aroundView: resetButton[0])
+            createHoleIPad(inView: helpViewPortrait, aroundView: resetButton[1])
             
             for i in 0..<help0Label.count {
                 help8Label[i].isHidden = true
@@ -969,7 +961,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         case 10:
-            createHoleIPad(inView: helpView, aroundView: selectNewPlayersButton)
+            createHoleIPad(inView: helpView, aroundView: selectNewPlayersButton[0])
+            createHoleIPad(inView: helpViewPortrait, aroundView: selectNewPlayersButton[1])
             
             for i in 0..<help0Label.count {
                 help9Label[i].isHidden = true
@@ -1093,47 +1086,74 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var redRoundScoreLabel: [UILabel]!
     @IBOutlet var roundDashLabel: [UILabel]!
     @IBOutlet var blueRoundScoreLabel: [UILabel]!
-    @IBOutlet weak var redInLabel: UILabel!
-    @IBOutlet weak var redInStepper: UIStepper!
-    @IBOutlet weak var redOnLabel: UILabel!
-    @IBOutlet weak var redOnStepper: UIStepper!
-    @IBOutlet weak var blueInLabel: UILabel!
-    @IBOutlet weak var blueInStepper: UIStepper!
-    @IBOutlet weak var blueOnLabel: UILabel!
-    @IBOutlet weak var blueOnStepper: UIStepper!
-    @IBOutlet weak var selectNewPlayersButton: UIButton!
-    @IBOutlet weak var roundCompleteButton: UIButton!
-    @IBOutlet weak var undoButton: UIButton!
-    @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var seTotalDashLabel: UILabel!
+    @IBOutlet var redInLabel: [UILabel]!
+    @IBOutlet var redInStepper: [UIStepper]!
+    @IBOutlet var redOnLabel: [UILabel]!
+    @IBOutlet var redOnStepper: [UIStepper]!
+    @IBOutlet var blueInLabel: [UILabel]!
+    @IBOutlet var blueInStepper: [UIStepper]!
+    @IBOutlet var blueOnLabel: [UILabel]!
+    @IBOutlet var blueOnStepper: [UIStepper]!
+    @IBOutlet var selectNewPlayersButton: [UIButton]!
+    @IBOutlet var roundCompleteButton: [UIButton]!
+    @IBOutlet var undoButton: [UIButton]!
+    @IBOutlet var resetButton: [UIButton]!
+    @IBOutlet var seTotalDashLabel: [UILabel]!
     @IBOutlet weak var stepperStackView: UIStackView!
     
     // stepper clicked
     @IBAction func stepperChanged(_ sender: UIStepper) {
         
+        switch(sender.tag) {
+        case 0: // red in
+            for i in 0..<help0Label.count {
+                redInStepper[i].value = sender.value
+            }
+            break
+        case 1:
+            for i in 0..<help0Label.count {
+                redOnStepper[i].value = sender.value
+            }
+            break
+        case 2:
+            for i in 0..<help0Label.count {
+                blueInStepper[i].value = sender.value
+            }
+            break
+        case 3:
+            for i in 0..<help0Label.count {
+                blueOnStepper[i].value = sender.value
+            }
+            break
+        default:
+            break
+        }
+        
         // calculate round scores
-        redRoundScore = Int(redInStepper.value * 3 + redOnStepper.value)
-        blueRoundScore = Int(blueInStepper.value * 3 + blueOnStepper.value)
+        redRoundScore = Int(redInStepper[0].value * 3 + redOnStepper[0].value)
+        blueRoundScore = Int(blueInStepper[0].value * 3 + blueOnStepper[0].value)
         
         for i in 0..<help0Label.count {
             redRoundScoreLabel[i].text = "\(redRoundScore)"
             blueRoundScoreLabel[i].text = "\(blueRoundScore)"
+            
+            // update labels
+            redInLabel[i].text = "In: \(Int(redInStepper[0].value))"
+            redOnLabel[i].text = "On: \(Int(redOnStepper[0].value))"
+            blueInLabel[i].text = "In: \(Int(blueInStepper[0].value))"
+            blueOnLabel[i].text = "On: \(Int(blueOnStepper[0].value))"
         }
         
-        // update labels
-        redInLabel.text = "In: \(Int(redInStepper.value))"
-        redOnLabel.text = "On: \(Int(redOnStepper.value))"
-        blueInLabel.text = "In: \(Int(blueInStepper.value))"
-        blueOnLabel.text = "On: \(Int(blueOnStepper.value))"
-        
         // update steppers to not exceed bag count
-        let redThrown = Int(redInStepper.value + redOnStepper.value)
-        let blueThrown = Int(blueInStepper.value + blueOnStepper.value)
+        let redThrown = Int(redInStepper[0].value + redOnStepper[0].value)
+        let blueThrown = Int(blueInStepper[0].value + blueOnStepper[0].value)
         
-        redInStepper.maximumValue = Double(maxBags - redThrown + Int(redInStepper.value))
-        redOnStepper.maximumValue = Double(maxBags - redThrown + Int(redOnStepper.value))
-        blueInStepper.maximumValue = Double(maxBags - blueThrown + Int(blueInStepper.value))
-        blueOnStepper.maximumValue = Double(maxBags - blueThrown + Int(blueOnStepper.value))
+        for i in 0..<help0Label.count {
+            redInStepper[i].maximumValue = Double(maxBags - redThrown + Int(redInStepper[0].value))
+            redOnStepper[i].maximumValue = Double(maxBags - redThrown + Int(redOnStepper[0].value))
+            blueInStepper[i].maximumValue = Double(maxBags - blueThrown + Int(blueInStepper[0].value))
+            blueOnStepper[i].maximumValue = Double(maxBags - blueThrown + Int(blueOnStepper[0].value))
+        }
     }
     
     // round done
@@ -1143,11 +1163,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         lastFirstThrowerColor = firstThrowerColor
         
         // add round to rounds array
-        let redIn = Int(redInStepper.value)
-        let redOn = Int(redOnStepper.value)
+        let redIn = Int(redInStepper[0].value)
+        let redOn = Int(redOnStepper[0].value)
         let redOff = maxBags - redIn - redOn
-        let blueIn = Int(blueInStepper.value)
-        let blueOn = Int(blueOnStepper.value)
+        let blueIn = Int(blueInStepper[0].value)
+        let blueOn = Int(blueOnStepper[0].value)
         let blueOff = maxBags - blueIn - blueOn
         
         rounds.append(Round(red: Board(bagsIn: redIn, bagsOn: redOn, bagsOff: redOff), blue: Board(bagsIn: blueIn, bagsOn: blueOn, bagsOff: blueOff), redPlayer: getCurrentPlayers()[0], bluePlayer: getCurrentPlayers()[1]))
@@ -1184,8 +1204,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // change first toss display
         printFirstToss(undoing: false)
         
-        // show undo button
-        undoButton.isHidden = false
+        for i in 0..<help0Label.count {
+            // show undo button
+            undoButton[i].isHidden = false
+        }
         
         // check for win
         if matchComplete() {
@@ -1220,25 +1242,32 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             // everything else
             
-            resetButton.setTitle("Restart", for: .normal)
+            for i in 0..<help0Label.count {
+                resetButton[i].setTitle("Restart", for: .normal)
+            }
             
             // determine winner
             if redTotalScore >= 21 {
-                roundCompleteButton.setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
-                roundCompleteButton.setTitleColor(redColor, for: .normal)
+                for i in 0..<help0Label.count {
+                    roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                    roundCompleteButton[i].setTitleColor(redColor, for: .normal)
+                }
             } else {
-                roundCompleteButton.setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
-                roundCompleteButton.setTitleColor(blueColor, for: .normal)
+                for i in 0..<help0Label.count {
+                    roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                    roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
+                }
             }
             
-            // disable features
-            redInStepper.isEnabled = false
-            redOnStepper.isEnabled = false
-            blueInStepper.isEnabled = false
-            blueOnStepper.isEnabled = false
-            roundCompleteButton.isEnabled = false
-            
-            undoButton.isHidden = true
+            for i in 0..<help0Label.count {
+                // disable features
+                redInStepper[i].isEnabled = false
+                redOnStepper[i].isEnabled = false
+                blueInStepper[i].isEnabled = false
+                blueOnStepper[i].isEnabled = false
+                roundCompleteButton[i].isEnabled = false
+                undoButton[i].isHidden = true
+            }
             
             // save match if tracking stats
             if trackingStats {
@@ -1328,14 +1357,13 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         for i in 0..<help0Label.count {
             redTotalScoreLabel[i].text = "\(redTotalScore)"
             blueTotalScoreLabel[i].text = "\(blueTotalScore)"
+            undoButton[i].isHidden = true
         }
         
         // backup round
         round -= 1
         rounds.removeLast()
         printFirstToss(undoing: true)
-        
-        undoButton.isHidden = true
     }
     
     
@@ -1399,48 +1427,47 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             redRoundScoreLabel[i].text = "\(redRoundScore)"
             blueRoundScoreLabel[i].text = "\(blueRoundScore)"
+            
+            // reenable steppers
+            redInStepper[i].isEnabled = true
+            redOnStepper[i].isEnabled = true
+            blueInStepper[i].isEnabled = true
+            blueOnStepper[i].isEnabled = true
+            
+            // update buttons
+            roundCompleteButton[i].setTitle("Round Complete", for: .normal)
+            roundCompleteButton[i].setTitleColor(self.view.tintColor, for: .normal)
+            roundCompleteButton[i].isEnabled = true
+            resetButton[i].setTitle("Reset", for: .normal)
+            
+            // reset undo
+            undoButton[i].isHidden = true
+            lastRedScore = 0
+            lastBlueScore = 0
         }
-    
-        // update buttons
-    
-        roundCompleteButton.setTitle("Round Complete", for: .normal)
-        roundCompleteButton.setTitleColor(self.view.tintColor, for: .normal)
-    
-        resetButton.setTitle("Reset", for: .normal)
-    
-        // reenable steppers
-        redInStepper.isEnabled = true
-        redOnStepper.isEnabled = true
-        blueInStepper.isEnabled = true
-        blueOnStepper.isEnabled = true
-    
-        roundCompleteButton.isEnabled = true
-    
-        // reset undo
-        undoButton.isHidden = true
-        lastRedScore = 0
-        lastBlueScore = 0
     
         resetSteppers()
     }
     
     // set steppers to 0
     func resetSteppers() {
-        redInStepper.value = 0
-        redOnStepper.value = 0
-        blueInStepper.value = 0
-        blueOnStepper.value = 0
-        
-        redInStepper.maximumValue = Double(maxBags)
-        redOnStepper.maximumValue = Double(maxBags)
-        blueInStepper.maximumValue = Double(maxBags)
-        blueOnStepper.maximumValue = Double(maxBags)
-        
-        // update labels
-        redInLabel.text = "In: \(Int(redInStepper.value))"
-        redOnLabel.text = "On: \(Int(redOnStepper.value))"
-        blueInLabel.text = "In: \(Int(blueInStepper.value))"
-        blueOnLabel.text = "On: \(Int(blueOnStepper.value))"
+        for i in 0..<help0Label.count {
+            redInStepper[i].value = 0
+            redOnStepper[i].value = 0
+            blueInStepper[i].value = 0
+            blueOnStepper[i].value = 0
+            
+            redInStepper[i].maximumValue = Double(maxBags)
+            redOnStepper[i].maximumValue = Double(maxBags)
+            blueInStepper[i].maximumValue = Double(maxBags)
+            blueOnStepper[i].maximumValue = Double(maxBags)
+            
+            // update labels
+            redInLabel[i].text = "In: \(Int(redInStepper[0].value))"
+            redOnLabel[i].text = "On: \(Int(redOnStepper[0].value))"
+            blueInLabel[i].text = "In: \(Int(blueInStepper[0].value))"
+            blueOnLabel[i].text = "On: \(Int(blueOnStepper[0].value))"
+        }
     }
     
     // returns [red, blue]
