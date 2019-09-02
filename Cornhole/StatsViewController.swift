@@ -126,7 +126,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         super.viewWillAppear(animated)
         
         // landscape/portrait
-        portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        portraitView.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
         
         for i in 0..<matchRecordLabel.count {
             playersPickerView[i].selectRow(0, inComponent: 0, animated: false)
@@ -207,7 +207,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-    
+
+        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
+        
         if tabBarController?.selectedIndex == STATS_TAB_INDEX {
             portraitView.isHidden = UIDevice.current.orientation.isLandscape
         }

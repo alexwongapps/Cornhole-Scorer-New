@@ -70,6 +70,12 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.matchesTableView.reloadData()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView.tag == 0 { // in main view

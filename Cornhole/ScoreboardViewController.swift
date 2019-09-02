@@ -143,9 +143,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        gameViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
-        loginViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
-        helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+        // todo: bug phone flat doesn't demarcate as landscape need to keep track of thing on screen
+        
+        gameViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
+        loginViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
         
         players.removeAll()
         
@@ -189,10 +190,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
+        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
+        
         if tabBarController?.selectedIndex == SCOREBOARD_TAB_INDEX {
             gameViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
             loginViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
-            helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
             
             if newPlayerTextField[0].isEditing {
                 newPlayerTextField[0].resignFirstResponder()
@@ -201,6 +203,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 newPlayerTextField[1].resignFirstResponder()
                 newPlayerTextField[0].becomeFirstResponder()
             }
+            
+            if helpState != 0 {
+                helpView.isHidden = !UIDevice.current.orientation.isLandscape
+                helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+            }
         }
     }
     
@@ -208,6 +215,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // set landscape/portrait
+        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
         
         // coreDataDeleteAll(entity: "Matches")
         
@@ -312,8 +322,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 help9Label[i].font = UIFont(name: systemFont, size: 12)
                 help10Label[i].font = UIFont(name: systemFont, size: 12)
                 help11Label[i].font = UIFont(name: systemFont, size: 12)
-                help6Label[i].textAlignment = .left
-                help9Label[i].textAlignment = .right
                 
                 // login view
                 
@@ -343,6 +351,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 sePlayButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 sePlayButton[i].isHidden = false
+                playButton[i].isHidden = true
                 addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 
                 // constraints
@@ -435,9 +444,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 // game view
                 
                 totalLabel[i].font = UIFont(name: systemFont, size: 40)
-                redTotalScoreLabel[i].font = UIFont(name: systemFont, size: 150)
-                blueTotalScoreLabel[i].font = UIFont(name: systemFont, size: 150)
-                totalDashLabel[i].font = UIFont(name: systemFont, size: 150)
+                redTotalScoreLabel[0].font = UIFont(name: systemFont, size: 150)
+                redTotalScoreLabel[1].font = UIFont(name: systemFont, size: 100)
+                blueTotalScoreLabel[0].font = UIFont(name: systemFont, size: 150)
+                blueTotalScoreLabel[1].font = UIFont(name: systemFont, size: 100)
+                totalDashLabel[0].font = UIFont(name: systemFont, size: 150)
+                totalDashLabel[1].font = UIFont(name: systemFont, size: 100)
                 roundLabel[i].font = UIFont(name: systemFont, size: 25)
                 redRoundScoreLabel[i].font = UIFont(name: systemFont, size: 60)
                 blueRoundScoreLabel[i].font = UIFont(name: systemFont, size: 60)
@@ -477,6 +489,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         }
  
         helpView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        helpViewPortrait.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
     }
 
     // dtermine if stats are tracked or not
@@ -787,7 +800,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
  
     @IBAction func help(_ sender: UIButton) {
         helpState = 1
-        helpView.isHidden = false
+        helpView.isHidden = !UIDevice.current.orientation.isLandscape
+        helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
         
         helpView.layer.mask = nil
         helpViewPortrait.layer.mask = nil
@@ -833,10 +847,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // move through help menu
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        print(helpState)
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
         
-        if helpView.isHidden == true {
+        if helpView.isHidden == true && helpViewPortrait.isHidden == true {
             helpState = 0
         }
         
@@ -989,6 +1004,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             loginView.isHidden = false
             helpView.isHidden = true
+            helpViewPortrait.isHidden = true
             helpState = 0
         break
             

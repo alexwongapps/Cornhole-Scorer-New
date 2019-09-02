@@ -111,7 +111,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        portraitView.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
         
         players.removeAll()
         
@@ -151,6 +151,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        
+        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
         
         if tabBarController?.selectedIndex == SETTINGS_TAB_INDEX {
             portraitView.isHidden = UIDevice.current.orientation.isLandscape
