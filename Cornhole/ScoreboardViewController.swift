@@ -143,8 +143,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // todo: bug phone flat doesn't demarcate as landscape need to keep track of thing on screen
-        
         gameViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
         loginViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
         
@@ -217,7 +215,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // Do any additional setup after loading the view, typically from a nib.
         
         // set landscape/portrait
-        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
+        UserDefaults.standard.set(UIApplication.shared.statusBarOrientation.isLandscape, forKey: "isLandscape")
         
         // coreDataDeleteAll(entity: "Matches")
         
@@ -252,7 +250,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 segmentFont = UIFont(name: systemFont, size: 30)
                 
-                selectPlayersLabel[i].font = UIFont(name: systemFont, size: 75)
+                selectPlayersLabel[i].font = UIFont(name: systemFont, size: 60)
                 teamRedLabel[i].font = UIFont(name: systemFont, size: 30)
                 redPlayer1Label[i].font = UIFont(name: systemFont, size: 30)
                 redPlayer2Label[i].font = UIFont(name: systemFont, size: 30)
@@ -808,7 +806,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         for i in 0..<help0Label.count {
             help0Label[i].isHidden = false
-            help0Label[i].text = "Welcome to Cornhole!\n\nTap to go through instructions"
+            help0Label[i].text = "Welcome to Cornhole!\n\nTap to go through instructions\n\n(App best used in landscape)"
         }
     }
     

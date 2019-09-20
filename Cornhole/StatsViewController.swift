@@ -74,7 +74,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 inPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
                 onPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
                 offPerRoundLabel[i].font = UIFont(name: systemFont, size: 25)
-                boardPieChartView[i].widthAnchor.constraint(equalToConstant: 450).isActive = true
+                boardPieChartView[i].widthAnchor.constraint(equalToConstant: 400).isActive = true
             }
             
         } else if smallDevice() {
