@@ -16,6 +16,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     var editingPlayerIndex: Int = 0 // player currently editing
     var editingPlayerName: String = "" // name of player
     var firstThrowWinners: Bool = false // do winners throw first? (or does it alternate?)
+    var gameSettings = GameSettings()
     
     @IBOutlet var settingsLabel: [UILabel]!
     @IBOutlet var resetMatchesButton: [UIButton]!
@@ -29,6 +30,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var doneEditingButton: [UIButton]!
     @IBOutlet var firstThrowLabel: [UILabel]!
     @IBOutlet var firstThrowButton: [UIButton]!
+    @IBOutlet var gameTypeLabel: [UILabel]!
+    @IBOutlet var gameTypeButton: [UIButton]!
+    @IBOutlet var setting1Label: [UILabel]!
+    @IBOutlet var setting1Stepper: [UIStepper]!
+    @IBOutlet var setting2Label: [UILabel]!
+    @IBOutlet var setting2Stepper: [UIStepper]!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -41,6 +48,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // defaults
+        let defaults = UserDefaults.standard
+        gameSettings = GameSettings(gameType: GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard, winningScore: defaults.integer(forKey: "winningScore"), bustScore: defaults.integer(forKey: "bustScore"), roundLimit: defaults.integer(forKey: "roundLimit"))
+        setGameType(gameType: gameSettings.gameType)
 
         for i in 0..<backgroundImageView.count {
         
@@ -79,6 +91,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 firstThrowLabel[i].font = UIFont(name: systemFont, size: 30)
                 firstThrowButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 versionLabel[i].font = UIFont(name: systemFont, size: 30)
+                gameTypeLabel[i].font = UIFont(name: systemFont, size: 30)
+                gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                setting1Label[i].font = UIFont(name: systemFont, size: 30)
+                setting2Label[i].font = UIFont(name: systemFont, size: 30)
                 
             } else if smallDevice() {
                 
@@ -90,7 +106,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 doneEditingButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 firstThrowLabel[i].font = UIFont(name: systemFont, size: 17)
                 firstThrowButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
-                versionLabel[i].font = UIFont(name: systemFont, size: 17)
+                versionLabel[i].isHidden = true
+                gameTypeLabel[i].font = UIFont(name: systemFont, size: 17)
+                gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                setting1Label[i].font = UIFont(name: systemFont, size: 17)
+                setting2Label[i].font = UIFont(name: systemFont, size: 17)
 
             } else {
                 
@@ -103,6 +123,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 firstThrowLabel[i].font = UIFont(name: systemFont, size: 17)
                 firstThrowButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 versionLabel[i].font = UIFont(name: systemFont, size: 17)
+                gameTypeLabel[i].font = UIFont(name: systemFont, size: 17)
+                gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                setting1Label[i].font = UIFont(name: systemFont, size: 17)
+                setting2Label[i].font = UIFont(name: systemFont, size: 17)
                 
             }
         }
@@ -140,7 +164,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
         
         players = players.sorted()
-        
         for i in 0..<backgroundImageView.count {
             // hide edit menu
             editInstructionsLabel[i].isHidden = true
@@ -352,4 +375,80 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func changeGameType(_ sender: Any) {
+        switch gameSettings.gameType {
+        case .standard:
+            setGameType(gameType: .bust)
+        case .bust:
+            setGameType(gameType: .rounds)
+        case .rounds:
+            setGameType(gameType: .standard)
+        }
+    }
+    
+    @IBAction func changeSetting1(_ sender: UIStepper) {
+        let newValue = Int(sender.value)
+        if gameSettings.gameType == .standard || gameSettings.gameType == .bust {
+            for i in 0..<backgroundImageView.count {
+                setting1Label[i].text = "Winning Score: \(newValue)"
+                setting1Stepper[i].value = Double(newValue)
+            }
+            gameSettings.winningScore = newValue
+            UserDefaults.standard.set(newValue, forKey: "winningScore")
+        } else if gameSettings.gameType == .rounds {
+            for i in 0..<backgroundImageView.count {
+                setting1Label[i].text = "# of Rounds: \(newValue)"
+                setting1Stepper[i].value = Double(newValue)
+            }
+            gameSettings.roundLimit = newValue
+            UserDefaults.standard.set(newValue, forKey: "roundLimit")
+        }
+    }
+    
+    @IBAction func changeSetting2(_ sender: UIStepper) {
+        let newValue = Int(sender.value)
+        if gameSettings.gameType == .bust {
+            for i in 0..<backgroundImageView.count {
+                setting2Label[i].text = "Bust Score: \(newValue)"
+                setting2Stepper[i].value = Double(newValue)
+            }
+            gameSettings.bustScore = newValue
+            UserDefaults.standard.set(newValue, forKey: "bustScore")
+        }
+    }
+    
+    func setGameType(gameType: GameType) {
+        let defaults = UserDefaults.standard
+        gameSettings.gameType = gameType
+        for i in 0..<backgroundImageView.count {
+            switch gameType {
+            case .standard:
+                gameTypeButton[i].setTitle("Standard", for: .normal)
+                gameTypeButton[i].setTitle("Standard", for: .selected)
+                setting1Label[i].text = "Winning Score: \(gameSettings.winningScore)"
+                setting1Stepper[i].value = Double(gameSettings.winningScore)
+                setting2Label[i].isHidden = true
+                setting2Stepper[i].isHidden = true
+                defaults.set(GameType.standard.rawValue, forKey: "gameType")
+            case .bust:
+                gameTypeButton[i].setTitle("Bust", for: .normal)
+                gameTypeButton[i].setTitle("Bust", for: .selected)
+                setting1Label[i].text = "Winning Score: \(gameSettings.winningScore)"
+                setting1Stepper[i].value = Double(gameSettings.winningScore)
+                setting2Label[i].isHidden = false
+                setting2Stepper[i].isHidden = false
+                setting2Label[i].text = "Bust Score: \(gameSettings.bustScore)"
+                setting2Stepper[i].value = Double(gameSettings.bustScore)
+                defaults.set(GameType.bust.rawValue, forKey: "gameType")
+            case .rounds:
+                gameTypeButton[i].setTitle("Rounds", for: .normal)
+                gameTypeButton[i].setTitle("Rounds", for: .selected)
+                setting1Label[i].text = "# of Rounds: \(gameSettings.roundLimit)"
+                setting1Stepper[i].value = Double(gameSettings.roundLimit)
+                setting2Label[i].isHidden = true
+                setting2Stepper[i].isHidden = true
+                defaults.set(GameType.rounds.rawValue, forKey: "gameType")
+            }
+        }
+    }
 }

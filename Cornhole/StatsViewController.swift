@@ -166,9 +166,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             let ppr = getPointsPerRound(p: player, m: matches)
             
             for i in 0..<matchRecordLabel.count {
-                matchRecordLabel[i].text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
-                singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1])) (\(s[2])%)"
-                doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1])) (\(d[2])%)"
+                matchRecordLabel[i].text = "Match Record: \(Int(m[0]))-\(Int(m[1]))-\(Int(m[2])) (\(m[3])%)"
+                singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1]))-\(Int(s[2])) (\(s[3])%)"
+                doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1]))-\(Int(d[2])) (\(d[3])%)"
                 roundRecordLabel[i].text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
                 pointsPerRoundLabel[i].text = "Points/Round: \(ppr)"
             }
@@ -308,7 +308,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         
         if statsMatches.count > 0 &&
-            (getMatchResults(p: player, m: statsMatches)[0] + getMatchResults(p: player, m: statsMatches)[1]) > 0 // player has played a match
+            (getMatchResults(p: player, m: statsMatches)[0] + getMatchResults(p: player, m: statsMatches)[1] + getMatchResults(p: player, m: statsMatches)[2]) > 0 // player has played a match
             {
             // set labels
             let m = getMatchResults(p: player, m: statsMatches)
@@ -318,9 +318,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             let ppr = getPointsPerRound(p: player, m: statsMatches)
             
             for i in 0..<matchRecordLabel.count {
-                matchRecordLabel[i].text = "Match Record: \(Int(m[0]))-\(Int(m[1])) (\(m[2])%)"
-                singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1])) (\(s[2])%)"
-                doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1])) (\(d[2])%)"
+                matchRecordLabel[i].text = "Match Record: \(Int(m[0]))-\(Int(m[1]))-\(Int(m[2])) (\(m[3])%)"
+                singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1]))-\(Int(s[2])) (\(s[3])%)"
+                doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1]))-\(Int(d[2])) (\(d[3])%)"
                 roundRecordLabel[i].text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
                 pointsPerRoundLabel[i].text = "Points/Round: \(ppr)"
             }
@@ -417,7 +417,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             fileName = "PlayerData.csv"
             path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-            csvText.append("Player,Matches Played,Matches Won,Matches Lost,Singles Played,Singles Won,Singles Lost,Doubles Played,Doubles Won,Doubles Lost,Rounds Played,Rounds Won,Rounds Lost,Rounds Tied,Total Bags Thrown,Total Bags In,Total Bags On,Total Bags Off,Total Points\n")
+            csvText.append("Player,Matches Played,Matches Won,Matches Lost,Matches Tied,Singles Played,Singles Won,Singles Lost,Singles Tied,Doubles Played,Doubles Won,Doubles Lost,Doubles Tied,Rounds Played,Rounds Won,Rounds Lost,Rounds Tied,Total Bags Thrown,Total Bags In,Total Bags On,Total Bags Off,Total Points\n")
             
             // get data
             for player in self.allPlayers {
@@ -427,7 +427,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 let r = self.getRoundResults(p: player, m: self.matches)
                 let b = self.getBagData(p: player, m: self.matches)
                 
-                csvText.append("\(player),\(Int(m[0] + m[1])),\(Int(m[0])),\(Int(m[1])),\(Int(s[0] + s[1])),\(Int(s[0])),\(Int(s[1])),\(Int(d[0] + d[1])),\(Int(d[0])),\(Int(d[1])),\(Int(r[0] + r[1] + r[2])),\(Int(r[0])),\(Int(r[1])),\(Int(r[2])),\(b[0] + b[1] + b[2]),\(b[0]),\(b[1]),\(b[2]),\(Board(bagsIn: b[0], bagsOn: b[1], bagsOff: b[2]).score)\n")
+                csvText.append("\(player),\(Int(m[0] + m[1] + m[2])),\(Int(m[0])),\(Int(m[1])),\(Int(m[2])),\(Int(s[0] + s[1] + s[2])),\(Int(s[0])),\(Int(s[1])),\(Int(s[2])),\(Int(d[0] + d[1] + d[2])),\(Int(d[0])),\(Int(d[1])),\(Int(d[2])),\(Int(r[0] + r[1] + r[2])),\(Int(r[0])),\(Int(r[1])),\(Int(r[2])),\(b[0] + b[1] + b[2]),\(b[0]),\(b[1]),\(b[2]),\(Board(bagsIn: b[0], bagsOn: b[1], bagsOff: b[2]).score)\n")
             }
             
             do {
@@ -530,67 +530,94 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // data getters
     
-    // [won, lost, percent]
+    // [won, lost, tied, percent]
     func getSinglesResults(p: String, m: [Match]) -> [Double] {
         var wins = 0
+        var losses = 0
         var totalMatches = 0
         
         for match in m {
             if match.isInMatch(player: p) && match.redPlayers.count == 1 {
-                if match.isWinner(player: p) {
+                if match.getResult(player: p) == Match.WIN {
                     wins += 1
+                } else if match.getResult(player: p) == Match.LOSS {
+                    losses += 1
                 }
                 totalMatches += 1
             }
         }
         
-        var ret = [Double(wins), Double(totalMatches - wins), round(number: (Double(wins) / Double(totalMatches)) * 100.0, places: 1)]
+        let dW = Double(wins)
+        let dL = Double(losses)
+        let dT = Double(totalMatches - wins - losses)
+        
+        var ret = [dW, dL, dT, round(number: ((dW + (0.5 * dT)) / Double(totalMatches)) * 100.0, places: 1)]
         
         if totalMatches == 0 {
-            ret[2] = 0
+            ret[ret.count - 1] = 0
         }
         
         return ret
     }
     
-    // [won, lost, percent]
+    // [won, lost, tied, percent]
     func getDoublesResults(p: String, m: [Match]) -> [Double] {
         var wins = 0
+        var losses = 0
         var totalMatches = 0
         
         for match in m {
             if match.isInMatch(player: p) && match.redPlayers.count == 2 {
-                if match.isWinner(player: p) {
+                if match.getResult(player: p) == Match.WIN {
                     wins += 1
+                } else if match.getResult(player: p) == Match.LOSS {
+                    losses += 1
                 }
                 totalMatches += 1
             }
         }
         
-        var ret = [Double(wins), Double(totalMatches - wins), round(number: (Double(wins) / Double(totalMatches)) * 100.0, places: 1)]
+        let dW = Double(wins)
+        let dL = Double(losses)
+        let dT = Double(totalMatches - wins - losses)
+        
+        var ret = [dW, dL, dT, round(number: ((dW + (0.5 * dT)) / Double(totalMatches)) * 100.0, places: 1)]
         
         if totalMatches == 0 {
-            ret[2] = 0
+            ret[ret.count - 1] = 0
         }
         
         return ret
     }
     
-    // [won, lost, percent]
+    // [won, lost, tied, percent]
     func getMatchResults(p: String, m: [Match]) -> [Double] {
         var wins = 0
+        var losses = 0
         var totalMatches = 0
         
         for match in m {
             if match.isInMatch(player: p) {
-                if match.isWinner(player: p) {
+                if match.getResult(player: p) == Match.WIN {
                     wins += 1
+                } else if match.getResult(player: p) == Match.LOSS {
+                    losses += 1
                 }
                 totalMatches += 1
             }
         }
         
-        return [Double(wins), Double(totalMatches - wins), round(number: (Double(wins) / Double(totalMatches)) * 100.0, places: 1)]
+        let dW = Double(wins)
+        let dL = Double(losses)
+        let dT = Double(totalMatches - wins - losses)
+        
+        var ret = [dW, dL, dT, round(number: ((dW + (0.5 * dT)) / Double(totalMatches)) * 100.0, places: 1)]
+        
+        if totalMatches == 0 {
+            ret[ret.count - 1] = 0
+        }
+        
+        return ret
     }
     
     // [won, lost, tied, percent]

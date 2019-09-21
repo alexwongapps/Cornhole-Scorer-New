@@ -2,19 +2,23 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Matches" representedClassName="Matches" syncable="YES">
         <attribute name="blueColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="bustScore" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="gameType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="[Int]" syncable="YES"/>
         <attribute name="playerNamesArray" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
         <attribute name="redColor" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="roundDataArray" optional="YES" attributeType="Transformable" customClassName="[Int]" syncable="YES"/>
+        <attribute name="roundLimit" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="roundPlayersArray" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="winningScore" optional="YES" attributeType="Integer 32" defaultValueString="21" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Players" representedClassName="Players" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Matches" positionX="-63" positionY="-9" width="128" height="165"/>
+        <element name="Matches" positionX="-63" positionY="-9" width="128" height="225"/>
         <element name="Players" positionX="-63" positionY="-18" width="128" height="60"/>
     </elements>
 </model>

@@ -110,7 +110,10 @@ class Round: CustomStringConvertible {
 class Match: CustomStringConvertible {
     static let RED = 0
     static let BLUE = 1
-    static let NONE = 2
+    static let TIE = 2
+    static let NONE = 3
+    static let WIN = 4
+    static let LOSS = 5
     
     static var universalID: Int = 0 // universal incrementing id
     
@@ -125,9 +128,11 @@ class Match: CustomStringConvertible {
     var endDate: Date
     var redColor: UIColor // note: can be ANY color
     var blueColor: UIColor
+    var gameSettings: GameSettings
     
     // used for only temp storage
-    init(redPlayers: [String], bluePlayers: [String], rounds: [Round]) {
+    init(redPlayers: [String], bluePlayers: [String], rounds: [Round], gameSettings: GameSettings) {
+        self.gameSettings = gameSettings
         self.redPlayers = redPlayers
         self.bluePlayers = bluePlayers
         self.rounds = rounds
@@ -147,7 +152,8 @@ class Match: CustomStringConvertible {
         self.winner = determineWinner()
     }
     
-    init(redPlayers: [String], bluePlayers: [String], rounds: [Round], id: Int, start: Date, end: Date, redColor: UIColor, blueColor: UIColor) {
+    init(redPlayers: [String], bluePlayers: [String], rounds: [Round], id: Int, start: Date, end: Date, redColor: UIColor, blueColor: UIColor, gameSettings: GameSettings) {
+        self.gameSettings = gameSettings
         self.redPlayers = redPlayers
         self.bluePlayers = bluePlayers
         self.rounds = rounds
@@ -173,24 +179,42 @@ class Match: CustomStringConvertible {
     }
     
     func calculateScores() {
-        redScore = 0
-        blueScore = 0
-        
-        for round in rounds {
-            redScore += round.redMatchScore
-            blueScore += round.blueMatchScore
-        }
+        redScore = getTeamScoreAfterRound(team: Match.RED, round: rounds.count)
+        blueScore = getTeamScoreAfterRound(team: Match.BLUE, round: rounds.count)
     }
     
     func determineWinner() -> Int {
         calculateScores()
         
-        if redScore >= 21 {
-            return Match.RED
-        } else if blueScore >= 21 {
-            return Match.BLUE
-        } else {
-            return Match.NONE
+        switch gameSettings.gameType {
+        case .standard:
+            if redScore >= gameSettings.winningScore {
+                return Match.RED
+            } else if blueScore >= gameSettings.winningScore {
+                return Match.BLUE
+            } else {
+                return Match.NONE
+            }
+        case .bust:
+            if redScore == gameSettings.winningScore {
+                return Match.RED
+            } else if blueScore == gameSettings.winningScore {
+                return Match.BLUE
+            } else {
+                return Match.NONE
+            }
+        case .rounds:
+            if rounds.count >= gameSettings.roundLimit {
+                if redScore > blueScore {
+                    return Match.RED
+                } else if blueScore > redScore {
+                    return Match.BLUE
+                } else {
+                    return Match.TIE
+                }
+            } else {
+                return Match.NONE
+            }
         }
     }
     
@@ -198,13 +222,15 @@ class Match: CustomStringConvertible {
         return (redPlayers + bluePlayers).contains(player)
     }
     
-    func isWinner(player: String) -> Bool {
-        if redPlayers.contains(player) && winner == Match.RED {
-            return true
+    func getResult(player: String) -> Int {
+        if winner == Match.TIE {
+            return Match.TIE
+        } else if redPlayers.contains(player) && winner == Match.RED {
+            return Match.WIN
         } else if bluePlayers.contains(player) && winner == Match.BLUE {
-            return true
+            return Match.WIN
         } else {
-            return false
+            return Match.LOSS
         }
     }
     
@@ -215,13 +241,8 @@ class Match: CustomStringConvertible {
     
     // 1-indexed
     func getScoreAfterRound(round: Int) -> String {
-        var redTempScore = 0
-        var blueTempScore = 0
-        
-        for i in 0..<round {
-            redTempScore += rounds[i].redMatchScore
-            blueTempScore += rounds[i].blueMatchScore
-        }
+        let redTempScore = getTeamScoreAfterRound(team: Match.RED, round: round)
+        let blueTempScore = getTeamScoreAfterRound(team: Match.BLUE, round: round)
         
         return getScoreline(red: redTempScore, blue: blueTempScore)
     }
@@ -231,9 +252,29 @@ class Match: CustomStringConvertible {
         
         for i in 0..<round {
             if team == Match.RED {
-                tmpScore += rounds[i].redMatchScore
+                switch gameSettings.gameType {
+                case .standard:
+                    tmpScore += rounds[i].redMatchScore
+                case .bust:
+                    tmpScore += rounds[i].redMatchScore
+                    if tmpScore > gameSettings.winningScore {
+                        tmpScore = gameSettings.bustScore
+                    }
+                case .rounds:
+                    tmpScore += rounds[i].redMatchScore
+                }
             } else if team == Match.BLUE {
-                tmpScore += rounds[i].blueMatchScore
+                switch gameSettings.gameType {
+                case .standard:
+                    tmpScore += rounds[i].blueMatchScore
+                case .bust:
+                    tmpScore += rounds[i].blueMatchScore
+                    if tmpScore > gameSettings.winningScore {
+                        tmpScore = gameSettings.bustScore
+                    }
+                case .rounds:
+                    tmpScore += rounds[i].blueMatchScore
+                }
             }
         }
         
@@ -261,9 +302,18 @@ class Match: CustomStringConvertible {
             let startDate = matchInfo["startDate"] as? Date,
             let endDate = matchInfo["endDate"] as? Date,
             let redColorRGBA = matchInfo["redColorRGBA"] as? [CGFloat],
-            let blueColorRGBA = matchInfo["blueColorRGBA"] as? [CGFloat] else {
+            let blueColorRGBA = matchInfo["blueColorRGBA"] as? [CGFloat]/*,
+            let gameType = matchInfo["gameType"] as? Int,
+            let winningScore = matchInfo["winningScore"] as? Int,
+            let bustScore = matchInfo["bustScore"] as? Int,
+            let roundLimit = matchInfo["roundLimit"] as? Int*/ else {
                 return
         }
+        
+        let gameType = matchInfo["gameType"] != nil ? matchInfo["gameType"] as! Int : GameType.standard.rawValue
+        let winningScore = matchInfo["winningScore"] != nil ? matchInfo["winningScore"] as! Int : WINNING_SCORE_DEFAULT
+        let bustScore = matchInfo["bustScore"] != nil ? matchInfo["bustScore"] as! Int : NOT_APPLICABLE
+        let roundLimit = matchInfo["roundLimit"] != nil ? matchInfo["roundLimit"] as! Int : NOT_APPLICABLE
         
         // update id
         
@@ -288,6 +338,10 @@ class Match: CustomStringConvertible {
         newUser.setValue(endDate, forKey: "endDate")
         newUser.setValue(redColor, forKey: "redColor")
         newUser.setValue(blueColor, forKey: "blueColor")
+        newUser.setValue(gameType, forKey: "gameType")
+        newUser.setValue(winningScore, forKey: "winningScore")
+        newUser.setValue(bustScore, forKey: "bustScore")
+        newUser.setValue(roundLimit, forKey: "roundLimit")
         
         do {
             try context.save()
@@ -333,6 +387,10 @@ class Match: CustomStringConvertible {
         contents["id"] = id
         contents["startDate"] = startDate
         contents["endDate"] = endDate
+        contents["gameType"] = gameSettings.gameType.rawValue
+        contents["winningScore"] = gameSettings.winningScore
+        contents["bustScore"] = gameSettings.bustScore
+        contents["roundLimit"] = gameSettings.roundLimit
         
         // colors
         var rR: CGFloat = 0, rG: CGFloat = 0, rB: CGFloat = 0, rA: CGFloat = 0
@@ -466,6 +524,10 @@ func getMatchesFromCoreData() -> [Match] {
     var endDates: [Date] = []
     var redColors: [UIColor] = []
     var blueColors: [UIColor] = []
+    var gameTypes: [Int] = []
+    var winningScores: [Int] = []
+    var bustScores: [Int] = []
+    var roundLimits: [Int] = []
     
     do {
         let results = try context.fetch(request)
@@ -503,6 +565,22 @@ func getMatchesFromCoreData() -> [Match] {
                 if let bColor = result.value(forKey: "blueColor") as? UIColor {
                     blueColors.append(bColor)
                 }
+                
+                if let gType = result.value(forKey: "gameType") as? Int {
+                    gameTypes.append(gType)
+                }
+                
+                if let wScore = result.value(forKey: "winningScore") as? Int {
+                    winningScores.append(wScore)
+                }
+                
+                if let bScore = result.value(forKey: "bustScore") as? Int {
+                    bustScores.append(bScore)
+                }
+                
+                if let rLimit = result.value(forKey: "roundLimit") as? Int {
+                    roundLimits.append(rLimit)
+                }
             }
         }
     } catch {
@@ -512,19 +590,24 @@ func getMatchesFromCoreData() -> [Match] {
     if playerNames.count != 0 { // if there has been a match played
         for matchNum in 0..<playerNames.count { // gets a match #
             
-            retMatches.append(getMatchFromRawData(playerNames: playerNames[matchNum], roundPlayers: roundPlayers[matchNum], roundData: roundData[matchNum], id: ids[matchNum], startDate: startDates[matchNum], endDate: endDates[matchNum], redColor: redColors[matchNum], blueColor: blueColors[matchNum]))
+            retMatches.append(getMatchFromRawData(playerNames: playerNames[matchNum], roundPlayers: roundPlayers[matchNum], roundData: roundData[matchNum], id: ids[matchNum], startDate: startDates[matchNum], endDate: endDates[matchNum], redColor: redColors[matchNum], blueColor: blueColors[matchNum], gameType: gameTypes[matchNum], winningScore: winningScores[matchNum], bustScore: bustScores[matchNum], roundLimit: roundLimits[matchNum]))
         }
     }
     
     // sort by date
     retMatches = retMatches.sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
     
+    print(gameTypes)
+    print(winningScores)
+    print(bustScores)
+    print(roundLimits)
+    
     return retMatches
 }
 
 // other data methods
 
-func getMatchFromRawData(playerNames: [String], roundPlayers: [String], roundData: [Int], id: Int, startDate: Date, endDate: Date, redColor: UIColor, blueColor: UIColor) -> Match {
+func getMatchFromRawData(playerNames: [String], roundPlayers: [String], roundData: [Int], id: Int, startDate: Date, endDate: Date, redColor: UIColor, blueColor: UIColor, gameType: Int, winningScore: Int, bustScore: Int, roundLimit: Int) -> Match {
     
     var thisMatchRounds: [Round] = []
     
@@ -532,10 +615,15 @@ func getMatchFromRawData(playerNames: [String], roundPlayers: [String], roundDat
         thisMatchRounds.append(Round(red: Board(bagsIn: roundData[roundNum * 6], bagsOn: roundData[roundNum * 6 + 1], bagsOff: roundData[roundNum * 6 + 2]), blue: Board(bagsIn: roundData[roundNum * 6 + 3], bagsOn: roundData[roundNum * 6 + 4], bagsOff: roundData[roundNum * 6 + 5]), redPlayer: roundPlayers[roundNum * 2], bluePlayer: roundPlayers[roundNum * 2 + 1]))
     }
     
+    // get game type
+    let actualGameType: GameType = GameType(rawValue: gameType) ?? GameType.standard
+    
+    let gameSettings = GameSettings(gameType: actualGameType, winningScore: winningScore, bustScore: bustScore, roundLimit: roundLimit)
+    
     if playerNames.count == 2 {
-        return Match(redPlayers: [playerNames[0]], bluePlayers: [playerNames[1]], rounds: thisMatchRounds, id: id, start: startDate, end: endDate, redColor: redColor, blueColor: blueColor)
+        return Match(redPlayers: [playerNames[0]], bluePlayers: [playerNames[1]], rounds: thisMatchRounds, id: id, start: startDate, end: endDate, redColor: redColor, blueColor: blueColor, gameSettings: gameSettings)
     } else {
-        return Match(redPlayers: [playerNames[0], playerNames[1]], bluePlayers: [playerNames[2], playerNames[3]], rounds: thisMatchRounds, id: id, start: startDate, end: endDate, redColor: redColor, blueColor: blueColor)
+        return Match(redPlayers: [playerNames[0], playerNames[1]], bluePlayers: [playerNames[2], playerNames[3]], rounds: thisMatchRounds, id: id, start: startDate, end: endDate, redColor: redColor, blueColor: blueColor, gameSettings: gameSettings)
     }
 }
 
@@ -587,4 +675,59 @@ func getCSVText(matches: [Match]) -> String {
     }
     
     return csvText
+}
+
+// game type
+
+enum GameType: Int {
+    // 21 or over wins, over 21 go back down, set number of rounds
+    case standard = 0, bust, rounds
+}
+
+let WINNING_SCORE_DEFAULT = 21
+let BUST_SCORE_DEFAULT = 15
+let ROUND_LIMIT_DEFAULT = 10
+let NOT_APPLICABLE = -1
+
+class GameSettings {
+    var gameType: GameType
+    var winningScore: Int
+    var bustScore: Int // score to go back to
+    var roundLimit: Int
+    
+    // default game from version up to 2.1
+    init() {
+        self.gameType = .standard
+        self.winningScore = WINNING_SCORE_DEFAULT
+        self.bustScore = NOT_APPLICABLE
+        self.roundLimit = NOT_APPLICABLE
+    }
+    
+    init(gameType: GameType, winningScore: Int) {
+        self.gameType = gameType
+        self.winningScore = winningScore
+        self.bustScore = NOT_APPLICABLE
+        self.roundLimit = NOT_APPLICABLE
+    }
+    
+    init(gameType: GameType, winningScore: Int, bustScore: Int) {
+        self.gameType = gameType
+        self.winningScore = winningScore
+        self.bustScore = bustScore
+        self.roundLimit = NOT_APPLICABLE
+    }
+    
+    init(gameType: GameType, roundLimit: Int) {
+        self.gameType = gameType
+        self.winningScore = NOT_APPLICABLE
+        self.bustScore = NOT_APPLICABLE
+        self.roundLimit = roundLimit
+    }
+    
+    init(gameType: GameType, winningScore: Int, bustScore: Int, roundLimit: Int) {
+        self.gameType = gameType
+        self.winningScore = winningScore
+        self.bustScore = bustScore
+        self.roundLimit = roundLimit
+    }
 }

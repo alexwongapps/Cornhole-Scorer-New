@@ -34,6 +34,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     var startDate: Date?
     var redColor: UIColor = UIColor.red
     var blueColor: UIColor = UIColor.blue
+    var gameSettings: GameSettings = GameSettings()
     
     // outlets
     @IBOutlet var selectPlayersLabel: [UILabel]!
@@ -76,7 +77,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // close login view/play button
     @IBAction func hideLogin(_ sender: Any) {
         
+        setGameSettings()
+        
         for i in 0..<help0Label.count {
+            // round label
+            if gameSettings.gameType == .rounds {
+                roundLabel[i].text = "Round 1/\(gameSettings.roundLimit)"
+            } else {
+                roundLabel[i].text = "Round"
+            }
+            
             // reset player select button colors
             redPlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
             redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
@@ -996,6 +1006,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             helpState += 1
         break
             
+        // todo: add soemething to tell user about new changes
+        // todo: more testing
         case 12:
             for i in 0..<help0Label.count {
                 help11Label[i].isHidden = true
@@ -1191,10 +1203,31 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         lastBlueScore = blueTotalScore
         
         // update total score
-        if redRoundScore > blueRoundScore {
-            redTotalScore += redRoundScore - blueRoundScore
-        } else {
-            blueTotalScore += blueRoundScore - redRoundScore
+        switch gameSettings.gameType {
+        case .standard:
+            if redRoundScore > blueRoundScore {
+                redTotalScore += redRoundScore - blueRoundScore
+            } else {
+                blueTotalScore += blueRoundScore - redRoundScore
+            }
+        case .bust:
+            if redRoundScore > blueRoundScore {
+                redTotalScore += redRoundScore - blueRoundScore
+                if redTotalScore > gameSettings.winningScore {
+                    redTotalScore = gameSettings.bustScore
+                }
+            } else {
+                blueTotalScore += blueRoundScore - redRoundScore
+                if blueTotalScore > gameSettings.winningScore {
+                    blueTotalScore = gameSettings.bustScore
+                }
+            }
+        case .rounds:
+            if redRoundScore > blueRoundScore {
+                redTotalScore += redRoundScore - blueRoundScore
+            } else {
+                blueTotalScore += blueRoundScore - redRoundScore
+            }
         }
         
         for i in 0..<help0Label.count {
@@ -1214,6 +1247,13 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // update first tosser
         round += 1
+        if gameSettings.gameType == .rounds {
+            for i in 0..<help0Label.count {
+                if round <= gameSettings.roundLimit {
+                    roundLabel[i].text = "Round \(round)/\(gameSettings.roundLimit)"
+                }
+            }
+        }
         
         // change first toss display
         printFirstToss(undoing: false)
@@ -1261,15 +1301,47 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             // determine winner
-            if redTotalScore >= 21 {
-                for i in 0..<help0Label.count {
-                    roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
-                    roundCompleteButton[i].setTitleColor(redColor, for: .normal)
+            switch gameSettings.gameType {
+            case .standard:
+                if redTotalScore >= gameSettings.winningScore {
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                        roundCompleteButton[i].setTitleColor(redColor, for: .normal)
+                    }
+                } else {
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                        roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
+                    }
                 }
-            } else {
-                for i in 0..<help0Label.count {
-                    roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
-                    roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
+            case .bust:
+                if redTotalScore >= gameSettings.winningScore {
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                        roundCompleteButton[i].setTitleColor(redColor, for: .normal)
+                    }
+                } else if blueTotalScore >= gameSettings.winningScore {
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                        roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
+                    }
+                }
+            case .rounds:
+                if redTotalScore > blueTotalScore {
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                        roundCompleteButton[i].setTitleColor(redColor, for: .normal)
+                    }
+                } else if blueTotalScore > redTotalScore {
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                        roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
+                    }
+                } else { // tie, playing round limited
+                    for i in 0..<help0Label.count {
+                        roundCompleteButton[i].setTitle("Tie Game", for: .normal)
+                        roundCompleteButton[i].setTitleColor(self.view.tintColor, for: .normal)
+                    }
                 }
             }
             
@@ -1292,9 +1364,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 Match.universalID = getNewID(matches: getMatchesFromCoreData())
             
                 if oneVOne {
-                    lastMatch = Match(redPlayers: [redPlayer1], bluePlayers: [bluePlayer1], rounds: rounds)
+                    lastMatch = Match(redPlayers: [redPlayer1], bluePlayers: [bluePlayer1], rounds: rounds, gameSettings: gameSettings)
                 } else {
-                    lastMatch = Match(redPlayers: [redPlayer1, redPlayer2], bluePlayers: [bluePlayer1, bluePlayer2], rounds: rounds)
+                    lastMatch = Match(redPlayers: [redPlayer1, redPlayer2], bluePlayers: [bluePlayer1, bluePlayer2], rounds: rounds, gameSettings: gameSettings)
                 }
                 
                 print("Match \(lastMatch!.id)")
@@ -1331,6 +1403,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 newUser.setValue(Date(), forKey: "endDate")
                 newUser.setValue(redColor, forKey: "redColor")
                 newUser.setValue(blueColor, forKey: "blueColor")
+                newUser.setValue(gameSettings.gameType.rawValue, forKey: "gameType")
+                newUser.setValue(gameSettings.winningScore, forKey: "winningScore")
+                newUser.setValue(gameSettings.bustScore, forKey: "bustScore")
+                newUser.setValue(gameSettings.roundLimit, forKey: "roundLimit")
             
                 do {
                     try context.save()
@@ -1415,6 +1491,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // reset game (same players)
     func reset() {
         
+        // reset game type
+        setGameSettings()
+        
         // reset date
         startDate = Date()
         
@@ -1433,6 +1512,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         blueTotalScore = 0
     
         for i in 0..<help0Label.count {
+           
+            // round label
+            if gameSettings.gameType == .rounds {
+                roundLabel[i].text = "Round 1/\(gameSettings.roundLimit)"
+            } else {
+                roundLabel[i].text = "Round"
+            }
+            
             redTotalScoreLabel[i].text = "\(redTotalScore)"
             blueTotalScoreLabel[i].text = "\(blueTotalScore)"
             
@@ -1498,7 +1585,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func matchComplete() -> Bool {
-        return redTotalScore >= 21 || blueTotalScore >= 21
+        switch gameSettings.gameType {
+        case .standard:
+            return redTotalScore >= gameSettings.winningScore || blueTotalScore >= gameSettings.winningScore
+        case .bust:
+            return redTotalScore == gameSettings.winningScore || blueTotalScore == gameSettings.winningScore
+        case .rounds:
+            return rounds.count >= gameSettings.roundLimit
+        }
     }
     
     // remember first tosser of previous round
@@ -1588,6 +1682,23 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                     blueTeamLabel[i].text = "\(bluePlayer1)\n• \(bluePlayer2)"
                 }
             }
+        }
+    }
+    
+    func setGameSettings() {
+        let defaults = UserDefaults.standard
+        let gT: GameType = GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard
+        let wS = defaults.integer(forKey: "winningScore")
+        let bS = defaults.integer(forKey: "bustScore")
+        let rL = defaults.integer(forKey: "roundLimit")
+        
+        switch gT {
+        case .standard:
+            gameSettings = GameSettings(gameType: .standard, winningScore: wS)
+        case .bust:
+            gameSettings = GameSettings(gameType: .bust, winningScore: wS, bustScore: bS)
+        case .rounds:
+            gameSettings = GameSettings(gameType: .rounds, roundLimit: rL)
         }
     }
     

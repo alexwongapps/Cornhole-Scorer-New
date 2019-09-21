@@ -14,11 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
-        
+        UserDefaults.standard.register(defaults: [
+            "gameType": 0,
+            "winningScore": 21,
+            "bustScore": 15,
+            "roundLimit": 10
+            ])
         return true
     }
     

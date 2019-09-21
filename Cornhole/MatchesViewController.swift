@@ -171,6 +171,18 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func shareMatch(_ sender: Any) {
+        if firstShareWithDataModelTwo() {
+            let alert = UIAlertController(title: "Sharing a match?", message: "Make sure the receiving device has at least version 2.2 (first version with different game types)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) in
+                self.exportMatch()
+            }))
+            present(alert, animated: true, completion: nil)
+        } else {
+            exportMatch()
+        }
+    }
+    
+    func exportMatch() {
         guard let match = currentMatch,
             let url = match.exportToFileURL() else {
                 return
@@ -197,5 +209,15 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func firstShareWithDataModelTwo() -> Bool {
+        let alreadyShared = UserDefaults.standard.bool(forKey: "alreadySharedWithDataModelTwo")
+        if alreadyShared {
+            // UserDefaults.standard.set(false, forKey: "alreadySharedWithDataModelTwo")
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: "alreadySharedWithDataModelTwo")
+            return true
+        }
+    }
 }
 
