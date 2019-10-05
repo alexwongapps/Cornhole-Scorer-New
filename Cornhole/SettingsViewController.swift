@@ -49,6 +49,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         // defaults
         let defaults = UserDefaults.standard
         gameSettings = GameSettings(gameType: GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard, winningScore: defaults.integer(forKey: "winningScore"), bustScore: defaults.integer(forKey: "bustScore"), roundLimit: defaults.integer(forKey: "roundLimit"))

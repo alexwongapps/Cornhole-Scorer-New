@@ -31,7 +31,7 @@ let systemFont: String = "Century Gothic"
 // "Hiragino Maru Gothic ProN"
 // "Khmer Sangam MN"
 // "Gill Sans"
-let backgroundImage: UIImage = UIImage(named: "CornholeBackground5.jpg")!
+var backgroundImage: UIImage = UIImage(named: "CornholeBackground5.jpg")!
 
 var entryTab: Int = SCOREBOARD_TAB_INDEX
 

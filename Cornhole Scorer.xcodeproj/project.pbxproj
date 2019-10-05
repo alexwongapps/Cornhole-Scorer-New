@@ -19,6 +19,7 @@
 		5747BCD5211555650000EE3F /* cornholeLogo_44.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */; };
 		5747BCD7211555820000EE3F /* cornholeLogo_22.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */; };
 		5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766497A20EEAC6100DDA39C /* StatsViewController.swift */; };
+		578F179D23485CDE00393FB2 /* CornholeBackground5Dark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */; };
 		57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B4FAD92106813F00109981 /* SettingsViewController.swift */; };
 		57D6187C20EADC1400A72C9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6187B20EADC1400A72C9C /* AppDelegate.swift */; };
 		57D6187E20EADC1400A72C9C /* ScoreboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6187D20EADC1400A72C9C /* ScoreboardViewController.swift */; };
@@ -58,6 +59,7 @@
 		5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_44.jpeg; sourceTree = "<group>"; };
 		5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_22.jpeg; sourceTree = "<group>"; };
 		5766497A20EEAC6100DDA39C /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CornholeBackground5Dark.jpeg; sourceTree = "<group>"; };
 		57B4FAD92106813F00109981 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		57D6187820EADC1400A72C9C /* Cornhole Scorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cornhole Scorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D6187B20EADC1400A72C9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */,
 				5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */,
 				57EA7BA622875E2F00440CEA /* CornholeBackground5.jpg */,
+				578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				57EA7B9A2287497200440CEA /* CenturyGothic.ttf in Resources */,
 				5723CD57227BFD2100994D15 /* beige.jpg in Resources */,
 				5747BCD5211555650000EE3F /* cornholeLogo_44.jpeg in Resources */,
+				578F179D23485CDE00393FB2 /* CornholeBackground5Dark.jpeg in Resources */,
 				57D6188520EADC1500A72C9C /* Assets.xcassets in Resources */,
 				5747BCD1211555280000EE3F /* cornholeLogo_320.jpeg in Resources */,
 				5747BCD7211555820000EE3F /* cornholeLogo_22.jpeg in Resources */,
@@ -549,13 +553,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 625H5P8M26;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = H5H633W272;
 				INFOPLIST_FILE = Cornhole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kidscancode.CornholeScorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -569,13 +575,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 625H5P8M26;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = H5H633W272;
 				INFOPLIST_FILE = Cornhole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kidscancode.CornholeScorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

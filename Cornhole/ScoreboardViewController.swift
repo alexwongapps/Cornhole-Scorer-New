@@ -224,6 +224,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         // set landscape/portrait
         UserDefaults.standard.set(UIApplication.shared.statusBarOrientation.isLandscape, forKey: "isLandscape")
         
@@ -1007,7 +1013,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         break
             
         // todo: add soemething to tell user about new changes
-        // todo: more testing
         case 12:
             for i in 0..<help0Label.count {
                 help11Label[i].isHidden = true

@@ -55,6 +55,12 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         // Do any additional setup after loading the view.
         
         for i in 0..<matchRecordLabel.count {
@@ -174,7 +180,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
             
             // get bag info
-            var bagData = getBagData(p: player, m: matches)
+            let bagData = getBagData(p: player, m: matches)
             
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
             for i in 0..<matchRecordLabel.count {
@@ -326,7 +332,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
             
             // get bag info
-            var bagData = getBagData(p: player, m: statsMatches)
+            let bagData = getBagData(p: player, m: statsMatches)
             
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
             for i in 0..<matchRecordLabel.count {
