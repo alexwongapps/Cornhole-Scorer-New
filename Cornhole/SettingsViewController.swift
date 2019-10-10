@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import FirebaseUI
 
-class SettingsViewController: UIViewController, UITextFieldDelegate {
+class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate {
     
     var matches: [Match] = []
     var players: [String] = []
@@ -18,7 +19,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     var firstThrowWinners: Bool = false // do winners throw first? (or does it alternate?)
     var gameSettings = GameSettings()
     
+    // firebase
+    var authUI: FUIAuth?
+    var isLoggedIn = false
+    
     @IBOutlet var settingsLabel: [UILabel]!
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet var resetMatchesButton: [UIButton]!
     @IBOutlet var editPlayerNameButton: [UIButton]!
     @IBOutlet var versionLabel: [UILabel]!
@@ -53,6 +59,18 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             overrideUserInterfaceStyle = .light
         } else {
             // Fallback on earlier versions
+        }
+        
+        // firebase
+        authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self
+        let providers: [FUIAuthProvider] = [
+            FUIGoogleAuth()
+        ]
+        self.authUI?.providers = providers
+        
+        if let user = Auth.auth().currentUser {
+            loggedIn(user: user)
         }
         
         // defaults
@@ -194,6 +212,35 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 nameTextField[0].becomeFirstResponder()
             }
         }
+    }
+    
+    // login
+    @IBAction func login(_ sender: Any) {
+        if !isLoggedIn {
+            let authViewController = authUI?.authViewController()
+            present(authViewController!, animated: true, completion: nil)
+        } else {
+            try! authUI?.signOut()
+            loggedOut()
+        }
+    }
+    
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        if let user = authDataResult?.user {
+            loggedIn(user: user)
+        }
+    }
+    
+    // what to do when logged in
+    func loggedIn(user: User) {
+        isLoggedIn = true
+        loginButton.setTitle("\(user.displayName!) (Sign out)", for: .normal)
+    }
+    
+    // what to do when logged out
+    func loggedOut() {
+        isLoggedIn = false
+        loginButton.setTitle("Log In", for: .normal)
     }
 
     @IBAction func resetMatches(_ sender: UIButton) {

@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FirebaseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,21 +25,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "bustScore": 15,
             "roundLimit": 10
             ])
+        FirebaseApp.configure()
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        guard url.pathExtension == "corn" else { return false }
-        Match.importData(from: url)
-        if let tabVC = self.window?.rootViewController as? UITabBarController {
-            tabVC.selectedIndex = MATCHES_TAB_INDEX
+        if url.pathExtension == "corn" {
+            Match.importData(from: url)
+            if let tabVC = self.window?.rootViewController as? UITabBarController {
+                tabVC.selectedIndex = MATCHES_TAB_INDEX
+            }
+            
+            guard let tabVC = self.window?.rootViewController as? UITabBarController,
+                let matchesViewController = tabVC.selectedViewController as? MatchesViewController else {
+                return true
+            }
+            matchesViewController.viewWillAppear(true)
+        } else { // auth
+            let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
+            if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+                return true
+            }
+            return false
         }
-        
-        guard let tabVC = self.window?.rootViewController as? UITabBarController,
-            let matchesViewController = tabVC.selectedViewController as? MatchesViewController else {
-            return true
-        }
-        matchesViewController.viewWillAppear(true)
         return true
     }
 

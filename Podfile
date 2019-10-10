@@ -4,6 +4,7 @@
 target 'Cornhole Scorer' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  project 'Cornhole Scorer.xcodeproj'
 
   # Pods for Cornhole
 
@@ -12,5 +13,7 @@ target 'Cornhole Scorer' do
     # Pods for testing
   end
 
-	pod 'Charts'
+  pod 'Charts'
+  pod 'Firebase/Analytics'
+  pod 'FirebaseUI'
 end
