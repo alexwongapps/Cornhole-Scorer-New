@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import WebKit
 import StoreKit
+import Firebase
 
 class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WKUIDelegate, WKNavigationDelegate, UITextFieldDelegate {
     
@@ -229,6 +230,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             // Fallback on earlier versions
         }
+        
+        // firebase
+        
+        let db = Firestore.firestore()
         
         // set landscape/portrait
         UserDefaults.standard.set(UIApplication.shared.statusBarOrientation.isLandscape, forKey: "isLandscape")

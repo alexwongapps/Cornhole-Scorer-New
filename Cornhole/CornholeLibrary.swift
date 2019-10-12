@@ -410,6 +410,23 @@ class Match: CustomStringConvertible {
     }
 }
 
+class League {
+    
+    var name: String = ""
+    var id: Int = 0
+    var players: [String] = []
+    var matches: [Match] = []
+    
+    init(name: String) {
+        self.name = name
+        self.id = getNewID()
+    }
+    
+    func getNewID() -> Int {
+        return 0
+    }
+}
+
 // other methods
 
 // get all players from an array of matches

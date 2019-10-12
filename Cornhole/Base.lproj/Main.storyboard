@@ -1747,14 +1747,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchInfoCell" id="27o-2i-Hwx" customClass="MatchesViewControllerMatchInfoTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44.333332061767578"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="27o-2i-Hwx" id="nbQ-jt-u36">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.333332061767578"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0 - 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZv-Za-guc">
-                                                            <rect key="frame" x="196" y="10.999999999999998" width="164" height="22.333333333333329"/>
+                                                            <rect key="frame" x="196" y="11" width="164" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="164" id="CJL-yd-79X"/>
                                                             </constraints>
@@ -1872,6 +1872,182 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.7751124437782" y="941.60000000000002"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="p24-2t-Rwz">
+            <objects>
+                <navigationController id="Mc0-mc-sTz" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Fs-wq-nau">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="gKc-Cx-ueO" kind="relationship" relationship="rootViewController" id="kSO-f0-PXv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YAd-5V-0m0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1940" y="346"/>
+        </scene>
+        <!--League Detail View Controller-->
+        <scene sceneID="EFi-pn-Tgu">
+            <objects>
+                <viewController id="PqI-1d-WPr" customClass="LeagueDetailViewController" customModule="Cornhole_Scorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DB9-aY-igI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ut0-oj-mJK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOb-DJ-PjY">
+                                <rect key="frame" x="163.66666666666666" y="76" width="48" height="21.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEo-nB-7Lc">
+                                <rect key="frame" x="0.0" y="171.66666666666669" width="375" height="552.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leaguePlayerCell" id="Snq-b9-jfG">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Snq-b9-jfG" id="PG2-f1-RU7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="PqI-1d-WPr" id="tPE-VP-ggk"/>
+                                    <outlet property="delegate" destination="PqI-1d-WPr" id="VNK-nW-NNq"/>
+                                </connections>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-GE-9kO">
+                                <rect key="frame" x="128" y="117.66666666666669" width="119" height="34"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEI-8d-c5h">
+                                        <rect key="frame" x="0.0" y="0.0" width="69" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-Xs-eue">
+                                        <rect key="frame" x="79" y="0.0" width="40" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Add"/>
+                                        <connections>
+                                            <action selector="addPlayer:" destination="PqI-1d-WPr" eventType="touchUpInside" id="KY0-lc-pEQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ut0-oj-mJK" firstAttribute="top" secondItem="DB9-aY-igI" secondAttribute="top" id="3or-wT-PON"/>
+                            <constraint firstItem="8ld-GE-9kO" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="C5c-M9-Ff2"/>
+                            <constraint firstItem="bOb-DJ-PjY" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="Cwa-gO-0Ck"/>
+                            <constraint firstItem="cPl-Df-o77" firstAttribute="bottom" secondItem="gEo-nB-7Lc" secondAttribute="bottom" id="Hut-h1-e3J"/>
+                            <constraint firstItem="gEo-nB-7Lc" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" id="MQj-Bn-bwP"/>
+                            <constraint firstAttribute="bottom" secondItem="Ut0-oj-mJK" secondAttribute="bottom" id="Mq4-Kz-zi9"/>
+                            <constraint firstItem="8ld-GE-9kO" firstAttribute="top" secondItem="bOb-DJ-PjY" secondAttribute="bottom" constant="20" id="PmY-Fo-f0v"/>
+                            <constraint firstItem="cPl-Df-o77" firstAttribute="trailing" secondItem="gEo-nB-7Lc" secondAttribute="trailing" id="b7C-7n-sgF"/>
+                            <constraint firstAttribute="trailing" secondItem="Ut0-oj-mJK" secondAttribute="trailing" id="ieR-AE-K1l"/>
+                            <constraint firstItem="bOb-DJ-PjY" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="sqL-Re-8bt"/>
+                            <constraint firstItem="Ut0-oj-mJK" firstAttribute="leading" secondItem="DB9-aY-igI" secondAttribute="leading" id="w0P-Fr-CjC"/>
+                            <constraint firstItem="gEo-nB-7Lc" firstAttribute="top" secondItem="8ld-GE-9kO" secondAttribute="bottom" constant="20" id="xxB-2j-KXi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cPl-Df-o77"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LG6-ac-BEk"/>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="Ut0-oj-mJK" id="UjE-zA-uWl"/>
+                        <outlet property="playersTableView" destination="gEo-nB-7Lc" id="Kpi-fp-n1e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k2s-lQ-7Ie" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3598" y="346"/>
+        </scene>
+        <!--Leagues-->
+        <scene sceneID="MLh-vt-VIb">
+            <objects>
+                <viewController id="gKc-Cx-ueO" customClass="EditLeaguesViewController" customModule="Cornhole_Scorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4jZ-0p-t5R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fnj-Yy-v0j">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9o6-ht-qgn">
+                                <rect key="frame" x="0.0" y="130" width="375" height="594"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leagueCell" id="4jh-G5-vcT">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4jh-G5-vcT" id="lDJ-uH-T4G">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="gKc-Cx-ueO" id="jfw-Cq-yQm"/>
+                                    <outlet property="delegate" destination="gKc-Cx-ueO" id="mhh-OM-dIh"/>
+                                </connections>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ASE-Oq-ysH">
+                                <rect key="frame" x="74" y="76" width="227" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-Sk-Pk4">
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Back to Settings"/>
+                                        <connections>
+                                            <action selector="back:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="AI9-dE-Pak"/>
+                                            <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="9J2-AL-z1O"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtk-5F-SDh">
+                                        <rect key="frame" x="165" y="0.0" width="62" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Create"/>
+                                        <connections>
+                                            <action selector="createLeague:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="h0e-64-Lxu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9o6-ht-qgn" firstAttribute="top" secondItem="ASE-Oq-ysH" secondAttribute="bottom" constant="20" id="6pE-hw-jzU"/>
+                            <constraint firstItem="Fnj-Yy-v0j" firstAttribute="bottom" secondItem="4jZ-0p-t5R" secondAttribute="bottom" id="LOF-WU-Qgw"/>
+                            <constraint firstItem="bVd-uv-GNa" firstAttribute="trailing" secondItem="9o6-ht-qgn" secondAttribute="trailing" id="OEd-a7-zvZ"/>
+                            <constraint firstItem="9o6-ht-qgn" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" id="PXb-XS-mDD"/>
+                            <constraint firstItem="Fnj-Yy-v0j" firstAttribute="top" secondItem="4jZ-0p-t5R" secondAttribute="top" id="Pob-jb-2ew"/>
+                            <constraint firstItem="bVd-uv-GNa" firstAttribute="bottom" secondItem="9o6-ht-qgn" secondAttribute="bottom" id="fl4-a6-xbb"/>
+                            <constraint firstItem="ASE-Oq-ysH" firstAttribute="top" secondItem="bVd-uv-GNa" secondAttribute="top" constant="20" id="l9B-vE-6lK"/>
+                            <constraint firstItem="ASE-Oq-ysH" firstAttribute="centerX" secondItem="4jZ-0p-t5R" secondAttribute="centerX" id="o9W-kn-qiq"/>
+                            <constraint firstItem="Fnj-Yy-v0j" firstAttribute="trailing" secondItem="4jZ-0p-t5R" secondAttribute="trailing" id="piQ-BY-oMD"/>
+                            <constraint firstItem="Fnj-Yy-v0j" firstAttribute="leading" secondItem="4jZ-0p-t5R" secondAttribute="leading" id="xB4-sE-IIz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bVd-uv-GNa"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Leagues" id="CID-5p-y31"/>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="Fnj-Yy-v0j" id="VCg-Iy-j0U"/>
+                        <outlet property="leaguesTableView" destination="9o6-ht-qgn" id="xkU-pK-FU1"/>
+                        <segue destination="PqI-1d-WPr" kind="show" identifier="leagueDetailSegue" id="iD4-pi-W9h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EqC-HT-Lv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2791" y="346"/>
         </scene>
         <!--Settings-->
         <scene sceneID="4TK-0i-KQY">
@@ -2169,12 +2345,21 @@
                                         </connections>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pt-oX-QZk">
-                                        <rect key="frame" x="30" y="52" width="314" height="34"/>
+                                        <rect key="frame" x="29" y="40" width="314" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Log In"/>
                                         <connections>
                                             <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="3Yg-my-QU5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlS-fz-hcx">
+                                        <rect key="frame" x="125" y="82" width="125" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Edit Leagues"/>
+                                        <connections>
+                                            <action selector="editLeagues:" destination="OpN-La-XAe" eventType="touchUpInside" id="0Wa-El-Kor"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2307,6 +2492,7 @@
                         <outletCollection property="setting2Label" destination="Llz-Ie-iVO" collectionClass="NSMutableArray" id="0Vt-0z-m23"/>
                         <outletCollection property="setting2Stepper" destination="yvR-ub-3Ao" collectionClass="NSMutableArray" id="Uhy-Ok-KiQ"/>
                         <outletCollection property="setting2Stepper" destination="HwE-Ii-sOh" collectionClass="NSMutableArray" id="gIN-Ex-MYa"/>
+                        <segue destination="Mc0-mc-sTz" kind="presentation" identifier="editLeaguesSegue" id="p6I-oa-aDE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DlA-x6-ANa" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Matches" representedClassName="Matches" syncable="YES">
-        <attribute name="blueColor" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="bustScore" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="gameType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="[Int]" syncable="YES"/>
-        <attribute name="playerNamesArray" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
-        <attribute name="redColor" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="roundDataArray" optional="YES" attributeType="Transformable" customClassName="[Int]" syncable="YES"/>
-        <attribute name="roundLimit" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="roundPlayersArray" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="winningScore" optional="YES" attributeType="Integer 32" defaultValueString="21" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="blueColor" optional="YES" attributeType="Transformable"/>
+        <attribute name="bustScore" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gameType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="[Int]"/>
+        <attribute name="playerNamesArray" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="redColor" optional="YES" attributeType="Transformable"/>
+        <attribute name="roundDataArray" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <attribute name="roundLimit" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="roundPlayersArray" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="winningScore" optional="YES" attributeType="Integer 32" defaultValueString="21" usesScalarValueType="YES"/>
     </entity>
     <entity name="Players" representedClassName="Players" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Matches" positionX="-63" positionY="-9" width="128" height="225"/>

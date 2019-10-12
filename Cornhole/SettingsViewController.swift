@@ -234,7 +234,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     // what to do when logged in
     func loggedIn(user: User) {
         isLoggedIn = true
-        loginButton.setTitle("\(user.displayName!) (Sign out)", for: .normal)
+        loginButton.setTitle("\(user.uid) (Sign out)", for: .normal)
     }
     
     // what to do when logged out
@@ -242,7 +242,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         isLoggedIn = false
         loginButton.setTitle("Log In", for: .normal)
     }
-
+    
+    @IBAction func editLeagues(_ sender: Any) {
+        performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
+    }
+    
     @IBAction func resetMatches(_ sender: UIButton) {
         // make sure
         let alert = UIAlertController(title: "Are you sure?", message: "This will delete all matches and stats", preferredStyle: UIAlertController.Style.alert)

@@ -19,6 +19,7 @@
 		5747BCD32115554B0000EE3F /* cornholeLogo_64.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD22115554A0000EE3F /* cornholeLogo_64.jpeg */; };
 		5747BCD5211555650000EE3F /* cornholeLogo_44.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */; };
 		5747BCD7211555820000EE3F /* cornholeLogo_22.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */; };
+		5758F0872352408E009BBB25 /* EditLeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5758F0862352408E009BBB25 /* EditLeaguesViewController.swift */; };
 		5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766497A20EEAC6100DDA39C /* StatsViewController.swift */; };
 		578F179D23485CDE00393FB2 /* CornholeBackground5Dark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */; };
 		57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B4FAD92106813F00109981 /* SettingsViewController.swift */; };
@@ -33,6 +34,7 @@
 		57EA7B9A2287497200440CEA /* CenturyGothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57EA7B992287492900440CEA /* CenturyGothic.ttf */; };
 		57EA7B9D22874C1B00440CEA /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57EA7B9C22874C1900440CEA /* SourceSansPro-Bold.ttf */; };
 		57EA7BA722875E3000440CEA /* CornholeBackground5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 57EA7BA622875E2F00440CEA /* CornholeBackground5.jpg */; };
+		57F490652352576E004ED2D7 /* LeagueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F490642352576E004ED2D7 /* LeagueDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		5747BCD22115554A0000EE3F /* cornholeLogo_64.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_64.jpeg; sourceTree = "<group>"; };
 		5747BCD4211555640000EE3F /* cornholeLogo_44.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_44.jpeg; sourceTree = "<group>"; };
 		5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_22.jpeg; sourceTree = "<group>"; };
+		5758F0862352408E009BBB25 /* EditLeaguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLeaguesViewController.swift; sourceTree = "<group>"; };
 		5766497A20EEAC6100DDA39C /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CornholeBackground5Dark.jpeg; sourceTree = "<group>"; };
 		57B4FAD92106813F00109981 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 		57EA7B992287492900440CEA /* CenturyGothic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CenturyGothic.ttf; sourceTree = "<group>"; };
 		57EA7B9C22874C1900440CEA /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
 		57EA7BA622875E2F00440CEA /* CornholeBackground5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CornholeBackground5.jpg; sourceTree = "<group>"; };
+		57F490642352576E004ED2D7 /* LeagueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailViewController.swift; sourceTree = "<group>"; };
 		9CC8642E931DCCEDFF5C2C18 /* Pods_Cornhole_ScorerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cornhole_ScorerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D24FE8A8A8199096B7558B /* Pods-Cornhole ScorerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole ScorerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole ScorerTests/Pods-Cornhole ScorerTests.release.xcconfig"; sourceTree = "<group>"; };
 		D82F22497271F0E4CBDECBAB /* Pods-Cornhole ScorerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole ScorerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole ScorerTests/Pods-Cornhole ScorerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				57D6188620EADC1500A72C9C /* LaunchScreen.storyboard */,
 				57D6188920EADC1500A72C9C /* Info.plist */,
 				57239AC5234FDB9800B655DB /* GoogleService-Info.plist */,
+				5758F0862352408E009BBB25 /* EditLeaguesViewController.swift */,
+				57F490642352576E004ED2D7 /* LeagueDetailViewController.swift */,
 			);
 			path = Cornhole;
 			sourceTree = "<group>";
@@ -409,7 +415,9 @@
 				57D6187E20EADC1400A72C9C /* ScoreboardViewController.swift in Sources */,
 				573CC26C20EBFB8500BAAFB0 /* CornholeLibrary.swift in Sources */,
 				5729F83220F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift in Sources */,
+				5758F0872352408E009BBB25 /* EditLeaguesViewController.swift in Sources */,
 				5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */,
+				57F490652352576E004ED2D7 /* LeagueDetailViewController.swift in Sources */,
 				5718783E20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift in Sources */,
 				57D618CE20EB1B3300A72C9C /* Cornhole.xcdatamodeld in Sources */,
 				57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */,
