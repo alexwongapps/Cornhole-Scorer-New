@@ -14,12 +14,14 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var playersTableView: UITableView!
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var idLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
+        idLabel.text = "ID: \(league?.id ?? League.NEW_ID_FAILED)"
     }
     
     @IBAction func addPlayer(_ sender: Any) {
@@ -31,8 +33,10 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField?.text != "" {
-                self.league?.players.append(textField!.text!)
+                let newPlayer = textField!.text!
+                self.league?.players.append(newPlayer)
                 self.playersTableView.reloadData()
+                CornholeFirestore.addPlayerToLeague(leagueID: self.league?.id ?? League.NEW_ID_FAILED, playerName: newPlayer)
             }
         }))
         self.present(alert, animated: true, completion: nil)

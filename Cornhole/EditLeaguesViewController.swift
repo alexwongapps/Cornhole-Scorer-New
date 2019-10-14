@@ -35,9 +35,15 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField?.text != "" {
-                self.leagues.append(League(name: textField!.text!))
-                self.leaguesTableView.reloadData()
-                self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
+                let newLeague = League(name: textField!.text!)
+                newLeague.getNewID(completion: { (error) in
+                    if error == nil {
+                        self.leagues.append(newLeague)
+                        self.leaguesTableView.reloadData()
+                        CornholeFirestore.createLeague(collection: "leagues", name: newLeague.name, id: newLeague.id)
+                        self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
+                    }
+                })
             }
         }))
         self.present(alert, animated: true, completion: nil)

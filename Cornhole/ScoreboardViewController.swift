@@ -233,7 +233,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // firebase
         
-        let db = Firestore.firestore()
+        // let db = Firestore.firestore()
         
         // set landscape/portrait
         UserDefaults.standard.set(UIApplication.shared.statusBarOrientation.isLandscape, forKey: "isLandscape")

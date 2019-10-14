@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import Firebase
 
 let SCOREBOARD_TAB_INDEX = 0
 let MATCHES_TAB_INDEX = 1
@@ -417,13 +418,23 @@ class League {
     var players: [String] = []
     var matches: [Match] = []
     
+    static let NEW_ID_FAILED = -1
+    
     init(name: String) {
         self.name = name
-        self.id = getNewID()
+        self.id = League.NEW_ID_FAILED // placeholder if fails
     }
     
-    func getNewID() -> Int {
-        return 0
+    func getNewID(completion: @escaping (Error?) -> Void) {
+        CornholeFirestore.readField(collection: "universal", document: "constants", field: "nextLeagueID") { (id, error) in
+            if let newID = id as? Int {
+                self.id = newID
+                CornholeFirestore.updateField(collection: "universal", document: "constants", field: "nextLeagueID", value: newID + 1)
+                completion(nil)
+            } else if let error = error {
+                completion(error)
+            }
+        }
     }
 }
 
@@ -746,5 +757,44 @@ class GameSettings {
         self.winningScore = winningScore
         self.bustScore = bustScore
         self.roundLimit = roundLimit
+    }
+}
+
+// firebase
+
+class CornholeFirestore {
+
+    static func readField(collection: String, document: String, field: String, completion: @escaping (Any?, Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection(collection).document(document).getDocument { (snapshot, error) in
+            if let snapshot = snapshot, snapshot.exists {
+                if let snapshotData = snapshot.data() {
+                    completion(snapshotData[field], nil)
+                } else if let error = error {
+                    completion(nil, error)
+                } else {
+                    completion(nil, nil)
+                }
+            } else if let error = error {
+                completion(nil, error)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
+
+    static func updateField(collection: String, document: String, field: String, value: Any) {
+        let db = Firestore.firestore()
+        db.collection(collection).document(document).updateData([field: value])
+    }
+    
+    static func createLeague(collection: String, name: String, id: Int) {
+        let db = Firestore.firestore()
+        db.collection(collection).document("\(id)").setData(["name": name, "id": id])
+    }
+    
+    static func addPlayerToLeague(leagueID: Int, playerName: String) {
+        let db = Firestore.firestore()
+        db.collection("leagues").document("\(leagueID)").collection("players").document(playerName).setData(["name": playerName])
     }
 }
