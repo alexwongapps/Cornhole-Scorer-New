@@ -361,7 +361,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
 
     func updateChartData() {
-        let chartDataSet = PieChartDataSet(values: bagsDataEntries, label: nil)
+        let chartDataSet = PieChartDataSet(entries: bagsDataEntries, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
         
         let formatter = NumberFormatter()
