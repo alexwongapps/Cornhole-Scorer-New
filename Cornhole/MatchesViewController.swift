@@ -9,7 +9,11 @@
 import UIKit
 import CoreData
 
-class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol MatchSettingsHandler {
+    func matchSettingsDismissed()
+}
+
+class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MatchSettingsHandler {
 
     var matches: [Match] = []
     var currentMatch: Match?
@@ -20,6 +24,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var matchView: UIView!
     @IBOutlet weak var matchInfoLabel: UILabel!
     @IBOutlet weak var roundsLabel: UILabel!
+    @IBOutlet weak var editPlayersButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
@@ -49,13 +54,15 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             matchListLabel.font = UIFont(name: systemFont, size: 75)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
-            shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
+            shareButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
+            backButton.titleLabel?.font = UIFont(name: systemFont, size: 25)
             
         } else {
             
             matchListLabel.font = UIFont(name: systemFont, size: 30)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
+            editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
@@ -171,6 +178,26 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+    }
+    
+    @IBAction func editPlayers(_ sender: Any) {
+        performSegue(withIdentifier: "matchSettingsSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "matchSettingsSegue":
+            let controller = segue.destination as! MatchSettingsViewController
+            controller.match = currentMatch
+            controller.delegate = self
+        default:
+            break
+        }
+    }
+    
+    func matchSettingsDismissed() {
+        matchView.isHidden = true
+        viewWillAppear(true)
     }
     
     @IBAction func back(_ sender: UIButton) {
