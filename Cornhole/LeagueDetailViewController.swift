@@ -34,9 +34,15 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             let textField = alert?.textFields![0]
             if textField?.text != "" {
                 let newPlayer = textField!.text!
-                self.league?.players.append(newPlayer)
-                self.playersTableView.reloadData()
-                CornholeFirestore.addPlayerToLeague(leagueID: self.league?.id ?? League.NEW_ID_FAILED, playerName: newPlayer)
+                if (self.league?.players.contains(newPlayer))! {
+                    let repeatAlert = UIAlertController(title: "Invalid name", message: "\(newPlayer) already in league", preferredStyle: .alert)
+                    repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.self.present(repeatAlert, animated: true, completion: nil)
+                } else {
+                    self.league?.players.append(newPlayer)
+                    self.playersTableView.reloadData()
+                    CornholeFirestore.addPlayerToLeague(leagueID: self.league?.id ?? League.NEW_ID_FAILED, playerName: newPlayer)
+                }
             }
         }))
         self.present(alert, animated: true, completion: nil)

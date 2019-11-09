@@ -2002,7 +2002,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ASE-Oq-ysH">
-                                <rect key="frame" x="74" y="76" width="227" height="34"/>
+                                <rect key="frame" x="48" y="76" width="279" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-Sk-Pk4">
                                         <rect key="frame" x="0.0" y="0.0" width="155" height="34"/>
@@ -2019,6 +2019,14 @@
                                         <state key="normal" title="Create"/>
                                         <connections>
                                             <action selector="createLeague:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="h0e-64-Lxu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW9-l9-1zG">
+                                        <rect key="frame" x="237" y="0.0" width="42" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Join"/>
+                                        <connections>
+                                            <action selector="joinLeague:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="5ek-z6-FiI"/>
                                         </connections>
                                     </button>
                                 </subviews>

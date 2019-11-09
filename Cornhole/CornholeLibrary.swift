@@ -290,6 +290,30 @@ class Match: CustomStringConvertible {
         }
     }
     
+    // get round players
+    
+    func getRoundPlayers() -> [String] {
+        var roundPlayers: [String] = []
+        for round in 0..<(self.rounds).count {
+            roundPlayers.append((self.rounds[round].redPlayer))
+            roundPlayers.append((self.rounds[round].bluePlayer))
+        }
+        return roundPlayers
+    }
+    
+    func getRoundData() -> [Int] { // red in, red on, red off, blue in, blue on, blue off
+        var roundData: [Int] = []
+        for round in 0..<(self.rounds).count {
+            roundData.append((self.rounds[round].red.bagsIn))
+            roundData.append((self.rounds[round].red.bagsOn))
+            roundData.append((self.rounds[round].red.bagsOff))
+            roundData.append((self.rounds[round].blue.bagsIn))
+            roundData.append((self.rounds[round].blue.bagsOn))
+            roundData.append((self.rounds[round].blue.bagsOff))
+        }
+        return roundData
+    }
+    
     // import a match
     
     static func importData(from url: URL) {
@@ -419,6 +443,9 @@ class League {
     var matches: [Match] = []
     
     static let NEW_ID_FAILED = -1
+    
+    init() {
+    }
     
     init(name: String) {
         self.name = name
@@ -760,9 +787,25 @@ class GameSettings {
     }
 }
 
+// defaults
+
+extension UserDefaults {
+    static func getLeagueIDs() -> [Int] {
+        let defaults = UserDefaults.standard
+        return defaults.array(forKey: "leagueIDs") as? [Int] ?? []
+    }
+
+    static func setLeagueIDs(ids: [Int]) {
+        let defaults = UserDefaults.standard
+        defaults.set(ids, forKey: "leagueIDs")
+    }
+}
+
 // firebase
 
 class CornholeFirestore {
+    
+    static let TEST_LEAGUE_ID: Int = -56
 
     static func readField(collection: String, document: String, field: String, completion: @escaping (Any?, Error?) -> Void) {
         let db = Firestore.firestore()
@@ -790,11 +833,126 @@ class CornholeFirestore {
     
     static func createLeague(collection: String, name: String, id: Int) {
         let db = Firestore.firestore()
-        db.collection(collection).document("\(id)").setData(["name": name, "id": id])
+        db.collection("leagues").addDocument(data: ["name": name, "id": id])
     }
     
     static func addPlayerToLeague(leagueID: Int, playerName: String) {
         let db = Firestore.firestore()
-        db.collection("leagues").document("\(leagueID)").collection("players").document(playerName).setData(["name": playerName])
+        // db.collection("leagues").document("\(leagueID)").collection("players").document(playerName).setData(["name": playerName])
+        db.collection("players").addDocument(data: ["name": playerName, "leagueID": leagueID])
+    }
+    
+    static func addMatchToLeague(leagueID: Int, match: Match) {
+        let db = Firestore.firestore()
+        db.collection("matches").addDocument(data: getDataFromMatch(leagueID: leagueID, match: match))
+    }
+    
+    static func getDataFromMatch(leagueID: Int, match: Match) -> [String: Any] {
+        var ret: [String : Any] = [:]
+        ret["leagueID"] = leagueID
+        ret["playerNamesArray"] = match.redPlayers + match.bluePlayers
+        ret["roundPlayersArray"] = match.getRoundPlayers()
+        ret["roundDataArray"] = match.getRoundData()
+        ret["matchID"] = match.id
+        ret["redColor"] = [match.redColor.rgba.red, match.redColor.rgba.green, match.redColor.rgba.blue, match.redColor.rgba.alpha]
+        ret["blueColor"] = [match.blueColor.rgba.red, match.blueColor.rgba.green, match.blueColor.rgba.blue, match.blueColor.rgba.alpha]
+        ret["startDate"] = Timestamp.init(date: match.startDate)
+        ret["endDate"] = Timestamp.init(date: match.endDate)
+        ret["gameType"] = match.gameSettings.gameType.rawValue
+        ret["winningScore"] = match.gameSettings.winningScore
+        ret["bustScore"] = match.gameSettings.bustScore
+        ret["roundLimit"] = match.gameSettings.roundLimit
+        return ret
+    }
+    
+    // get league from data
+    static func pullLeague(id: Int, completion: @escaping (League?, Error?) -> Void) {
+        let ret = League()
+        
+        var doneState = 0 {
+            didSet {
+                if doneState == 3 { // info, matches, players
+                    print("complete")
+                    completion(ret, nil)
+                }
+            }
+        }
+        let db = Firestore.firestore()
+        
+        // get league info
+        db.collection("leagues").whereField("id", isEqualTo: id).getDocuments { (snapshot, error) in
+            if let err = error {
+                print("Error getting league info: \(err)")
+                completion(nil, err)
+            } else {
+                for document in snapshot!.documents {
+                    let snapshotData = document.data()
+                    ret.name = snapshotData["name"] as! String
+                    ret.id = snapshotData["id"] as! Int
+                }
+                doneState += 1
+            }
+        }
+        
+        // get matches
+        db.collection("matches").whereField("leagueID", isEqualTo: id).getDocuments() { (snapshot, error) in
+            if let err = error {
+                print("Error getting matches: \(err)")
+                completion(nil, err)
+            } else {
+                for document in snapshot!.documents {
+                    let snapshotData = document.data()
+                    
+                    // get match data
+                    let _playerNamesArray = snapshotData["playerNamesArray"] as! [String]
+                    let _roundPlayersArray = snapshotData["roundPlayersArray"] as! [String]
+                    let _roundData = snapshotData["roundDataArray"] as! [Int]
+                    let _matchID = snapshotData["matchID"] as! Int
+                    let _startDate = (snapshotData["startDate"] as! Timestamp).dateValue()
+                    let _endDate = (snapshotData["endDate"] as! Timestamp).dateValue()
+                    let _redColor = UIColor.init(red: (snapshotData["redColor"] as! [CGFloat])[0], green: (snapshotData["redColor"] as! [CGFloat])[1], blue: (snapshotData["redColor"] as! [CGFloat])[2], alpha: (snapshotData["redColor"] as! [CGFloat])[3])
+                    let _blueColor = UIColor.init(red: (snapshotData["blueColor"] as! [CGFloat])[0], green: (snapshotData["blueColor"] as! [CGFloat])[1], blue: (snapshotData["blueColor"] as! [CGFloat])[2], alpha: (snapshotData["blueColor"] as! [CGFloat])[3])
+                    let _gameType = snapshotData["gameType"] as! Int
+                    let _winningScore = snapshotData["winningScore"] as! Int
+                    let _bustScore = snapshotData["bustScore"] as! Int
+                    let _roundLimit = snapshotData["roundLimit"] as! Int
+                    
+                    ret.matches.append(getMatchFromRawData(playerNames: _playerNamesArray, roundPlayers: _roundPlayersArray, roundData: _roundData, id: _matchID, startDate: _startDate, endDate: _endDate, redColor: _redColor, blueColor: _blueColor, gameType: _gameType, winningScore: _winningScore, bustScore: _bustScore, roundLimit: _roundLimit))
+                }
+                
+                doneState += 1
+            }
+        }
+        
+        // get players
+        db.collection("players").whereField("leagueID", isEqualTo: id).getDocuments { (snapshot, error) in
+            if let err = error {
+                print("Error getting players: \(err)")
+                completion(nil, err)
+            } else {
+                for document in snapshot!.documents {
+                    let snapshotData = document.data()
+                    
+                    // get player data
+                    let name = snapshotData["name"] as! String
+                    
+                    ret.players.append(name)
+                }
+                
+                doneState += 1
+            }
+        }
+    }
+}
+
+extension UIColor {
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        return (red, green, blue, alpha)
     }
 }

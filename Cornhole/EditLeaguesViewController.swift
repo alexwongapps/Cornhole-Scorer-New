@@ -20,6 +20,17 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
+        let leagueIDs: [Int] = UserDefaults.getLeagueIDs()
+        for id in leagueIDs {
+            CornholeFirestore.pullLeague(id: id) { (league, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                } else {
+                    self.leagues.append(league!)
+                    self.leaguesTableView.reloadData()
+                }
+            }
+        }
     }
     
     @IBAction func back(_ sender: Any) {
@@ -35,6 +46,33 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField?.text != "" {
+                let newLeague = League(name: textField!.text!)
+                newLeague.getNewID(completion: { (error) in
+                    if error == nil {
+                        self.leagues.append(newLeague)
+                        self.leaguesTableView.reloadData()
+                        CornholeFirestore.createLeague(collection: "leagues", name: newLeague.name, id: newLeague.id)
+                        var oldIDs = UserDefaults.getLeagueIDs()
+                        oldIDs.append(newLeague.id)
+                        UserDefaults.setLeagueIDs(ids: oldIDs)
+                        self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
+                    }
+                })
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func joinLeague(_ sender: Any) {
+        let alert = UIAlertController(title: "Join League", message: "Enter the league ID", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addTextField { (textField) in
+            textField.placeholder = "ID"
+        }
+        alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            if textField?.text != "" {
+                // this is all wrong
                 let newLeague = League(name: textField!.text!)
                 newLeague.getNewID(completion: { (error) in
                     if error == nil {

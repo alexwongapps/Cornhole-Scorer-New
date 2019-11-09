@@ -66,9 +66,18 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // core data
+        // core data todo: make conditional if based on if looking at a league or not
         
-        matches = getMatchesFromCoreData()
+        // matches = getMatchesFromCoreData()
+        CornholeFirestore.pullLeague(id: CornholeFirestore.TEST_LEAGUE_ID, completion: { (league, error) in
+            if let error = error {
+                print("error in getting matches: \(error)")
+            } else {
+                print("done loading matches")
+                self.matches = league!.matches
+                self.matchesTableView.reloadData()
+            }
+        })
         
         if matches.count == 0 {
             matchView.isHidden = true

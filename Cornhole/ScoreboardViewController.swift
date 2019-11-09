@@ -1017,7 +1017,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             helpState += 1
         break
             
-        // todo: add soemething to tell user about new changes
         case 12:
             for i in 0..<help0Label.count {
                 help11Label[i].isHidden = true
@@ -1391,26 +1390,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 let allPlayers: [String] = (lastMatch?.redPlayers)! + (lastMatch?.bluePlayers)!
                 newUser.setValue(allPlayers, forKey: "playerNamesArray")
             
-                var roundPlayers: [String] = []
-                var roundData: [Int] = [] // red in, red on, red off, blue in, blue on, blue off
-            
-                for round in 0..<(lastMatch?.rounds)!.count {
-                    roundPlayers.append((lastMatch?.rounds[round].redPlayer)!)
-                    roundPlayers.append((lastMatch?.rounds[round].bluePlayer)!)
-                    
-                    // add board data
-                    roundData.append((lastMatch?.rounds[round].red.bagsIn)!)
-                    roundData.append((lastMatch?.rounds[round].red.bagsOn)!)
-                    roundData.append((lastMatch?.rounds[round].red.bagsOff)!)
-                    roundData.append((lastMatch?.rounds[round].blue.bagsIn)!)
-                    roundData.append((lastMatch?.rounds[round].blue.bagsOn)!)
-                    roundData.append((lastMatch?.rounds[round].blue.bagsOff)!)
-                }
+                let roundPlayers = lastMatch?.getRoundPlayers()
+                let roundData = lastMatch?.getRoundData()
+                
                 newUser.setValue(roundPlayers, forKey: "roundPlayersArray")
                 newUser.setValue(roundData, forKey: "roundDataArray")
                 newUser.setValue(lastMatch?.id, forKey: "id")
-                newUser.setValue(startDate, forKey: "startDate")
-                newUser.setValue(Date(), forKey: "endDate")
+                lastMatch?.startDate = startDate!
+                newUser.setValue(lastMatch?.startDate, forKey: "startDate")
+                lastMatch?.endDate = Date()
+                newUser.setValue(lastMatch?.endDate, forKey: "endDate")
                 newUser.setValue(redColor, forKey: "redColor")
                 newUser.setValue(blueColor, forKey: "blueColor")
                 newUser.setValue(gameSettings.gameType.rawValue, forKey: "gameType")
@@ -1424,6 +1413,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 } catch {
                     print("Error")
                 }
+                
+                
+                
+                // save firestore todo: replace w/ league appropriate thing
+                
+                CornholeFirestore.addMatchToLeague(leagueID: CornholeFirestore.TEST_LEAGUE_ID, match: lastMatch!)
             }
         }
     }
