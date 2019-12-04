@@ -57,4 +57,20 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         cell.textLabel!.text = league?.players[indexPath.row]
         return cell
     }
+    
+    // delete player name
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            CornholeFirestore.deletePlayerFromLeague(leagueID: league?.id ?? League().id, playerName: league?.players[indexPath.row] ?? "") { (err) in
+                if let err = err {
+                    print("error deleting player: \(err)")
+                } else {
+                    self.league?.players.remove(at: indexPath.row)
+                    self.playersTableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+    }
 }

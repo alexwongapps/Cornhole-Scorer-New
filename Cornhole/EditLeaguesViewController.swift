@@ -92,9 +92,24 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell")!
-        cell.textLabel?.text = leagues[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell") as! EditLeaguesViewControllerLeagueTableViewCell
+        cell.league = leagues[indexPath.row]
+        cell.nameLabel.text = cell.league.name
+        cell.makeActiveButton.setTitle(UserDefaults.getActiveLeagueID() == cell.league.id ? "Make Not Active" : "Make Active", for: .normal)
         return cell
+    }
+    
+    @IBAction func makeActive(_ sender: UIButton) {
+        let buttonPosition = sender.convert(CGPoint.zero, to: leaguesTableView)
+        let indexPath = leaguesTableView.indexPathForRow(at: buttonPosition)
+        let cell = leaguesTableView.cellForRow(at: indexPath!) as! EditLeaguesViewControllerLeagueTableViewCell
+        
+        if UserDefaults.getActiveLeagueID() == cell.league.id { // deactivate
+            UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
+        } else { // activate
+            UserDefaults.setActiveLeagueID(id: cell.league.id)
+        }
+        leaguesTableView.reloadData()
     }
     
     var selectedLeague: League?

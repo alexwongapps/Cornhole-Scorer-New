@@ -68,16 +68,19 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // core data todo: make conditional if based on if looking at a league or not
         
-        // matches = getMatchesFromCoreData()
-        CornholeFirestore.pullLeague(id: CornholeFirestore.TEST_LEAGUE_ID, completion: { (league, error) in
-            if let error = error {
-                print("error in getting matches: \(error)")
-            } else {
-                print("done loading matches")
-                self.matches = league!.matches
-                self.matchesTableView.reloadData()
-            }
-        })
+        if !isLeagueActive() { // no league
+            matches = getMatchesFromCoreData()
+        } else { // league
+            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID(), completion: { (league, error) in
+                if let error = error {
+                    print("error in getting matches: \(error)")
+                } else {
+                    print("done loading matches")
+                    self.matches = league!.matches
+                    self.matchesTableView.reloadData()
+                }
+            })
+        }
         
         if matches.count == 0 {
             matchView.isHidden = true
@@ -148,35 +151,47 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if tableView.tag == 0 { // in main view
             if editingStyle == .delete {
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let context = appDelegate.persistentContainer.viewContext
-                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
-                request.returnsObjectsAsFaults = false
-                
-                // delete
-                do {
-                    let results = try context.fetch(request)
+                if !isLeagueActive() {
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
+                    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
+                    request.returnsObjectsAsFaults = false
                     
-                    for result in results as! [NSManagedObject] {
-                        let match = matches[indexPath.row]
+                    // delete
+                    do {
+                        let results = try context.fetch(request)
                         
-                        if result.value(forKey: "id") as! Int == match.id {
-                            context.delete(result)
+                        for result in results as! [NSManagedObject] {
+                            let match = matches[indexPath.row]
+                            
+                            if result.value(forKey: "id") as! Int == match.id {
+                                context.delete(result)
+                            }
+                        }
+                    } catch {
+                        let saveError = error as NSError
+                        print(saveError)
+                    }
+                    
+                    // save
+                    do {
+                        try context.save()
+                        matches.remove(at: indexPath.row)
+                        matchesTableView.deleteRows(at: [indexPath], with: .fade)
+                    } catch {
+                        let saveError = error as NSError
+                        print(saveError)
+                    }
+                } else {
+                    print(matches[indexPath.row].id)
+                    CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].id) { (err) in
+                        if let err = err {
+                            print("error deleting match: \(err)")
+                        } else {
+                            self.matches.remove(at: indexPath.row)
+                            self.matchesTableView.deleteRows(at: [indexPath], with: .fade)
                         }
                     }
-                } catch {
-                    let saveError = error as NSError
-                    print(saveError)
-                }
-                
-                // save
-                do {
-                    try context.save()
-                    matches.remove(at: indexPath.row)
-                    matchesTableView.deleteRows(at: [indexPath], with: .fade)
-                } catch {
-                    let saveError = error as NSError
-                    print(saveError)
                 }
             }
         }

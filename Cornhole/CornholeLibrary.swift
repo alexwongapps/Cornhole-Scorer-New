@@ -467,6 +467,11 @@ class League {
 
 // other methods
 
+// is any league active
+func isLeagueActive() -> Bool {
+    return UserDefaults.getActiveLeagueID() != CornholeFirestore.TEST_LEAGUE_ID
+}
+
 // get all players from an array of matches
 func getMatchPlayers(array: [Match]) -> [String] {
     var retNames: [String] = []
@@ -799,6 +804,16 @@ extension UserDefaults {
         let defaults = UserDefaults.standard
         defaults.set(ids, forKey: "leagueIDs")
     }
+    
+    static func getActiveLeagueID() -> Int {
+        let defaults = UserDefaults.standard
+        return defaults.integer(forKey: "activeLeagueID")
+    }
+    
+    static func setActiveLeagueID(id: Int) {
+        let defaults = UserDefaults.standard
+        defaults.set(id, forKey: "activeLeagueID")
+    }
 }
 
 // firebase
@@ -838,13 +853,49 @@ class CornholeFirestore {
     
     static func addPlayerToLeague(leagueID: Int, playerName: String) {
         let db = Firestore.firestore()
-        // db.collection("leagues").document("\(leagueID)").collection("players").document(playerName).setData(["name": playerName])
         db.collection("players").addDocument(data: ["name": playerName, "leagueID": leagueID])
+    }
+    
+    static func deletePlayerFromLeague(leagueID: Int, playerName: String, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("players").whereField("leagueID", isEqualTo: leagueID).whereField("name", isEqualTo: playerName).getDocuments { (snapshot, error) in
+            if let err = error {
+                print("error deleting player: \(err)")
+                completion(err)
+            } else {
+                for document in snapshot!.documents {
+                    document.reference.delete()
+                }
+                completion(nil)
+            }
+        }
     }
     
     static func addMatchToLeague(leagueID: Int, match: Match) {
         let db = Firestore.firestore()
-        db.collection("matches").addDocument(data: getDataFromMatch(leagueID: leagueID, match: match))
+        var ref: DocumentReference? = nil
+        ref = db.collection("matches").addDocument(data: getDataFromMatch(leagueID: leagueID, match: match)) { err in
+            if let err = err {
+                print("error adding match: \(err)")
+            }
+        }
+        // set match id with auto-generated id
+        updateField(collection: "matches", document: ref!.documentID, field: "matchID", value: Int(match.endDate.timeIntervalSinceReferenceDate)) // todo: make something more universally unique?
+    }
+    
+    static func deleteMatchFromLeague(leagueID: Int, matchID: Int, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("matches").whereField("leagueID", isEqualTo: leagueID).whereField("matchID", isEqualTo: matchID).getDocuments { (snapshot, error) in
+            if let err = error {
+                print("error deleting match: \(err)")
+                completion(err)
+            } else {
+                for document in snapshot!.documents {
+                    document.reference.delete()
+                }
+                completion(nil)
+            }
+        }
     }
     
     static func getDataFromMatch(leagueID: Int, match: Match) -> [String: Any] {

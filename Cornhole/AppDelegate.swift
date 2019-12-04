@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "gameType": 0,
             "winningScore": 21,
             "bustScore": 15,
-            "roundLimit": 10
+            "roundLimit": 10,
+            "activeLeagueID": CornholeFirestore.TEST_LEAGUE_ID
             ])
         FirebaseApp.configure()
         return true

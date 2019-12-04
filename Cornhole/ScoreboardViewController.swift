@@ -152,6 +152,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        print("active league: \(UserDefaults.getActiveLeagueID())")
+        
         super.viewWillAppear(animated)
         
         gameViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
@@ -159,31 +162,45 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         players.removeAll()
         
-        // core data
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
-        request.returnsObjectsAsFaults = false
-        
-        // load data
-        do {
-            let results = try context.fetch(request)
+        if !isLeagueActive() {
+            // core data
             
-            if results.count > 0 {
-                for result in results as! [NSManagedObject] {
-                    if let name = result.value(forKey: "name") as? String {
-                        players.append(name)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
+            request.returnsObjectsAsFaults = false
+            
+            // load data
+            do {
+                let results = try context.fetch(request)
+                
+                if results.count > 0 {
+                    for result in results as! [NSManagedObject] {
+                        if let name = result.value(forKey: "name") as? String {
+                            players.append(name)
+                        }
+                    }
+                }
+            } catch {
+                print("Error")
+            }
+            
+            players = players.sorted()
+        } else {
+            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, err) in
+                if let err = err {
+                    print("error getting players: \(err)")
+                } else {
+                    self.players = league!.players
+                    self.players = self.players.sorted()
+                    for i in 0..<self.help0Label.count {
+                        self.playerTableView[i].reloadData()
                     }
                 }
             }
-        } catch {
-            print("Error")
         }
-        
-        players = players.sorted()
         
         showSelectPlayerMenu(show: false)
         
@@ -591,36 +608,45 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
-            request.returnsObjectsAsFaults = false
             
-            // delete
-            do {
-                let results = try context.fetch(request)
+            if !isLeagueActive() { // can delete
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
+                request.returnsObjectsAsFaults = false
                 
-                for result in results as! [NSManagedObject] {
-                    if result.value(forKey: "name") as! String == players[indexPath.row] {
-                        context.delete(result)
+                // delete
+                do {
+                    let results = try context.fetch(request)
+                    
+                    for result in results as! [NSManagedObject] {
+                        if result.value(forKey: "name") as! String == players[indexPath.row] {
+                            context.delete(result)
+                        }
                     }
+                } catch {
+                    let saveError = error as NSError
+                    print(saveError)
                 }
-            } catch {
-                let saveError = error as NSError
-                print(saveError)
-            }
-            
-            // save
-            do {
-                try context.save()
-                players.remove(at: indexPath.row)
                 
-                for i in 0..<help0Label.count {
-                    playerTableView[i].deleteRows(at: [indexPath], with: .fade)
+                // save
+                do {
+                    try context.save()
+                    players.remove(at: indexPath.row)
+                    
+                    for i in 0..<help0Label.count {
+                        playerTableView[i].deleteRows(at: [indexPath], with: .fade)
+                    }
+                } catch {
+                    let saveError = error as NSError
+                    print(saveError)
                 }
-            } catch {
-                let saveError = error as NSError
-                print(saveError)
+            } else { // can't delete
+                let alert = UIAlertController(title: "Can't delete", message: "For leagues, delete players from the Leagues menu in Settings", preferredStyle: UIAlertController.Style.alert)
+                
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                
+                    self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -834,9 +860,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // show menu
     func showSelectPlayerMenu(show: Bool) {
         for i in 0..<help0Label.count {
-            createNewPlayerLabel[i].isHidden = !show
-            newPlayerTextField[i].isHidden = !show
-            addNewPlayerButton[i].isHidden = !show
+            // only allow new player creation if league is not active
+            if !isLeagueActive() {
+                createNewPlayerLabel[i].isHidden = !show
+                newPlayerTextField[i].isHidden = !show
+                addNewPlayerButton[i].isHidden = !show
+            } else {
+                createNewPlayerLabel[i].isHidden = true
+                newPlayerTextField[i].isHidden = true
+                addNewPlayerButton[i].isHidden = true
+            }
             selectExistingPlayerLabel[i].isHidden = !show
             playerTableView[i].isHidden = !show
         }
@@ -1379,46 +1412,47 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 print("Match \(lastMatch!.id)")
-            
-                // save match data core data
-            
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let context = appDelegate.persistentContainer.viewContext
-            
-                let newUser = NSEntityDescription.insertNewObject(forEntityName: "Matches", into: context)
                 
-                let allPlayers: [String] = (lastMatch?.redPlayers)! + (lastMatch?.bluePlayers)!
-                newUser.setValue(allPlayers, forKey: "playerNamesArray")
-            
-                let roundPlayers = lastMatch?.getRoundPlayers()
-                let roundData = lastMatch?.getRoundData()
+                if isLeagueActive() {
+                    // generate id for league match
+                    
+                    CornholeFirestore.addMatchToLeague(leagueID: UserDefaults.getActiveLeagueID(), match: lastMatch!)
+                } else {
+                    
+                    // save match data core data
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
                 
-                newUser.setValue(roundPlayers, forKey: "roundPlayersArray")
-                newUser.setValue(roundData, forKey: "roundDataArray")
-                newUser.setValue(lastMatch?.id, forKey: "id")
-                lastMatch?.startDate = startDate!
-                newUser.setValue(lastMatch?.startDate, forKey: "startDate")
-                lastMatch?.endDate = Date()
-                newUser.setValue(lastMatch?.endDate, forKey: "endDate")
-                newUser.setValue(redColor, forKey: "redColor")
-                newUser.setValue(blueColor, forKey: "blueColor")
-                newUser.setValue(gameSettings.gameType.rawValue, forKey: "gameType")
-                newUser.setValue(gameSettings.winningScore, forKey: "winningScore")
-                newUser.setValue(gameSettings.bustScore, forKey: "bustScore")
-                newUser.setValue(gameSettings.roundLimit, forKey: "roundLimit")
-            
-                do {
-                    try context.save()
-                    print("Saved")
-                } catch {
-                    print("Error")
+                    let newUser = NSEntityDescription.insertNewObject(forEntityName: "Matches", into: context)
+                    
+                    let allPlayers: [String] = (lastMatch?.redPlayers)! + (lastMatch?.bluePlayers)!
+                    newUser.setValue(allPlayers, forKey: "playerNamesArray")
+                
+                    let roundPlayers = lastMatch?.getRoundPlayers()
+                    let roundData = lastMatch?.getRoundData()
+                    
+                    newUser.setValue(roundPlayers, forKey: "roundPlayersArray")
+                    newUser.setValue(roundData, forKey: "roundDataArray")
+                    newUser.setValue(lastMatch?.id, forKey: "id")
+                    lastMatch?.startDate = startDate!
+                    newUser.setValue(lastMatch?.startDate, forKey: "startDate")
+                    lastMatch?.endDate = Date()
+                    newUser.setValue(lastMatch?.endDate, forKey: "endDate")
+                    newUser.setValue(redColor, forKey: "redColor")
+                    newUser.setValue(blueColor, forKey: "blueColor")
+                    newUser.setValue(gameSettings.gameType.rawValue, forKey: "gameType")
+                    newUser.setValue(gameSettings.winningScore, forKey: "winningScore")
+                    newUser.setValue(gameSettings.bustScore, forKey: "bustScore")
+                    newUser.setValue(gameSettings.roundLimit, forKey: "roundLimit")
+                    
+                    do {
+                        try context.save()
+                        print("Saved")
+                    } catch {
+                        print("Error")
+                    }
                 }
-                
-                
-                
-                // save firestore todo: replace w/ league appropriate thing
-                
-                CornholeFirestore.addMatchToLeague(leagueID: CornholeFirestore.TEST_LEAGUE_ID, match: lastMatch!)
             }
         }
     }
