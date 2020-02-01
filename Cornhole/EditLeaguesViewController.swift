@@ -72,16 +72,17 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField?.text != "" {
-                // this is all wrong
-                let newLeague = League(name: textField!.text!)
-                newLeague.getNewID(completion: { (error) in
-                    if error == nil {
-                        self.leagues.append(newLeague)
+                CornholeFirestore.pullLeague(id: Int(textField!.text!)!) { (league, err) in
+                    if let err = err {
+                        print("error pulling league: \(err)")
+                    } else {
+                        self.leagues.append(league!)
                         self.leaguesTableView.reloadData()
-                        CornholeFirestore.createLeague(collection: "leagues", name: newLeague.name, id: newLeague.id)
-                        self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
+                        var oldIDs = UserDefaults.getLeagueIDs()
+                        oldIDs.append(league!.id)
+                        UserDefaults.setLeagueIDs(ids: oldIDs)
                     }
-                })
+                }
             }
         }))
         self.present(alert, animated: true, completion: nil)

@@ -139,9 +139,25 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             timePickerView[i].selectRow(0, inComponent: 0, animated: false)
         }
         
-        // core data
+        // core data/firestore
         
-        matches = getMatchesFromCoreData()
+        if !isLeagueActive() { // no league
+            matches = getMatchesFromCoreData()
+            loadData()
+        } else { // league
+            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID(), completion: { (league, error) in
+                if let error = error {
+                    print("error in getting matches: \(error)")
+                } else {
+                    print("done loading matches")
+                    self.matches = league!.matches
+                    self.loadData()
+                }
+            })
+        }
+    }
+    
+    func loadData() {
         allPlayers = getMatchPlayers(array: matches)
         
         for i in 0..<matchRecordLabel.count {
@@ -208,7 +224,6 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             noMatchesDisplay()
         }
-        
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

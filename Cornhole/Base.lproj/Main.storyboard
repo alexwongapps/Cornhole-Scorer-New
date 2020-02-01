@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1747,14 +1747,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchInfoCell" id="27o-2i-Hwx" customClass="MatchesViewControllerMatchInfoTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44.666667938232422"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="27o-2i-Hwx" id="nbQ-jt-u36">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.666667938232422"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0 - 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZv-Za-guc">
-                                                            <rect key="frame" x="196" y="11.000000000000002" width="164" height="22.666666666666671"/>
+                                                            <rect key="frame" x="196" y="11" width="164" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="164" id="CJL-yd-79X"/>
                                                             </constraints>
@@ -2095,11 +2095,11 @@
             <objects>
                 <viewController title="Settings" id="OpN-La-XAe" customClass="SettingsViewController" customModule="Cornhole_Scorer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0zF-Rk-pNO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cGm-HM-6bE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SB0-8k-T8g">
                                 <rect key="frame" x="123" y="64" width="129" height="38"/>
@@ -2107,6 +2107,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoM-D0-7S3">
+                                <rect key="frame" x="136" y="329" width="66" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="fDB-05-YJP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24k-No-btZ">
+                                <rect key="frame" x="107" y="358" width="125" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <state key="normal" title="Edit Leagues"/>
+                                <connections>
+                                    <action selector="editLeagues:" destination="OpN-La-XAe" eventType="touchUpInside" id="rNY-yU-cwg"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-ua-KDL">
                                 <rect key="frame" x="64" y="102" width="133" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2183,7 +2201,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cornhole Scorer Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3F-cy-UyW">
-                                <rect key="frame" x="20" y="687.33333333333337" width="276.66666666666669" height="21.666666666666629"/>
+                                <rect key="frame" x="20" y="875.33333333333337" width="276.66666666666669" height="21.666666666666629"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2240,208 +2258,234 @@
                                     <action selector="changeSetting2:" destination="OpN-La-XAe" eventType="valueChanged" id="GQV-P7-8aB"/>
                                 </connections>
                             </stepper>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i08-PS-3SQ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i08-PS-3SQ">
+                                <rect key="frame" x="500" y="0.0" width="375" height="917"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-uN-gnO">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="917"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Tosser:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmO-Z1-Obq">
-                                        <rect key="frame" x="29.999999999999993" y="152" width="117.33333333333331" height="21.666666666666657"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jkx-mv-6tY">
                                         <rect key="frame" x="123" y="40" width="129" height="38"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="68B-zh-x6C" userLabel="Edit Stack View">
-                                        <rect key="frame" x="58" y="290.66666666666669" width="259" height="34"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arC-ac-Ujw">
+                                        <rect key="frame" x="0.0" y="88" width="375" height="829"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqG-A2-KzP">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
-                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                <state key="normal" title="◀"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
-                                                </variation>
-                                                <connections>
-                                                    <action selector="switchName:" destination="OpN-La-XAe" eventType="touchUpInside" id="VGy-Sx-U2x"/>
-                                                </connections>
-                                            </button>
-                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yem-62-inR">
-                                                <rect key="frame" x="40" y="0.0" width="179" height="34"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbb-dU-PMb">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="831"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Tosser:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmO-Z1-Obq">
+                                                        <rect key="frame" x="29.999999999999993" y="157" width="117.33333333333331" height="21.666666666666657"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="68B-zh-x6C" userLabel="Edit Stack View">
+                                                        <rect key="frame" x="58" y="290.66666666666669" width="259" height="34"/>
+                                                        <subviews>
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqG-A2-KzP">
+                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
+                                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                                <state key="normal" title="◀"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                                                </variation>
+                                                                <connections>
+                                                                    <action selector="switchName:" destination="OpN-La-XAe" eventType="touchUpInside" id="VGy-Sx-U2x"/>
+                                                                </connections>
+                                                            </button>
+                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yem-62-inR">
+                                                                <rect key="frame" x="40" y="0.0" width="179" height="34"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="179" id="jct-cg-DLs">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                                <connections>
+                                                                    <action selector="textFieldEditingChanged:" destination="OpN-La-XAe" eventType="editingChanged" id="Y7G-xE-Jpx"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz2-VZ-9ZW">
+                                                                <rect key="frame" x="229.00000000000003" y="0.0" width="29.999999999999972" height="34"/>
+                                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                                <state key="normal" title="▶"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                                                </variation>
+                                                                <connections>
+                                                                    <action selector="switchName:" destination="OpN-La-XAe" eventType="touchUpInside" id="1Eg-mR-pwd"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the name you want to edit, change it, then press done" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-xj-AXw">
+                                                        <rect key="frame" x="47.666666666666657" y="242.66666666666669" width="280" height="38"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="280" id="2fk-67-pih">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                                            </constraint>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT7-NL-7tq">
+                                                        <rect key="frame" x="166" y="334.66666666666669" width="43" height="31"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                        <state key="normal" title="Done"/>
+                                                        <connections>
+                                                            <action selector="saveName:" destination="OpN-La-XAe" eventType="touchUpInside" id="POM-ku-hpY"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-xF-sda">
+                                                        <rect key="frame" x="162.33333333333334" y="151" width="88" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Alternate"/>
+                                                        <connections>
+                                                            <action selector="changeFirstThrow:" destination="OpN-La-XAe" eventType="touchUpInside" id="6qg-47-loA"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVt-rI-fQ7">
+                                                        <rect key="frame" x="30" y="108" width="133" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Reset Matches"/>
+                                                        <connections>
+                                                            <action selector="resetMatches:" destination="OpN-La-XAe" eventType="touchUpInside" id="a7W-fG-cge"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfl-bU-Lfw">
+                                                        <rect key="frame" x="30" y="193.66666666666669" width="170" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Edit Player Name"/>
+                                                        <connections>
+                                                            <action selector="editPlayerName:" destination="OpN-La-XAe" eventType="touchUpInside" id="H1h-Ne-t2W"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuI-dy-AbA">
+                                                        <rect key="frame" x="30.000000000000007" y="380.66666666666669" width="114.66666666666669" height="21.666666666666686"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZL-Tj-sKw">
+                                                        <rect key="frame" x="159.66666666666666" y="374.66666666666669" width="87" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Standard"/>
+                                                        <connections>
+                                                            <action selector="changeGameType:" destination="OpN-La-XAe" eventType="touchUpInside" id="UZA-wm-1zT"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winning Score: 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsR-cO-mwj">
+                                                        <rect key="frame" x="30" y="423.66666666666669" width="170.33333333333334" height="21.666666666666686"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bust Score: 15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llz-Ie-iVO">
+                                                        <rect key="frame" x="30" y="470.33333333333337" width="134.33333333333334" height="21.666666666666686"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="HwE-Ii-sOh">
+                                                        <rect key="frame" x="220.33333333333337" y="418.33333333333331" width="94" height="32"/>
+                                                        <connections>
+                                                            <action selector="changeSetting2:" destination="OpN-La-XAe" eventType="valueChanged" id="tv6-IQ-7Az"/>
+                                                        </connections>
+                                                    </stepper>
+                                                    <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="21" minimumValue="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5g-iK-b87">
+                                                        <rect key="frame" x="220.33333333333337" y="465" width="94" height="32"/>
+                                                        <connections>
+                                                            <action selector="changeSetting1:" destination="OpN-La-XAe" eventType="valueChanged" id="uC7-Bp-FIN"/>
+                                                        </connections>
+                                                    </stepper>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlS-fz-hcx">
+                                                        <rect key="frame" x="125" y="59" width="125" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Edit Leagues"/>
+                                                        <connections>
+                                                            <action selector="editLeagues:" destination="OpN-La-XAe" eventType="touchUpInside" id="0Wa-El-Kor"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pt-oX-QZk">
+                                                        <rect key="frame" x="154.66666666666666" y="10" width="66" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Log In"/>
+                                                        <connections>
+                                                            <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="3Yg-my-QU5"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cornhole Scorer Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOx-rr-kik">
+                                                        <rect key="frame" x="30" y="547" width="276.66666666666669" height="21.666666666666629"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="179" id="jct-cg-DLs">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
-                                                    </constraint>
+                                                    <constraint firstItem="GT7-NL-7tq" firstAttribute="top" secondItem="68B-zh-x6C" secondAttribute="bottom" constant="10" id="0fJ-oJ-Vge"/>
+                                                    <constraint firstItem="5pt-oX-QZk" firstAttribute="top" secondItem="qbb-dU-PMb" secondAttribute="top" constant="10" id="2Lw-g2-sjw"/>
+                                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="leading" secondItem="GsR-cO-mwj" secondAttribute="trailing" constant="20" id="2ce-zH-ZAl"/>
+                                                    <constraint firstItem="4qN-xj-AXw" firstAttribute="top" secondItem="rfl-bU-Lfw" secondAttribute="bottom" constant="15" id="4Yy-zy-Y6e"/>
+                                                    <constraint firstItem="Llz-Ie-iVO" firstAttribute="top" secondItem="GsR-cO-mwj" secondAttribute="bottom" constant="25" id="5Q8-sX-cuh"/>
+                                                    <constraint firstItem="kmO-Z1-Obq" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="7e7-Fz-Tv1"/>
+                                                    <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="Llz-Ie-iVO" secondAttribute="centerY" id="Bhp-vf-ycy"/>
+                                                    <constraint firstItem="GsR-cO-mwj" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="CYP-hc-RsX"/>
+                                                    <constraint firstItem="kmO-Z1-Obq" firstAttribute="top" secondItem="zVt-rI-fQ7" secondAttribute="bottom" constant="15" id="Etk-MW-6UF"/>
+                                                    <constraint firstItem="68B-zh-x6C" firstAttribute="top" secondItem="4qN-xj-AXw" secondAttribute="bottom" constant="10" id="Hhl-yE-dcK"/>
+                                                    <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="wlS-fz-hcx" secondAttribute="bottom" constant="15" id="K3m-vU-0lQ"/>
+                                                    <constraint firstItem="GT7-NL-7tq" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="QGz-0U-y6S"/>
+                                                    <constraint firstItem="rfl-bU-Lfw" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="QUR-qf-tz6"/>
+                                                    <constraint firstItem="CZL-Tj-sKw" firstAttribute="leading" secondItem="yuI-dy-AbA" secondAttribute="trailing" constant="15" id="SYy-9N-ku9"/>
+                                                    <constraint firstItem="hOx-rr-kik" firstAttribute="leading" secondItem="Llz-Ie-iVO" secondAttribute="leading" id="TLZ-ev-ExN"/>
+                                                    <constraint firstItem="wlS-fz-hcx" firstAttribute="top" secondItem="5pt-oX-QZk" secondAttribute="bottom" constant="15" id="Vvi-9g-Ryw"/>
+                                                    <constraint firstItem="CZL-Tj-sKw" firstAttribute="centerY" secondItem="yuI-dy-AbA" secondAttribute="centerY" id="WrN-Qa-e55"/>
+                                                    <constraint firstItem="Ah7-xF-sda" firstAttribute="centerY" secondItem="kmO-Z1-Obq" secondAttribute="centerY" id="XFY-29-J5F"/>
+                                                    <constraint firstItem="Llz-Ie-iVO" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="aZk-ya-fD5"/>
+                                                    <constraint firstItem="Ah7-xF-sda" firstAttribute="leading" secondItem="kmO-Z1-Obq" secondAttribute="trailing" constant="15" id="gFr-M7-s6p"/>
+                                                    <constraint firstItem="5pt-oX-QZk" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="j57-hv-Y8Q"/>
+                                                    <constraint firstItem="zVt-rI-fQ7" firstAttribute="leading" secondItem="qbb-dU-PMb" secondAttribute="leading" constant="30" id="lcu-4I-Ltp"/>
+                                                    <constraint firstItem="rfl-bU-Lfw" firstAttribute="top" secondItem="kmO-Z1-Obq" secondAttribute="bottom" constant="15" id="mMv-4x-4RK"/>
+                                                    <constraint firstItem="GsR-cO-mwj" firstAttribute="top" secondItem="CZL-Tj-sKw" secondAttribute="bottom" constant="15" id="mfs-ie-T0W"/>
+                                                    <constraint firstItem="wlS-fz-hcx" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="nJI-gp-nwL"/>
+                                                    <constraint firstItem="yuI-dy-AbA" firstAttribute="top" secondItem="GT7-NL-7tq" secondAttribute="bottom" constant="15" id="nMm-cn-SMC"/>
+                                                    <constraint firstItem="68B-zh-x6C" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="oOE-sI-3rv"/>
+                                                    <constraint firstItem="hOx-rr-kik" firstAttribute="top" secondItem="g5g-iK-b87" secondAttribute="bottom" constant="50" id="pai-My-fpc"/>
+                                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="s8T-rV-apD"/>
+                                                    <constraint firstAttribute="height" constant="831" id="tDQ-TO-BOs"/>
+                                                    <constraint firstItem="yuI-dy-AbA" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="tEY-8s-Fiu"/>
+                                                    <constraint firstItem="g5g-iK-b87" firstAttribute="centerX" secondItem="HwE-Ii-sOh" secondAttribute="centerX" id="uhf-J1-DN4"/>
+                                                    <constraint firstItem="4qN-xj-AXw" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="zuK-4j-R0F"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                <connections>
-                                                    <action selector="textFieldEditingChanged:" destination="OpN-La-XAe" eventType="editingChanged" id="Y7G-xE-Jpx"/>
-                                                </connections>
-                                            </textField>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz2-VZ-9ZW">
-                                                <rect key="frame" x="229.00000000000003" y="0.0" width="29.999999999999972" height="34"/>
-                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                <state key="normal" title="▶"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
-                                                </variation>
-                                                <connections>
-                                                    <action selector="switchName:" destination="OpN-La-XAe" eventType="touchUpInside" id="1Eg-mR-pwd"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
-                                    </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cornhole Scorer Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOx-rr-kik">
-                                        <rect key="frame" x="30" y="682.33333333333337" width="276.66666666666669" height="21.666666666666629"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the name you want to edit, change it, then press done" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-xj-AXw">
-                                        <rect key="frame" x="47.666666666666657" y="247.66666666666663" width="280" height="38"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="2fk-67-pih">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="400"/>
-                                            </constraint>
+                                            <constraint firstItem="qbb-dU-PMb" firstAttribute="top" secondItem="arC-ac-Ujw" secondAttribute="top" id="3xC-vd-m7k"/>
+                                            <constraint firstItem="qbb-dU-PMb" firstAttribute="trailing" secondItem="arC-ac-Ujw" secondAttribute="trailing" id="Kcf-eg-Nqj"/>
+                                            <constraint firstItem="qbb-dU-PMb" firstAttribute="leading" secondItem="arC-ac-Ujw" secondAttribute="leading" id="XLi-UU-Q2H"/>
+                                            <constraint firstAttribute="bottom" secondItem="qbb-dU-PMb" secondAttribute="bottom" id="q5C-x7-sp0"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT7-NL-7tq">
-                                        <rect key="frame" x="166" y="329.66666666666669" width="43" height="31"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
-                                        <state key="normal" title="Done"/>
-                                        <connections>
-                                            <action selector="saveName:" destination="OpN-La-XAe" eventType="touchUpInside" id="POM-ku-hpY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-xF-sda">
-                                        <rect key="frame" x="167.33333333333334" y="146" width="88" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Alternate"/>
-                                        <connections>
-                                            <action selector="changeFirstThrow:" destination="OpN-La-XAe" eventType="touchUpInside" id="6qg-47-loA"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVt-rI-fQ7">
-                                        <rect key="frame" x="30" y="108" width="133" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Reset Matches"/>
-                                        <connections>
-                                            <action selector="resetMatches:" destination="OpN-La-XAe" eventType="touchUpInside" id="a7W-fG-cge"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfl-bU-Lfw">
-                                        <rect key="frame" x="30" y="183.66666666666666" width="170" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Edit Player Name"/>
-                                        <connections>
-                                            <action selector="editPlayerName:" destination="OpN-La-XAe" eventType="touchUpInside" id="H1h-Ne-t2W"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuI-dy-AbA">
-                                        <rect key="frame" x="30.000000000000007" y="375.66666666666669" width="114.66666666666669" height="21.666666666666686"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZL-Tj-sKw">
-                                        <rect key="frame" x="164.66666666666666" y="369.66666666666669" width="87" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Standard"/>
-                                        <connections>
-                                            <action selector="changeGameType:" destination="OpN-La-XAe" eventType="touchUpInside" id="UZA-wm-1zT"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winning Score: 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsR-cO-mwj">
-                                        <rect key="frame" x="30" y="418.66666666666669" width="170.33333333333334" height="21.666666666666686"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bust Score: 15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llz-Ie-iVO">
-                                        <rect key="frame" x="30" y="460.33333333333331" width="134.33333333333334" height="21.666666666666686"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="HwE-Ii-sOh">
-                                        <rect key="frame" x="229.66666666666663" y="455" width="94" height="32"/>
-                                        <connections>
-                                            <action selector="changeSetting2:" destination="OpN-La-XAe" eventType="valueChanged" id="tv6-IQ-7Az"/>
-                                        </connections>
-                                    </stepper>
-                                    <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="21" minimumValue="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5g-iK-b87">
-                                        <rect key="frame" x="229.66666666666663" y="413.33333333333331" width="94" height="32"/>
-                                        <connections>
-                                            <action selector="changeSetting1:" destination="OpN-La-XAe" eventType="valueChanged" id="uC7-Bp-FIN"/>
-                                        </connections>
-                                    </stepper>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pt-oX-QZk">
-                                        <rect key="frame" x="29" y="40" width="314" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Log In"/>
-                                        <connections>
-                                            <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="3Yg-my-QU5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlS-fz-hcx">
-                                        <rect key="frame" x="125" y="82" width="125" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Edit Leagues"/>
-                                        <connections>
-                                            <action selector="editLeagues:" destination="OpN-La-XAe" eventType="touchUpInside" id="0Wa-El-Kor"/>
-                                        </connections>
-                                    </button>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="MlZ-K0-e0u"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="Xr9-S2-koN"/>
+                                    </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="4qN-xj-AXw" firstAttribute="top" secondItem="rfl-bU-Lfw" secondAttribute="bottom" constant="30" id="5Kd-b9-o3V"/>
-                                    <constraint firstItem="68B-zh-x6C" firstAttribute="top" secondItem="4qN-xj-AXw" secondAttribute="bottom" constant="5" id="5XC-Lw-WMR"/>
-                                    <constraint firstItem="CZL-Tj-sKw" firstAttribute="leading" secondItem="yuI-dy-AbA" secondAttribute="trailing" constant="20" id="6Mb-wB-Uqv"/>
-                                    <constraint firstItem="g5g-iK-b87" firstAttribute="leading" secondItem="yuI-dy-AbA" secondAttribute="trailing" constant="85" id="79p-8f-Vew">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
-                                    </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="hOx-rr-kik" secondAttribute="bottom" constant="25" id="7BC-N3-l7a"/>
-                                    <constraint firstItem="GsR-cO-mwj" firstAttribute="top" secondItem="CZL-Tj-sKw" secondAttribute="bottom" constant="15" id="A8I-bN-vSC"/>
-                                    <constraint firstItem="CZL-Tj-sKw" firstAttribute="centerY" secondItem="yuI-dy-AbA" secondAttribute="centerY" id="CFH-G4-8pD"/>
-                                    <constraint firstItem="GT7-NL-7tq" firstAttribute="top" secondItem="68B-zh-x6C" secondAttribute="bottom" constant="5" id="E2l-8F-2XW"/>
-                                    <constraint firstItem="rfl-bU-Lfw" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" constant="30" id="FYu-Hh-L9l"/>
-                                    <constraint firstItem="Llz-Ie-iVO" firstAttribute="top" secondItem="GsR-cO-mwj" secondAttribute="bottom" constant="20" id="GDn-8O-b38"/>
-                                    <constraint firstItem="hOx-rr-kik" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" constant="30" id="Ijj-t1-iku"/>
-                                    <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="LQ4-tO-szK"/>
-                                    <constraint firstItem="Llz-Ie-iVO" firstAttribute="leading" secondItem="GsR-cO-mwj" secondAttribute="leading" id="NKx-je-0wh"/>
-                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerX" secondItem="g5g-iK-b87" secondAttribute="centerX" id="ODo-2a-uPJ"/>
+                                    <constraint firstItem="arC-ac-Ujw" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" id="5k8-NX-jaM"/>
+                                    <constraint firstAttribute="bottom" secondItem="arC-ac-Ujw" secondAttribute="bottom" id="75d-yc-YJf"/>
+                                    <constraint firstItem="arC-ac-Ujw" firstAttribute="top" secondItem="Jkx-mv-6tY" secondAttribute="bottom" constant="10" id="D1x-vf-nVH"/>
                                     <constraint firstItem="QHf-uN-gnO" firstAttribute="top" secondItem="i08-PS-3SQ" secondAttribute="top" id="QkQ-de-wEh"/>
                                     <constraint firstItem="Jkx-mv-6tY" firstAttribute="centerX" secondItem="i08-PS-3SQ" secondAttribute="centerX" id="RlT-hM-QOt"/>
-                                    <constraint firstItem="yuI-dy-AbA" firstAttribute="top" secondItem="GT7-NL-7tq" secondAttribute="bottom" constant="15" id="Uo5-0M-YFo"/>
-                                    <constraint firstItem="4qN-xj-AXw" firstAttribute="centerX" secondItem="i08-PS-3SQ" secondAttribute="centerX" id="VPl-kd-ZIy"/>
-                                    <constraint firstItem="rfl-bU-Lfw" firstAttribute="top" secondItem="kmO-Z1-Obq" secondAttribute="bottom" constant="10" id="Wcg-xu-myW"/>
-                                    <constraint firstItem="yuI-dy-AbA" firstAttribute="leading" secondItem="rfl-bU-Lfw" secondAttribute="leading" id="XiL-7k-1DC"/>
-                                    <constraint firstItem="GsR-cO-mwj" firstAttribute="leading" secondItem="yuI-dy-AbA" secondAttribute="leading" id="YlF-1O-HFb"/>
-                                    <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="Jkx-mv-6tY" secondAttribute="bottom" constant="30" id="e6S-pr-Yim"/>
-                                    <constraint firstItem="kmO-Z1-Obq" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" constant="30" id="eMg-p1-yVY"/>
-                                    <constraint firstItem="kmO-Z1-Obq" firstAttribute="top" secondItem="zVt-rI-fQ7" secondAttribute="bottom" constant="10" id="ehb-XE-iK5"/>
+                                    <constraint firstItem="qbb-dU-PMb" firstAttribute="width" secondItem="i08-PS-3SQ" secondAttribute="width" id="UWu-v7-UW6"/>
                                     <constraint firstAttribute="trailing" secondItem="QHf-uN-gnO" secondAttribute="trailing" id="f54-0r-ZTx"/>
                                     <constraint firstItem="QHf-uN-gnO" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" id="gQv-ru-7ae"/>
-                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerY" secondItem="Llz-Ie-iVO" secondAttribute="centerY" id="iL4-Ur-f6r"/>
                                     <constraint firstAttribute="bottom" secondItem="QHf-uN-gnO" secondAttribute="bottom" id="jIK-dr-x0c"/>
-                                    <constraint firstItem="Ah7-xF-sda" firstAttribute="leading" secondItem="kmO-Z1-Obq" secondAttribute="trailing" constant="20" id="mw1-3e-Uul"/>
                                     <constraint firstItem="Jkx-mv-6tY" firstAttribute="top" secondItem="i08-PS-3SQ" secondAttribute="top" constant="40" id="nuW-RB-GlB"/>
-                                    <constraint firstItem="GT7-NL-7tq" firstAttribute="centerX" secondItem="i08-PS-3SQ" secondAttribute="centerX" id="q7j-RP-CsD"/>
-                                    <constraint firstItem="zVt-rI-fQ7" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" constant="30" id="w7V-wW-cfw"/>
-                                    <constraint firstItem="68B-zh-x6C" firstAttribute="centerX" secondItem="i08-PS-3SQ" secondAttribute="centerX" id="wfC-Pp-VqS"/>
-                                    <constraint firstItem="Ah7-xF-sda" firstAttribute="centerY" secondItem="kmO-Z1-Obq" secondAttribute="centerY" id="x3E-mB-FoE"/>
+                                    <constraint firstAttribute="trailing" secondItem="arC-ac-Ujw" secondAttribute="trailing" id="y18-cF-Bt1"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2492,47 +2536,51 @@
                         <viewLayoutGuide key="safeArea" id="3Bm-SL-bP8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="Settings" selectedImage="Settings" id="ynV-s8-icK"/>
+                    <size key="freeformSize" width="375" height="1000"/>
                     <connections>
-                        <outlet property="loginButton" destination="5pt-oX-QZk" id="iU8-Mf-bTF"/>
                         <outlet property="portraitView" destination="i08-PS-3SQ" id="YZV-y2-1Ok"/>
                         <outletCollection property="backgroundImageView" destination="cGm-HM-6bE" collectionClass="NSMutableArray" id="NZw-Ul-WFH"/>
                         <outletCollection property="backgroundImageView" destination="QHf-uN-gnO" collectionClass="NSMutableArray" id="6CS-gL-Er3"/>
                         <outletCollection property="settingsLabel" destination="SB0-8k-T8g" collectionClass="NSMutableArray" id="BOr-zR-fd8"/>
                         <outletCollection property="settingsLabel" destination="Jkx-mv-6tY" collectionClass="NSMutableArray" id="rnC-Dw-jN9"/>
                         <outletCollection property="resetMatchesButton" destination="uDh-ua-KDL" collectionClass="NSMutableArray" id="Cla-VF-58y"/>
-                        <outletCollection property="resetMatchesButton" destination="zVt-rI-fQ7" collectionClass="NSMutableArray" id="rV3-82-zUt"/>
                         <outletCollection property="editPlayerNameButton" destination="iNt-yu-aAD" collectionClass="NSMutableArray" id="4WU-Gq-ziO"/>
-                        <outletCollection property="editPlayerNameButton" destination="rfl-bU-Lfw" collectionClass="NSMutableArray" id="zM5-j3-d80"/>
                         <outletCollection property="versionLabel" destination="D3F-cy-UyW" collectionClass="NSMutableArray" id="Va3-8T-2LZ"/>
-                        <outletCollection property="versionLabel" destination="hOx-rr-kik" collectionClass="NSMutableArray" id="Rjw-PC-Q5A"/>
                         <outletCollection property="editInstructionsLabel" destination="BTY-DM-OOe" collectionClass="NSMutableArray" id="WB8-nX-GuR"/>
-                        <outletCollection property="editInstructionsLabel" destination="4qN-xj-AXw" collectionClass="NSMutableArray" id="Db3-5A-Oxw"/>
                         <outletCollection property="editStackView" destination="DnU-qb-R13" collectionClass="NSMutableArray" id="flB-9P-e5D"/>
-                        <outletCollection property="editStackView" destination="68B-zh-x6C" collectionClass="NSMutableArray" id="ai2-h7-jgB"/>
                         <outletCollection property="leftArrowButton" destination="Rbe-gw-q2O" collectionClass="NSMutableArray" id="f6H-jo-Rwz"/>
-                        <outletCollection property="leftArrowButton" destination="gqG-A2-KzP" collectionClass="NSMutableArray" id="QcX-R3-NNq"/>
                         <outletCollection property="nameTextField" destination="aw3-0e-9QN" collectionClass="NSMutableArray" id="qHd-qc-AZU"/>
-                        <outletCollection property="nameTextField" destination="yem-62-inR" collectionClass="NSMutableArray" id="py8-i3-W2O"/>
                         <outletCollection property="rightArrowButton" destination="91K-Mk-kK8" collectionClass="NSMutableArray" id="bqs-e4-xYK"/>
-                        <outletCollection property="rightArrowButton" destination="Wz2-VZ-9ZW" collectionClass="NSMutableArray" id="Lim-9F-Frl"/>
                         <outletCollection property="doneEditingButton" destination="MtI-UB-ZRJ" collectionClass="NSMutableArray" id="bqT-we-mIc"/>
-                        <outletCollection property="doneEditingButton" destination="GT7-NL-7tq" collectionClass="NSMutableArray" id="aJn-8e-wc6"/>
                         <outletCollection property="firstThrowLabel" destination="7v7-dA-NJK" collectionClass="NSMutableArray" id="RA6-n9-B3j"/>
-                        <outletCollection property="firstThrowLabel" destination="kmO-Z1-Obq" collectionClass="NSMutableArray" id="z4s-Wt-fTL"/>
                         <outletCollection property="firstThrowButton" destination="b4l-H6-Bg7" collectionClass="NSMutableArray" id="14x-rF-L6b"/>
-                        <outletCollection property="firstThrowButton" destination="Ah7-xF-sda" collectionClass="NSMutableArray" id="xcs-K8-aCU"/>
                         <outletCollection property="gameTypeLabel" destination="6sJ-wf-YiE" collectionClass="NSMutableArray" id="pPB-ww-up0"/>
-                        <outletCollection property="gameTypeLabel" destination="yuI-dy-AbA" collectionClass="NSMutableArray" id="IPk-Z7-wIA"/>
                         <outletCollection property="setting1Label" destination="Iwa-eH-V00" collectionClass="NSMutableArray" id="Dtg-81-Qlu"/>
-                        <outletCollection property="setting1Label" destination="GsR-cO-mwj" collectionClass="NSMutableArray" id="orB-H1-UAX"/>
                         <outletCollection property="setting1Stepper" destination="RyR-Z3-hQT" collectionClass="NSMutableArray" id="XQY-oE-mcO"/>
-                        <outletCollection property="setting1Stepper" destination="g5g-iK-b87" collectionClass="NSMutableArray" id="30J-Uj-zpW"/>
                         <outletCollection property="gameTypeButton" destination="10r-G6-rLT" collectionClass="NSMutableArray" id="mbX-KU-BI3"/>
-                        <outletCollection property="gameTypeButton" destination="CZL-Tj-sKw" collectionClass="NSMutableArray" id="OF5-0j-55R"/>
                         <outletCollection property="setting2Label" destination="KNQ-5h-rtQ" collectionClass="NSMutableArray" id="T2y-Yf-7CP"/>
-                        <outletCollection property="setting2Label" destination="Llz-Ie-iVO" collectionClass="NSMutableArray" id="0Vt-0z-m23"/>
                         <outletCollection property="setting2Stepper" destination="yvR-ub-3Ao" collectionClass="NSMutableArray" id="Uhy-Ok-KiQ"/>
+                        <outletCollection property="firstThrowLabel" destination="kmO-Z1-Obq" collectionClass="NSMutableArray" id="z4s-Wt-fTL"/>
+                        <outletCollection property="editStackView" destination="68B-zh-x6C" collectionClass="NSMutableArray" id="ai2-h7-jgB"/>
+                        <outletCollection property="rightArrowButton" destination="Wz2-VZ-9ZW" collectionClass="NSMutableArray" id="Lim-9F-Frl"/>
+                        <outletCollection property="leftArrowButton" destination="gqG-A2-KzP" collectionClass="NSMutableArray" id="QcX-R3-NNq"/>
+                        <outletCollection property="nameTextField" destination="yem-62-inR" collectionClass="NSMutableArray" id="py8-i3-W2O"/>
+                        <outletCollection property="versionLabel" destination="hOx-rr-kik" collectionClass="NSMutableArray" id="Rjw-PC-Q5A"/>
+                        <outletCollection property="editInstructionsLabel" destination="4qN-xj-AXw" collectionClass="NSMutableArray" id="Db3-5A-Oxw"/>
+                        <outletCollection property="doneEditingButton" destination="GT7-NL-7tq" collectionClass="NSMutableArray" id="aJn-8e-wc6"/>
+                        <outletCollection property="firstThrowButton" destination="Ah7-xF-sda" collectionClass="NSMutableArray" id="xcs-K8-aCU"/>
+                        <outletCollection property="resetMatchesButton" destination="zVt-rI-fQ7" collectionClass="NSMutableArray" id="rV3-82-zUt"/>
+                        <outletCollection property="editPlayerNameButton" destination="rfl-bU-Lfw" collectionClass="NSMutableArray" id="zM5-j3-d80"/>
+                        <outletCollection property="gameTypeLabel" destination="yuI-dy-AbA" collectionClass="NSMutableArray" id="IPk-Z7-wIA"/>
+                        <outletCollection property="gameTypeButton" destination="CZL-Tj-sKw" collectionClass="NSMutableArray" id="OF5-0j-55R"/>
+                        <outletCollection property="setting1Label" destination="GsR-cO-mwj" collectionClass="NSMutableArray" id="orB-H1-UAX"/>
+                        <outletCollection property="setting2Label" destination="Llz-Ie-iVO" collectionClass="NSMutableArray" id="0Vt-0z-m23"/>
                         <outletCollection property="setting2Stepper" destination="HwE-Ii-sOh" collectionClass="NSMutableArray" id="gIN-Ex-MYa"/>
+                        <outletCollection property="setting1Stepper" destination="g5g-iK-b87" collectionClass="NSMutableArray" id="30J-Uj-zpW"/>
+                        <outletCollection property="loginButton" destination="5pt-oX-QZk" collectionClass="NSMutableArray" id="hGl-cC-o9x"/>
+                        <outletCollection property="editLeaguesButton" destination="wlS-fz-hcx" collectionClass="NSMutableArray" id="0cF-oB-2BA"/>
+                        <outletCollection property="editLeaguesButton" destination="24k-No-btZ" collectionClass="NSMutableArray" id="k1s-bA-SVo"/>
+                        <outletCollection property="loginButton" destination="KoM-D0-7S3" collectionClass="NSMutableArray" id="YC2-Bq-sYp"/>
                         <segue destination="Mc0-mc-sTz" kind="presentation" identifier="editLeaguesSegue" id="p6I-oa-aDE"/>
                     </connections>
                 </viewController>

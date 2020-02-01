@@ -66,8 +66,6 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // core data todo: make conditional if based on if looking at a league or not
-        
         if !isLeagueActive() { // no league
             matches = getMatchesFromCoreData()
         } else { // league
