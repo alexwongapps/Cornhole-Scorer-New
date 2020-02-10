@@ -21,6 +21,7 @@
 		5747BCD7211555820000EE3F /* cornholeLogo_22.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */; };
 		5758F0872352408E009BBB25 /* EditLeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5758F0862352408E009BBB25 /* EditLeaguesViewController.swift */; };
 		5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766497A20EEAC6100DDA39C /* StatsViewController.swift */; };
+		576C23DF23F0E71B007A1529 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C23DE23F0E71B007A1529 /* AppUtility.swift */; };
 		578709B723974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578709B623974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift */; };
 		578F179D23485CDE00393FB2 /* CornholeBackground5Dark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */; };
 		57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B4FAD92106813F00109981 /* SettingsViewController.swift */; };
@@ -65,6 +66,7 @@
 		5747BCD6211555810000EE3F /* cornholeLogo_22.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornholeLogo_22.jpeg; sourceTree = "<group>"; };
 		5758F0862352408E009BBB25 /* EditLeaguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLeaguesViewController.swift; sourceTree = "<group>"; };
 		5766497A20EEAC6100DDA39C /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		576C23DE23F0E71B007A1529 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		578709B623974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLeaguesViewControllerLeagueTableViewCell.swift; sourceTree = "<group>"; };
 		578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CornholeBackground5Dark.jpeg; sourceTree = "<group>"; };
 		57B4FAD92106813F00109981 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				5758F0862352408E009BBB25 /* EditLeaguesViewController.swift */,
 				57F490642352576E004ED2D7 /* LeagueDetailViewController.swift */,
 				578709B623974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift */,
+				576C23DE23F0E71B007A1529 /* AppUtility.swift */,
 			);
 			path = Cornhole;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				5758F0872352408E009BBB25 /* EditLeaguesViewController.swift in Sources */,
 				5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */,
 				57F490652352576E004ED2D7 /* LeagueDetailViewController.swift in Sources */,
+				576C23DF23F0E71B007A1529 /* AppUtility.swift in Sources */,
 				5718783E20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift in Sources */,
 				57D618CE20EB1B3300A72C9C /* Cornhole.xcdatamodeld in Sources */,
 				57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */,

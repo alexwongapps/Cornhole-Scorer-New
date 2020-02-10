@@ -61,6 +61,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var sePlayButton: [UIButton]! // for iphone se
     @IBOutlet var helpButton: [UIButton]!
     @IBOutlet var rulesButton: [UIButton]!
+    @IBOutlet var activityIndicator: [UIActivityIndicatorView]!
     
     // login view outlet
     @IBOutlet weak var gameViewPortrait: UIView!
@@ -78,6 +79,41 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // close login view/play button
     @IBAction func hideLogin(_ sender: Any) {
         
+        if isLeagueActive() {
+            
+            // get league
+            
+            var owner: String = ""
+            
+            for i in 0..<help0Label.count {
+                activityIndicator[i].startAnimating()
+            }
+            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, err) in
+                
+                for i in 0..<self.help0Label.count {
+                    self.activityIndicator[i].stopAnimating()
+                }
+                if err != nil {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
+                } else {
+                    owner = league!.owner
+                    if let user = Auth.auth().currentUser {
+                        if user.uid == owner {
+                            self.startMatch()
+                        } else {
+                            self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an account authorized to play in this league"), animated: true, completion: nil)
+                        }
+                    } else {
+                        self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an account authorized to play in this league"), animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            startMatch()
+        }
+    }
+    
+    func startMatch() {
         setGameSettings()
         
         for i in 0..<help0Label.count {
@@ -189,9 +225,18 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             players = players.sorted()
         } else {
+            
+            for i in 0..<help0Label.count {
+                activityIndicator[i].startAnimating()
+            }
             CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, err) in
+                
+                for i in 0..<self.help0Label.count {
+                    self.activityIndicator[i].stopAnimating()
+                }
                 if let err = err {
                     print("error getting players: \(err)")
+                    self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
                 } else {
                     self.players = league!.players
                     self.players = self.players.sorted()

@@ -166,7 +166,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        portraitView.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
+        // hacky
+        AppUtility.lockOrientation(.portrait)
+        
+        portraitView.isHidden = /*UserDefaults.standard.bool(forKey: "isLandscape")*/ false
         
         players.removeAll()
         
@@ -202,7 +205,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             doneEditingButton[i].isHidden = true
         }
     }
-    
+    /*
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -219,6 +222,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 nameTextField[0].becomeFirstResponder()
             }
         }
+    }
+    */
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        AppUtility.lockOrientation(.all)
     }
     
     // login

@@ -560,10 +560,10 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerCell" id="ehg-ri-u5X">
-                                                <rect key="frame" x="0.0" y="28" width="0.0" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="0.0" height="43.666667938232422"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ehg-ri-u5X" id="SCQ-fN-1eu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -744,6 +744,9 @@
                                             <action selector="displayRules:" destination="9pv-A4-QxB" eventType="touchUpInside" id="GNk-tq-ofT"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ByU-V6-mbo">
+                                        <rect key="frame" x="292" y="83.666666666666671" width="20" height="20"/>
+                                    </activityIndicatorView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7y-Pq-30e">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
                                         <subviews>
@@ -945,6 +948,9 @@
                                                     <action selector="displayRules:" destination="9pv-A4-QxB" eventType="touchUpInside" id="zga-jv-CxB"/>
                                                 </connections>
                                             </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zVT-Z0-xiu">
+                                                <rect key="frame" x="292" y="83.666666666666671" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1009,6 +1015,7 @@
                                             <constraint firstItem="gZw-9e-DTg" firstAttribute="leading" secondItem="4XY-cf-RxX" secondAttribute="leading" id="f7c-gm-pJg"/>
                                             <constraint firstAttribute="trailing" secondItem="a0z-3z-al0" secondAttribute="trailing" constant="40" id="fs8-xb-CRr"/>
                                             <constraint firstItem="8Gc-Zu-3W5" firstAttribute="leading" secondItem="E7y-Pq-30e" secondAttribute="leading" constant="20" id="gDX-Em-ARh"/>
+                                            <constraint firstItem="zVT-Z0-xiu" firstAttribute="centerY" secondItem="6F8-zj-dxc" secondAttribute="centerY" id="hAN-cb-ywh"/>
                                             <constraint firstItem="zBP-Ps-Roi" firstAttribute="leading" secondItem="zBr-Ma-YRQ" secondAttribute="leading" constant="10" id="hVu-w2-i3b"/>
                                             <constraint firstItem="8Gc-Zu-3W5" firstAttribute="top" secondItem="MYI-L2-ade" secondAttribute="bottom" constant="15" id="i1l-er-lCC">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -1020,6 +1027,7 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                             </constraint>
                                             <constraint firstItem="MYI-L2-ade" firstAttribute="top" secondItem="ahW-Go-ulZ" secondAttribute="bottom" constant="20" id="kvm-lz-M0G"/>
+                                            <constraint firstItem="zVT-Z0-xiu" firstAttribute="leading" secondItem="6F8-zj-dxc" secondAttribute="trailing" constant="30" id="mv0-wB-91I"/>
                                             <constraint firstAttribute="bottom" secondItem="gZw-9e-DTg" secondAttribute="bottom" constant="10" id="pvv-1m-Prg">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="10"/>
                                             </constraint>
@@ -1043,6 +1051,7 @@
                                     <constraint firstItem="nwM-p5-5A1" firstAttribute="leading" secondItem="ISr-1L-Y6J" secondAttribute="leading" constant="15" id="4N1-gF-bMg">
                                         <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                     </constraint>
+                                    <constraint firstItem="ByU-V6-mbo" firstAttribute="centerY" secondItem="Rlc-cR-M1Z" secondAttribute="centerY" id="4O0-65-WQ4"/>
                                     <constraint firstItem="jYw-Ys-hhE" firstAttribute="centerY" secondItem="S0M-bZ-X54" secondAttribute="centerY" id="4qv-Ml-miY"/>
                                     <constraint firstAttribute="trailing" secondItem="im8-w7-zZu" secondAttribute="trailing" constant="45" id="6fD-Ag-8ti">
                                         <variation key="heightClass=regular-widthClass=regular" constant="90"/>
@@ -1120,6 +1129,7 @@
                                     <constraint firstItem="tnS-R2-qg9" firstAttribute="leading" secondItem="hPT-Ff-Jf5" secondAttribute="trailing" constant="35" id="qiM-48-ksp">
                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                     </constraint>
+                                    <constraint firstItem="ByU-V6-mbo" firstAttribute="leading" secondItem="Rlc-cR-M1Z" secondAttribute="trailing" constant="30" id="sQ9-U7-W7L"/>
                                     <constraint firstItem="jYw-Ys-hhE" firstAttribute="trailing" secondItem="hPT-Ff-Jf5" secondAttribute="trailing" id="syR-NO-YnG"/>
                                     <constraint firstItem="B32-pk-QhA" firstAttribute="centerY" secondItem="1vZ-9F-WQP" secondAttribute="centerY" id="tao-JS-K3M"/>
                                     <constraint firstItem="B32-pk-QhA" firstAttribute="leading" secondItem="1vZ-9F-WQP" secondAttribute="trailing" constant="5" id="tbJ-UG-7fR">
@@ -1667,6 +1677,8 @@
                         <outletCollection property="help8Label" destination="cfw-Ja-WGr" collectionClass="NSMutableArray" id="PFA-4K-uuy"/>
                         <outletCollection property="help4Label" destination="VUI-hq-8n0" collectionClass="NSMutableArray" id="MnQ-Ns-5Ff"/>
                         <outletCollection property="help7Label" destination="0Ta-TQ-vet" collectionClass="NSMutableArray" id="EcK-sB-u7S"/>
+                        <outletCollection property="activityIndicator" destination="zVT-Z0-xiu" collectionClass="NSMutableArray" id="HL2-oK-tWG"/>
+                        <outletCollection property="activityIndicator" destination="ByU-V6-mbo" collectionClass="NSMutableArray" id="R7q-4r-cgt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -1727,6 +1739,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-4p-LGY">
+                                <rect key="frame" x="20" y="64" width="20" height="20"/>
+                            </activityIndicatorView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14U-kh-B7M" userLabel="Match View">
                                 <rect key="frame" x="0.0" y="44" width="375" height="685"/>
                                 <subviews>
@@ -1851,12 +1866,15 @@
                             <constraint firstItem="UH0-PP-fHw" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="aBI-dJ-1VD"/>
                             <constraint firstItem="14U-kh-B7M" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="b3a-nu-RTD"/>
                             <constraint firstItem="14U-kh-B7M" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="hyQ-T6-Bg0"/>
+                            <constraint firstItem="O2u-4p-LGY" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="pa0-8b-Zhg"/>
                             <constraint firstItem="14U-kh-B7M" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="sPD-rM-xLE"/>
+                            <constraint firstItem="O2u-4p-LGY" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="20" id="wO4-pC-4XV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Matches" image="Matches" selectedImage="Matches" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="O2u-4p-LGY" id="DqN-bR-nuS"/>
                         <outlet property="backButton" destination="7YI-ry-Ks9" id="FtM-IJ-mtO"/>
                         <outlet property="backgroundImageView" destination="UH0-PP-fHw" id="rEP-29-CGR"/>
                         <outlet property="matchBackgroundImageView" destination="gwo-BL-Gqc" id="ghF-Kv-vz9"/>
@@ -1913,7 +1931,7 @@
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEo-nB-7Lc">
                                 <rect key="frame" x="0.0" y="171.66666666666669" width="375" height="552.33333333333326"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leaguePlayerCell" id="Snq-b9-jfG">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
@@ -1948,11 +1966,16 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pbg-hJ-wbO">
+                                <rect key="frame" x="20" y="76" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="pbg-hJ-wbO" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="0LA-od-AMh"/>
                             <constraint firstItem="Ut0-oj-mJK" firstAttribute="top" secondItem="DB9-aY-igI" secondAttribute="top" id="3or-wT-PON"/>
                             <constraint firstItem="8ld-GE-9kO" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="C5c-M9-Ff2"/>
+                            <constraint firstItem="pbg-hJ-wbO" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" constant="20" id="DC1-9S-JGm"/>
                             <constraint firstItem="cPl-Df-o77" firstAttribute="bottom" secondItem="gEo-nB-7Lc" secondAttribute="bottom" id="Hut-h1-e3J"/>
                             <constraint firstItem="gEo-nB-7Lc" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" id="MQj-Bn-bwP"/>
                             <constraint firstAttribute="bottom" secondItem="Ut0-oj-mJK" secondAttribute="bottom" id="Mq4-Kz-zi9"/>
@@ -1968,14 +1991,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="LG6-ac-BEk"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="pbg-hJ-wbO" id="Vcp-ho-qrt"/>
+                        <outlet property="addButton" destination="jki-Xs-eue" id="AGF-dn-1Em"/>
                         <outlet property="backgroundImageView" destination="Ut0-oj-mJK" id="UjE-zA-uWl"/>
                         <outlet property="idLabel" destination="bOb-DJ-PjY" id="EvA-lN-eGm"/>
+                        <outlet property="playersLabel" destination="cEI-8d-c5h" id="rFm-T8-Waw"/>
                         <outlet property="playersTableView" destination="gEo-nB-7Lc" id="Kpi-fp-n1e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2s-lQ-7Ie" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3598" y="346"/>
+            <point key="canvasLocation" x="-3599.1999999999998" y="345.81280788177344"/>
         </scene>
         <!--Leagues-->
         <scene sceneID="MLh-vt-VIb">
@@ -1990,7 +2016,7 @@
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9o6-ht-qgn">
                                 <rect key="frame" x="0.0" y="130" width="375" height="594"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leagueCell" id="4jh-G5-vcT" customClass="EditLeaguesViewControllerLeagueTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="42.666667938232422"/>
@@ -2006,7 +2032,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-BA-jWv">
-                                                    <rect key="frame" x="291" y="0.0" width="84" height="42.666666666666664"/>
+                                                    <rect key="frame" x="276" y="0.0" width="84" height="42.666666666666664"/>
                                                     <state key="normal" title="Make Active"/>
                                                     <connections>
                                                         <action selector="makeActive:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="FRN-qL-Ljg"/>
@@ -2015,7 +2041,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="FKl-r7-2Gn" firstAttribute="top" secondItem="lDJ-uH-T4G" secondAttribute="topMargin" id="M4f-2x-uOh"/>
-                                                <constraint firstAttribute="trailing" secondItem="qAx-BA-jWv" secondAttribute="trailing" id="NW7-ga-1dN"/>
+                                                <constraint firstAttribute="trailing" secondItem="qAx-BA-jWv" secondAttribute="trailing" constant="15" id="NW7-ga-1dN"/>
                                                 <constraint firstItem="qAx-BA-jWv" firstAttribute="top" secondItem="lDJ-uH-T4G" secondAttribute="top" id="TxF-Ak-sVN"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="FKl-r7-2Gn" secondAttribute="bottom" id="elx-Ow-HXH"/>
                                                 <constraint firstAttribute="bottom" secondItem="qAx-BA-jWv" secondAttribute="bottom" id="h59-ta-4lV"/>
@@ -2034,19 +2060,19 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ASE-Oq-ysH">
-                                <rect key="frame" x="48" y="76" width="279" height="34"/>
+                                <rect key="frame" x="102.66666666666669" y="76" width="170" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-Sk-Pk4">
-                                        <rect key="frame" x="0.0" y="0.0" width="155" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Back to Settings"/>
+                                        <state key="normal" title="Back"/>
                                         <connections>
                                             <action selector="back:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="AI9-dE-Pak"/>
                                             <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="9J2-AL-z1O"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtk-5F-SDh">
-                                        <rect key="frame" x="165" y="0.0" width="62" height="34"/>
+                                        <rect key="frame" x="55.999999999999986" y="0.0" width="62" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Create"/>
                                         <connections>
@@ -2054,7 +2080,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW9-l9-1zG">
-                                        <rect key="frame" x="237" y="0.0" width="42" height="34"/>
+                                        <rect key="frame" x="128" y="0.0" width="42" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Join"/>
                                         <connections>
@@ -2063,10 +2089,15 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="FKC-MO-Wyk">
+                                <rect key="frame" x="20" y="76" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="9o6-ht-qgn" firstAttribute="top" secondItem="ASE-Oq-ysH" secondAttribute="bottom" constant="20" id="6pE-hw-jzU"/>
+                            <constraint firstItem="FKC-MO-Wyk" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" constant="20" id="Bsu-TQ-2y1"/>
+                            <constraint firstItem="FKC-MO-Wyk" firstAttribute="top" secondItem="bVd-uv-GNa" secondAttribute="top" constant="20" id="CGk-QB-puZ"/>
                             <constraint firstItem="Fnj-Yy-v0j" firstAttribute="bottom" secondItem="4jZ-0p-t5R" secondAttribute="bottom" id="LOF-WU-Qgw"/>
                             <constraint firstItem="bVd-uv-GNa" firstAttribute="trailing" secondItem="9o6-ht-qgn" secondAttribute="trailing" id="OEd-a7-zvZ"/>
                             <constraint firstItem="9o6-ht-qgn" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" id="PXb-XS-mDD"/>
@@ -2081,14 +2112,18 @@
                     </view>
                     <navigationItem key="navigationItem" title="Leagues" id="CID-5p-y31"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="FKC-MO-Wyk" id="qoz-8b-0jd"/>
+                        <outlet property="backButton" destination="fn0-Sk-Pk4" id="8hc-fz-xeX"/>
                         <outlet property="backgroundImageView" destination="Fnj-Yy-v0j" id="VCg-Iy-j0U"/>
+                        <outlet property="createButton" destination="gtk-5F-SDh" id="0uo-03-PqW"/>
+                        <outlet property="joinButton" destination="TW9-l9-1zG" id="hiK-q0-qim"/>
                         <outlet property="leaguesTableView" destination="9o6-ht-qgn" id="xkU-pK-FU1"/>
                         <segue destination="PqI-1d-WPr" kind="show" identifier="leagueDetailSegue" id="iD4-pi-W9h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqC-HT-Lv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2791" y="346"/>
+            <point key="canvasLocation" x="-2791.1999999999998" y="345.81280788177344"/>
         </scene>
         <!--Settings-->
         <scene sceneID="4TK-0i-KQY">
@@ -2142,7 +2177,7 @@
                                 </connections>
                             </button>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DnU-qb-R13" userLabel="Edit Stack View">
-                                <rect key="frame" x="489" y="148" width="74" height="34"/>
+                                <rect key="frame" x="291" y="148" width="74" height="34"/>
                                 <subviews>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbe-gw-q2O">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="34"/>
@@ -2193,7 +2228,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MtI-UB-ZRJ">
-                                <rect key="frame" x="597" y="187" width="43" height="31"/>
+                                <rect key="frame" x="279.66666666666669" y="187" width="43" height="31"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
@@ -2258,8 +2293,8 @@
                                     <action selector="changeSetting2:" destination="OpN-La-XAe" eventType="valueChanged" id="GQV-P7-8aB"/>
                                 </connections>
                             </stepper>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i08-PS-3SQ">
-                                <rect key="frame" x="500" y="0.0" width="375" height="917"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i08-PS-3SQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="917"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-uN-gnO">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="917"/>
@@ -2277,13 +2312,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="831"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Tosser:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmO-Z1-Obq">
-                                                        <rect key="frame" x="29.999999999999993" y="157" width="117.33333333333331" height="21.666666666666657"/>
+                                                        <rect key="frame" x="29.999999999999993" y="152" width="117.33333333333331" height="21.666666666666657"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="68B-zh-x6C" userLabel="Edit Stack View">
-                                                        <rect key="frame" x="58" y="290.66666666666669" width="259" height="34"/>
+                                                        <rect key="frame" x="58" y="285.66666666666669" width="259" height="34"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqG-A2-KzP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
@@ -2323,7 +2358,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the name you want to edit, change it, then press done" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-xj-AXw">
-                                                        <rect key="frame" x="47.666666666666657" y="242.66666666666669" width="280" height="38"/>
+                                                        <rect key="frame" x="47.666666666666657" y="237.66666666666669" width="280" height="38"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="280" id="2fk-67-pih">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="400"/>
@@ -2334,7 +2369,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT7-NL-7tq">
-                                                        <rect key="frame" x="166" y="334.66666666666669" width="43" height="31"/>
+                                                        <rect key="frame" x="166" y="329.66666666666669" width="43" height="31"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
                                                         <state key="normal" title="Done"/>
                                                         <connections>
@@ -2342,7 +2377,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-xF-sda">
-                                                        <rect key="frame" x="162.33333333333334" y="151" width="88" height="34"/>
+                                                        <rect key="frame" x="162.33333333333334" y="146" width="88" height="34"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Alternate"/>
                                                         <connections>
@@ -2350,7 +2385,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVt-rI-fQ7">
-                                                        <rect key="frame" x="30" y="108" width="133" height="34"/>
+                                                        <rect key="frame" x="30" y="103" width="133" height="34"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Reset Matches"/>
                                                         <connections>
@@ -2358,7 +2393,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfl-bU-Lfw">
-                                                        <rect key="frame" x="30" y="193.66666666666669" width="170" height="34"/>
+                                                        <rect key="frame" x="30" y="188.66666666666669" width="170" height="34"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Edit Player Name"/>
                                                         <connections>
@@ -2366,13 +2401,13 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuI-dy-AbA">
-                                                        <rect key="frame" x="30.000000000000007" y="380.66666666666669" width="114.66666666666669" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30.000000000000007" y="375.66666666666669" width="114.66666666666669" height="21.666666666666686"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZL-Tj-sKw">
-                                                        <rect key="frame" x="159.66666666666666" y="374.66666666666669" width="87" height="34"/>
+                                                        <rect key="frame" x="159.66666666666666" y="369.66666666666669" width="87" height="34"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Standard"/>
                                                         <connections>
@@ -2380,31 +2415,25 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winning Score: 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsR-cO-mwj">
-                                                        <rect key="frame" x="30" y="423.66666666666669" width="170.33333333333334" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30" y="418.66666666666669" width="170.33333333333334" height="21.666666666666686"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bust Score: 15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llz-Ie-iVO">
-                                                        <rect key="frame" x="30" y="470.33333333333337" width="134.33333333333334" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30" y="465.33333333333337" width="134.33333333333334" height="21.666666666666686"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="HwE-Ii-sOh">
-                                                        <rect key="frame" x="220.33333333333337" y="418.33333333333331" width="94" height="32"/>
+                                                        <rect key="frame" x="225.33333333333337" y="460" width="94" height="32"/>
                                                         <connections>
                                                             <action selector="changeSetting2:" destination="OpN-La-XAe" eventType="valueChanged" id="tv6-IQ-7Az"/>
                                                         </connections>
                                                     </stepper>
-                                                    <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="21" minimumValue="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5g-iK-b87">
-                                                        <rect key="frame" x="220.33333333333337" y="465" width="94" height="32"/>
-                                                        <connections>
-                                                            <action selector="changeSetting1:" destination="OpN-La-XAe" eventType="valueChanged" id="uC7-Bp-FIN"/>
-                                                        </connections>
-                                                    </stepper>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlS-fz-hcx">
-                                                        <rect key="frame" x="125" y="59" width="125" height="34"/>
+                                                        <rect key="frame" x="125" y="54" width="125" height="34"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Edit Leagues"/>
                                                         <connections>
@@ -2420,29 +2449,35 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cornhole Scorer Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOx-rr-kik">
-                                                        <rect key="frame" x="30" y="547" width="276.66666666666669" height="21.666666666666629"/>
+                                                        <rect key="frame" x="30" y="542" width="276.66666666666669" height="21.666666666666629"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="21" minimumValue="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5g-iK-b87">
+                                                        <rect key="frame" x="225.33333333333337" y="413.33333333333331" width="94" height="32"/>
+                                                        <connections>
+                                                            <action selector="changeSetting1:" destination="OpN-La-XAe" eventType="valueChanged" id="uC7-Bp-FIN"/>
+                                                        </connections>
+                                                    </stepper>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="top" secondItem="68B-zh-x6C" secondAttribute="bottom" constant="10" id="0fJ-oJ-Vge"/>
                                                     <constraint firstItem="5pt-oX-QZk" firstAttribute="top" secondItem="qbb-dU-PMb" secondAttribute="top" constant="10" id="2Lw-g2-sjw"/>
-                                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="leading" secondItem="GsR-cO-mwj" secondAttribute="trailing" constant="20" id="2ce-zH-ZAl"/>
                                                     <constraint firstItem="4qN-xj-AXw" firstAttribute="top" secondItem="rfl-bU-Lfw" secondAttribute="bottom" constant="15" id="4Yy-zy-Y6e"/>
                                                     <constraint firstItem="Llz-Ie-iVO" firstAttribute="top" secondItem="GsR-cO-mwj" secondAttribute="bottom" constant="25" id="5Q8-sX-cuh"/>
                                                     <constraint firstItem="kmO-Z1-Obq" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="7e7-Fz-Tv1"/>
-                                                    <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="Llz-Ie-iVO" secondAttribute="centerY" id="Bhp-vf-ycy"/>
                                                     <constraint firstItem="GsR-cO-mwj" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="CYP-hc-RsX"/>
                                                     <constraint firstItem="kmO-Z1-Obq" firstAttribute="top" secondItem="zVt-rI-fQ7" secondAttribute="bottom" constant="15" id="Etk-MW-6UF"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="top" secondItem="4qN-xj-AXw" secondAttribute="bottom" constant="10" id="Hhl-yE-dcK"/>
                                                     <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="wlS-fz-hcx" secondAttribute="bottom" constant="15" id="K3m-vU-0lQ"/>
+                                                    <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="Oto-6z-o3S"/>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="QGz-0U-y6S"/>
                                                     <constraint firstItem="rfl-bU-Lfw" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="QUR-qf-tz6"/>
                                                     <constraint firstItem="CZL-Tj-sKw" firstAttribute="leading" secondItem="yuI-dy-AbA" secondAttribute="trailing" constant="15" id="SYy-9N-ku9"/>
+                                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerY" secondItem="Llz-Ie-iVO" secondAttribute="centerY" id="SnN-cC-VTr"/>
                                                     <constraint firstItem="hOx-rr-kik" firstAttribute="leading" secondItem="Llz-Ie-iVO" secondAttribute="leading" id="TLZ-ev-ExN"/>
-                                                    <constraint firstItem="wlS-fz-hcx" firstAttribute="top" secondItem="5pt-oX-QZk" secondAttribute="bottom" constant="15" id="Vvi-9g-Ryw"/>
+                                                    <constraint firstItem="wlS-fz-hcx" firstAttribute="top" secondItem="5pt-oX-QZk" secondAttribute="bottom" constant="10" id="Vvi-9g-Ryw"/>
                                                     <constraint firstItem="CZL-Tj-sKw" firstAttribute="centerY" secondItem="yuI-dy-AbA" secondAttribute="centerY" id="WrN-Qa-e55"/>
                                                     <constraint firstItem="Ah7-xF-sda" firstAttribute="centerY" secondItem="kmO-Z1-Obq" secondAttribute="centerY" id="XFY-29-J5F"/>
                                                     <constraint firstItem="Llz-Ie-iVO" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="aZk-ya-fD5"/>
@@ -2454,11 +2489,11 @@
                                                     <constraint firstItem="wlS-fz-hcx" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="nJI-gp-nwL"/>
                                                     <constraint firstItem="yuI-dy-AbA" firstAttribute="top" secondItem="GT7-NL-7tq" secondAttribute="bottom" constant="15" id="nMm-cn-SMC"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="oOE-sI-3rv"/>
-                                                    <constraint firstItem="hOx-rr-kik" firstAttribute="top" secondItem="g5g-iK-b87" secondAttribute="bottom" constant="50" id="pai-My-fpc"/>
-                                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="s8T-rV-apD"/>
                                                     <constraint firstAttribute="height" constant="831" id="tDQ-TO-BOs"/>
                                                     <constraint firstItem="yuI-dy-AbA" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="tEY-8s-Fiu"/>
-                                                    <constraint firstItem="g5g-iK-b87" firstAttribute="centerX" secondItem="HwE-Ii-sOh" secondAttribute="centerX" id="uhf-J1-DN4"/>
+                                                    <constraint firstItem="g5g-iK-b87" firstAttribute="leading" secondItem="GsR-cO-mwj" secondAttribute="trailing" constant="25" id="tjb-rp-aos"/>
+                                                    <constraint firstItem="hOx-rr-kik" firstAttribute="top" secondItem="HwE-Ii-sOh" secondAttribute="bottom" constant="50" id="y2w-l5-s41"/>
+                                                    <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerX" secondItem="g5g-iK-b87" secondAttribute="centerX" id="yWM-db-tuB"/>
                                                     <constraint firstItem="4qN-xj-AXw" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="zuK-4j-R0F"/>
                                                 </constraints>
                                             </view>
@@ -2639,6 +2674,9 @@
                                     <outlet property="delegate" destination="uQZ-18-tki" id="I5K-z1-V8a"/>
                                 </connections>
                             </pickerView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="jpL-1N-jRP">
+                                <rect key="frame" x="227.66666666666666" y="73" width="20" height="20"/>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c19-hC-sKx">
                                 <rect key="frame" x="20" y="149" width="150" height="208"/>
                                 <subviews>
@@ -2870,10 +2908,14 @@
                                             <constraint firstItem="9Iu-Ur-Mke" firstAttribute="centerX" secondItem="wbJ-MT-X6N" secondAttribute="centerX" id="yzE-In-6Jz"/>
                                         </constraints>
                                     </view>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="H0g-wa-KqN">
+                                        <rect key="frame" x="30" y="40" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="G7o-EP-R9y" firstAttribute="top" secondItem="HMj-1b-Jrg" secondAttribute="bottom" constant="-10" id="2J1-yt-rXh"/>
+                                    <constraint firstItem="H0g-wa-KqN" firstAttribute="leading" secondItem="HtS-f4-m1h" secondAttribute="leading" constant="30" id="5dM-ii-DW4"/>
                                     <constraint firstItem="Icd-9u-oIE" firstAttribute="leading" secondItem="HtS-f4-m1h" secondAttribute="leading" constant="30" id="9OT-xJ-hJc"/>
                                     <constraint firstAttribute="centerX" secondItem="G7o-EP-R9y" secondAttribute="trailing" id="Czc-e5-pVA"/>
                                     <constraint firstAttribute="trailing" secondItem="nI6-Oe-Xe9" secondAttribute="trailing" id="GYq-Ww-1OS"/>
@@ -2886,6 +2928,7 @@
                                     <constraint firstItem="V7K-Ph-fLb" firstAttribute="centerY" secondItem="G7o-EP-R9y" secondAttribute="centerY" id="ibg-QL-KuS"/>
                                     <constraint firstItem="HMj-1b-Jrg" firstAttribute="top" secondItem="HtS-f4-m1h" secondAttribute="top" constant="40" id="lyM-Gi-29d"/>
                                     <constraint firstItem="wbJ-MT-X6N" firstAttribute="centerX" secondItem="HtS-f4-m1h" secondAttribute="centerX" id="u5b-Z8-y1J"/>
+                                    <constraint firstItem="H0g-wa-KqN" firstAttribute="top" secondItem="HtS-f4-m1h" secondAttribute="top" constant="40" id="veQ-Uf-xys"/>
                                     <constraint firstItem="Icd-9u-oIE" firstAttribute="top" secondItem="G7o-EP-R9y" secondAttribute="bottom" id="wkc-Mw-chJ"/>
                                     <constraint firstAttribute="bottom" secondItem="nI6-Oe-Xe9" secondAttribute="bottom" id="yUX-J1-xHe"/>
                                 </constraints>
@@ -2897,8 +2940,10 @@
                             <constraint firstItem="DSA-Oq-EnG" firstAttribute="top" secondItem="ASf-Lr-DOo" secondAttribute="top" constant="20" id="1vR-HV-gyL"/>
                             <constraint firstAttribute="trailing" secondItem="64Q-tK-sAd" secondAttribute="trailing" id="3JM-bY-ona"/>
                             <constraint firstAttribute="bottom" secondItem="64Q-tK-sAd" secondAttribute="bottom" id="3lg-hI-B7j"/>
+                            <constraint firstItem="jpL-1N-jRP" firstAttribute="leading" secondItem="DSA-Oq-EnG" secondAttribute="trailing" constant="30" id="3qw-A0-OyT"/>
                             <constraint firstItem="ASf-Lr-DOo" firstAttribute="trailing" secondItem="Vyo-pC-qjw" secondAttribute="trailing" constant="20" id="5As-Ly-b0E"/>
                             <constraint firstItem="HtS-f4-m1h" firstAttribute="trailing" secondItem="ASf-Lr-DOo" secondAttribute="trailing" id="9I8-eT-FxN"/>
+                            <constraint firstItem="jpL-1N-jRP" firstAttribute="centerY" secondItem="DSA-Oq-EnG" secondAttribute="centerY" id="AkH-33-vLG"/>
                             <constraint firstItem="eIz-z9-IBO" firstAttribute="top" secondItem="Vyo-pC-qjw" secondAttribute="bottom" constant="5" id="B2d-h1-wq2">
                                 <variation key="heightClass=regular-widthClass=regular" constant="95"/>
                             </constraint>
@@ -2955,6 +3000,8 @@
                         <outletCollection property="boardPieChartView" destination="eIz-z9-IBO" collectionClass="NSMutableArray" id="DeC-3X-hAk"/>
                         <outletCollection property="bagLocationLabel" destination="cj7-H3-mnd" collectionClass="NSMutableArray" id="lHK-6S-lQR"/>
                         <outletCollection property="bagLocationLabel" destination="9Iu-Ur-Mke" collectionClass="NSMutableArray" id="qlA-xR-XS3"/>
+                        <outletCollection property="activityIndicator" destination="H0g-wa-KqN" collectionClass="NSMutableArray" id="Uu6-XJ-6r2"/>
+                        <outletCollection property="activityIndicator" destination="jpL-1N-jRP" collectionClass="NSMutableArray" id="0oc-Wt-62Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g6x-na-CTf" userLabel="First Responder" sceneMemberID="firstResponder"/>

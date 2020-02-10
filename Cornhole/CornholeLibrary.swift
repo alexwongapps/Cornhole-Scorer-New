@@ -441,15 +441,17 @@ class League {
     var id: Int = 0
     var players: [String] = []
     var matches: [Match] = []
+    var owner: String = ""
     
     static let NEW_ID_FAILED = -1
     
     init() {
     }
     
-    init(name: String) {
+    init(name: String, owner: String) {
         self.name = name
         self.id = League.NEW_ID_FAILED // placeholder if fails
+        self.owner = owner
     }
     
     func getNewID(completion: @escaping (Error?) -> Void) {
@@ -846,9 +848,9 @@ class CornholeFirestore {
         db.collection(collection).document(document).updateData([field: value])
     }
     
-    static func createLeague(collection: String, name: String, id: Int) {
+    static func createLeague(collection: String, name: String, id: Int, owner: String) {
         let db = Firestore.firestore()
-        db.collection("leagues").addDocument(data: ["name": name, "id": id])
+        db.collection("leagues").addDocument(data: ["name": name, "id": id, "owner": owner])
     }
     
     static func addPlayerToLeague(leagueID: Int, playerName: String) {
@@ -1006,4 +1008,16 @@ extension UIColor {
 
         return (red, green, blue, alpha)
     }
+}
+
+// alert
+
+func createBasicAlert(title: String, message: String) -> UIAlertController {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+    
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in
+        alert.dismiss(animated: true, completion: nil)
+    }))
+    
+    return alert
 }

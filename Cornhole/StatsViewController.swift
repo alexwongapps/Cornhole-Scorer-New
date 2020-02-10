@@ -41,6 +41,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet var offPerRoundLabel: [UILabel]!
     @IBOutlet var bagLocationLabel: [UILabel]!
     @IBOutlet var boardPieChartView: [PieChartView]! // displays in, on, off
+    @IBOutlet var activityIndicator: [UIActivityIndicatorView]!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -65,6 +66,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         for i in 0..<matchRecordLabel.count {
             backgroundImageView[i].image = backgroundImage
+            statsLabel[i].text = ""
         }
         
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
@@ -142,14 +144,27 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // core data/firestore
         
         if !isLeagueActive() { // no league
+            for i in 0..<matchRecordLabel.count {
+                statsLabel[i].text = "Stats"
+            }
             matches = getMatchesFromCoreData()
             loadData()
         } else { // league
+            for i in 0..<matchRecordLabel.count {
+                activityIndicator[i].startAnimating()
+            }
             CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID(), completion: { (league, error) in
+                for i in 0..<self.matchRecordLabel.count {
+                    self.activityIndicator[i].stopAnimating()
+                }
                 if let error = error {
                     print("error in getting matches: \(error)")
+                    self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
                 } else {
                     print("done loading matches")
+                    for i in 0..<self.matchRecordLabel.count {
+                        self.statsLabel[i].text = league!.name
+                    }
                     self.matches = league!.matches
                     self.loadData()
                 }

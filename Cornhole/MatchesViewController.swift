@@ -22,6 +22,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var roundsLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // backgrounds
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -40,6 +41,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         backgroundImageView.image = backgroundImage
         matchBackgroundImageView.image = backgroundImage
+        
+        matchListLabel.text = ""
         
         matchesTableView.backgroundColor = .clear
         matchInfoTableView.backgroundColor = .clear
@@ -67,13 +70,18 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         
         if !isLeagueActive() { // no league
+            matchListLabel.text = "Match List"
             matches = getMatchesFromCoreData()
         } else { // league
+            activityIndicator.startAnimating()
             CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID(), completion: { (league, error) in
+                self.activityIndicator.stopAnimating()
                 if let error = error {
                     print("error in getting matches: \(error)")
+                    self.present(createBasicAlert(title: "Error", message: "Unable to get matches. Check your internet connection."), animated: true, completion: nil)
                 } else {
                     print("done loading matches")
+                    self.matchListLabel.text = league!.name
                     self.matches = league!.matches
                     self.matchesTableView.reloadData()
                 }

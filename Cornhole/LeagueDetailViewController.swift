@@ -15,6 +15,9 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var playersTableView: UITableView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var playersLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,25 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
         idLabel.text = "ID: \(league?.id ?? League.NEW_ID_FAILED)"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+            
+            idLabel.font = UIFont(name: systemFont, size: 30)
+            playersLabel.font = UIFont(name: systemFont, size: 30)
+            addButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+        } else if smallDevice() {
+            idLabel.font = UIFont(name: systemFont, size: 17)
+            playersLabel.font = UIFont(name: systemFont, size: 17)
+            addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+        } else {
+            idLabel.font = UIFont(name: systemFont, size: 17)
+            playersLabel.font = UIFont(name: systemFont, size: 17)
+            addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+        }
     }
     
     @IBAction func addPlayer(_ sender: Any) {
@@ -55,6 +77,18 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leaguePlayerCell")!
         cell.textLabel!.text = league?.players[indexPath.row]
+        cell.backgroundColor = .clear
+        
+        // fonts
+        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+            
+            cell.textLabel!.font = UIFont(name: systemFont, size: 30)
+        } else if smallDevice() {
+            cell.textLabel!.font = UIFont(name: systemFont, size: 17)
+        } else {
+            cell.textLabel!.font = UIFont(name: systemFont, size: 17)
+        }
+        
         return cell
     }
     
@@ -62,10 +96,12 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            
+            activityIndicator.startAnimating()
             CornholeFirestore.deletePlayerFromLeague(leagueID: league?.id ?? League().id, playerName: league?.players[indexPath.row] ?? "") { (err) in
+                self.activityIndicator.stopAnimating()
                 if let err = err {
                     print("error deleting player: \(err)")
+                    self.present(createBasicAlert(title: "Error", message: "Unable to delete player. Check your internet connection."), animated: true, completion: nil)
                 } else {
                     self.league?.players.remove(at: indexPath.row)
                     self.playersTableView.deleteRows(at: [indexPath], with: .fade)

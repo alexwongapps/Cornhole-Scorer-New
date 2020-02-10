@@ -119,6 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
     
+    var orientationLock = UIInterfaceOrientationMask.all
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.orientationLock
+    }
+    
     // MARK: - Core Data Saving support
     
     func saveContext () {
