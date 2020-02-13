@@ -83,8 +83,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             // get league
             
-            var owner: String = ""
-            
             for i in 0..<help0Label.count {
                 activityIndicator[i].startAnimating()
             }
@@ -96,15 +94,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 if err != nil {
                     self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
                 } else {
-                    owner = league!.owner
-                    if let user = Auth.auth().currentUser {
-                        if user.uid == owner {
-                            self.startMatch()
-                        } else {
-                            self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an account authorized to play in this league"), animated: true, completion: nil)
-                        }
+                    if (league?.isEditor(user: Auth.auth().currentUser))! {
+                        self.startMatch()
                     } else {
-                        self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an account authorized to play in this league"), animated: true, completion: nil)
+                        self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an editor account for this league"), animated: true, completion: nil)
                     }
                 }
             }

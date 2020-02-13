@@ -1762,14 +1762,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchInfoCell" id="27o-2i-Hwx" customClass="MatchesViewControllerMatchInfoTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44.333332061767578"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="27o-2i-Hwx" id="nbQ-jt-u36">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.333332061767578"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0 - 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZv-Za-guc">
-                                                            <rect key="frame" x="196" y="11" width="164" height="22"/>
+                                                            <rect key="frame" x="196" y="10.999999999999998" width="164" height="22.333333333333329"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="164" id="CJL-yd-79X"/>
                                                             </constraints>
@@ -1930,7 +1930,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEo-nB-7Lc">
-                                <rect key="frame" x="0.0" y="171.66666666666669" width="375" height="552.33333333333326"/>
+                                <rect key="frame" x="0.0" y="171.66666666666666" width="375" height="278.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leaguePlayerCell" id="Snq-b9-jfG">
@@ -1947,8 +1947,8 @@
                                     <outlet property="delegate" destination="PqI-1d-WPr" id="VNK-nW-NNq"/>
                                 </connections>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-GE-9kO">
-                                <rect key="frame" x="128" y="117.66666666666669" width="119" height="34"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-GE-9kO">
+                                <rect key="frame" x="123" y="117.66666666666669" width="129" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEI-8d-c5h">
                                         <rect key="frame" x="0.0" y="0.0" width="69" height="34"/>
@@ -1957,7 +1957,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-Xs-eue">
-                                        <rect key="frame" x="79" y="0.0" width="40" height="34"/>
+                                        <rect key="frame" x="89" y="0.0" width="40" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Add"/>
                                         <connections>
@@ -1969,22 +1969,74 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pbg-hJ-wbO">
                                 <rect key="frame" x="20" y="76" width="20" height="20"/>
                             </activityIndicatorView>
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="etJ-CO-kfx">
+                                <rect key="frame" x="0.0" y="524" width="375" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="IlF-IV-Rx9"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leagueEditorCell" id="l15-vf-DES">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l15-vf-DES" id="qwW-ne-8KM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="PqI-1d-WPr" id="rpI-ie-ray"/>
+                                    <outlet property="delegate" destination="PqI-1d-WPr" id="kDG-m0-jpc"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSA-lT-tsF">
+                                <rect key="frame" x="305" y="70" width="40" height="34"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <state key="normal" title="Help"/>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="FkU-K7-ifh">
+                                <rect key="frame" x="122.33333333333333" y="470" width="130.33333333333337" height="34"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Editors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poP-6A-6u7">
+                                        <rect key="frame" x="0.0" y="0.0" width="70.333333333333329" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odF-Nk-1yq">
+                                        <rect key="frame" x="90.333333333333329" y="0.0" width="39.999999999999986" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Add"/>
+                                        <connections>
+                                            <action selector="addEditor:" destination="PqI-1d-WPr" eventType="touchUpInside" id="AUk-gX-Q8H"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="pbg-hJ-wbO" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="0LA-od-AMh"/>
                             <constraint firstItem="Ut0-oj-mJK" firstAttribute="top" secondItem="DB9-aY-igI" secondAttribute="top" id="3or-wT-PON"/>
+                            <constraint firstItem="cPl-Df-o77" firstAttribute="bottom" secondItem="etJ-CO-kfx" secondAttribute="bottom" id="5zU-rn-hKt"/>
+                            <constraint firstItem="cPl-Df-o77" firstAttribute="trailing" secondItem="QSA-lT-tsF" secondAttribute="trailing" constant="30" id="9cr-RD-Ckb"/>
+                            <constraint firstItem="QSA-lT-tsF" firstAttribute="centerY" secondItem="OvW-kH-W2N" secondAttribute="centerY" id="BN7-DL-0fh"/>
                             <constraint firstItem="8ld-GE-9kO" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="C5c-M9-Ff2"/>
                             <constraint firstItem="pbg-hJ-wbO" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" constant="20" id="DC1-9S-JGm"/>
-                            <constraint firstItem="cPl-Df-o77" firstAttribute="bottom" secondItem="gEo-nB-7Lc" secondAttribute="bottom" id="Hut-h1-e3J"/>
+                            <constraint firstItem="FkU-K7-ifh" firstAttribute="top" secondItem="gEo-nB-7Lc" secondAttribute="bottom" constant="20" id="EBo-ON-8bM"/>
                             <constraint firstItem="gEo-nB-7Lc" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" id="MQj-Bn-bwP"/>
                             <constraint firstAttribute="bottom" secondItem="Ut0-oj-mJK" secondAttribute="bottom" id="Mq4-Kz-zi9"/>
                             <constraint firstItem="8ld-GE-9kO" firstAttribute="top" secondItem="OvW-kH-W2N" secondAttribute="bottom" constant="20" id="O9R-35-wgz"/>
                             <constraint firstItem="cPl-Df-o77" firstAttribute="trailing" secondItem="gEo-nB-7Lc" secondAttribute="trailing" id="b7C-7n-sgF"/>
+                            <constraint firstItem="etJ-CO-kfx" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" id="byQ-w7-raW"/>
                             <constraint firstItem="OvW-kH-W2N" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="dVH-UG-P1o"/>
+                            <constraint firstItem="FkU-K7-ifh" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="iBX-Rm-SkA"/>
                             <constraint firstAttribute="trailing" secondItem="Ut0-oj-mJK" secondAttribute="trailing" id="ieR-AE-K1l"/>
+                            <constraint firstItem="etJ-CO-kfx" firstAttribute="top" secondItem="FkU-K7-ifh" secondAttribute="bottom" constant="20" id="qYM-R4-3Tk"/>
                             <constraint firstItem="Ut0-oj-mJK" firstAttribute="leading" secondItem="DB9-aY-igI" secondAttribute="leading" id="w0P-Fr-CjC"/>
                             <constraint firstItem="gEo-nB-7Lc" firstAttribute="top" secondItem="8ld-GE-9kO" secondAttribute="bottom" constant="20" id="xxB-2j-KXi"/>
+                            <constraint firstItem="cPl-Df-o77" firstAttribute="trailing" secondItem="etJ-CO-kfx" secondAttribute="trailing" id="y67-cv-pKQ"/>
                             <constraint firstItem="OvW-kH-W2N" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="ywg-TS-SLM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cPl-Df-o77"/>
@@ -1994,6 +2046,10 @@
                         <outlet property="activityIndicator" destination="pbg-hJ-wbO" id="Vcp-ho-qrt"/>
                         <outlet property="addButton" destination="jki-Xs-eue" id="AGF-dn-1Em"/>
                         <outlet property="backgroundImageView" destination="Ut0-oj-mJK" id="UjE-zA-uWl"/>
+                        <outlet property="editorsAddButton" destination="odF-Nk-1yq" id="XWH-rz-bwa"/>
+                        <outlet property="editorsLabel" destination="poP-6A-6u7" id="h7D-PY-4V4"/>
+                        <outlet property="editorsTableView" destination="etJ-CO-kfx" id="yd0-vj-Yrm"/>
+                        <outlet property="helpButton" destination="QSA-lT-tsF" id="gWx-cS-YZn"/>
                         <outlet property="idLabel" destination="bOb-DJ-PjY" id="EvA-lN-eGm"/>
                         <outlet property="playersLabel" destination="cEI-8d-c5h" id="rFm-T8-Waw"/>
                         <outlet property="playersTableView" destination="gEo-nB-7Lc" id="Kpi-fp-n1e"/>

@@ -441,17 +441,19 @@ class League {
     var id: Int = 0
     var players: [String] = []
     var matches: [Match] = []
-    var owner: String = ""
+    var ownerID: String = ""
+    var editorEmails: [String] = []
     
     static let NEW_ID_FAILED = -1
     
     init() {
     }
     
-    init(name: String, owner: String) {
+    init(name: String, owner: User) {
         self.name = name
         self.id = League.NEW_ID_FAILED // placeholder if fails
-        self.owner = owner
+        self.ownerID = owner.uid
+        self.editorEmails = [owner.email!]
     }
     
     func getNewID(completion: @escaping (Error?) -> Void) {
@@ -464,6 +466,20 @@ class League {
                 completion(error)
             }
         }
+    }
+    
+    func isOwner(user: User?) -> Bool {
+        if let u = user {
+            return u.uid == ownerID
+        }
+        return false
+    }
+    
+    func isEditor(user: User?) -> Bool {
+        if let email = user?.email {
+            return editorEmails.contains(email)
+        }
+        return false
     }
 }
 
@@ -848,9 +864,41 @@ class CornholeFirestore {
         db.collection(collection).document(document).updateData([field: value])
     }
     
-    static func createLeague(collection: String, name: String, id: Int, owner: String) {
+    static func createLeague(league: League) {
         let db = Firestore.firestore()
-        db.collection("leagues").addDocument(data: ["name": name, "id": id, "owner": owner])
+        db.collection("leagues").addDocument(data: ["name": league.name, "id": league.id, "ownerID": league.ownerID, "editorEmails": league.editorEmails])
+    }
+    
+    static func addEditorToLeague(leagueID: Int, editorEmail: String, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        // todo: cache league document and do this w/o completion?
+        db.collection("leagues").whereField("id", isEqualTo: leagueID).getDocuments { (snapshot, error) in
+            if let err = error {
+                print("error adding editor: \(err)")
+                completion(err)
+            } else {
+                for document in snapshot!.documents {
+                    document.reference.updateData(["editorEmails": FieldValue.arrayUnion([editorEmail])])
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    static func deleteEditorFromLeague(leagueID: Int, editorEmail: String, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        // todo: cache league document and do this w/o completion?
+        db.collection("leagues").whereField("id", isEqualTo: leagueID).getDocuments { (snapshot, error) in
+            if let err = error {
+                print("error deleting editor: \(err)")
+                completion(err)
+            } else {
+                for document in snapshot!.documents {
+                    document.reference.updateData(["editorEmails": FieldValue.arrayRemove([editorEmail])])
+                }
+                completion(nil)
+            }
+        }
     }
     
     static func addPlayerToLeague(leagueID: Int, playerName: String) {
@@ -942,6 +990,8 @@ class CornholeFirestore {
                     let snapshotData = document.data()
                     ret.name = snapshotData["name"] as! String
                     ret.id = snapshotData["id"] as! Int
+                    ret.ownerID = snapshotData["ownerID"] as! String
+                    ret.editorEmails = snapshotData["editorEmails"] as! [String]
                 }
                 doneState += 1
             }

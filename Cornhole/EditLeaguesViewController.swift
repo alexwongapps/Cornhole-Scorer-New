@@ -25,7 +25,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
-        let leagueIDs: [Int] = UserDefaults.getLeagueIDs()
+        var leagueIDs: [Int] = UserDefaults.getLeagueIDs()
         for id in leagueIDs {
             activityIndicator.startAnimating()
             CornholeFirestore.pullLeague(id: id) { (league, error) in
@@ -33,6 +33,10 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                 if let error = error {
                     print("Error: \(error)")
                     self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(id). Check your internet connection."), animated: true, completion: nil)
+                } else if league!.name == "" {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to find league \(id). It may have been deleted."), animated: true, completion: nil)
+                    leagueIDs.removeAll { $0 == id }
+                    UserDefaults.setLeagueIDs(ids: leagueIDs)
                 } else {
                     self.leagues.append(league!)
                     self.leaguesTableView.reloadData()
@@ -72,14 +76,14 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
                 let textField = alert?.textFields![0]
                 if textField?.text != "" {
-                    let newLeague = League(name: textField!.text!, owner: user.uid)
+                    let newLeague = League(name: textField!.text!, owner: user)
                     self.activityIndicator.startAnimating()
                     newLeague.getNewID(completion: { (error) in
                         self.activityIndicator.stopAnimating()
                         if error == nil {
                             self.leagues.append(newLeague)
                             self.leaguesTableView.reloadData()
-                            CornholeFirestore.createLeague(collection: "leagues", name: newLeague.name, id: newLeague.id, owner: newLeague.owner)
+                            CornholeFirestore.createLeague(league: newLeague)
                             var oldIDs = UserDefaults.getLeagueIDs()
                             oldIDs.append(newLeague.id)
                             UserDefaults.setLeagueIDs(ids: oldIDs)
