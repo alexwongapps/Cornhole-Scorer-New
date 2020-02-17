@@ -25,24 +25,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
-        if !isLeagueActive() { // only get pull/cache if not already done by scoreboard
-            activityIndicator.startAnimating()
-            CornholeFirestore.pullAndCacheLeagues { (message) in
-                self.activityIndicator.stopAnimating()
-                if let m = message {
-                    self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
-                }
-                for league in cachedLeagues {
-                    self.leagues.append(league)
-                    self.leaguesTableView.reloadData()
-                }
-            }
-        } else {
-            for league in cachedLeagues {
-                self.leagues.append(league)
-                self.leaguesTableView.reloadData()
-            }
-        }
         
         // devices
         
@@ -59,6 +41,34 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("cached leagues: \(cachedLeagues.count)")
+        print("active league: \(UserDefaults.getActiveLeagueID())")
+        
+        leagues.removeAll()
+        
+        if !isLeagueActive() { // only get pull/cache if not already done by scoreboard
+            activityIndicator.startAnimating()
+            CornholeFirestore.pullAndCacheLeagues { (message) in
+                self.activityIndicator.stopAnimating()
+                if let m = message {
+                    self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+                }
+                for league in cachedLeagues {
+                    self.leagues.append(league)
+                }
+                self.leaguesTableView.reloadData()
+            }
+        } else {
+            for league in cachedLeagues {
+                self.leagues.append(league)
+            }
+            self.leaguesTableView.reloadData()
         }
     }
     

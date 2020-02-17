@@ -274,7 +274,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // coreDataDeleteAll(entity: "Matches")
         
-        // todo: refresh buttons also, ui for league detail, deleting leagues (yeugh
+        // todo: refresh buttons also, ui for league detail
         if isLeagueActive() {
             
             players.removeAll()

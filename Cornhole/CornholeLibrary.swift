@@ -1080,6 +1080,9 @@ class CornholeFirestore {
         var leaguesLeft = leagueIDs.count
         var unableIDs: [Int] = []
         cachedLeagues.removeAll()
+        if leagueIDs.count == 0 {
+            completion(nil)
+        }
         for id in leagueIDs {
             CornholeFirestore.pullLeague(id: id) { (league, error) in
                 if error != nil {
@@ -1103,6 +1106,65 @@ class CornholeFirestore {
                     }
                 }
             }
+        }
+    }
+    
+    static func deleteLeague(id: Int, completion: @escaping (String?) -> Void) {
+        
+        if UserDefaults.getActiveLeagueID() == id {
+            UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
+        }
+        
+        var savedIDs = UserDefaults.getLeagueIDs()
+        savedIDs.removeAll { $0 == id }
+        UserDefaults.setLeagueIDs(ids: savedIDs)
+        
+        var doneState = 0 {
+            didSet {
+                if doneState == 3 { // info, matches, players
+                    completion(nil)
+                }
+            }
+        }
+        let db = Firestore.firestore()
+        
+        let toDelete = getCachedLeague(id: id)
+        if toDelete != nil {
+            db.collection("leagues").whereField("id", isEqualTo: id).getDocuments { (snapshot, error) in
+                if error != nil {
+                    completion("Error")
+                } else {
+                    for document in snapshot!.documents {
+                        document.reference.delete()
+                    }
+                    cachedLeagues.removeAll { $0.id == id }
+                    doneState += 1
+                }
+            }
+            
+            db.collection("matches").whereField("leagueID", isEqualTo: id).getDocuments { (snapshot, error) in
+                if error != nil {
+                    completion("Error")
+                } else {
+                    for document in snapshot!.documents {
+                        document.reference.delete()
+                    }
+                    doneState += 1
+                }
+            }
+            
+            db.collection("players").whereField("leagueID", isEqualTo: id).getDocuments { (snapshot, error) in
+                if error != nil {
+                    completion("Error")
+                } else {
+                    for document in snapshot!.documents {
+                        document.reference.delete()
+                    }
+                    doneState += 1
+                }
+            }
+        } else {
+            completion("Error")
         }
     }
 }

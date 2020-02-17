@@ -200,4 +200,16 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             }
         }
     }
+    
+    @IBAction func deleteLeague(_ sender: Any) {
+        activityIndicator.startAnimating()
+        CornholeFirestore.deleteLeague(id: league!.id) { (errString) in
+            self.activityIndicator.stopAnimating()
+            if errString != nil {
+                self.present(createBasicAlert(title: "Error", message: "Unable to delete league"), animated: true, completion: nil)
+            } else {
+                _ = self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
 }
