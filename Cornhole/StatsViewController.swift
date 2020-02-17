@@ -150,25 +150,13 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             matches = getMatchesFromCoreData()
             loadData()
         } else { // league
-            for i in 0..<matchRecordLabel.count {
-                activityIndicator[i].startAnimating()
-            }
-            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID(), completion: { (league, error) in
+            if let league = UserDefaults.getActiveLeague() {
                 for i in 0..<self.matchRecordLabel.count {
-                    self.activityIndicator[i].stopAnimating()
+                    self.statsLabel[i].text = league.name
                 }
-                if let error = error {
-                    print("error in getting matches: \(error)")
-                    self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
-                } else {
-                    print("done loading matches")
-                    for i in 0..<self.matchRecordLabel.count {
-                        self.statsLabel[i].text = league!.name
-                    }
-                    self.matches = league!.matches
-                    self.loadData()
-                }
-            })
+                self.matches = league.matches
+                self.loadData()
+            }
         }
     }
     

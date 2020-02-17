@@ -25,22 +25,22 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
-        var leagueIDs: [Int] = UserDefaults.getLeagueIDs()
-        for id in leagueIDs {
+        if !isLeagueActive() { // only get pull/cache if not already done by scoreboard
             activityIndicator.startAnimating()
-            CornholeFirestore.pullLeague(id: id) { (league, error) in
+            CornholeFirestore.pullAndCacheLeagues { (message) in
                 self.activityIndicator.stopAnimating()
-                if let error = error {
-                    print("Error: \(error)")
-                    self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(id). Check your internet connection."), animated: true, completion: nil)
-                } else if league!.name == "" {
-                    self.present(createBasicAlert(title: "Error", message: "Unable to find league \(id). It may have been deleted."), animated: true, completion: nil)
-                    leagueIDs.removeAll { $0 == id }
-                    UserDefaults.setLeagueIDs(ids: leagueIDs)
-                } else {
-                    self.leagues.append(league!)
+                if let m = message {
+                    self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+                }
+                for league in cachedLeagues {
+                    self.leagues.append(league)
                     self.leaguesTableView.reloadData()
                 }
+            }
+        } else {
+            for league in cachedLeagues {
+                self.leagues.append(league)
+                self.leaguesTableView.reloadData()
             }
         }
         

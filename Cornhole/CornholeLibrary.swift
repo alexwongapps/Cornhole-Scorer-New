@@ -36,6 +36,8 @@ var backgroundImage: UIImage = UIImage(named: "CornholeBackground5.jpg")!
 
 var entryTab: Int = SCOREBOARD_TAB_INDEX
 
+var cachedLeagues: [League] = []
+
 class Board {
     var bagsIn: Int
     var bagsOn: Int
@@ -443,6 +445,7 @@ class League {
     var matches: [Match] = []
     var ownerID: String = ""
     var editorEmails: [String] = []
+    var firebaseID: String = ""
     
     static let NEW_ID_FAILED = -1
     
@@ -832,6 +835,11 @@ extension UserDefaults {
         let defaults = UserDefaults.standard
         defaults.set(id, forKey: "activeLeagueID")
     }
+    
+    // pull from cached leagues
+    static func getActiveLeague() -> League? {
+        return getCachedLeague(id: getActiveLeagueID())
+    }
 }
 
 // firebase
@@ -866,12 +874,16 @@ class CornholeFirestore {
     
     static func createLeague(league: League) {
         let db = Firestore.firestore()
+        cachedLeagues.append(league)
         db.collection("leagues").addDocument(data: ["name": league.name, "id": league.id, "ownerID": league.ownerID, "editorEmails": league.editorEmails])
     }
     
     static func addEditorToLeague(leagueID: Int, editorEmail: String, completion: @escaping (Error?) -> Void) {
         let db = Firestore.firestore()
         // todo: cache league document and do this w/o completion?
+        if let league = getCachedLeague(id: leagueID) {
+            league.editorEmails.append(editorEmail)
+        }
         db.collection("leagues").whereField("id", isEqualTo: leagueID).getDocuments { (snapshot, error) in
             if let err = error {
                 print("error adding editor: \(err)")
@@ -893,6 +905,9 @@ class CornholeFirestore {
                 print("error deleting editor: \(err)")
                 completion(err)
             } else {
+                if let league = getCachedLeague(id: leagueID) {
+                    league.editorEmails.removeAll { $0 == editorEmail }
+                }
                 for document in snapshot!.documents {
                     document.reference.updateData(["editorEmails": FieldValue.arrayRemove([editorEmail])])
                 }
@@ -903,6 +918,9 @@ class CornholeFirestore {
     
     static func addPlayerToLeague(leagueID: Int, playerName: String) {
         let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.players.append(playerName)
+        }
         db.collection("players").addDocument(data: ["name": playerName, "leagueID": leagueID])
     }
     
@@ -913,6 +931,9 @@ class CornholeFirestore {
                 print("error deleting player: \(err)")
                 completion(err)
             } else {
+                if let league = getCachedLeague(id: leagueID) {
+                    league.players.removeAll { $0 == playerName }
+                }
                 for document in snapshot!.documents {
                     document.reference.delete()
                 }
@@ -923,6 +944,9 @@ class CornholeFirestore {
     
     static func addMatchToLeague(leagueID: Int, match: Match) {
         let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.matches.append(match)
+        }
         var ref: DocumentReference? = nil
         ref = db.collection("matches").addDocument(data: getDataFromMatch(leagueID: leagueID, match: match)) { err in
             if let err = err {
@@ -930,7 +954,7 @@ class CornholeFirestore {
             }
         }
         // set match id with auto-generated id
-        updateField(collection: "matches", document: ref!.documentID, field: "matchID", value: Int(match.endDate.timeIntervalSinceReferenceDate)) // todo: make something more universally unique?
+        updateField(collection: "matches", document: ref!.documentID, field: "matchID", value: match.id)
     }
     
     static func deleteMatchFromLeague(leagueID: Int, matchID: Int, completion: @escaping (Error?) -> Void) {
@@ -940,6 +964,9 @@ class CornholeFirestore {
                 print("error deleting match: \(err)")
                 completion(err)
             } else {
+                if let league = getCachedLeague(id: leagueID) {
+                    league.matches.removeAll { $0.id == matchID }
+                }
                 for document in snapshot!.documents {
                     document.reference.delete()
                 }
@@ -973,7 +1000,7 @@ class CornholeFirestore {
         var doneState = 0 {
             didSet {
                 if doneState == 3 { // info, matches, players
-                    print("complete")
+                    cachedLeagues.append(ret)
                     completion(ret, nil)
                 }
             }
@@ -992,6 +1019,7 @@ class CornholeFirestore {
                     ret.id = snapshotData["id"] as! Int
                     ret.ownerID = snapshotData["ownerID"] as! String
                     ret.editorEmails = snapshotData["editorEmails"] as! [String]
+                    ret.firebaseID = document.documentID
                 }
                 doneState += 1
             }
@@ -1046,6 +1074,48 @@ class CornholeFirestore {
             }
         }
     }
+    
+    static func pullAndCacheLeagues(completion: @escaping (String?) -> Void) {
+        var leagueIDs: [Int] = UserDefaults.getLeagueIDs()
+        var leaguesLeft = leagueIDs.count
+        var unableIDs: [Int] = []
+        cachedLeagues.removeAll()
+        for id in leagueIDs {
+            CornholeFirestore.pullLeague(id: id) { (league, error) in
+                if error != nil {
+                    unableIDs.append(id)
+                } else if league!.name == "" {
+                    leagueIDs.removeAll { $0 == id }
+                    UserDefaults.setLeagueIDs(ids: leagueIDs)
+                    unableIDs.append(id)
+                }
+                leaguesLeft -= 1
+                if leaguesLeft <= 0 { // done
+                    if unableIDs.count > 0 {
+                        var message = "Unable to print these IDs: "
+                        for i in 0..<unableIDs.count - 1 {
+                            message += "\(unableIDs[i]), "
+                        }
+                        message += "\(unableIDs[unableIDs.count - 1])"
+                        completion(message)
+                    } else {
+                        completion(nil)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// cache management
+
+func getCachedLeague(id: Int) -> League? {
+    for league in cachedLeagues {
+        if league.id == id {
+            return league
+        }
+    }
+    return nil
 }
 
 extension UIColor {

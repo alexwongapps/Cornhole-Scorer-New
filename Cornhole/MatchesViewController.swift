@@ -8,11 +8,13 @@
 
 import UIKit
 import CoreData
+import FirebaseAuth
 
 class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var matches: [Match] = []
     var currentMatch: Match?
+    var league: League?
 
     @IBOutlet weak var matchListLabel: UILabel!
     @IBOutlet weak var matchesTableView: UITableView!
@@ -73,19 +75,12 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             matchListLabel.text = "Match List"
             matches = getMatchesFromCoreData()
         } else { // league
-            activityIndicator.startAnimating()
-            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID(), completion: { (league, error) in
-                self.activityIndicator.stopAnimating()
-                if let error = error {
-                    print("error in getting matches: \(error)")
-                    self.present(createBasicAlert(title: "Error", message: "Unable to get matches. Check your internet connection."), animated: true, completion: nil)
-                } else {
-                    print("done loading matches")
-                    self.matchListLabel.text = league!.name
-                    self.matches = league!.matches
-                    self.matchesTableView.reloadData()
-                }
-            })
+            if let league = UserDefaults.getActiveLeague() {
+                self.league = league
+                self.matchListLabel.text = league.name
+                self.matches = league.matches
+                self.matchesTableView.reloadData()
+            }
         }
         
         if matches.count == 0 {
@@ -189,13 +184,16 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                         print(saveError)
                     }
                 } else {
-                    print(matches[indexPath.row].id)
-                    CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].id) { (err) in
-                        if let err = err {
-                            print("error deleting match: \(err)")
-                        } else {
-                            self.matches.remove(at: indexPath.row)
-                            self.matchesTableView.deleteRows(at: [indexPath], with: .fade)
+                    if !(league?.isEditor(user: Auth.auth().currentUser))! {
+                        self.present(createBasicAlert(title: "Unable to delete match", message: "Log in to an editor account for this league"), animated: true, completion: nil)
+                    } else {
+                        CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].id) { (err) in
+                            if let err = err {
+                                print("error deleting match: \(err)")
+                            } else {
+                                self.matches.remove(at: indexPath.row)
+                                self.matchesTableView.deleteRows(at: [indexPath], with: .fade)
+                            }
                         }
                     }
                 }

@@ -25,6 +25,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     var trackingStats: Bool = true // are we tracking stats in this match
     var buttonSelect: Int = 0 // which select button was clicked
     
+    var league: League?
+    
     // player names
     var redPlayer1: String = ""
     var redPlayer2: String = ""
@@ -83,23 +85,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             // get league
             
-            for i in 0..<help0Label.count {
-                activityIndicator[i].startAnimating()
-            }
-            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, err) in
-                
-                for i in 0..<self.help0Label.count {
-                    self.activityIndicator[i].stopAnimating()
-                }
-                if err != nil {
-                    self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
-                } else {
-                    if (league?.isEditor(user: Auth.auth().currentUser))! {
-                        self.startMatch()
-                    } else {
-                        self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an editor account for this league"), animated: true, completion: nil)
-                    }
-                }
+            if (league?.isEditor(user: Auth.auth().currentUser))! {
+                self.startMatch()
+            } else {
+                self.present(createBasicAlert(title: "Not an authorized player", message: "Please log in to an editor account for this league"), animated: true, completion: nil)
             }
         } else {
             startMatch()
@@ -188,7 +177,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         gameViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
         loginViewPortrait.isHidden = UserDefaults.standard.bool(forKey: "isLandscape")
-        
+
         players.removeAll()
         
         if !isLeagueActive() {
@@ -218,25 +207,15 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             players = players.sorted()
         } else {
-            
-            for i in 0..<help0Label.count {
-                activityIndicator[i].startAnimating()
-            }
-            CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, err) in
-                
+            if let league = UserDefaults.getActiveLeague() {
+                self.league = league
+                self.players = league.players
+                self.players = self.players.sorted()
                 for i in 0..<self.help0Label.count {
-                    self.activityIndicator[i].stopAnimating()
+                    self.playerTableView[i].reloadData()
                 }
-                if let err = err {
-                    print("error getting players: \(err)")
-                    self.present(createBasicAlert(title: "Error", message: "Unable to access league. Check your internet connection."), animated: true, completion: nil)
-                } else {
-                    self.players = league!.players
-                    self.players = self.players.sorted()
-                    for i in 0..<self.help0Label.count {
-                        self.playerTableView[i].reloadData()
-                    }
-                }
+            } else {
+                self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID())"), animated: true, completion: nil)
             }
         }
         
@@ -294,6 +273,33 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         UserDefaults.standard.set(UIApplication.shared.statusBarOrientation.isLandscape, forKey: "isLandscape")
         
         // coreDataDeleteAll(entity: "Matches")
+        
+        // todo: refresh buttons also, ui for league detail, deleting leagues (yeugh
+        if isLeagueActive() {
+            
+            players.removeAll()
+            
+            CornholeFirestore.pullAndCacheLeagues { (message) in
+                for i in 0..<self.help0Label.count {
+                    self.activityIndicator[i].stopAnimating()
+                }
+                if let m = message {
+                    self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+                }
+                if let league = UserDefaults.getActiveLeague() {
+                    self.league = league
+                    self.players = league.players
+                    self.players = self.players.sorted()
+                    for i in 0..<self.help0Label.count {
+                        self.playerTableView[i].reloadData()
+                    }
+                } else {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID())"), animated: true, completion: nil)
+                }
+            }
+        } else {
+            
+        }
         
         let appearance = UITabBarItem.appearance()
         let attributes = [NSAttributedString.Key.font: UIFont(name: systemFont, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 17 : 12)]
@@ -1447,6 +1453,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                     lastMatch = Match(redPlayers: [redPlayer1], bluePlayers: [bluePlayer1], rounds: rounds, gameSettings: gameSettings)
                 } else {
                     lastMatch = Match(redPlayers: [redPlayer1, redPlayer2], bluePlayers: [bluePlayer1, bluePlayer2], rounds: rounds, gameSettings: gameSettings)
+                }
+                
+                // save firestore id if necessary
+                // todo: make something more universally unique?
+                if isLeagueActive() {
+                    if lastMatch != nil {
+                        lastMatch!.id = Int(lastMatch!.endDate.timeIntervalSinceReferenceDate)
+                    }
                 }
                 
                 print("Match \(lastMatch!.id)")

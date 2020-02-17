@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    // todo: manage league stuff when opening from file
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.pathExtension == "corn" {
             Match.importData(from: url)
@@ -87,6 +88,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let tabVC = self.window?.rootViewController as? UITabBarController {
             tabVC.selectedIndex = entryTab
+            
+            switch entryTab {
+            case MATCHES_TAB_INDEX:
+                
+                guard let tabVC = self.window?.rootViewController as? UITabBarController,
+                    let matchesViewController = tabVC.selectedViewController as? MatchesViewController else {
+                    return
+                }
+                
+                if isLeagueActive() {
+                    matchesViewController.activityIndicator.startAnimating()
+                    CornholeFirestore.pullAndCacheLeagues { (message) in
+                        matchesViewController.activityIndicator.stopAnimating()
+                        if let m = message {
+                            matchesViewController.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+                        }
+                        if let league = UserDefaults.getActiveLeague() {
+                            matchesViewController.league = league
+                            matchesViewController.matchListLabel.text = league.name
+                            matchesViewController.matches = league.matches
+                            matchesViewController.matchesTableView.reloadData()
+                        } else {
+                            matchesViewController.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()) yo"), animated: true, completion: nil)
+                        }
+                        matchesViewController.viewWillAppear(true)
+                    }
+                }
+            case STATS_TAB_INDEX:
+                
+                guard let tabVC = self.window?.rootViewController as? UITabBarController,
+                    let statsViewController = tabVC.selectedViewController as? StatsViewController else {
+                    return
+                }
+                
+                if isLeagueActive() {
+                    for i in 0..<statsViewController.matchRecordLabel.count {
+                        statsViewController.activityIndicator[i].startAnimating()
+                    }
+                    CornholeFirestore.pullAndCacheLeagues { (message) in
+                        for i in 0..<statsViewController.matchRecordLabel.count {
+                            statsViewController.activityIndicator[i].stopAnimating()
+                        }
+                        if let m = message {
+                            statsViewController.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+                        }
+                        if let league = UserDefaults.getActiveLeague() {
+                            for i in 0..<statsViewController.matchRecordLabel.count {
+                                statsViewController.statsLabel[i].text = league.name
+                            }
+                            statsViewController.matches = league.matches
+                            statsViewController.loadData()
+                        } else {
+                            statsViewController.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()) yo"), animated: true, completion: nil)
+                        }
+                        statsViewController.viewWillAppear(true)
+                    }
+                }
+            default:
+                print("defaults")
+            }
         }
     }
     

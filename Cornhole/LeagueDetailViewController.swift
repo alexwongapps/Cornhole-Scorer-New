@@ -74,9 +74,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                     repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.self.present(repeatAlert, animated: true, completion: nil)
                 } else {
-                    self.league?.players.append(newPlayer)
-                    self.playersTableView.reloadData()
                     CornholeFirestore.addPlayerToLeague(leagueID: self.league?.id ?? League.NEW_ID_FAILED, playerName: newPlayer)
+                    self.playersTableView.reloadData()
                 }
             }
         }))
@@ -108,7 +107,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                             print("error adding editor: \(err)")
                             self.present(createBasicAlert(title: "Error", message: "Unable to add editor. Check your internet connection."), animated: true, completion: nil)
                         } else {
-                            self.league?.editorEmails.append(newEditorEmail)
                             self.editorsTableView.reloadData()
                         }
                     }
@@ -175,7 +173,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                             print("error deleting player: \(err)")
                             self.present(createBasicAlert(title: "Error", message: "Unable to delete player. Check your internet connection."), animated: true, completion: nil)
                         } else {
-                            self.league?.players.remove(at: indexPath.row)
                             self.playersTableView.deleteRows(at: [indexPath], with: .fade)
                         }
                     }
@@ -196,7 +193,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                             print("error deleting editor: \(err)")
                             self.present(createBasicAlert(title: "Error", message: "Unable to delete editor. Check your internet connection."), animated: true, completion: nil)
                         } else {
-                            self.league?.editorEmails.remove(at: indexPath.row)
                             self.editorsTableView.deleteRows(at: [indexPath], with: .fade)
                         }
                     }
