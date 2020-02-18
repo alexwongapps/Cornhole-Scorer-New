@@ -114,16 +114,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                     repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.self.present(repeatAlert, animated: true, completion: nil)
                 } else {
-                    self.activityIndicator.startAnimating()
-                    CornholeFirestore.addEditorToLeague(leagueID: self.league?.id ?? League().id, editorEmail: newEditorEmail) { (err) in
-                        self.activityIndicator.stopAnimating()
-                        if let err = err {
-                            print("error adding editor: \(err)")
-                            self.present(createBasicAlert(title: "Error", message: "Unable to add editor. Check your internet connection."), animated: true, completion: nil)
-                        } else {
-                            self.editorsTableView.reloadData()
-                        }
-                    }
+                    CornholeFirestore.addEditorToLeague(leagueID: self.league?.id ?? League().id, editorEmail: newEditorEmail)
+                    self.editorsTableView.reloadData()
                 }
             }
         }))
@@ -200,16 +192,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                 } else if indexPath.row == 0 { // can't delete owner
                     self.present(createBasicAlert(title: "Unable to delete editor", message: "Can't delete owner from editors"), animated: true, completion: nil)
                 } else {
-                    activityIndicator.startAnimating()
-                    CornholeFirestore.deleteEditorFromLeague(leagueID: league?.id ?? League().id, editorEmail: league?.editorEmails[indexPath.row] ?? "") { (err) in
-                        self.activityIndicator.stopAnimating()
-                        if let err = err {
-                            print("error deleting editor: \(err)")
-                            self.present(createBasicAlert(title: "Error", message: "Unable to delete editor. Check your internet connection."), animated: true, completion: nil)
-                        } else {
-                            self.editorsTableView.deleteRows(at: [indexPath], with: .fade)
-                        }
-                    }
+                    CornholeFirestore.deleteEditorFromLeague(leagueID: league?.id ?? League().id, editorEmail: league?.editorEmails[indexPath.row] ?? "")
+                    self.editorsTableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
         }

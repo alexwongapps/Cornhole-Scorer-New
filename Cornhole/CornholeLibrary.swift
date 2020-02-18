@@ -874,45 +874,30 @@ class CornholeFirestore {
     
     static func createLeague(league: League) {
         let db = Firestore.firestore()
+        var ref: DocumentReference? = nil
+        ref = db.collection("leagues").addDocument(data: ["name": league.name, "id": league.id, "ownerID": league.ownerID, "editorEmails": league.editorEmails]) { err in
+            if let err = err {
+                print("error adding match: \(err)")
+            }
+        }
+        league.firebaseID = ref!.documentID
         cachedLeagues.append(league)
-        db.collection("leagues").addDocument(data: ["name": league.name, "id": league.id, "ownerID": league.ownerID, "editorEmails": league.editorEmails])
+        
     }
     
-    static func addEditorToLeague(leagueID: Int, editorEmail: String, completion: @escaping (Error?) -> Void) {
+    static func addEditorToLeague(leagueID: Int, editorEmail: String) {
         let db = Firestore.firestore()
-        // todo: cache league document and do this w/o completion?
         if let league = getCachedLeague(id: leagueID) {
             league.editorEmails.append(editorEmail)
-        }
-        db.collection("leagues").whereField("id", isEqualTo: leagueID).getDocuments { (snapshot, error) in
-            if let err = error {
-                print("error adding editor: \(err)")
-                completion(err)
-            } else {
-                for document in snapshot!.documents {
-                    document.reference.updateData(["editorEmails": FieldValue.arrayUnion([editorEmail])])
-                }
-                completion(nil)
-            }
+            db.collection("leagues").document(league.firebaseID).updateData(["editorEmails": league.editorEmails])
         }
     }
     
-    static func deleteEditorFromLeague(leagueID: Int, editorEmail: String, completion: @escaping (Error?) -> Void) {
+    static func deleteEditorFromLeague(leagueID: Int, editorEmail: String) {
         let db = Firestore.firestore()
-        // todo: cache league document and do this w/o completion?
-        db.collection("leagues").whereField("id", isEqualTo: leagueID).getDocuments { (snapshot, error) in
-            if let err = error {
-                print("error deleting editor: \(err)")
-                completion(err)
-            } else {
-                if let league = getCachedLeague(id: leagueID) {
-                    league.editorEmails.removeAll { $0 == editorEmail }
-                }
-                for document in snapshot!.documents {
-                    document.reference.updateData(["editorEmails": FieldValue.arrayRemove([editorEmail])])
-                }
-                completion(nil)
-            }
+        if let league = getCachedLeague(id: leagueID) {
+            league.editorEmails.removeAll { $0 == editorEmail }
+            db.collection("leagues").document(league.firebaseID).updateData(["editorEmails": league.editorEmails])
         }
     }
     
