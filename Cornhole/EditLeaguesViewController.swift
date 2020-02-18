@@ -18,6 +18,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -33,14 +34,17 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
     }
     
@@ -186,6 +190,10 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             oldIDs.remove(at: indexPath.row)
             UserDefaults.setLeagueIDs(ids: oldIDs)
         }
+    }
+    
+    @IBAction func help(_ sender: Any) {
+        self.present(createBasicAlert(title: "Help", message: "\nCreate: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by th league owner\n\nMake Active/Not Active: Sets which league you are currently viewing/editing. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
     }
     
     @IBAction func makeActive(_ sender: UIButton) {

@@ -1762,14 +1762,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchInfoCell" id="27o-2i-Hwx" customClass="MatchesViewControllerMatchInfoTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44.666667938232422"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="27o-2i-Hwx" id="nbQ-jt-u36">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.666667938232422"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0 - 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZv-Za-guc">
-                                                            <rect key="frame" x="196" y="11.000000000000002" width="164" height="22.666666666666671"/>
+                                                            <rect key="frame" x="196" y="11" width="164" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="164" id="CJL-yd-79X"/>
                                                             </constraints>
@@ -1973,6 +1973,9 @@
                                 <rect key="frame" x="305" y="70" width="40" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Help"/>
+                                <connections>
+                                    <action selector="help:" destination="PqI-1d-WPr" eventType="touchUpInside" id="mKN-3G-MGV"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="FkU-K7-ifh">
                                 <rect key="frame" x="122.33333333333333" y="411" width="130.33333333333337" height="34"/>
@@ -2058,6 +2061,7 @@
                         <outlet property="activityIndicator" destination="pbg-hJ-wbO" id="Vcp-ho-qrt"/>
                         <outlet property="addButton" destination="jki-Xs-eue" id="AGF-dn-1Em"/>
                         <outlet property="backgroundImageView" destination="Ut0-oj-mJK" id="UjE-zA-uWl"/>
+                        <outlet property="deleteLeagueButton" destination="XEA-5r-AbN" id="UxH-0A-FQM"/>
                         <outlet property="editorsAddButton" destination="odF-Nk-1yq" id="XWH-rz-bwa"/>
                         <outlet property="editorsLabel" destination="poP-6A-6u7" id="h7D-PY-4V4"/>
                         <outlet property="editorsTableView" destination="etJ-CO-kfx" id="yd0-vj-Yrm"/>
@@ -2128,7 +2132,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ASE-Oq-ysH">
-                                <rect key="frame" x="102.66666666666669" y="76" width="170" height="34"/>
+                                <rect key="frame" x="77.666666666666686" y="76" width="220" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-Sk-Pk4">
                                         <rect key="frame" x="0.0" y="0.0" width="46" height="34"/>
@@ -2153,6 +2157,14 @@
                                         <state key="normal" title="Join"/>
                                         <connections>
                                             <action selector="joinLeague:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="5ek-z6-FiI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-wG-778">
+                                        <rect key="frame" x="180" y="0.0" width="40" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Help"/>
+                                        <connections>
+                                            <action selector="help:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="FYI-hh-6Xm"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2184,6 +2196,7 @@
                         <outlet property="backButton" destination="fn0-Sk-Pk4" id="8hc-fz-xeX"/>
                         <outlet property="backgroundImageView" destination="Fnj-Yy-v0j" id="VCg-Iy-j0U"/>
                         <outlet property="createButton" destination="gtk-5F-SDh" id="0uo-03-PqW"/>
+                        <outlet property="helpButton" destination="2WS-wG-778" id="m8M-gd-KeR"/>
                         <outlet property="joinButton" destination="TW9-l9-1zG" id="hiK-q0-qim"/>
                         <outlet property="leaguesTableView" destination="9o6-ht-qgn" id="xkU-pK-FU1"/>
                         <segue destination="PqI-1d-WPr" kind="show" identifier="leagueDetailSegue" id="iD4-pi-W9h"/>

@@ -74,7 +74,9 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if !isLeagueActive() { // no league
             matchListLabel.text = "Match List"
             matches = getMatchesFromCoreData()
+            shareButton.isHidden = false
         } else { // league
+            shareButton.isHidden = true
             if let league = UserDefaults.getActiveLeague() {
                 self.league = league
                 self.matchListLabel.text = league.name
@@ -139,6 +141,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if tableView.tag == 0 { // on main view
         
             currentMatch = matches[indexPath.row] // used for info
+            print(currentMatch!.redPlayers)
             print(currentMatch?.id ?? "No id")
             
             matchView.isHidden = false

@@ -942,6 +942,93 @@ class CornholeFirestore {
         }
     }
     
+    static func changePlayerName(leagueID: Int, from: String, to: String, completion: @escaping (Error?) -> Void) {
+        
+        var doneState = 0 {
+            didSet {
+                if doneState == 2 {
+                    completion(nil)
+                }
+            }
+        }
+        let db = Firestore.firestore()
+        
+        db.collection("players").whereField("leagueID", isEqualTo: leagueID).whereField("name", isEqualTo: from).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                for document in snapshot!.documents {
+                    document.reference.updateData(["name": to]) { err in
+                        if let err = err {
+                            completion(err)
+                        } else {
+                            if let league = getCachedLeague(id: leagueID) {
+                                for i in 0..<league.players.count {
+                                    if league.players[i] == from {
+                                        league.players[i] = to
+                                    }
+                                }
+                            }
+                            doneState += 1
+                        }
+                    }
+                }
+            }
+        }
+        
+        db.collection("matches").whereField("leagueID", isEqualTo: leagueID).whereField("playerNamesArray", arrayContains: from).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                for document in snapshot!.documents {
+                    let data = document.data()
+                    var pNames = data["playerNamesArray"] as! [String]
+                    for i in 0..<pNames.count {
+                        if pNames[i] == from {
+                            pNames[i] = to
+                        }
+                    }
+                    var rPlayers = data["roundPlayersArray"] as! [String]
+                    for i in 0..<rPlayers.count {
+                        if rPlayers[i] == from {
+                            rPlayers[i] = to
+                        }
+                    }
+                    document.reference.updateData(["playerNamesArray": pNames, "roundPlayersArray": rPlayers]) { err in
+                        if let err = err {
+                            completion(err)
+                        } else {
+                            if let league = getCachedLeague(id: leagueID) {
+                                for m in league.matches {
+                                    if m.redPlayers.contains(from) {
+                                        print("here")
+                                        for i in 0..<m.redPlayers.count {
+                                            if m.redPlayers[i] == from {
+                                                m.redPlayers[i] = to
+                                            }
+                                        }
+                                    }
+                                    if m.bluePlayers.contains(from) {
+                                        for i in 0..<m.bluePlayers.count {
+                                            if m.bluePlayers[i] == from {
+                                                m.bluePlayers[i] = to
+                                            }
+                                        }
+                                    }
+                                    for r in m.rounds {
+                                        r.redPlayer = r.redPlayer == from ? to : r.redPlayer
+                                        r.bluePlayer = r.bluePlayer == from ? to : r.bluePlayer
+                                    }
+                                }
+                            }
+                            doneState += 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     static func addMatchToLeague(leagueID: Int, match: Match) {
         let db = Firestore.firestore()
         if let league = getCachedLeague(id: leagueID) {
@@ -971,6 +1058,22 @@ class CornholeFirestore {
                     document.reference.delete()
                 }
                 completion(nil)
+            }
+        }
+    }
+    
+    static func deleteAllMatchesFromLeague(leagueID: Int, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("matches").whereField("leagueID", isEqualTo: leagueID).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                if let league = getCachedLeague(id: leagueID) {
+                    league.matches.removeAll()
+                }
+                for document in snapshot!.documents {
+                    document.reference.delete()
+                }
             }
         }
     }

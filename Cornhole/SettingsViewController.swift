@@ -173,28 +173,34 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         
         players.removeAll()
         
-        // core data
+        if !isLeagueActive() {
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
-        request.returnsObjectsAsFaults = false
-        
-        // load data
-        do {
-            let results = try context.fetch(request)
+            // core data
             
-            if results.count > 0 {
-                for result in results as! [NSManagedObject] {
-                    if let name = result.value(forKey: "name") as? String {
-                        players.append(name)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
+            request.returnsObjectsAsFaults = false
+            
+            // load data
+            do {
+                let results = try context.fetch(request)
+                
+                if results.count > 0 {
+                    for result in results as! [NSManagedObject] {
+                        if let name = result.value(forKey: "name") as? String {
+                            players.append(name)
+                        }
                     }
                 }
+            } catch {
+                print("Error")
             }
-        } catch {
-            print("Error")
+            
+        } else {
+            reloadPermissions()
         }
         
         players = players.sorted()
@@ -205,25 +211,36 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             doneEditingButton[i].isHidden = true
         }
     }
-    /*
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
-        
-        if tabBarController?.selectedIndex == SETTINGS_TAB_INDEX {
-            portraitView.isHidden = UIDevice.current.orientation.isLandscape
-            
-            if nameTextField[0].isEditing {
-                nameTextField[0].resignFirstResponder()
-                nameTextField[1].becomeFirstResponder()
-            } else if nameTextField[1].isEditing {
-                nameTextField[1].resignFirstResponder()
-                nameTextField[0].becomeFirstResponder()
+    
+    func reloadPermissions() {
+        print("here")
+        var canEdit = false
+        if let league = UserDefaults.getActiveLeague() {
+            players = league.players
+            if let user = Auth.auth().currentUser {
+                if league.isEditor(user: user) {
+                    canEdit = true
+                }
+            }
+        }
+        for i in 0..<backgroundImageView.count {
+            resetMatchesButton[i].isHidden = !canEdit
+            editPlayerNameButton[i].isHidden = !canEdit
+            firstThrowLabel[i].isHidden = !canEdit
+            firstThrowButton[i].isHidden = !canEdit
+            gameTypeLabel[i].isHidden = !canEdit
+            gameTypeButton[i].isHidden = !canEdit
+            if !canEdit {
+                setting1Label[i].isHidden = !canEdit
+                setting1Stepper[i].isHidden = !canEdit
+                setting2Label[i].isHidden = !canEdit
+                setting2Stepper[i].isHidden = !canEdit
+            } else {
+                setGameType(gameType: gameSettings.gameType)
             }
         }
     }
-    */
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -238,6 +255,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         } else {
             try! authUI?.signOut()
             loggedOut()
+            reloadPermissions()
         }
     }
     
@@ -253,6 +271,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         for i in 0..<backgroundImageView.count {
             loginButton[i].setTitle("\(user.email ?? user.uid) (Sign out)", for: .normal)
         }
+        reloadPermissions()
     }
     
     // what to do when logged out
@@ -271,13 +290,21 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         // make sure
         let alert = UIAlertController(title: "Are you sure?", message: "This will delete all matches and stats", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {(action) in
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
             
-            coreDataDeleteAll(entity: "Matches")
+            if !isLeagueActive() {
+                coreDataDeleteAll(entity: "Matches")
+            } else {
+                CornholeFirestore.deleteAllMatchesFromLeague(leagueID: UserDefaults.getActiveLeagueID()) { (error) in
+                    if error != nil {
+                        self.present(createBasicAlert(title: "Error", message: "Unable to reset matches. Check your internet connection."), animated: true, completion: nil)
+                    }
+                }
+            }
         }))
         
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default, handler: {(action) in
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
         }))
         
@@ -353,81 +380,90 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         // make sure name isn't taken
         
         if !players.contains(nameTextField[0].text!) {
+            
+            if !isLeagueActive() {
         
-            // core data
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let playerRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
-            playerRequest.returnsObjectsAsFaults = false
-            
-            // load data
-            do {
-                let results = try context.fetch(playerRequest)
+                // core data
                 
-                if results.count > 0 {
-                    for result in results as! [NSManagedObject] {
-                        if let name = result.value(forKey: "name") as? String {
-                            if name == editingPlayerName {
-                                result.setValue(nameTextField[0].text, forKey: "name") // change name
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                
+                let context = appDelegate.persistentContainer.viewContext
+                
+                let playerRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Players")
+                playerRequest.returnsObjectsAsFaults = false
+                
+                // load data
+                do {
+                    let results = try context.fetch(playerRequest)
+                    
+                    if results.count > 0 {
+                        for result in results as! [NSManagedObject] {
+                            if let name = result.value(forKey: "name") as? String {
+                                if name == editingPlayerName {
+                                    result.setValue(nameTextField[0].text, forKey: "name") // change name
+                                }
                             }
                         }
                     }
+                    
+                    players[editingPlayerIndex] = nameTextField[0].text!
+                } catch {
+                    print("Error")
                 }
                 
-                players[editingPlayerIndex] = nameTextField[0].text!
-            } catch {
-                print("Error")
-            }
-            
-            // update matches
-            
-            let matchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
-            matchRequest.returnsObjectsAsFaults = false
-            
-            do {
-                let results = try context.fetch(matchRequest)
+                // update matches
                 
-                if results.count > 0 {
-                    for result in results as! [NSManagedObject] {
-                        
-                        // player names
-                        if let pNames = result.value(forKey: "playerNamesArray") as? [String] { // get player names
-                            var newNames = pNames
-                            for i in 0..<newNames.count {
-                                if newNames[i] == editingPlayerName { // if names match
-                                    newNames[i] = nameTextField[0].text! // change it
+                let matchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
+                matchRequest.returnsObjectsAsFaults = false
+                
+                do {
+                    let results = try context.fetch(matchRequest)
+                    
+                    if results.count > 0 {
+                        for result in results as! [NSManagedObject] {
+                            
+                            // player names
+                            if let pNames = result.value(forKey: "playerNamesArray") as? [String] { // get player names
+                                var newNames = pNames
+                                for i in 0..<newNames.count {
+                                    if newNames[i] == editingPlayerName { // if names match
+                                        newNames[i] = nameTextField[0].text! // change it
+                                    }
                                 }
+                                result.setValue(newNames, forKey: "playerNamesArray") // set
                             }
-                            result.setValue(newNames, forKey: "playerNamesArray") // set
-                        }
-                        
-                        // round player names
-                        if let rPlayers = result.value(forKey: "roundPlayersArray") as? [String] {
-                            var newPlayers = rPlayers
-                            for i in 0..<newPlayers.count {
-                                if newPlayers[i] == editingPlayerName {
-                                    newPlayers[i] = nameTextField[0].text!
+                            
+                            // round player names
+                            if let rPlayers = result.value(forKey: "roundPlayersArray") as? [String] {
+                                var newPlayers = rPlayers
+                                for i in 0..<newPlayers.count {
+                                    if newPlayers[i] == editingPlayerName {
+                                        newPlayers[i] = nameTextField[0].text!
+                                    }
                                 }
+                                result.setValue(newPlayers, forKey: "roundPlayersArray")
                             }
-                            result.setValue(newPlayers, forKey: "roundPlayersArray")
                         }
                     }
+                } catch {
+                    print("Error")
                 }
-            } catch {
-                print("Error")
+            } else {
+                CornholeFirestore.changePlayerName(leagueID: UserDefaults.getActiveLeagueID(), from: editingPlayerName, to: nameTextField[0].text!) { (error) in
+                    if error != nil {
+                        self.present(createBasicAlert(title: "Error", message: "Unable to change player name"), animated: true, completion: nil)
+                    } else {
+                        self.editingPlayerName = self.nameTextField[0].text!
+                    }
+                }
             }
-            
-            editingPlayerName = nameTextField[0].text!
-            
-            for i in 0..<backgroundImageView.count {
-                // hide edit menu
-                editInstructionsLabel[i].isHidden = true
-                editStackView[i].isHidden = true
-                doneEditingButton[i].isHidden = true
-            }
+        }
+        
+        for i in 0..<backgroundImageView.count {
+            // hide edit menu
+            editInstructionsLabel[i].isHidden = true
+            editStackView[i].isHidden = true
+            doneEditingButton[i].isHidden = true
         }
         
         for i in 0..<backgroundImageView.count {
@@ -498,6 +534,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         let defaults = UserDefaults.standard
         gameSettings.gameType = gameType
         for i in 0..<backgroundImageView.count {
+            setting1Label[i].isHidden = false
+            setting1Stepper[i].isHidden = false
             switch gameType {
             case .standard:
                 gameTypeButton[i].setTitle("Standard", for: .normal)

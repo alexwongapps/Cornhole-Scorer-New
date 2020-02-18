@@ -23,6 +23,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var editorsLabel: UILabel!
     @IBOutlet weak var editorsAddButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var deleteLeagueButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         editorsLabel.isHidden = !isEditor
         editorsAddButton.isHidden = !isOwner
         editorsTableView.isHidden = !isEditor
+        deleteLeagueButton.isHidden = !isOwner
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,17 +47,29 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
             
+            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             idLabel.font = UIFont(name: systemFont, size: 30)
             playersLabel.font = UIFont(name: systemFont, size: 30)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            editorsLabel.font = UIFont(name: systemFont, size: 30)
+            editorsAddButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            deleteLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
+            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             idLabel.font = UIFont(name: systemFont, size: 17)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            editorsLabel.font = UIFont(name: systemFont, size: 17)
+            editorsAddButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            deleteLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
+            helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             idLabel.font = UIFont(name: systemFont, size: 17)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            editorsLabel.font = UIFont(name: systemFont, size: 17)
+            editorsAddButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            deleteLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
     }
     
@@ -202,14 +216,30 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func deleteLeague(_ sender: Any) {
-        activityIndicator.startAnimating()
-        CornholeFirestore.deleteLeague(id: league!.id) { (errString) in
-            self.activityIndicator.stopAnimating()
-            if errString != nil {
-                self.present(createBasicAlert(title: "Error", message: "Unable to delete league"), animated: true, completion: nil)
-            } else {
-                _ = self.navigationController?.popViewController(animated: true)
+        let alert = UIAlertController(title: "Are you sure?", message: "This will permanently delete this league and all of its data", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+            
+            self.activityIndicator.startAnimating()
+            CornholeFirestore.deleteLeague(id: self.league!.id) { (errString) in
+                self.activityIndicator.stopAnimating()
+                if errString != nil {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to delete league"), animated: true, completion: nil)
+                } else {
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
             }
-        }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func help(_ sender: Any) {
+        self.present(createBasicAlert(title: "Help", message: "\nPlayers: participants in the games\n\nEditors: Emails of users who can add players or play games for the league\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
     }
 }

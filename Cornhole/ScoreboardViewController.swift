@@ -1554,7 +1554,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             // make sure
             let alert = UIAlertController(title: "Are you sure?", message: "This will delete all data from this game", preferredStyle: UIAlertController.Style.alert)
         
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {(action) in
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {(action) in
                 alert.dismiss(animated: true, completion: nil)
                 
                 if sender.tag == 0 { // select new players
@@ -1565,7 +1565,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 
             }))
         
-            alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default, handler: {(action) in
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: {(action) in
                 alert.dismiss(animated: true, completion: nil)
             }))
         
