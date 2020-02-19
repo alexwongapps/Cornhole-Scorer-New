@@ -30,10 +30,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // todo: manage league stuff when opening from file
+    // todo: test this
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.pathExtension == "corn" {
-            Match.importData(from: url)
+        if !isLeagueActive() {
+            if url.pathExtension == "corn" {
+                Match.importData(from: url)
+                if let tabVC = self.window?.rootViewController as? UITabBarController {
+                    tabVC.selectedIndex = MATCHES_TAB_INDEX
+                }
+                
+                guard let tabVC = self.window?.rootViewController as? UITabBarController,
+                    let matchesViewController = tabVC.selectedViewController as? MatchesViewController else {
+                    return true
+                }
+                matchesViewController.viewWillAppear(true)
+            } else { // auth
+                let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
+                if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+                    return true
+                }
+                return false
+            }
+        } else {
             if let tabVC = self.window?.rootViewController as? UITabBarController {
                 tabVC.selectedIndex = MATCHES_TAB_INDEX
             }
@@ -43,12 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return true
             }
             matchesViewController.viewWillAppear(true)
-        } else { // auth
-            let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
-            if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-                return true
-            }
-            return false
+            matchesViewController.present(createBasicAlert(title: "Unable to import", message: "Cannot share matches to a league. Please log out to import this match"), animated: true, completion: nil)
         }
         return true
     }

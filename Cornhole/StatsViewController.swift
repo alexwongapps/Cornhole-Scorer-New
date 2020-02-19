@@ -42,6 +42,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet var bagLocationLabel: [UILabel]!
     @IBOutlet var boardPieChartView: [PieChartView]! // displays in, on, off
     @IBOutlet var activityIndicator: [UIActivityIndicatorView]!
+    @IBOutlet var refreshButton: [UIButton]!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -74,6 +75,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 25)
                 statsLabel[i].font = UIFont(name: systemFont, size: 75)
+                refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 25)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
                 doublesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -90,6 +92,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
                 statsLabel[i].font = UIFont(name: systemFont, size: 30)
+                refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 11)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
                 doublesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
@@ -107,6 +110,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
                 statsLabel[i].font = UIFont(name: systemFont, size: 30)
+                refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 15)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
                 doublesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
@@ -146,10 +150,14 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if !isLeagueActive() { // no league
             for i in 0..<matchRecordLabel.count {
                 statsLabel[i].text = "Stats"
+                refreshButton[i].isHidden = true
             }
             matches = getMatchesFromCoreData()
             loadData()
         } else { // league
+            for i in 0..<self.matchRecordLabel.count {
+                refreshButton[i].isHidden = false
+            }
             if let league = UserDefaults.getActiveLeague() {
                 for i in 0..<self.matchRecordLabel.count {
                     self.statsLabel[i].text = league.name
@@ -236,6 +244,22 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         if tabBarController?.selectedIndex == STATS_TAB_INDEX {
             portraitView.isHidden = UIDevice.current.orientation.isLandscape
+        }
+    }
+    
+    @IBAction func refresh(_ sender: Any) {
+        for i in 0..<matchRecordLabel.count {
+            activityIndicator[i].startAnimating()
+        }
+        CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, error) in
+            for i in 0..<self.matchRecordLabel.count {
+                self.activityIndicator[i].stopAnimating()
+            }
+            if error != nil {
+                self.present(createBasicAlert(title: "Error", message: "Unable to pull current league"), animated: true, completion: nil)
+            } else {
+                self.viewWillAppear(true)
+            }
         }
     }
     

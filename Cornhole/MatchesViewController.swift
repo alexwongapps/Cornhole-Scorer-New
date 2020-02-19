@@ -25,6 +25,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var refreshButton: UIButton!
     
     // backgrounds
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -52,17 +53,19 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // fonts
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
             
-            matchListLabel.font = UIFont(name: systemFont, size: 75)
+            matchListLabel.font = UIFont(name: systemFont, size: 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             
         } else {
             
-            matchListLabel.font = UIFont(name: systemFont, size: 30)
+            matchListLabel.font = UIFont(name: systemFont, size: 25)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
         backButton.titleLabel?.textAlignment = .right
@@ -75,8 +78,10 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             matchListLabel.text = "Match List"
             matches = getMatchesFromCoreData()
             shareButton.isHidden = false
+            refreshButton.isHidden = true
         } else { // league
             shareButton.isHidden = true
+            refreshButton.isHidden = false
             if let league = UserDefaults.getActiveLeague() {
                 self.league = league
                 self.matchListLabel.text = league.name
@@ -96,6 +101,20 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillTransition(to: size, with: coordinator)
         
         UserDefaults.standard.set(UIDevice.current.orientation.isLandscape, forKey: "isLandscape")
+    }
+    
+    @IBAction func refresh(_ sender: Any) {
+        activityIndicator.startAnimating()
+        refreshButton.isHidden = true
+        CornholeFirestore.pullLeague(id: league!.id) { (league, error) in
+            self.activityIndicator.stopAnimating()
+            self.refreshButton.isHidden = false
+            if error != nil {
+                self.present(createBasicAlert(title: "Error", message: "Unable to pull current league"), animated: true, completion: nil)
+            } else {
+                self.viewWillAppear(true)
+            }
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

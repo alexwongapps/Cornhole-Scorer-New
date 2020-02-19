@@ -127,6 +127,7 @@ class Match: CustomStringConvertible {
     var blueScore: Int
     var winner: Int
     var id: Int
+    var firebaseID: String = ""
     var startDate: Date
     var endDate: Date
     var redColor: UIColor // note: can be ANY color
@@ -1026,7 +1027,7 @@ class CornholeFirestore {
             }
         }
         // set match id with auto-generated id
-        updateField(collection: "matches", document: ref!.documentID, field: "matchID", value: match.id)
+        match.firebaseID = ref!.documentID
     }
     
     static func deleteMatchFromLeague(leagueID: Int, matchID: Int, completion: @escaping (Error?) -> Void) {
@@ -1088,6 +1089,7 @@ class CornholeFirestore {
         var doneState = 0 {
             didSet {
                 if doneState == 3 { // info, matches, players
+                    cachedLeagues.removeAll { $0.id == id }
                     cachedLeagues.append(ret)
                     completion(ret, nil)
                 }
@@ -1183,7 +1185,7 @@ class CornholeFirestore {
                 leaguesLeft -= 1
                 if leaguesLeft <= 0 { // done
                     if unableIDs.count > 0 {
-                        var message = "Unable to print these IDs: "
+                        var message = "Unable to access leagues with these IDs: "
                         for i in 0..<unableIDs.count - 1 {
                             message += "\(unableIDs[i]), "
                         }

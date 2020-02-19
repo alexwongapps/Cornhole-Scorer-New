@@ -213,7 +213,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     }
     
     func reloadPermissions() {
-        print("here")
         var canEdit = false
         if let league = UserDefaults.getActiveLeague() {
             players = league.players
@@ -222,6 +221,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     canEdit = true
                 }
             }
+        } else if !isLoggedIn {
+            canEdit = true
         }
         for i in 0..<backgroundImageView.count {
             resetMatchesButton[i].isHidden = !canEdit
@@ -280,10 +281,15 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         for i in 0..<backgroundImageView.count {
             loginButton[i].setTitle("Log In", for: .normal)
         }
+        UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
     }
     
     @IBAction func editLeagues(_ sender: Any) {
-        performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
+        if isLoggedIn {
+            performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
+        } else {
+            self.present(createBasicAlert(title: "Log In", message: "To create and join leagues, please log in"), animated: true, completion: nil)
+        }
     }
     
     @IBAction func resetMatches(_ sender: UIButton) {

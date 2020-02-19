@@ -274,7 +274,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // coreDataDeleteAll(entity: "Matches")
         
-        // todo: refresh buttons also, ui for league detail
         if isLeagueActive() {
             
             players.removeAll()
@@ -1456,10 +1455,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 // save firestore id if necessary
-                // todo: make something more universally unique?
+                // todo: make something more universally unique, for league id also
                 if isLeagueActive() {
                     if lastMatch != nil {
-                        lastMatch!.id = Int(lastMatch!.endDate.timeIntervalSinceReferenceDate)
+                        lastMatch!.id = -1
                     }
                 }
                 
