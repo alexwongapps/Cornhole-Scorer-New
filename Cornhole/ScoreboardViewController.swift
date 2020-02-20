@@ -1455,7 +1455,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 // save firestore id if necessary
-                // todo: make something more universally unique, for league id also
                 if isLeagueActive() {
                     if lastMatch != nil {
                         lastMatch!.id = -1

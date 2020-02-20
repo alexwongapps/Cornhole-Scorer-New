@@ -106,7 +106,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func refresh(_ sender: Any) {
         activityIndicator.startAnimating()
         refreshButton.isHidden = true
-        CornholeFirestore.pullLeague(id: league!.id) { (league, error) in
+        CornholeFirestore.pullLeague(id: league!.firebaseID) { (league, error) in
             self.activityIndicator.stopAnimating()
             self.refreshButton.isHidden = false
             if error != nil {
@@ -209,7 +209,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if !(league?.isEditor(user: Auth.auth().currentUser))! {
                         self.present(createBasicAlert(title: "Unable to delete match", message: "Log in to an editor account for this league"), animated: true, completion: nil)
                     } else {
-                        CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].id) { (err) in
+                        print(matches[indexPath.row].firebaseID)
+                        CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].firebaseID) { (err) in
                             if let err = err {
                                 print("error deleting match: \(err)")
                             } else {

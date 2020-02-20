@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import FirebaseUI
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate {
+class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate, DataToSettingsProtocol {
     
     var matches: [Match] = []
     var players: [String] = []
@@ -221,7 +221,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     canEdit = true
                 }
             }
-        } else if !isLoggedIn {
+        } else {
             canEdit = true
         }
         for i in 0..<backgroundImageView.count {
@@ -242,6 +242,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         }
     }
     
+    func settingsReloadPermissions() {
+        reloadPermissions()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -256,7 +260,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         } else {
             try! authUI?.signOut()
             loggedOut()
-            reloadPermissions()
         }
     }
     
@@ -281,7 +284,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         for i in 0..<backgroundImageView.count {
             loginButton[i].setTitle("Log In", for: .normal)
         }
+        UserDefaults.setLeagueIDs(ids: [])
         UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
+        reloadPermissions()
     }
     
     @IBAction func editLeagues(_ sender: Any) {
@@ -289,6 +294,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
         } else {
             self.present(createBasicAlert(title: "Log In", message: "To create and join leagues, please log in"), animated: true, completion: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editLeaguesSegue" {
+            let editVC: EditLeaguesViewController = (segue.destination as! UINavigationController).viewControllers.first as! EditLeaguesViewController
+            editVC.delegate = self
         }
     }
     

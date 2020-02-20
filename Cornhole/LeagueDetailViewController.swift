@@ -30,7 +30,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
 
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
-        idLabel.text = "ID: \(league?.id ?? League.NEW_ID_FAILED)"
+        idLabel.text = "ID: \(league?.firebaseID ?? League.NEW_ID_FAILED)"
         
         let isOwner = (league?.isOwner(user: Auth.auth().currentUser))!
         let isEditor = (league?.isEditor(user: Auth.auth().currentUser))!
@@ -88,7 +88,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                     repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.self.present(repeatAlert, animated: true, completion: nil)
                 } else {
-                    CornholeFirestore.addPlayerToLeague(leagueID: self.league?.id ?? League.NEW_ID_FAILED, playerName: newPlayer)
+                    CornholeFirestore.addPlayerToLeague(leagueID: self.league?.firebaseID ?? League.NEW_ID_FAILED, playerName: newPlayer)
                     self.playersTableView.reloadData()
                 }
             }
@@ -114,7 +114,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                     repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.self.present(repeatAlert, animated: true, completion: nil)
                 } else {
-                    CornholeFirestore.addEditorToLeague(leagueID: self.league?.id ?? League().id, editorEmail: newEditorEmail)
+                    CornholeFirestore.addEditorToLeague(leagueID: self.league?.firebaseID ?? League().firebaseID, editorEmail: newEditorEmail)
                     self.editorsTableView.reloadData()
                 }
             }
@@ -173,7 +173,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                     self.present(createBasicAlert(title: "Unable to delete player", message: "Log in to an editor account for this league"), animated: true, completion: nil)
                 } else {
                     activityIndicator.startAnimating()
-                    CornholeFirestore.deletePlayerFromLeague(leagueID: league?.id ?? League().id, playerName: league?.players[indexPath.row] ?? "") { (err) in
+                    CornholeFirestore.deletePlayerFromLeague(leagueID: league?.firebaseID ?? League().firebaseID, playerName: league?.players[indexPath.row] ?? "") { (err) in
                         self.activityIndicator.stopAnimating()
                         if let err = err {
                             print("error deleting player: \(err)")
@@ -192,7 +192,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                 } else if indexPath.row == 0 { // can't delete owner
                     self.present(createBasicAlert(title: "Unable to delete editor", message: "Can't delete owner from editors"), animated: true, completion: nil)
                 } else {
-                    CornholeFirestore.deleteEditorFromLeague(leagueID: league?.id ?? League().id, editorEmail: league?.editorEmails[indexPath.row] ?? "")
+                    CornholeFirestore.deleteEditorFromLeague(leagueID: league?.firebaseID ?? League().firebaseID, editorEmail: league?.editorEmails[indexPath.row] ?? "")
                     self.editorsTableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
@@ -206,7 +206,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             alert.dismiss(animated: true, completion: nil)
             
             self.activityIndicator.startAnimating()
-            CornholeFirestore.deleteLeague(id: self.league!.id) { (errString) in
+            CornholeFirestore.deleteLeague(id: self.league!.firebaseID) { (errString) in
                 self.activityIndicator.stopAnimating()
                 if errString != nil {
                     self.present(createBasicAlert(title: "Error", message: "Unable to delete league"), animated: true, completion: nil)
