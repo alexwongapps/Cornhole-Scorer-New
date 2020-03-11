@@ -251,7 +251,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         for i in 0..<matchRecordLabel.count {
             activityIndicator[i].startAnimating()
         }
-        CornholeFirestore.pullLeague(id: UserDefaults.getActiveLeagueID()) { (league, error) in
+        CornholeFirestore.pullLeagues(ids: [UserDefaults.getActiveLeagueID()]) { (league, error) in
             for i in 0..<self.matchRecordLabel.count {
                 self.activityIndicator[i].stopAnimating()
             }

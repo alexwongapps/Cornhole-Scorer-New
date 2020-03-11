@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        if CommandLine.arguments.contains("--uitesting") {
+            resetState()
+        }
+        
         // Override point for customization after application launch.
         UserDefaults.standard.register(defaults: [
             "gameType": 0,
@@ -30,7 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // todo: test this
+    func resetState() {
+        let defaultsName = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: defaultsName)
+        coreDataDeleteAll(entity: "Matches")
+        coreDataDeleteAll(entity: "Players")
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if !isLeagueActive() {
             if url.pathExtension == "corn" {
@@ -112,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 if isLeagueActive() {
                     matchesViewController.activityIndicator.startAnimating()
-                    CornholeFirestore.pullAndCacheLeagues { (message) in
+                    CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
                         matchesViewController.activityIndicator.stopAnimating()
                         if let m = message {
                             matchesViewController.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
@@ -139,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     for i in 0..<statsViewController.matchRecordLabel.count {
                         statsViewController.activityIndicator[i].startAnimating()
                     }
-                    CornholeFirestore.pullAndCacheLeagues { (message) in
+                    CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
                         for i in 0..<statsViewController.matchRecordLabel.count {
                             statsViewController.activityIndicator[i].stopAnimating()
                         }

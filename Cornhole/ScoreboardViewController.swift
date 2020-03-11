@@ -228,6 +228,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
             bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
         }
+        
+        playersSegmentedControl[0].accessibilityIdentifier = "NumberOfPlayers"
+        playersSegmentedControl[1].accessibilityIdentifier = "NumberOfPlayersP"
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -278,7 +281,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             players.removeAll()
             
-            CornholeFirestore.pullAndCacheLeagues { (message) in
+            CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
                 for i in 0..<self.help0Label.count {
                     self.activityIndicator[i].stopAnimating()
                 }
@@ -296,8 +299,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID())"), animated: true, completion: nil)
                 }
             }
-        } else {
-            
         }
         
         let appearance = UITabBarItem.appearance()

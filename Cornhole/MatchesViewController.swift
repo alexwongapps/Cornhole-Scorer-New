@@ -106,7 +106,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func refresh(_ sender: Any) {
         activityIndicator.startAnimating()
         refreshButton.isHidden = true
-        CornholeFirestore.pullLeague(id: league!.firebaseID) { (league, error) in
+        CornholeFirestore.pullLeagues(ids: [league!.firebaseID]) { (league, error) in
             self.activityIndicator.stopAnimating()
             self.refreshButton.isHidden = false
             if error != nil {

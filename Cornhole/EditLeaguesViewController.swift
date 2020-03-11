@@ -25,11 +25,18 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
+    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
         
@@ -41,16 +48,19 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
     }
     
@@ -62,22 +72,16 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         
         leagues.removeAll()
         
-        if !isLeagueActive() { // only get pull/cache if not already done by scoreboard
-            activityIndicator.startAnimating()
-            CornholeFirestore.pullAndCacheLeagues { (message) in
-                self.activityIndicator.stopAnimating()
-                if let m = message {
-                    self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
-                }
-                for league in cachedLeagues {
-                    self.leagues.append(league)
-                }
-                self.leaguesTableView.reloadData()
+        activityIndicator.startAnimating()
+        CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
+            self.activityIndicator.stopAnimating()
+            if let m = message {
+                self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
             }
-        } else {
             for league in cachedLeagues {
                 self.leagues.append(league)
             }
+            self.leagues = self.leagues.sorted(by: { $0.name < $1.name })
             self.leaguesTableView.reloadData()
         }
     }
@@ -100,9 +104,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                     self.leagues.append(newLeague)
                     self.leaguesTableView.reloadData()
                     CornholeFirestore.createLeague(league: newLeague)
-                    var oldIDs = UserDefaults.getLeagueIDs()
-                    oldIDs.append(newLeague.firebaseID)
-                    UserDefaults.setLeagueIDs(ids: oldIDs)
+                    UserDefaults.addLeagueID(id: newLeague.firebaseID)
                     UserDefaults.setActiveLeagueID(id: newLeague.firebaseID)
                     CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
                     self.forcePermissionsReload()
@@ -119,29 +121,31 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         let alert = UIAlertController(title: "Join League", message: "Enter the league ID", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addTextField { (textField) in
-            textField.keyboardType = .numberPad
+            textField.keyboardType = .default
             textField.placeholder = "ID"
         }
         alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField?.text != "" {
                 self.activityIndicator.startAnimating()
-                CornholeFirestore.pullLeague(id: textField!.text!) { (league, err) in
+                CornholeFirestore.pullLeagues(ids: [textField!.text!]) { (leagues, err) in
                     self.activityIndicator.stopAnimating()
                     if let err = err {
                         print("error pulling league: \(err)")
-                        self.present(createBasicAlert(title: "Error", message: "Unable to join league. Check your internet connection"), animated: true, completion: nil)
-                    } else if league!.name == "" {
-                        self.present(createBasicAlert(title: "League not found", message: "A league with this ID was not found"), animated: true, completion: nil)
-                    } else {
-                        self.leagues.append(league!)
-                        self.leaguesTableView.reloadData()
-                        var oldIDs = UserDefaults.getLeagueIDs()
-                        oldIDs.append(league!.firebaseID)
-                        UserDefaults.setLeagueIDs(ids: oldIDs)
-                        UserDefaults.setActiveLeagueID(id: league!.firebaseID)
-                        CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
-                        self.forcePermissionsReload()
+                        self.present(createBasicAlert(title: "Error", message: "Unable to join league. Make sure you entered a valid league ID (20 characters) and check your internet connection."), animated: true, completion: nil)
+                    } else if leagues!.count == 0 {
+                        self.present(createBasicAlert(title: "Error", message: "Unable to join league. Make sure you entered a valid league ID (20 characters) and check your internet connection."), animated: true, completion: nil)
+                    } else if let league = leagues?[0] {
+                        if league.name == "" {
+                            self.present(createBasicAlert(title: "League not found", message: "A league with this ID was not found"), animated: true, completion: nil)
+                        } else {
+                            self.leagues.append(league)
+                            self.leaguesTableView.reloadData()
+                            UserDefaults.addLeagueID(id: league.firebaseID)
+                            UserDefaults.setActiveLeagueID(id: league.firebaseID)
+                            CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                            self.forcePermissionsReload()
+                        }
                     }
                 }
             }
@@ -184,9 +188,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             leagues.remove(at: indexPath.row)
             leaguesTableView.deleteRows(at: [indexPath], with: .fade)
             leaguesTableView.reloadData()
-            var oldIDs = UserDefaults.getLeagueIDs()
-            oldIDs.remove(at: indexPath.row)
-            UserDefaults.setLeagueIDs(ids: oldIDs)
+            UserDefaults.removeLeagueID(at: indexPath.row)
             CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
             forcePermissionsReload()
         }
@@ -194,6 +196,20 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func help(_ sender: Any) {
         self.present(createBasicAlert(title: "Help", message: "\nCreate: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by th league owner\n\nMake Active/Not Active: Sets which league you are currently viewing/editing. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
+    }
+    
+    @IBAction func refresh(_ sender: Any) {
+        activityIndicator.startAnimating()
+        refreshButton.isHidden = true
+        CornholeFirestore.pullAndCacheLeagues(force: true) { (message) in
+            self.activityIndicator.stopAnimating()
+            self.refreshButton.isHidden = false
+            if let m = message {
+                self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+            } else {
+                self.viewWillAppear(true)
+            }
+        }
     }
     
     @IBAction func makeActive(_ sender: UIButton) {
@@ -205,6 +221,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
         } else { // activate
             UserDefaults.setActiveLeagueID(id: cell.league.firebaseID)
+            print(UserDefaults.getActiveLeagueID())
         }
         leaguesTableView.reloadData()
         forcePermissionsReload()

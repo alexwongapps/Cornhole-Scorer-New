@@ -852,6 +852,21 @@ extension UserDefaults {
         defaults.set(id, forKey: "activeLeagueID")
     }
     
+    static func addLeagueID(id: String) {
+        var oldIDs = getLeagueIDs()
+        oldIDs.append(id)
+        setLeagueIDs(ids: oldIDs)
+    }
+    
+    // remove at index
+    static func removeLeagueID(at: Int) {
+        var oldIDs = getLeagueIDs()
+        let leagueID = oldIDs[at]
+        oldIDs.remove(at: at)
+        setLeagueIDs(ids: oldIDs)
+        cachedLeagues.removeAll { $0.firebaseID == leagueID }
+    }
+    
     // pull from cached leagues
     static func getActiveLeague() -> League? {
         return getCachedLeague(id: getActiveLeagueID())
@@ -896,6 +911,7 @@ class CornholeFirestore {
                 print("error adding match: \(err)")
             }
         }
+        updateField(collection: "leagues", document: ref!.documentID, field: "id", value: ref!.documentID)
         league.firebaseID = ref!.documentID
         cachedLeagues.append(league)
         
@@ -922,7 +938,13 @@ class CornholeFirestore {
         if let league = getCachedLeague(id: leagueID) {
             league.players.append(playerName)
         }
-        db.collection("players").addDocument(data: ["name": playerName, "leagueID": leagueID])
+        var ref: DocumentReference? = nil
+        ref = db.collection("players").addDocument(data: ["name": playerName, "leagueID": leagueID]) { err in
+            if let err = err {
+                print("error adding player: \(err)")
+            }
+        }
+        updateField(collection: "players", document: ref!.documentID, field: "id", value: ref!.documentID)
     }
     
     static func deletePlayerFromLeague(leagueID: String, playerName: String, completion: @escaping (Error?) -> Void) {
@@ -1098,33 +1120,79 @@ class CornholeFirestore {
         return ret
     }
     
+    static func getMatchFromDocument(document: QueryDocumentSnapshot) -> Match {
+        let snapshotData = document.data()
+        
+        // get match data
+        let _playerNamesArray = snapshotData["playerNamesArray"] as! [String]
+        let _roundPlayersArray = snapshotData["roundPlayersArray"] as! [String]
+        let _roundData = snapshotData["roundDataArray"] as! [Int]
+        let _matchID = snapshotData["matchID"] as! Int
+        
+        let _startDate = (snapshotData["startDate"] as! Timestamp).dateValue()
+        let _endDate = (snapshotData["endDate"] as! Timestamp).dateValue()
+        let _redColor = UIColor.init(red: (snapshotData["redColor"] as! [CGFloat])[0], green: (snapshotData["redColor"] as! [CGFloat])[1], blue: (snapshotData["redColor"] as! [CGFloat])[2], alpha: (snapshotData["redColor"] as! [CGFloat])[3])
+        let _blueColor = UIColor.init(red: (snapshotData["blueColor"] as! [CGFloat])[0], green: (snapshotData["blueColor"] as! [CGFloat])[1], blue: (snapshotData["blueColor"] as! [CGFloat])[2], alpha: (snapshotData["blueColor"] as! [CGFloat])[3])
+        let _gameType = snapshotData["gameType"] as! Int
+        let _winningScore = snapshotData["winningScore"] as! Int
+        let _bustScore = snapshotData["bustScore"] as! Int
+        let _roundLimit = snapshotData["roundLimit"] as! Int
+        let _firebaseID = document.documentID
+        
+        return getMatchFromRawData(playerNames: _playerNamesArray, roundPlayers: _roundPlayersArray, roundData: _roundData, id: _matchID, firebaseID: _firebaseID, startDate: _startDate, endDate: _endDate, redColor: _redColor, blueColor: _blueColor, gameType: _gameType, winningScore: _winningScore, bustScore: _bustScore, roundLimit: _roundLimit)
+    }
+    
     // get league from data
-    static func pullLeague(id: String, completion: @escaping (League?, Error?) -> Void) {
-        let ret = League()
+    static func pullLeagues(ids: [String], completion: @escaping ([League]?, Error?) -> Void) {
+        var rets = [League]()
+        // temp storages
+        var ms = [Match]()
+        var mIDs = [String : String]() // [match Firebase ID : leagueID]
+        var ps = [String : String]() // [player ID : player name]
+        var pIDs = [String : String]() // [player ID : league ID]
         
         var doneState = 0 {
             didSet {
                 if doneState == 3 { // info, matches, players
-                    cachedLeagues.removeAll { $0.firebaseID == id }
-                    cachedLeagues.append(ret)
-                    completion(ret, nil)
+                    print("pulled")
+                    // collect all matches/players
+                    for league in rets {
+                        for match in ms {
+                            if mIDs[match.firebaseID] == league.firebaseID {
+                                league.matches.append(match)
+                            }
+                        }
+                        
+                        for player in ps.keys {
+                            if pIDs[player] == league.firebaseID {
+                                league.players.append(ps[player]!)
+                            }
+                        }
+                    }
+                    
+                    cachedLeagues.removeAll { ids.contains($0.firebaseID) }
+                    cachedLeagues.append(contentsOf: rets)
+                    completion(rets, nil)
                 }
             }
         }
         let db = Firestore.firestore()
         
         // get league info
-        db.collection("leagues").document(id).getDocument { (snapshot, error) in
+        db.collection("leagues").whereField("id", in: ids).getDocuments { (snapshot, error) in
             if let err = error {
                 print("Error getting league info: \(err)")
                 completion(nil, err)
             } else {
-                if let document = snapshot {
-                    if let snapshotData = document.data() {
+                if let snapshots = snapshot?.documents {
+                    for document in snapshots {
+                        let snapshotData = document.data()
+                        let ret = League()
                         ret.name = snapshotData["name"] as! String
                         ret.ownerID = snapshotData["ownerID"] as! String
                         ret.editorEmails = snapshotData["editorEmails"] as! [String]
-                        ret.firebaseID = document.documentID
+                        ret.firebaseID = snapshotData["id"] as! String
+                        rets.append(ret)
                     }
                 }
                 doneState += 1
@@ -1132,31 +1200,17 @@ class CornholeFirestore {
         }
         
         // get matches
-        db.collection("matches").whereField("leagueID", isEqualTo: id).getDocuments() { (snapshot, error) in
+        db.collection("matches").whereField("leagueID", in: ids).getDocuments() { (snapshot, error) in
             if let err = error {
                 print("Error getting matches: \(err)")
                 completion(nil, err)
             } else {
-                for document in snapshot!.documents {
-                    let snapshotData = document.data()
-                    
-                    // get match data
-                    let _playerNamesArray = snapshotData["playerNamesArray"] as! [String]
-                    let _roundPlayersArray = snapshotData["roundPlayersArray"] as! [String]
-                    let _roundData = snapshotData["roundDataArray"] as! [Int]
-                    let _matchID = snapshotData["matchID"] as! Int
-                    
-                    let _startDate = (snapshotData["startDate"] as! Timestamp).dateValue()
-                    let _endDate = (snapshotData["endDate"] as! Timestamp).dateValue()
-                    let _redColor = UIColor.init(red: (snapshotData["redColor"] as! [CGFloat])[0], green: (snapshotData["redColor"] as! [CGFloat])[1], blue: (snapshotData["redColor"] as! [CGFloat])[2], alpha: (snapshotData["redColor"] as! [CGFloat])[3])
-                    let _blueColor = UIColor.init(red: (snapshotData["blueColor"] as! [CGFloat])[0], green: (snapshotData["blueColor"] as! [CGFloat])[1], blue: (snapshotData["blueColor"] as! [CGFloat])[2], alpha: (snapshotData["blueColor"] as! [CGFloat])[3])
-                    let _gameType = snapshotData["gameType"] as! Int
-                    let _winningScore = snapshotData["winningScore"] as! Int
-                    let _bustScore = snapshotData["bustScore"] as! Int
-                    let _roundLimit = snapshotData["roundLimit"] as! Int
-                    let _firebaseID = document.documentID
-                    
-                    ret.matches.append(getMatchFromRawData(playerNames: _playerNamesArray, roundPlayers: _roundPlayersArray, roundData: _roundData, id: _matchID, firebaseID: _firebaseID, startDate: _startDate, endDate: _endDate, redColor: _redColor, blueColor: _blueColor, gameType: _gameType, winningScore: _winningScore, bustScore: _bustScore, roundLimit: _roundLimit))
+                if let snapshots = snapshot?.documents {
+                    for document in snapshots {
+                        let match = getMatchFromDocument(document: document)
+                        ms.append(match)
+                        mIDs[match.firebaseID] = document.data()["leagueID"] as? String
+                    }
                 }
                 
                 doneState += 1
@@ -1164,18 +1218,23 @@ class CornholeFirestore {
         }
         
         // get players
-        db.collection("players").whereField("leagueID", isEqualTo: id).getDocuments { (snapshot, error) in
+        db.collection("players").whereField("leagueID", in: ids).getDocuments { (snapshot, error) in
             if let err = error {
                 print("Error getting players: \(err)")
                 completion(nil, err)
             } else {
-                for document in snapshot!.documents {
-                    let snapshotData = document.data()
-                    
-                    // get player data
-                    let name = snapshotData["name"] as! String
-                    
-                    ret.players.append(name)
+                if let snapshots = snapshot?.documents {
+                    for document in snapshots {
+                        let snapshotData = document.data()
+                        
+                        // get player data
+                        let name = snapshotData["name"] as! String
+                        let id = snapshotData["id"] as! String
+                        let leagueID = snapshotData["leagueID"] as! String
+                        
+                        ps[id] = name
+                        pIDs[id] = leagueID
+                    }
                 }
                 
                 doneState += 1
@@ -1183,44 +1242,71 @@ class CornholeFirestore {
         }
     }
     
-    // todo: smarter deciding when to push (e.g. every 10 minutes + when app loads?)
-    static func pullAndCacheLeagues(completion: @escaping (String?) -> Void) {
-        getLeagues(user: Auth.auth().currentUser!) { (error) in
-            var leagueIDs: [String] = UserDefaults.getLeagueIDs()
-            var leaguesLeft = leagueIDs.count
-            var unableIDs: [String] = []
-            if error != nil {
-                completion("Unable to access remembered leagues")
-            } else {
-                cachedLeagues.removeAll()
-                if leagueIDs.count == 0 {
-                    completion(nil)
-                }
-                for id in leagueIDs {
-                    CornholeFirestore.pullLeague(id: id) { (league, error) in
-                        if error != nil {
-                            unableIDs.append(id)
-                        } else if league!.name == "" {
-                            leagueIDs.removeAll { $0 == id }
-                            UserDefaults.setLeagueIDs(ids: leagueIDs)
-                            unableIDs.append(id)
-                        }
-                        leaguesLeft -= 1
-                        if leaguesLeft <= 0 { // done
-                            if unableIDs.count > 0 {
-                                var message = "Unable to access leagues with these IDs: "
-                                for i in 0..<unableIDs.count - 1 {
-                                    message += "\(unableIDs[i]), "
-                                }
-                                message += "\(unableIDs[unableIDs.count - 1])"
-                                completion(message)
+    static var lastPull: Double = 0 // number of seconds since epoch when last pull was made
+    static var pullTime: Double = 600 // number of seconds between automatic pulls
+    
+    static func pullAndCacheLeagues(force: Bool, completion: @escaping (String?) -> Void) {
+        // only pull leagues if cached leagues is not recent or being forced to pull
+        let currentDate = Date.init().timeIntervalSince1970
+        print("Time since last pull: \(currentDate - lastPull)")
+        if force || currentDate - lastPull > pullTime {
+            getLeagues(user: Auth.auth().currentUser!) { (error) in
+                var leagueIDs: [String] = UserDefaults.getLeagueIDs()
+                if error != nil {
+                    completion("Unable to access remembered leagues")
+                } else {
+                    print("pulling")
+                    lastPull = currentDate
+                    
+                    cachedLeagues.removeAll()
+                    if leagueIDs.count == 0 {
+                        completion(nil)
+                    }
+                    
+                    // divide ids into groups of 10 for firestore
+                    var idsArray = [[String]]()
+                    while leagueIDs.count > 0 {
+                        let end = min(10, leagueIDs.count)
+                        idsArray.append(Array(leagueIDs[0..<end]))
+                        leagueIDs = Array(leagueIDs[end...])
+                    }
+                    print(idsArray)
+                    
+                    var batchesLeft = idsArray.count
+                    var unableIDs: [String] = []
+                    
+                    for ids in idsArray {
+                        CornholeFirestore.pullLeagues(ids: ids) { (leagues, error) in
+                            if error != nil {
+                                unableIDs.append(contentsOf: ids)
                             } else {
-                                completion(nil)
+                                for league in leagues! {
+                                    if league.name == "" {
+                                        leagueIDs.removeAll { $0 == league.firebaseID }
+                                        UserDefaults.setLeagueIDs(ids: leagueIDs)
+                                        unableIDs.append(league.firebaseID)
+                                    }
+                                }
+                            }
+                            batchesLeft -= 1
+                            if batchesLeft <= 0 { // done
+                                if unableIDs.count > 0 {
+                                    var message = "Unable to access leagues with these IDs: "
+                                    for i in 0..<unableIDs.count - 1 {
+                                        message += "\(unableIDs[i]), "
+                                    }
+                                    message += "\(unableIDs[unableIDs.count - 1])"
+                                    completion(message)
+                                } else {
+                                    completion(nil)
+                                }
                             }
                         }
                     }
                 }
             }
+        } else {
+            completion(nil)
         }
     }
     
