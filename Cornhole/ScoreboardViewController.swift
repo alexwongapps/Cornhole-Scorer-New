@@ -281,22 +281,24 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             players.removeAll()
             
-            CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
+            for i in 0..<help0Label.count {
+                activityIndicator[i].startAnimating()
+            }
+            CornholeFirestore.pullLeagues(ids: [UserDefaults.getActiveLeagueID()]) { (leagues, error) in
                 for i in 0..<self.help0Label.count {
                     self.activityIndicator[i].stopAnimating()
                 }
-                if let m = message {
-                    self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
-                }
-                if let league = UserDefaults.getActiveLeague() {
-                    self.league = league
-                    self.players = league.players
-                    self.players = self.players.sorted()
-                    for i in 0..<self.help0Label.count {
-                        self.playerTableView[i].reloadData()
-                    }
-                } else {
+                if error != nil {
                     self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID())"), animated: true, completion: nil)
+                } else {
+                    if let league = leagues?[0] {
+                        self.league = league
+                        self.players = league.players
+                        self.players = self.players.sorted()
+                        for i in 0..<self.help0Label.count {
+                            self.playerTableView[i].reloadData()
+                        }
+                    }
                 }
             }
         }
@@ -870,7 +872,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         buttonSelect = sender.tag
         
-        let selectedColor: UIColor = UIColor.purple
+        let selectedColor: UIColor = UIColor.gray
         
         for i in 0..<help0Label.count {
             redPlayer1Button[i].setTitleColor((redPlayer1Button[i].tag == buttonSelect) ? selectedColor :  self.view.tintColor, for: .normal)
@@ -897,7 +899,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         for i in 0..<help0Label.count {
             help0Label[i].isHidden = false
-            help0Label[i].text = "Welcome to Cornhole!\n\nTap to go through instructions\n\n(App best used in landscape)"
+            help0Label[i].text = "Welcome to Cornhole!\n\nTap to go through instructions"
         }
     }
     

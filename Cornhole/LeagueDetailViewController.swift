@@ -62,7 +62,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             deleteLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            idLabel.font = UIFont(name: systemFont, size: 17)
+            idLabel.font = UIFont(name: systemFont, size: 14)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editorsLabel.font = UIFont(name: systemFont, size: 17)
@@ -230,6 +230,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "\nPlayers: participants in the games\n\nEditors: Emails of users who can add players or play games for the league\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "\nPlayers: Participants in the games\n\nEditors: Emails of users who can add players or play games for the league\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
     }
 }
