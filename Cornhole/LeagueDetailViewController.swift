@@ -208,7 +208,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     @IBAction func deleteLeague(_ sender: Any) {
         let alert = UIAlertController(title: "Are you sure?", message: "This will permanently delete this league and all of its data", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {(action) in
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
             
             self.activityIndicator.startAnimating()
@@ -222,7 +222,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: {(action) in
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
         }))
         

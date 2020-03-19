@@ -21,7 +21,12 @@ let WINNING_SCORE: Int = 21
 // color dictionary
 let COLORS = [
     UIColor.red: "Red",
-    UIColor.blue: "Blue"
+    UIColor.blue: "Blue",
+    UIColor.orange: "Orange",
+    UIColor.yellow: "Yellow",
+    UIColor.green: "Green",
+    UIColor.purple: "Purple",
+    UIColor.black: "Black"
 ]
 
 let systemFont: String = "Century Gothic"
@@ -879,8 +884,9 @@ class CornholeFirestore {
     
     static let TEST_LEAGUE_ID: String = ""
 
-    static func readField(collection: String, document: String, field: String, completion: @escaping (Any?, Error?) -> Void) {
+    private static func readField(collection: String, document: String, field: String, completion: @escaping (Any?, Error?) -> Void) {
         let db = Firestore.firestore()
+        
         db.collection(collection).document(document).getDocument { (snapshot, error) in
             if let snapshot = snapshot, snapshot.exists {
                 if let snapshotData = snapshot.data() {
@@ -898,7 +904,7 @@ class CornholeFirestore {
         }
     }
 
-    static func updateField(collection: String, document: String, field: String, value: Any) {
+    private static func updateField(collection: String, document: String, field: String, value: Any) {
         let db = Firestore.firestore()
         db.collection(collection).document(document).updateData([field: value])
     }
@@ -1172,6 +1178,7 @@ class CornholeFirestore {
                     
                     cachedLeagues.removeAll { ids.contains($0.firebaseID) }
                     cachedLeagues.append(contentsOf: rets)
+                    
                     completion(rets, nil)
                 }
             }

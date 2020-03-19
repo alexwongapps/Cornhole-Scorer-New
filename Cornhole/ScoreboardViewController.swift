@@ -12,7 +12,7 @@ import WebKit
 import StoreKit
 import Firebase
 
-class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WKUIDelegate, WKNavigationDelegate, UITextFieldDelegate {
+class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WKUIDelegate, WKNavigationDelegate, UITextFieldDelegate, SelectColorViewControllerDelegate {
     
     //////////////////////////////////////////////////////
     // Login Page ////////////////////////////////////////
@@ -63,6 +63,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var sePlayButton: [UIButton]! // for iphone se
     @IBOutlet var helpButton: [UIButton]!
     @IBOutlet var rulesButton: [UIButton]!
+    @IBOutlet var changeRedButton: [UIButton]!
+    @IBOutlet var changeBlueButton: [UIButton]!
     @IBOutlet var activityIndicator: [UIActivityIndicatorView]!
     
     // login view outlet
@@ -290,6 +292,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 if error != nil {
                     self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID())"), animated: true, completion: nil)
+                } else if leagues!.count == 0 {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()), it may have been deleted."), animated: true, completion: nil)
+                    UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
                 } else {
                     if let league = leagues?[0] {
                         self.league = league
@@ -349,6 +354,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 45)
                 rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 45)
                 swapColorsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                changeRedButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
+                changeBlueButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 redPlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -426,6 +433,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 swapColorsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                changeRedButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                changeBlueButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 redPlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
@@ -510,6 +519,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 helpButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 rulesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 swapColorsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                changeRedButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
+                changeBlueButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 redPlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -837,32 +848,53 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // change colors
+    
     @IBAction func swapColors(_ sender: UIButton) {
+        
+        let tmp = redColor
+        redColor = blueColor
+        blueColor = tmp
+        
+        setColors()
+    }
+    
+    @IBAction func changeColor(_ sender: UIButton) {
+        teamColorToSet = sender.tag
+        performSegue(withIdentifier: "changeColorSegue", sender: nil)
+    }
+    
+    var teamColorToSet: Int = 0 // 0 or 1
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // select color segue
+        let controller = segue.destination as! SelectColorViewController
+        controller.delegate = self
+    }
+    
+    func didSelectColorVC(controller: SelectColorViewController) {
+        if teamColorToSet == 0 {
+            redColor = controller.color
+        } else {
+            blueColor = controller.color
+        }
+        setColors()
+    }
+    
+    func setColors() {
+        
+        // todo: what about custom colors for colors dict?
         
         for i in 0..<help0Label.count {
             
-            let teamRedText = teamRedLabel[i].text
-            let teamRedColor = teamRedLabel[i].textColor
+            teamRedLabel[i].textColor = redColor
+            teamRedLabel[i].text = "Team \(COLORS[redColor]!)"
+            redPlayer1Label[i].textColor = redColor
+            redPlayer2Label[i].textColor = redColor
             
-            teamRedLabel[i].text = teamBlueLabel[i].text
-            teamRedLabel[i].textColor = teamBlueLabel[i].textColor
-            redPlayer1Label[i].textColor = teamBlueLabel[i].textColor
-            redPlayer2Label[i].textColor = teamBlueLabel[i].textColor
-            
-            teamBlueLabel[i].text = teamRedText
-            teamBlueLabel[i].textColor = teamRedColor
-            bluePlayer1Label[i].textColor = teamRedColor
-            bluePlayer2Label[i].textColor = teamRedColor
-            
-        }
-        
-        // maybe change later
-        if redColor == UIColor.red {
-            redColor = UIColor.blue
-            blueColor = UIColor.red
-        } else {
-            blueColor = UIColor.blue
-            redColor = UIColor.red
+            teamBlueLabel[i].textColor = blueColor
+            teamBlueLabel[i].text = "Team \(COLORS[blueColor]!)"
+            bluePlayer1Label[i].textColor = blueColor
+            bluePlayer2Label[i].textColor = blueColor
         }
     }
     

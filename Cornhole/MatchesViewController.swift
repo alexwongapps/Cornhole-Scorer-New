@@ -53,7 +53,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // fonts
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
             
-            matchListLabel.font = UIFont(name: systemFont, size: 60)
+            matchListLabel.font = UIFont(name: systemFont, size: isLeagueActive() ? 40 : 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -61,7 +61,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         } else {
             
-            matchListLabel.font = UIFont(name: systemFont, size: 25)
+            matchListLabel.font = UIFont(name: systemFont, size: isLeagueActive() ? 20 : 25)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -209,7 +209,6 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if !(league?.isEditor(user: Auth.auth().currentUser))! {
                         self.present(createBasicAlert(title: "Unable to delete match", message: "Log in to an editor account for this league"), animated: true, completion: nil)
                     } else {
-                        print(matches[indexPath.row].firebaseID)
                         CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].firebaseID) { (err) in
                             if let err = err {
                                 print("error deleting match: \(err)")

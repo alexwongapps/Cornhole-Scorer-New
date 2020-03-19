@@ -43,6 +43,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet var boardPieChartView: [PieChartView]! // displays in, on, off
     @IBOutlet var activityIndicator: [UIActivityIndicatorView]!
     @IBOutlet var refreshButton: [UIButton]!
+    @IBOutlet var standingsButton: [UIButton]!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -74,8 +75,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 25)
-                statsLabel[i].font = UIFont(name: systemFont, size: 75)
+                statsLabel[i].font = UIFont(name: systemFont, size: isLeagueActive() ? 50 : 75)
                 refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
+                standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 25)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
                 doublesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -91,8 +93,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
-                statsLabel[i].font = UIFont(name: systemFont, size: 30)
+                statsLabel[i].font = UIFont(name: systemFont, size: isLeagueActive() ? 20 : 30)
                 refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
+                standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 11)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
                 doublesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
@@ -109,8 +112,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
-                statsLabel[i].font = UIFont(name: systemFont, size: 30)
+                statsLabel[i].font = UIFont(name: systemFont, size: isLeagueActive() ? 20 : 30)
                 refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 15)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
                 doublesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
@@ -151,12 +155,14 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 statsLabel[i].text = "Stats"
                 refreshButton[i].isHidden = true
+                standingsButton[i].isHidden = true
             }
             matches = getMatchesFromCoreData()
             loadData()
         } else { // league
             for i in 0..<self.matchRecordLabel.count {
                 refreshButton[i].isHidden = false
+                standingsButton[i].isHidden = false
             }
             if let league = UserDefaults.getActiveLeague() {
                 for i in 0..<self.matchRecordLabel.count {
@@ -250,10 +256,12 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBAction func refresh(_ sender: Any) {
         for i in 0..<matchRecordLabel.count {
             activityIndicator[i].startAnimating()
+            standingsButton[i].isHidden = true
         }
         CornholeFirestore.pullLeagues(ids: [UserDefaults.getActiveLeagueID()]) { (league, error) in
             for i in 0..<self.matchRecordLabel.count {
                 self.activityIndicator[i].stopAnimating()
+                self.standingsButton[i].isHidden = false
             }
             if error != nil {
                 self.present(createBasicAlert(title: "Error", message: "Unable to pull current league"), animated: true, completion: nil)
@@ -696,6 +704,10 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func getPointsPerRound(p: String, m: [Match]) -> Double {
         let bagData = getBagData(p: p, m: m)
+        return getPointsPerRound(bagData: bagData)
+    }
+    
+    func getPointsPerRound(bagData: [Int]) -> Double {
         let score = Board(bagsIn: bagData[0], bagsOn: bagData[1], bagsOff: bagData[2]).score
         let totalBags = bagData[0] + bagData[1] + bagData[2]
         
@@ -724,5 +736,95 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         
         return [totalIn, totalOn, totalOff]
+    }
+    
+    // standings
+    
+    @IBAction func openStandings(_ sender: Any) {
+        performSegue(withIdentifier: "standingsSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // standings segue
+        let controller = segue.destination as! StandingsViewController
+        controller.data = getDataForStandings()
+    }
+    
+    func isDoublesLeague() -> Bool {
+        for m in matches {
+            if m.redPlayers.count == 1 {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func isNewTeam(team: [String], soFar: [[String]]) -> Bool {
+        for found in soFar {
+            if Set(team) == Set(found) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func getAllTeams() -> [[String]] {
+        var allTeams = [[String]]()
+        for m in matches {
+            let reds = m.redPlayers
+            let blues = m.bluePlayers
+            if isNewTeam(team: reds, soFar: allTeams) {
+                allTeams.append(reds)
+            }
+            if isNewTeam(team: blues, soFar: allTeams) {
+                allTeams.append(blues)
+            }
+        }
+        return allTeams
+    }
+    
+    func teamColor(team: [String], match: Match) -> Int {
+        if Set(match.redPlayers) == Set(team) {
+            return Match.RED
+        } else if Set(match.bluePlayers) == Set(team) {
+            return Match.BLUE
+        } else {
+            return Match.NONE
+        }
+    }
+    
+    // for each player/team: [won, lost, tied, percent, score/round]
+    func getDataForStandings() -> [String : [Double]] {
+        if !isDoublesLeague() {
+            var matchResults = [String : [Double]]()
+            for p in allPlayers {
+                matchResults[p] = getMatchResults(p: p, m: matches)
+                matchResults[p]?.append(getPointsPerRound(p: p, m: matches))
+            }
+            return matchResults
+        } else {
+            var matchResults = [[String] : [Double]]()
+            let allTeams = getAllTeams()
+            for team in allTeams {
+                matchResults[team] = getMatchResults(p: team[0], m: matches)
+                var bagData: [Int] = [0, 0, 0]
+                for player in team {
+                    let data = getBagData(p: player, m: matches)
+                    bagData[0] += data[0]
+                    bagData[1] += data[1]
+                    bagData[2] += data[2]
+                }
+                matchResults[team]?.append(getPointsPerRound(bagData: bagData))
+            }
+            var retData = [String : [Double]]()
+            for team in matchResults.keys {
+                if team.count == 1 {
+                    retData[team[0]] = matchResults[team]
+                } else {
+                    retData["\(team[0])/\(team[1])"] = matchResults[team]
+                }
+            }
+            return retData
+        }
     }
 }

@@ -182,15 +182,28 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if leagues[indexPath.row].firebaseID == UserDefaults.getActiveLeagueID() {
-                UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
-            }
-            leagues.remove(at: indexPath.row)
-            leaguesTableView.deleteRows(at: [indexPath], with: .fade)
-            leaguesTableView.reloadData()
-            UserDefaults.removeLeagueID(at: indexPath.row)
-            CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
-            forcePermissionsReload()
+            
+            let alert = UIAlertController(title: "Are you sure?", message: "This will NOT delete the league or its data, it will just remove it from your joined leagues. If you want to join this league again later, save its ID", preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+                
+                if self.leagues[indexPath.row].firebaseID == UserDefaults.getActiveLeagueID() {
+                    UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
+                }
+                self.leagues.remove(at: indexPath.row)
+                self.leaguesTableView.deleteRows(at: [indexPath], with: .fade)
+                self.leaguesTableView.reloadData()
+                UserDefaults.removeLeagueID(at: indexPath.row)
+                CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                self.forcePermissionsReload()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {(action) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
