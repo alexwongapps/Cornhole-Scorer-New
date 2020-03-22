@@ -15,6 +15,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var playersTableView: UITableView!
     @IBOutlet weak var editorsTableView: UITableView!
+    @IBOutlet weak var qrButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var idLabel: UILabel!
@@ -54,6 +55,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
             
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            qrButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             idLabel.font = UIFont(name: systemFont, size: 30)
             playersLabel.font = UIFont(name: systemFont, size: 30)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -62,6 +64,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             deleteLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            qrButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             idLabel.font = UIFont(name: systemFont, size: 14)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -70,6 +73,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             deleteLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            qrButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             idLabel.font = UIFont(name: systemFont, size: 17)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -230,6 +234,33 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "\nPlayers: Participants in the games\n\nEditors: Emails of users who can add players or play games for the league\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "\nQR: Join this league from another device by scanning this code\n\nPlayers: Participants in the games\n\nEditors: Emails of users who can add players or play games for the league\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
+    }
+    
+    @IBAction func generateQR(_ sender: Any) {
+        let alert = UIAlertController(title: "QR Code", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .default, handler: nil)
+
+        let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 90, height: 90))
+        imgViewTitle.image = generateQRCode(from: league!.firebaseID)
+        alert.view.addSubview(imgViewTitle)
+
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: String.Encoding.ascii)
+
+        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+            filter.setValue(data, forKey: "inputMessage")
+            let transform = CGAffineTransform(scaleX: 3, y: 3)
+
+            if let output = filter.outputImage?.transformed(by: transform) {
+                return UIImage(ciImage: output)
+            }
+        }
+
+        return nil
     }
 }

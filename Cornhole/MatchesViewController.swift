@@ -52,22 +52,22 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // fonts
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
-            
-            matchListLabel.font = UIFont(name: systemFont, size: isLeagueActive() ? 40 : 60)
+            matchListLabel.font = UIFont(name: systemFont, size: 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             
         } else {
-            
-            matchListLabel.font = UIFont(name: systemFont, size: isLeagueActive() ? 20 : 25)
+            matchListLabel.font = UIFont(name: systemFont, size: 30)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
+        matchListLabel.adjustsFontSizeToFitWidth = true
+        matchInfoLabel.adjustsFontSizeToFitWidth = true
         backButton.titleLabel?.textAlignment = .right
     }
     
@@ -135,7 +135,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let cell = matchesTableView.dequeueReusableCell(withIdentifier: "matchCell", for: indexPath) as! MatchesViewControllerMatchTableViewCell
             cell.backgroundColor = .clear
-            cell.textLabel?.attributedText = colorDescription(str: match.description, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.attributedText = colorDescription(str: match.description, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.adjustsFontSizeToFitWidth = true
             cell.selectionStyle = .none
             cell.arrowLabel.font = UIFont(name: systemFont, size: 25)
             return cell
@@ -143,8 +144,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let cell = matchInfoTableView.dequeueReusableCell(withIdentifier: "matchInfoCell", for: indexPath) as! MatchesViewControllerMatchInfoTableViewCell
             cell.backgroundColor = .clear
-            cell.textLabel?.attributedText = colorDescription(str: match.rounds[indexPath.row].description, size: hasTraits(view: matchView, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
-            
+            cell.matchLabel.attributedText = colorDescription(str: match.rounds[indexPath.row].description, size: hasTraits(view: matchView, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.adjustsFontSizeToFitWidth = true
             let scoreText = colorDescription(str: "Score: \(match.getScoreAfterRound(round: indexPath.row + 1))", size: hasTraits(view: matchView, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
             scoreText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: "Score: ".count))
             cell.matchScoreLabel.attributedText = scoreText

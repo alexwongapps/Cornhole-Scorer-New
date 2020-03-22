@@ -8,16 +8,23 @@
 
 import UIKit
 import FirebaseAuth
+import AVFoundation
+
+let FREE_LEAGUE_LIMIT = 3
 
 protocol DataToSettingsProtocol {
     func settingsReloadPermissions()
 }
 
-class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVCaptureMetadataOutputObjectsDelegate, ScanViewControllerDelegate {
 
     var leagues: [League] = []
     
     var delegate: DataToSettingsProtocol? = nil
+
+    var captureSession: AVCaptureSession?
+    var capturePhotoOutput: AVCapturePhotoOutput?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var leaguesTableView: UITableView!
@@ -91,44 +98,81 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func createLeague(_ sender: Any) {
-        if let user = Auth.auth().currentUser {
-            let alert = UIAlertController(title: "Create League", message: "Enter the league name", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addTextField { (textField) in
-                textField.placeholder = "Name"
+        if canAddLeague() {
+             if let user = Auth.auth().currentUser {
+                 let alert = UIAlertController(title: "Create League", message: "Enter the league name", preferredStyle: .alert)
+                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                 alert.addTextField { (textField) in
+                    textField.placeholder = "Name"
+                    textField.autocapitalizationType = .words
+                 }
+                 alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+                     let textField = alert?.textFields![0]
+                     if textField?.text != "" {
+                         let newLeague = League(name: textField!.text!, owner: user)
+                         self.leagues.append(newLeague)
+                         self.leaguesTableView.reloadData()
+                         CornholeFirestore.createLeague(league: newLeague)
+                         UserDefaults.addLeagueID(id: newLeague.firebaseID)
+                         UserDefaults.setActiveLeagueID(id: newLeague.firebaseID)
+                         CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                         self.forcePermissionsReload()
+                         self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
+                     }
+                 }))
+                 self.present(alert, animated: true, completion: nil)
+             } else {
+                 self.present(createBasicAlert(title: "Not logged in", message: "Must be logged in to create a league"), animated: true, completion: nil)
             }
-            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
-                let textField = alert?.textFields![0]
-                if textField?.text != "" {
-                    let newLeague = League(name: textField!.text!, owner: user)
-                    self.leagues.append(newLeague)
-                    self.leaguesTableView.reloadData()
-                    CornholeFirestore.createLeague(league: newLeague)
-                    UserDefaults.addLeagueID(id: newLeague.firebaseID)
-                    UserDefaults.setActiveLeagueID(id: newLeague.firebaseID)
-                    CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
-                    self.forcePermissionsReload()
-                    self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
-                }
-            }))
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            self.present(createBasicAlert(title: "Not logged in", message: "Must be logged in to create a league"), animated: true, completion: nil)
-       }
+        }
     }
     
     @IBAction func joinLeague(_ sender: Any) {
-        let alert = UIAlertController(title: "Join League", message: "Enter the league ID", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addTextField { (textField) in
-            textField.keyboardType = .default
-            textField.placeholder = "ID"
+        if canAddLeague() {
+            let alert = UIAlertController(title: "Join League", message: "Enter the league ID or scan its QR code (available in the league settings)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addTextField { (textField) in
+                textField.keyboardType = .default
+                textField.placeholder = "ID"
+            }
+            alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
+                let textField = alert?.textFields![0]
+                self.joinPull(name: textField!.text!)
+            }))
+            alert.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { (action) in
+                alert.dismiss(animated: true) {
+                    self.performSegue(withIdentifier: "qrScanSegue", sender: nil)
+                }
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         }
-        alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
-            let textField = alert?.textFields![0]
-            if textField?.text != "" {
+    }
+    
+    func passID(id: String) {
+        joinPull(name: id)
+    }
+    
+    func canAddLeague() -> Bool {
+        // todo: add conditional for if already paid
+        if leagues.count >= FREE_LEAGUE_LIMIT {
+            self.present(createBasicAlert(title: "League limit reached", message: "To follow more than \(FREE_LEAGUE_LIMIT) leagues at a time, get PRO from the settings menu or click Join Unlimited Leagues at the bottom of the screen\n\nTo unfollow a league without deleting its data, swipe left on it and press delete"), animated: true, completion: nil)
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    // todo: animator doesn't spin on qr
+
+    func joinPull(name: String) {
+        let alreadyThere = cachedLeagues.contains { $0.firebaseID == name }
+        if name != "" {
+            if alreadyThere {
+                self.present(createBasicAlert(title: "Error", message: "League already added"), animated: true, completion: nil)
+            } else {
                 self.activityIndicator.startAnimating()
-                CornholeFirestore.pullLeagues(ids: [textField!.text!]) { (leagues, err) in
+                CornholeFirestore.pullLeagues(ids: [name]) { (leagues, err) in
                     self.activityIndicator.stopAnimating()
                     if let err = err {
                         print("error pulling league: \(err)")
@@ -149,8 +193,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                     }
                 }
             }
-        }))
-        self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,7 +204,8 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell") as! EditLeaguesViewControllerLeagueTableViewCell
         cell.league = leagues[indexPath.row]
         cell.nameLabel.text = cell.league.name
-        cell.makeActiveButton.setTitle(UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? "Make Not Active" : "Make Active", for: .normal)
+        cell.nameLabel.adjustsFontSizeToFitWidth = true
+        cell.makeActiveButton.setTitle(UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? "Deactivate" : "Activate", for: .normal)
         cell.backgroundColor = .clear
         
         // fonts
@@ -208,7 +252,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "\nCreate: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by th league owner\n\nMake Active/Not Active: Sets which league you are currently viewing/editing. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "\nCreate: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -263,6 +307,9 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             let controller = segue.destination as! LeagueDetailViewController
             controller.title = selectedLeague!.name
             controller.league = selectedLeague
+        case "qrScanSegue":
+            let controller = segue.destination as! QRScanViewController
+            controller.delegate = self
         default:
             break
         }

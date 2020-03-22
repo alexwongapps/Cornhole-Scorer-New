@@ -83,8 +83,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         
             backgroundImageView[i].image = backgroundImage
             
-            self.nameTextField[i].delegate = self
+            nameTextField[i].delegate = self
             nameTextField[i].autocorrectionType = .no
+            nameTextField[i].backgroundColor = .clear
+            nameTextField[i].layer.borderColor = UIColor.black.cgColor
         
             // get first throw setting
             
@@ -373,7 +375,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             if players.contains(nameTextField[i].text!) {
                 nameTextField[i].backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
             } else {
-                nameTextField[i].backgroundColor = UIColor.white
+                nameTextField[i].backgroundColor = .clear
             }
         }
     }

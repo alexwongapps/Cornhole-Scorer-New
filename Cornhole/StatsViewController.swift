@@ -69,13 +69,14 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         for i in 0..<matchRecordLabel.count {
             backgroundImageView[i].image = backgroundImage
             statsLabel[i].text = ""
+            statsLabel[i].adjustsFontSizeToFitWidth = true
         }
         
         if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
         
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 25)
-                statsLabel[i].font = UIFont(name: systemFont, size: isLeagueActive() ? 50 : 75)
+                statsLabel[i].font = UIFont(name: systemFont, size: 75)
                 refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -93,7 +94,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
-                statsLabel[i].font = UIFont(name: systemFont, size: isLeagueActive() ? 20 : 30)
+                statsLabel[i].font = UIFont(name: systemFont, size: 30)
                 refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
                 standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 11)
@@ -112,7 +113,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
-                statsLabel[i].font = UIFont(name: systemFont, size: isLeagueActive() ? 20 : 30)
+                statsLabel[i].font = UIFont(name: systemFont, size: 30)
                 refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 15)

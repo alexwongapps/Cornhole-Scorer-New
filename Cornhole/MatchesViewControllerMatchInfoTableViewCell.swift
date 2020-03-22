@@ -11,6 +11,7 @@ import UIKit
 class MatchesViewControllerMatchInfoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var matchScoreLabel: UILabel!
+    @IBOutlet weak var matchLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

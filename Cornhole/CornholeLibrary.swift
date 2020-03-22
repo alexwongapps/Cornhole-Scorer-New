@@ -19,13 +19,30 @@ let SETTINGS_TAB_INDEX = 3
 let WINNING_SCORE: Int = 21
 
 // color dictionary
+
+let colorKeys = [
+    UIColor.red,
+    UIColor(red: 0.9, green: 0.45, blue: 0, alpha: 1),
+    UIColor(red: 0.5, green: 0.5, blue: 0, alpha: 1),
+    UIColor(red: 0, green: 0.6, blue: 0.1, alpha: 1),
+    UIColor.blue,
+    UIColor.purple,
+    UIColor(red: 1, green: 0.08, blue: 0.58, alpha: 1),
+    UIColor(red: 0.4, green: 0.26, blue: 0.13, alpha: 1),
+    UIColor.darkGray,
+    UIColor.black
+]
+
 let COLORS = [
     UIColor.red: "Red",
+    UIColor(red: 0.9, green: 0.45, blue: 0, alpha: 1): "Orange",
+    UIColor(red: 0.5, green: 0.5, blue: 0, alpha: 1): "Yellow",
+    UIColor(red: 0, green: 0.6, blue: 0.1, alpha: 1): "Green",
     UIColor.blue: "Blue",
-    UIColor.orange: "Orange",
-    UIColor.yellow: "Yellow",
-    UIColor.green: "Green",
     UIColor.purple: "Purple",
+    UIColor(red: 1, green: 0.08, blue: 0.58, alpha: 1): "Pink",
+    UIColor(red: 0.4, green: 0.26, blue: 0.13, alpha: 1): "Brown",
+    UIColor.darkGray: "Gray",
     UIColor.black: "Black"
 ]
 

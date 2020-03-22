@@ -25,6 +25,7 @@
 		5766497B20EEAC6100DDA39C /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766497A20EEAC6100DDA39C /* StatsViewController.swift */; };
 		576C23DF23F0E71B007A1529 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C23DE23F0E71B007A1529 /* AppUtility.swift */; };
 		578709B723974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578709B623974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift */; };
+		578D28E22426A5660090DB3C /* QRScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578D28E12426A5660090DB3C /* QRScanViewController.swift */; };
 		578F179D23485CDE00393FB2 /* CornholeBackground5Dark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */; };
 		57B4FADA2106813F00109981 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B4FAD92106813F00109981 /* SettingsViewController.swift */; };
 		57C76D142412DF9200F1D91B /* CornholeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C76D132412DF9200F1D91B /* CornholeUITests.swift */; };
@@ -81,6 +82,7 @@
 		5766497A20EEAC6100DDA39C /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		576C23DE23F0E71B007A1529 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		578709B623974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLeaguesViewControllerLeagueTableViewCell.swift; sourceTree = "<group>"; };
+		578D28E12426A5660090DB3C /* QRScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanViewController.swift; sourceTree = "<group>"; };
 		578F179C23485CDD00393FB2 /* CornholeBackground5Dark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CornholeBackground5Dark.jpeg; sourceTree = "<group>"; };
 		57B4FAD92106813F00109981 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		57C76D112412DF9200F1D91B /* CornholeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CornholeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +208,7 @@
 				57658BDE2422B0A700D8DBFE /* StandingsViewController.swift */,
 				576C23DE23F0E71B007A1529 /* AppUtility.swift */,
 				57658BE02422B0C800D8DBFE /* StandingsViewControllerRowTableViewCell.swift */,
+				578D28E12426A5660090DB3C /* QRScanViewController.swift */,
 			);
 			path = Cornhole;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				57D6187C20EADC1400A72C9C /* AppDelegate.swift in Sources */,
 				578709B723974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift in Sources */,
 				57D6187E20EADC1400A72C9C /* ScoreboardViewController.swift in Sources */,
+				578D28E22426A5660090DB3C /* QRScanViewController.swift in Sources */,
 				573CC26C20EBFB8500BAAFB0 /* CornholeLibrary.swift in Sources */,
 				5729F83220F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift in Sources */,
 				57EEC9D124207E9800F54671 /* SelectColorViewController.swift in Sources */,

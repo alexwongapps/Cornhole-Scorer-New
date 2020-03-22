@@ -149,5 +149,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>The Cornhole Scorer needs the camera to scan QR codes.</string>
 </dict>
 </plist>

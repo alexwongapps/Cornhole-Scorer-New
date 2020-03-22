@@ -575,8 +575,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 UserDefaults.standard.set(true, forKey: "firstThrowWinners") // initialize setting for who throws first, winners or alternating
             }
             
-            self.newPlayerTextField[i].delegate = self
+            newPlayerTextField[i].delegate = self
             newPlayerTextField[i].autocorrectionType = .no
+            newPlayerTextField[i].backgroundColor = .clear
+            newPlayerTextField[i].layer.borderColor = UIColor.black.cgColor
             
             playerTableView[i].backgroundColor = .clear
         }
@@ -722,7 +724,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         } else {
             for i in 0..<help0Label.count {
-                newPlayerTextField[i].backgroundColor = UIColor.white
+                newPlayerTextField[i].backgroundColor = .clear
             }
         }
     }

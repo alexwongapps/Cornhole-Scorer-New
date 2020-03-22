@@ -21,7 +21,6 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
     var delegate: SelectColorViewControllerDelegate! = nil
     
     var color: UIColor = UIColor.black
-    let colors: [UIColor] = [UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.blue, UIColor.purple, UIColor.black]
     let itemsPerRow = 5
     let edgeInset: CGFloat = 10
     let colorsBorder: CGFloat = 10
@@ -49,7 +48,7 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
         
         backgroundImageView.image = backgroundImage
         
-        let cellSize = (UIScreen.main.bounds.width - 2 * edgeInset) / CGFloat(itemsPerRow) - colorsBorder
+        let cellSize = (view.frame.size.width - 2 * edgeInset) / CGFloat(itemsPerRow) - colorsBorder * 2
         
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: edgeInset, left: edgeInset, bottom: edgeInset, right: edgeInset)
@@ -66,7 +65,7 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colors.count
+        return colorKeys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,12 +74,12 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
         // Configure the cell
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = cell.bounds.width / 2
-        cell.backgroundColor = colors[indexPath.row]
+        cell.backgroundColor = colorKeys[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        color = colors[indexPath.row]
+        color = colorKeys[indexPath.row]
         dismiss(animated: true, completion: nil)
         delegate.didSelectColorVC(controller: self)
     }
