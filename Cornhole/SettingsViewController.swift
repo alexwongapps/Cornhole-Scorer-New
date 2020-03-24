@@ -43,6 +43,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     @IBOutlet var setting1Stepper: [UIStepper]!
     @IBOutlet var setting2Label: [UILabel]!
     @IBOutlet var setting2Stepper: [UIStepper]!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -62,6 +63,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             // Fallback on earlier versions
         }
         
+        // for update to settings
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        
         // firebase
         authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self
@@ -73,11 +78,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         if let user = Auth.auth().currentUser {
             loggedIn(user: user)
         }
-        
-        // defaults
-        let defaults = UserDefaults.standard
-        gameSettings = GameSettings(gameType: GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard, winningScore: defaults.integer(forKey: "winningScore"), bustScore: defaults.integer(forKey: "bustScore"), roundLimit: defaults.integer(forKey: "roundLimit"))
-        setGameType(gameType: gameSettings.gameType)
 
         for i in 0..<backgroundImageView.count {
         
@@ -87,17 +87,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             nameTextField[i].autocorrectionType = .no
             nameTextField[i].backgroundColor = .clear
             nameTextField[i].layer.borderColor = UIColor.black.cgColor
-        
-            // get first throw setting
-            
-            firstThrowWinners = UserDefaults.standard.bool(forKey: "firstThrowWinners")
-            if(firstThrowWinners) {
-                firstThrowButton[i].setTitle("Winners", for: .normal)
-                firstThrowButton[i].setTitle("Winners", for: .selected)
-            } else {
-                firstThrowButton[i].setTitle("Alternate", for: .normal)
-                firstThrowButton[i].setTitle("Alternate", for: .selected)
-            }
         
             // version
             
@@ -163,15 +152,31 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 
             }
         }
+        
+        if !isLeagueActive() {
+            // defaults
+            updateSettingsFromDefaults()
+        } else {
+            if let settings = UserDefaults.getActiveLeague()?.gameSettings {
+                gameSettings = settings
+            }
+            if let ftw = UserDefaults.getActiveLeague()?.firstThrowWinners {
+                firstThrowWinners = ftw
+            }
+        }
+        reloadPermissions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // hacky
+        portraitView.isHidden = false
+        /*
+        AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+ */
         AppUtility.lockOrientation(.portrait)
-        
-        portraitView.isHidden = /*UserDefaults.standard.bool(forKey: "isLandscape")*/ false
         
         players.removeAll()
         
@@ -200,9 +205,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             } catch {
                 print("Error")
             }
-            
-        } else {
-            reloadPermissions()
         }
         
         players = players.sorted()
@@ -214,22 +216,61 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        scrollView.flashScrollIndicators()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        updateLeagueSettings()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        AppUtility.lockOrientation(.all)
+    }
+    
+    func updateSettingsFromDefaults() {
+        let defaults = UserDefaults.standard
+        firstThrowWinners = UserDefaults.standard.bool(forKey: "firstThrowWinners")
+        gameSettings = GameSettings(gameType: GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard, winningScore: defaults.integer(forKey: "winningScore"), bustScore: defaults.integer(forKey: "bustScore"), roundLimit: defaults.integer(forKey: "roundLimit"))
+    }
+    
+    @objc func appMovedToBackground() {
+        updateLeagueSettings()
+    }
+    
+    func updateLeagueSettings() {
+        if isLeagueActive() {
+            if let league = UserDefaults.getActiveLeague() {
+                if league.gameSettings != gameSettings || league.firstThrowWinners != firstThrowWinners {
+                    CornholeFirestore.updateGameSettings(leagueID: league.firebaseID, firstThrowWinners: firstThrowWinners, settings: gameSettings)
+                }
+            }
+        }
+    }
+    
     func reloadPermissions() {
         var canEdit = false
         if let league = UserDefaults.getActiveLeague() {
             players = league.players
+            firstThrowWinners = league.firstThrowWinners
+            gameSettings = league.gameSettings
             if let user = Auth.auth().currentUser {
                 if league.isEditor(user: user) {
                     canEdit = true
                 }
             }
         } else {
+            updateSettingsFromDefaults()
             canEdit = true
         }
         for i in 0..<backgroundImageView.count {
             resetMatchesButton[i].isHidden = !canEdit
             editPlayerNameButton[i].isHidden = !canEdit
-            firstThrowLabel[i].isHidden = !canEdit
             firstThrowButton[i].isHidden = !canEdit
             gameTypeLabel[i].isHidden = !canEdit
             gameTypeButton[i].isHidden = !canEdit
@@ -238,20 +279,17 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Stepper[i].isHidden = !canEdit
                 setting2Label[i].isHidden = !canEdit
                 setting2Stepper[i].isHidden = !canEdit
+                firstThrowLabel[i].text = "Not an editor"
             } else {
+                setFirstThrow(winners: firstThrowWinners)
                 setGameType(gameType: gameSettings.gameType)
+                firstThrowLabel[i].text = "First Tosser:"
             }
         }
     }
     
     func settingsReloadPermissions() {
         reloadPermissions()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        AppUtility.lockOrientation(.all)
     }
     
     // login
@@ -288,11 +326,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         }
         UserDefaults.setLeagueIDs(ids: [])
         UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
+        CornholeFirestore.forceNextPull()
+        updateLeagueSettings()
         reloadPermissions()
     }
     
     @IBAction func editLeagues(_ sender: Any) {
         if isLoggedIn {
+            updateLeagueSettings()
             performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
         } else {
             self.present(createBasicAlert(title: "Log In", message: "To create and join leagues, please log in"), animated: true, completion: nil)
@@ -495,17 +536,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     
     @IBAction func changeFirstThrow(_ sender: Any) {
         firstThrowWinners = !firstThrowWinners
-        UserDefaults.standard.set(firstThrowWinners, forKey: "firstThrowWinners")
-        
-        for i in 0..<backgroundImageView.count {
-            if(firstThrowWinners) {
-                firstThrowButton[i].setTitle("Winners", for: .normal)
-                firstThrowButton[i].setTitle("Winners", for: .selected)
-            } else {
-                firstThrowButton[i].setTitle("Alternate", for: .normal)
-                firstThrowButton[i].setTitle("Alternate", for: .selected)
-            }
+        if !isLeagueActive() {
+            UserDefaults.standard.set(firstThrowWinners, forKey: "firstThrowWinners")
         }
+        
+        setFirstThrow(winners: firstThrowWinners)
     }
     
     @IBAction func changeGameType(_ sender: Any) {
@@ -527,14 +562,18 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Stepper[i].value = Double(newValue)
             }
             gameSettings.winningScore = newValue
-            UserDefaults.standard.set(newValue, forKey: "winningScore")
+            if !isLeagueActive() {
+                UserDefaults.standard.set(newValue, forKey: "winningScore")
+            }
         } else if gameSettings.gameType == .rounds {
             for i in 0..<backgroundImageView.count {
                 setting1Label[i].text = "# of Rounds: \(newValue)"
                 setting1Stepper[i].value = Double(newValue)
             }
             gameSettings.roundLimit = newValue
-            UserDefaults.standard.set(newValue, forKey: "roundLimit")
+            if !isLeagueActive() {
+                UserDefaults.standard.set(newValue, forKey: "roundLimit")
+            }
         }
     }
     
@@ -546,7 +585,21 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting2Stepper[i].value = Double(newValue)
             }
             gameSettings.bustScore = newValue
-            UserDefaults.standard.set(newValue, forKey: "bustScore")
+            if !isLeagueActive() {
+                UserDefaults.standard.set(newValue, forKey: "bustScore")
+            }
+        }
+    }
+    
+    func setFirstThrow(winners: Bool) {
+        for i in 0..<backgroundImageView.count {
+            if winners {
+                firstThrowButton[i].setTitle("Winners", for: .normal)
+                firstThrowButton[i].setTitle("Winners", for: .selected)
+            } else {
+                firstThrowButton[i].setTitle("Alternate", for: .normal)
+                firstThrowButton[i].setTitle("Alternate", for: .selected)
+            }
         }
     }
     
@@ -564,7 +617,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Stepper[i].value = Double(gameSettings.winningScore)
                 setting2Label[i].isHidden = true
                 setting2Stepper[i].isHidden = true
-                defaults.set(GameType.standard.rawValue, forKey: "gameType")
+                if !isLeagueActive() {
+                    defaults.set(GameType.standard.rawValue, forKey: "gameType")
+                }
             case .bust:
                 gameTypeButton[i].setTitle("Bust", for: .normal)
                 gameTypeButton[i].setTitle("Bust", for: .selected)
@@ -574,7 +629,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting2Stepper[i].isHidden = false
                 setting2Label[i].text = "Bust Score: \(gameSettings.bustScore)"
                 setting2Stepper[i].value = Double(gameSettings.bustScore)
-                defaults.set(GameType.bust.rawValue, forKey: "gameType")
+                if !isLeagueActive() {
+                    defaults.set(GameType.bust.rawValue, forKey: "gameType")
+                }
             case .rounds:
                 gameTypeButton[i].setTitle("Rounds", for: .normal)
                 gameTypeButton[i].setTitle("Rounds", for: .selected)
@@ -582,7 +639,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Stepper[i].value = Double(gameSettings.roundLimit)
                 setting2Label[i].isHidden = true
                 setting2Stepper[i].isHidden = true
-                defaults.set(GameType.rounds.rawValue, forKey: "gameType")
+                if !isLeagueActive() {
+                    defaults.set(GameType.rounds.rawValue, forKey: "gameType")
+                }
             }
         }
     }

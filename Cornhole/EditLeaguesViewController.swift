@@ -34,6 +34,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var joinUnlimitedLeaguesButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,19 +57,25 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
+        
+        // todo: paid stuff
+        joinUnlimitedLeaguesButton.isHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +97,14 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             }
             self.leagues = self.leagues.sorted(by: { $0.name < $1.name })
             self.leaguesTableView.reloadData()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if first30Launch() {
+            help(helpButton!)
         }
     }
     
@@ -150,6 +165,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func passID(id: String) {
+        _ = navigationController?.popViewController(animated: true)
         joinPull(name: id)
     }
     
@@ -167,6 +183,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
 
     func joinPull(name: String) {
         let alreadyThere = cachedLeagues.contains { $0.firebaseID == name }
+        print(alreadyThere)
         if name != "" {
             if alreadyThere {
                 self.present(createBasicAlert(title: "Error", message: "League already added"), animated: true, completion: nil)
@@ -252,7 +269,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "\nCreate: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "Create: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing in the rest of the app. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -265,6 +282,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                 self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
             } else {
                 self.viewWillAppear(true)
+                self.forcePermissionsReload()
             }
         }
     }
@@ -313,5 +331,19 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         default:
             break
         }
+    }
+    
+    func first30Launch() -> Bool {
+        let alreadyLaunched = UserDefaults.standard.bool(forKey: "alreadyLaunched30EL")
+        if alreadyLaunched {
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: "alreadyLaunched30EL")
+            return true
+        }
+    }
+    
+    // todo: paid stuff
+    @IBAction func joinUnlimitedLeagues(_ sender: Any) {
     }
 }

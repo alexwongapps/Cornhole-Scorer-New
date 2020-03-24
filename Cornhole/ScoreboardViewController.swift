@@ -39,6 +39,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     var blueColor: UIColor = UIColor.blue
     var gameSettings: GameSettings = GameSettings()
     
+    // alert
+    var alert30: UIAlertController?
+    
     // outlets
     @IBOutlet var selectPlayersLabel: [UILabel]!
     @IBOutlet var playersSegmentedControl: [UISegmentedControl]!
@@ -286,7 +289,21 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             for i in 0..<help0Label.count {
                 activityIndicator[i].startAnimating()
             }
+            view.isUserInteractionEnabled = false
+            let tabBarControllerItems = self.tabBarController?.tabBar.items
+
+            if let tabArray = tabBarControllerItems {
+                for item in tabArray {
+                    item.isEnabled = false
+                }
+            }
             CornholeFirestore.pullLeagues(ids: [UserDefaults.getActiveLeagueID()]) { (leagues, error) in
+                self.view.isUserInteractionEnabled = true
+                if let tabArray = tabBarControllerItems {
+                    for item in tabArray {
+                        item.isEnabled = true
+                    }
+                }
                 for i in 0..<self.help0Label.count {
                     self.activityIndicator[i].stopAnimating()
                 }
@@ -572,7 +589,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if firstLaunch() {
                 help(helpButton[i])
-                UserDefaults.standard.set(true, forKey: "firstThrowWinners") // initialize setting for who throws first, winners or alternating
+            } else {
+                if first30Launch() && i == 0 {
+                    alert30 = createBasicAlert(title: "New in 3.0: Leagues!", message: "Leagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\nNote: Leagues require an internet connection to use.")
+                }
             }
             
             newPlayerTextField[i].delegate = self
@@ -585,6 +605,14 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
  
         helpView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         helpViewPortrait.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let alert = alert30 {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     // dtermine if stats are tracked or not
@@ -979,7 +1007,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // move through help menu
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        print(helpState)
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
         
@@ -1138,6 +1165,9 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             helpView.isHidden = true
             helpViewPortrait.isHidden = true
             helpState = 0
+            if first30Launch() {
+                self.present(createBasicAlert(title: "New in 3.0: Leagues!", message: "Leagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\nNote: Leagues require an internet connection to use."), animated: true, completion: nil)
+            }
         break
             
         default:
@@ -1727,7 +1757,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // print tossers
     func printFirstToss(undoing: Bool) {
         
-        let firstThrowWinners: Bool = UserDefaults.standard.bool(forKey: "firstThrowWinners")
+        var firstThrowWinners: Bool = UserDefaults.standard.bool(forKey: "firstThrowWinners")
+        if isLeagueActive() {
+            if let league = UserDefaults.getActiveLeague() {
+                firstThrowWinners = league.firstThrowWinners
+            }
+        }
         
         // if first throw alternates
         if(!firstThrowWinners) {
@@ -1813,18 +1848,41 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func setGameSettings() {
         let defaults = UserDefaults.standard
-        let gT: GameType = GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard
-        let wS = defaults.integer(forKey: "winningScore")
-        let bS = defaults.integer(forKey: "bustScore")
-        let rL = defaults.integer(forKey: "roundLimit")
+        var gT: GameType?
+        var wS: Int?
+        var bS: Int?
+        var rL: Int?
+        
+        if !isLeagueActive() {
+            gT = GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard
+            wS = defaults.integer(forKey: "winningScore")
+            bS = defaults.integer(forKey: "bustScore")
+            rL = defaults.integer(forKey: "roundLimit")
+            
+        } else {
+            if let league = UserDefaults.getActiveLeague() {
+                gT = league.gameSettings.gameType
+                wS = league.gameSettings.winningScore
+                bS = league.gameSettings.bustScore
+                rL = league.gameSettings.roundLimit
+            } else {
+                let defaults = UserDefaults.standard
+                gT = GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard
+                wS = defaults.integer(forKey: "winningScore")
+                bS = defaults.integer(forKey: "bustScore")
+                rL = defaults.integer(forKey: "roundLimit")
+            }
+        }
         
         switch gT {
         case .standard:
-            gameSettings = GameSettings(gameType: .standard, winningScore: wS)
+            gameSettings = GameSettings(gameType: .standard, winningScore: wS!)
         case .bust:
-            gameSettings = GameSettings(gameType: .bust, winningScore: wS, bustScore: bS)
+            gameSettings = GameSettings(gameType: .bust, winningScore: wS!, bustScore: bS!)
         case .rounds:
-            gameSettings = GameSettings(gameType: .rounds, roundLimit: rL)
+            gameSettings = GameSettings(gameType: .rounds, roundLimit: rL!)
+        default:
+            gameSettings = GameSettings()
         }
     }
     
@@ -1834,6 +1892,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             return false
         } else {
             UserDefaults.standard.set(true, forKey: "alreadyLaunched")
+            return true
+        }
+    }
+    
+    func first30Launch() -> Bool {
+        let alreadyLaunched = UserDefaults.standard.bool(forKey: "alreadyLaunched30")
+        if alreadyLaunched {
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: "alreadyLaunched30")
             return true
         }
     }

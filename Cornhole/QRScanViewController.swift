@@ -98,7 +98,6 @@ class QRScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        _ = navigationController?.popViewController(animated: true)
         delegate?.passID(id: code)
     }
 

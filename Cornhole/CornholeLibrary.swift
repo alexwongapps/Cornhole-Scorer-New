@@ -489,6 +489,8 @@ class League {
     var ownerID: String = ""
     var editorEmails: [String] = []
     var firebaseID: String = ""
+    var firstThrowWinners: Bool = true
+    var gameSettings: GameSettings = GameSettings.init()
     
     static let NEW_ID_FAILED: String = ""
     
@@ -808,7 +810,8 @@ let BUST_SCORE_DEFAULT = 15
 let ROUND_LIMIT_DEFAULT = 10
 let NOT_APPLICABLE = -1
 
-class GameSettings {
+struct GameSettings: Equatable {
+    
     var gameType: GameType
     var winningScore: Int
     var bustScore: Int // score to go back to
@@ -848,6 +851,13 @@ class GameSettings {
         self.winningScore = winningScore
         self.bustScore = bustScore
         self.roundLimit = roundLimit
+    }
+    
+    static func == (lhs: GameSettings, rhs: GameSettings) -> Bool {
+        return lhs.gameType == rhs.gameType &&
+            lhs.winningScore == rhs.winningScore &&
+            lhs.bustScore == rhs.bustScore &&
+            lhs.roundLimit == rhs.roundLimit
     }
 }
 
@@ -929,7 +939,15 @@ class CornholeFirestore {
     static func createLeague(league: League) {
         let db = Firestore.firestore()
         var ref: DocumentReference? = nil
-        ref = db.collection("leagues").addDocument(data: ["name": league.name, "ownerID": league.ownerID, "editorEmails": league.editorEmails]) { err in
+        ref = db.collection("leagues").addDocument(
+        data: ["name": league.name,
+               "ownerID": league.ownerID,
+               "editorEmails": league.editorEmails,
+               "firstThrowWinners": true,
+               "gameType": GameType.standard.rawValue,
+               "winningScore": WINNING_SCORE_DEFAULT,
+               "bustScore": BUST_SCORE_DEFAULT,
+               "roundLimit": ROUND_LIMIT_DEFAULT]) { err in
             if let err = err {
                 print("error adding match: \(err)")
             }
@@ -1216,6 +1234,12 @@ class CornholeFirestore {
                         ret.ownerID = snapshotData["ownerID"] as! String
                         ret.editorEmails = snapshotData["editorEmails"] as! [String]
                         ret.firebaseID = snapshotData["id"] as! String
+                        ret.firstThrowWinners = snapshotData["firstThrowWinners"] as! Bool
+                        ret.gameSettings = GameSettings(
+                            gameType: GameType(rawValue: snapshotData["gameType"] as! Int)!,
+                            winningScore: snapshotData["winningScore"] as! Int,
+                            bustScore: snapshotData["bustScore"] as! Int,
+                            roundLimit: snapshotData["roundLimit"] as! Int)
                         rets.append(ret)
                     }
                 }
@@ -1264,6 +1288,10 @@ class CornholeFirestore {
                 doneState += 1
             }
         }
+    }
+    
+    static func forceNextPull() {
+        lastPull = 0
     }
     
     static var lastPull: Double = 0 // number of seconds since epoch when last pull was made
@@ -1413,6 +1441,15 @@ class CornholeFirestore {
     static func setLeagues(user: User) {
         let db = Firestore.firestore()
         db.collection("users").document(user.uid).setData(["leagues": UserDefaults.getLeagueIDs()], merge: true)
+    }
+    
+    static func updateGameSettings(leagueID: String, firstThrowWinners: Bool, settings: GameSettings) {
+        let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.firstThrowWinners = firstThrowWinners
+            league.gameSettings = settings
+            db.collection("leagues").document(league.firebaseID).updateData(["firstThrowWinners": firstThrowWinners, "gameType": settings.gameType.rawValue, "winningScore": settings.winningScore, "bustScore": settings.bustScore, "roundLimit": settings.roundLimit])
+        }
     }
 }
 

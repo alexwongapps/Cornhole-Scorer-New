@@ -11,6 +11,7 @@
 		54DABE1001C6368E8D992886 /* Pods_Cornhole_Scorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F9A766BA04AFB8D1372560 /* Pods_Cornhole_Scorer.framework */; };
 		5718783E20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */; };
 		57217385227FD0C400C95351 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57217384227FD0C400C95351 /* WebKit.framework */; };
+		57229FAA242830CA00B5F62B /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57229FA9242830CA00B5F62B /* LoadingViewController.swift */; };
 		57239AC6234FDB9800B655DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57239AC5234FDB9800B655DB /* GoogleService-Info.plist */; };
 		5723CD57227BFD2100994D15 /* beige.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5723CD56227BFD2100994D15 /* beige.jpg */; };
 		5729F83220F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5729F83120F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift */; };
@@ -68,6 +69,7 @@
 		5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewControllerMatchInfoTableViewCell.swift; sourceTree = "<group>"; };
 		571B821B23345DDF002E8F70 /* Cornhole v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cornhole v2.xcdatamodel"; sourceTree = "<group>"; };
 		57217384227FD0C400C95351 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		57229FA9242830CA00B5F62B /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		57239AC5234FDB9800B655DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5723CD56227BFD2100994D15 /* beige.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beige.jpg; sourceTree = "<group>"; };
 		5729F83120F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewControllerMatchTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				576C23DE23F0E71B007A1529 /* AppUtility.swift */,
 				57658BE02422B0C800D8DBFE /* StandingsViewControllerRowTableViewCell.swift */,
 				578D28E12426A5660090DB3C /* QRScanViewController.swift */,
+				57229FA9242830CA00B5F62B /* LoadingViewController.swift */,
 			);
 			path = Cornhole;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				578709B723974F8A00997852 /* EditLeaguesViewControllerLeagueTableViewCell.swift in Sources */,
 				57D6187E20EADC1400A72C9C /* ScoreboardViewController.swift in Sources */,
 				578D28E22426A5660090DB3C /* QRScanViewController.swift in Sources */,
+				57229FAA242830CA00B5F62B /* LoadingViewController.swift in Sources */,
 				573CC26C20EBFB8500BAAFB0 /* CornholeLibrary.swift in Sources */,
 				5729F83220F0323100B5BB99 /* MatchesViewControllerMatchTableViewCell.swift in Sources */,
 				57EEC9D124207E9800F54671 /* SelectColorViewController.swift in Sources */,

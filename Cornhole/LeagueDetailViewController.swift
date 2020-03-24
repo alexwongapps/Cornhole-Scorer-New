@@ -83,6 +83,14 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if first30Launch() {
+            help(helpButton!)
+        }
+    }
+    
     @IBAction func addPlayer(_ sender: Any) {
         let alert = UIAlertController(title: "Add Player", message: "Enter the player's name", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -234,14 +242,14 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "\nQR: Join this league from another device by scanning this code\n\nPlayers: Participants in the games\n\nEditors: Emails of users who can add players or play games for the league\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "Players: Participants in the games (these are not connected to accounts or email addresses)\n\nEditors: Emails of users who can add players or play games for the league\n\nQR: Join this league from another device by scanning this code\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
     }
     
     @IBAction func generateQR(_ sender: Any) {
-        let alert = UIAlertController(title: "QR Code", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "Done", style: .default, handler: nil)
 
-        let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: 90, height: 90))
+        let imgViewTitle = UIImageView(frame: CGRect(x: alert.view.frame.width / 2 - 45, y: 10, width: 90, height: 90))
         imgViewTitle.image = generateQRCode(from: league!.firebaseID)
         alert.view.addSubview(imgViewTitle)
 
@@ -262,5 +270,15 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         }
 
         return nil
+    }
+    
+    func first30Launch() -> Bool {
+        let alreadyLaunched = UserDefaults.standard.bool(forKey: "alreadyLaunched30LD")
+        if alreadyLaunched {
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: "alreadyLaunched30LD")
+            return true
+        }
     }
 }
