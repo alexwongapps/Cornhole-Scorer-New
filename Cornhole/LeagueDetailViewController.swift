@@ -52,11 +52,11 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
             
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             qrButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            idLabel.font = UIFont(name: systemFont, size: 30)
+            idLabel.font = UIFont(name: "Courier", size: 30)
             playersLabel.font = UIFont(name: systemFont, size: 30)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             editorsLabel.font = UIFont(name: systemFont, size: 30)
@@ -65,7 +65,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         } else if smallDevice() {
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             qrButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            idLabel.font = UIFont(name: systemFont, size: 14)
+            idLabel.font = UIFont(name: "Courier", size: 14)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editorsLabel.font = UIFont(name: systemFont, size: 17)
@@ -74,7 +74,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         } else {
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             qrButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            idLabel.font = UIFont(name: systemFont, size: 17)
+            idLabel.font = UIFont(name: "Courier", size: 17)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editorsLabel.font = UIFont(name: systemFont, size: 17)
@@ -96,6 +96,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addTextField { (textField) in
             textField.placeholder = "Name"
+            textField.autocapitalizationType = .words
         }
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
@@ -153,7 +154,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             cell.backgroundColor = .clear
             
             // fonts
-            if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+            if bigDevice() {
                 cell.textLabel!.font = UIFont(name: systemFont, size: 30)
             } else if smallDevice() {
                 cell.textLabel!.font = UIFont(name: systemFont, size: 17)
@@ -169,7 +170,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             cell.backgroundColor = .clear
             
             // fonts
-            if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+            if bigDevice() {
                 cell.textLabel!.font = UIFont(name: systemFont, size: 30)
             } else if smallDevice() {
                 cell.textLabel!.font = UIFont(name: systemFont, size: 17)
@@ -190,16 +191,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                 if !(league?.isEditor(user: Auth.auth().currentUser))! {
                     self.present(createBasicAlert(title: "Unable to delete player", message: "Log in to an editor account for this league"), animated: true, completion: nil)
                 } else {
-                    activityIndicator.startAnimating()
-                    CornholeFirestore.deletePlayerFromLeague(leagueID: league?.firebaseID ?? League().firebaseID, playerName: league?.players[indexPath.row] ?? "") { (err) in
-                        self.activityIndicator.stopAnimating()
-                        if let err = err {
-                            print("error deleting player: \(err)")
-                            self.present(createBasicAlert(title: "Error", message: "Unable to delete player. Check your internet connection."), animated: true, completion: nil)
-                        } else {
-                            self.playersTableView.deleteRows(at: [indexPath], with: .fade)
-                        }
-                    }
+                    CornholeFirestore.deletePlayerFromLeague(leagueID: league?.firebaseID ?? League().firebaseID, playerName: league?.players[indexPath.row] ?? "")
+                    self.playersTableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
         } else {
@@ -246,10 +239,10 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func generateQR(_ sender: Any) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "\n\n\n\n", preferredStyle: .alert)
         let action = UIAlertAction(title: "Done", style: .default, handler: nil)
 
-        let imgViewTitle = UIImageView(frame: CGRect(x: alert.view.frame.width / 2 - 45, y: 10, width: 90, height: 90))
+        let imgViewTitle = UIImageView(frame: CGRect(x: 90, y: 10, width: 90, height: 90))
         imgViewTitle.image = generateQRCode(from: league!.firebaseID)
         alert.view.addSubview(imgViewTitle)
 

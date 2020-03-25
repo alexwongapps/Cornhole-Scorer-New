@@ -326,7 +326,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         let appearance = UITabBarItem.appearance()
-        let attributes = [NSAttributedString.Key.font: UIFont(name: systemFont, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 17 : 12)]
+        let attributes = [NSAttributedString.Key.font: UIFont(name: systemFont, size: bigDevice() ? 17 : 12)]
         appearance.setTitleTextAttributes(attributes as Any as? [NSAttributedString.Key : Any], for: .normal)
         
         var segmentFont = UIFont(name: systemFont, size: 14)
@@ -334,7 +334,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // adjust for size classes/small devices
         
         // size classes
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) { // big device
+        if bigDevice() { // big device
             
             for i in 0..<help0Label.count {
                 
@@ -1521,19 +1521,17 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                     lastMatch = Match(redPlayers: [redPlayer1, redPlayer2], bluePlayers: [bluePlayer1, bluePlayer2], rounds: rounds, gameSettings: gameSettings)
                 }
                 
-                // save firestore id if necessary
-                if isLeagueActive() {
-                    if lastMatch != nil {
-                        lastMatch!.id = -1
-                    }
-                }
-                
-                print("Match \(lastMatch!.id)")
+                lastMatch?.startDate = startDate!
+                lastMatch?.endDate = Date()
                 
                 if isLeagueActive() {
                     // generate id for league match
-                    
-                    CornholeFirestore.addMatchToLeague(leagueID: UserDefaults.getActiveLeagueID(), match: lastMatch!)
+                    if lastMatch != nil {
+                        lastMatch!.id = -1
+                        lastMatch!.redColor = redColor
+                        lastMatch!.blueColor = blueColor
+                        CornholeFirestore.addMatchToLeague(leagueID: UserDefaults.getActiveLeagueID(), match: lastMatch!)
+                    }
                 } else {
                     
                     // save match data core data
@@ -1552,9 +1550,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                     newUser.setValue(roundPlayers, forKey: "roundPlayersArray")
                     newUser.setValue(roundData, forKey: "roundDataArray")
                     newUser.setValue(lastMatch?.id, forKey: "id")
-                    lastMatch?.startDate = startDate!
                     newUser.setValue(lastMatch?.startDate, forKey: "startDate")
-                    lastMatch?.endDate = Date()
                     newUser.setValue(lastMatch?.endDate, forKey: "endDate")
                     newUser.setValue(redColor, forKey: "redColor")
                     newUser.setValue(blueColor, forKey: "blueColor")

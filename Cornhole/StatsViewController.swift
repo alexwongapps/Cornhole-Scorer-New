@@ -72,7 +72,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             statsLabel[i].adjustsFontSizeToFitWidth = true
         }
         
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
         
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -186,7 +186,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             boardPieChartView[i].chartDescription?.text = ""
             boardPieChartView[i].drawHoleEnabled = false
             let legend = boardPieChartView[i].legend
-            legend.font = UIFont(name: systemFont, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 20 : 12)!
+            legend.font = UIFont(name: systemFont, size: bigDevice() ? 20 : 12)!
         }
         
         // initialize player
@@ -291,7 +291,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
-            pickerLabel?.font? = UIFont(name: systemFont, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17)!
+            pickerLabel?.font? = UIFont(name: systemFont, size: bigDevice() ? 25 : 17)!
             pickerLabel?.textAlignment = .center
         }
         if pickerView.tag == 0 {
@@ -408,7 +408,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 50 : 27
+        return bigDevice() ? 50 : 27
     }
 
     func updateChartData() {

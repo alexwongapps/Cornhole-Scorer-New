@@ -50,7 +50,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         
         // devices
         
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
             
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -152,7 +152,8 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             }
             alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
                 let textField = alert?.textFields![0]
-                self.joinPull(name: textField!.text!)
+                let trimmed = textField!.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.joinPull(name: trimmed)
             }))
             alert.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { (action) in
                 alert.dismiss(animated: true) {
@@ -226,7 +227,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         cell.backgroundColor = .clear
         
         // fonts
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
             
             cell.nameLabel.font = UIFont(name: systemFont, size: 30)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 30)

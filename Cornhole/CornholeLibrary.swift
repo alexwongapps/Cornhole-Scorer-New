@@ -599,6 +599,11 @@ func smallDevice() -> Bool {
     return false
 }
 
+// ipads
+func bigDevice() -> Bool {
+    return UIDevice.current.userInterfaceIdiom == .pad
+}
+
 // core data methods
 
 func coreDataDeleteAll(entity: String) {
@@ -938,11 +943,15 @@ class CornholeFirestore {
     
     static func createLeague(league: League) {
         let db = Firestore.firestore()
+        
+        let emptyPlayers = [String]()
+        
         var ref: DocumentReference? = nil
         ref = db.collection("leagues").addDocument(
         data: ["name": league.name,
                "ownerID": league.ownerID,
                "editorEmails": league.editorEmails,
+               "players": emptyPlayers,
                "firstThrowWinners": true,
                "gameType": GameType.standard.rawValue,
                "winningScore": WINNING_SCORE_DEFAULT,
@@ -978,66 +987,29 @@ class CornholeFirestore {
         let db = Firestore.firestore()
         if let league = getCachedLeague(id: leagueID) {
             league.players.append(playerName)
+            db.collection("leagues").document(league.firebaseID).updateData(["players": league.players])
         }
-        var ref: DocumentReference? = nil
-        ref = db.collection("players").addDocument(data: ["name": playerName, "leagueID": leagueID]) { err in
-            if let err = err {
-                print("error adding player: \(err)")
-            }
-        }
-        updateField(collection: "players", document: ref!.documentID, field: "id", value: ref!.documentID)
     }
     
-    static func deletePlayerFromLeague(leagueID: String, playerName: String, completion: @escaping (Error?) -> Void) {
+    static func deletePlayerFromLeague(leagueID: String, playerName: String) {
         let db = Firestore.firestore()
-        db.collection("players").whereField("leagueID", isEqualTo: leagueID).whereField("name", isEqualTo: playerName).getDocuments { (snapshot, error) in
-            if let err = error {
-                print("error deleting player: \(err)")
-                completion(err)
-            } else {
-                if let league = getCachedLeague(id: leagueID) {
-                    league.players.removeAll { $0 == playerName }
-                }
-                for document in snapshot!.documents {
-                    document.reference.delete()
-                }
-                completion(nil)
-            }
+        if let league = getCachedLeague(id: leagueID) {
+            league.players.removeAll { $0 == playerName }
+            db.collection("leagues").document(league.firebaseID).updateData(["players": league.players])
         }
     }
     
     static func changePlayerName(leagueID: String, from: String, to: String, completion: @escaping (Error?) -> Void) {
-        
-        var doneState = 0 {
-            didSet {
-                if doneState == 2 {
-                    completion(nil)
-                }
-            }
-        }
+ 
         let db = Firestore.firestore()
         
-        db.collection("players").whereField("leagueID", isEqualTo: leagueID).whereField("name", isEqualTo: from).getDocuments { (snapshot, error) in
-            if let error = error {
-                completion(error)
-            } else {
-                for document in snapshot!.documents {
-                    document.reference.updateData(["name": to]) { err in
-                        if let err = err {
-                            completion(err)
-                        } else {
-                            if let league = getCachedLeague(id: leagueID) {
-                                for i in 0..<league.players.count {
-                                    if league.players[i] == from {
-                                        league.players[i] = to
-                                    }
-                                }
-                            }
-                            doneState += 1
-                        }
-                    }
+        if let league = getCachedLeague(id: leagueID) {
+            for i in 0..<league.players.count {
+                if league.players[i] == from {
+                    league.players[i] = to
                 }
             }
+            db.collection("leagues").document(league.firebaseID).updateData(["players": league.players])
         }
         
         db.collection("matches").whereField("leagueID", isEqualTo: leagueID).whereField("playerNamesArray", arrayContains: from).getDocuments { (snapshot, error) in
@@ -1085,7 +1057,7 @@ class CornholeFirestore {
                                     }
                                 }
                             }
-                            doneState += 1
+                            completion(nil)
                         }
                     }
                 }
@@ -1189,24 +1161,16 @@ class CornholeFirestore {
         // temp storages
         var ms = [Match]()
         var mIDs = [String : String]() // [match Firebase ID : leagueID]
-        var ps = [String : String]() // [player ID : player name]
-        var pIDs = [String : String]() // [player ID : league ID]
         
         var doneState = 0 {
             didSet {
-                if doneState == 3 { // info, matches, players
+                if doneState == 2 { // info, matches
                     print("pulled")
                     // collect all matches/players
                     for league in rets {
                         for match in ms {
                             if mIDs[match.firebaseID] == league.firebaseID {
                                 league.matches.append(match)
-                            }
-                        }
-                        
-                        for player in ps.keys {
-                            if pIDs[player] == league.firebaseID {
-                                league.players.append(ps[player]!)
                             }
                         }
                     }
@@ -1233,6 +1197,7 @@ class CornholeFirestore {
                         ret.name = snapshotData["name"] as! String
                         ret.ownerID = snapshotData["ownerID"] as! String
                         ret.editorEmails = snapshotData["editorEmails"] as! [String]
+                        ret.players = snapshotData["players"] as! [String]
                         ret.firebaseID = snapshotData["id"] as! String
                         ret.firstThrowWinners = snapshotData["firstThrowWinners"] as! Bool
                         ret.gameSettings = GameSettings(
@@ -1258,30 +1223,6 @@ class CornholeFirestore {
                         let match = getMatchFromDocument(document: document)
                         ms.append(match)
                         mIDs[match.firebaseID] = document.data()["leagueID"] as? String
-                    }
-                }
-                
-                doneState += 1
-            }
-        }
-        
-        // get players
-        db.collection("players").whereField("leagueID", in: ids).getDocuments { (snapshot, error) in
-            if let err = error {
-                print("Error getting players: \(err)")
-                completion(nil, err)
-            } else {
-                if let snapshots = snapshot?.documents {
-                    for document in snapshots {
-                        let snapshotData = document.data()
-                        
-                        // get player data
-                        let name = snapshotData["name"] as! String
-                        let id = snapshotData["id"] as! String
-                        let leagueID = snapshotData["leagueID"] as! String
-                        
-                        ps[id] = name
-                        pIDs[id] = leagueID
                     }
                 }
                 
@@ -1375,7 +1316,7 @@ class CornholeFirestore {
         
         var doneState = 0 {
             didSet {
-                if doneState == 3 { // info, matches, players
+                if doneState == 2 { // info, matches
                     completion(nil)
                 }
             }
@@ -1397,17 +1338,6 @@ class CornholeFirestore {
             }
             
             db.collection("matches").whereField("leagueID", isEqualTo: id).getDocuments { (snapshot, error) in
-                if error != nil {
-                    completion("Error")
-                } else {
-                    for document in snapshot!.documents {
-                        document.reference.delete()
-                    }
-                    doneState += 1
-                }
-            }
-            
-            db.collection("players").whereField("leagueID", isEqualTo: id).getDocuments { (snapshot, error) in
                 if error != nil {
                     completion("Error")
                 } else {

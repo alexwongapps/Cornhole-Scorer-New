@@ -37,7 +37,7 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
         // Do any additional setup after loading the view.
         
         // fonts
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
             
             selectColorLabel.font = UIFont(name: systemFont, size: 60)
             

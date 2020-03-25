@@ -29,7 +29,7 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         backgroundImageView.image = backgroundImage
         
         // fonts
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
             
             standingsLabel.font = UIFont(name: systemFont, size: 60)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 25)

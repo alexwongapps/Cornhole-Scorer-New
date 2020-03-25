@@ -12,7 +12,6 @@ import FirebaseUI
 
 class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate, DataToSettingsProtocol {
     
-    var matches: [Match] = []
     var players: [String] = []
     var editingPlayerIndex: Int = 0 // player currently editing
     var editingPlayerName: String = "" // name of player
@@ -96,7 +95,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         
             // devices
             
-            if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+            if bigDevice() {
                 
                 settingsLabel[i].font = UIFont(name: systemFont, size: 75)
                 loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -204,6 +203,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 }
             } catch {
                 print("Error")
+            }
+        } else {
+            if let league = UserDefaults.getActiveLeague() {
+                players = league.players
             }
         }
         
@@ -374,6 +377,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     
     @IBAction func editPlayerName(_ sender: UIButton) {
         
+        print(players.count)
         if players.count > 0 { // if there are players to edit
             
             editingPlayerIndex = 0

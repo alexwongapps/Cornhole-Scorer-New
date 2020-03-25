@@ -51,7 +51,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         matchInfoTableView.backgroundColor = .clear
         
         // fonts
-        if hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) {
+        if bigDevice() {
             matchListLabel.font = UIFont(name: systemFont, size: 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -135,7 +135,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let cell = matchesTableView.dequeueReusableCell(withIdentifier: "matchCell", for: indexPath) as! MatchesViewControllerMatchTableViewCell
             cell.backgroundColor = .clear
-            cell.matchLabel.attributedText = colorDescription(str: match.description, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.attributedText = colorDescription(str: match.description, size: bigDevice() ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
             cell.matchLabel.adjustsFontSizeToFitWidth = true
             cell.selectionStyle = .none
             cell.arrowLabel.font = UIFont(name: systemFont, size: 25)
@@ -165,7 +165,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             print(currentMatch?.id ?? "No id")
             
             matchView.isHidden = false
-            matchInfoLabel.attributedText = colorDescription(str: (currentMatch?.description)!, size: hasTraits(view: self.view, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: (currentMatch?.redColor)!, blueColor: (currentMatch?.blueColor)!)
+            matchInfoLabel.attributedText = colorDescription(str: (currentMatch?.description)!, size: bigDevice() ? 25 : 17, redColor: (currentMatch?.redColor)!, blueColor: (currentMatch?.blueColor)!)
             self.matchInfoTableView.reloadData()
         }
     }
