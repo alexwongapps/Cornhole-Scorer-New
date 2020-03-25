@@ -42,7 +42,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet var bagLocationLabel: [UILabel]!
     @IBOutlet var boardPieChartView: [PieChartView]! // displays in, on, off
     @IBOutlet var activityIndicator: [UIActivityIndicatorView]!
-    @IBOutlet var refreshButton: [UIButton]!
+    @IBOutlet var optionsButton: [UIButton]!
     @IBOutlet var standingsButton: [UIButton]!
     
     // background
@@ -77,7 +77,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 25)
                 statsLabel[i].font = UIFont(name: systemFont, size: 75)
-                refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
+                optionsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 25)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -95,7 +95,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
                 statsLabel[i].font = UIFont(name: systemFont, size: 30)
-                refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
+                optionsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
                 standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 11)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 11)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 11)
@@ -114,7 +114,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             for i in 0..<matchRecordLabel.count {
                 bagLocationLabel[i].font = UIFont(name: systemFont, size: 15)
                 statsLabel[i].font = UIFont(name: systemFont, size: 30)
-                refreshButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
+                optionsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 standingsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 matchRecordLabel[i].font = UIFont(name: systemFont, size: 15)
                 singlesRecordLabel[i].font = UIFont(name: systemFont, size: 15)
@@ -155,14 +155,12 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if !isLeagueActive() { // no league
             for i in 0..<matchRecordLabel.count {
                 statsLabel[i].text = "Stats"
-                refreshButton[i].isHidden = true
                 standingsButton[i].isHidden = true
             }
             matches = getMatchesFromCoreData()
             loadData()
         } else { // league
             for i in 0..<self.matchRecordLabel.count {
-                refreshButton[i].isHidden = false
                 standingsButton[i].isHidden = false
             }
             if let league = UserDefaults.getActiveLeague() {
@@ -254,7 +252,26 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-    @IBAction func refresh(_ sender: Any) {
+    @IBAction func options(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Refresh", style: .default, handler: { (action) in
+            self.refresh()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Export Data", style: .default, handler: { (action) in
+            if proPaid {
+                self.exportData()
+            } else {
+                self.present(createBasicAlert(title: "PRO Feature", message: "To get Cornhole Scorer PRO, go to the Settings tab"), animated: true, completion: nil)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Back", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func refresh() {
         for i in 0..<matchRecordLabel.count {
             activityIndicator[i].startAnimating()
             standingsButton[i].isHidden = true
@@ -431,7 +448,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // export
     
-    @IBAction func exportData(_ sender: UIButton) {
+    func exportData() {
         
         var fileName = ""
         var path: URL?

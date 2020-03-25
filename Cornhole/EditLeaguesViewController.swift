@@ -171,9 +171,8 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func canAddLeague() -> Bool {
-        // todo: add conditional for if already paid
-        if leagues.count >= FREE_LEAGUE_LIMIT {
-            self.present(createBasicAlert(title: "League limit reached", message: "To follow more than \(FREE_LEAGUE_LIMIT) leagues at a time, get PRO from the settings menu or click Join Unlimited Leagues at the bottom of the screen\n\nTo unfollow a league without deleting its data, swipe left on it and press delete"), animated: true, completion: nil)
+        if leagues.count >= FREE_LEAGUE_LIMIT && !leaguesPaid {
+            self.present(createBasicAlert(title: "League limit reached", message: "To follow more than \(FREE_LEAGUE_LIMIT) leagues at a time, get Cornhole Scorer PRO from the Settings menu or click Join Unlimited Leagues at the bottom of the screen\n\nTo unfollow a league without deleting its data, swipe left on it and press delete"), animated: true, completion: nil)
             return false
         } else {
             return true
@@ -344,7 +343,8 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    // todo: paid stuff
     @IBAction func joinUnlimitedLeagues(_ sender: Any) {
+        // todo: paid
+        leaguesPaid = true
     }
 }

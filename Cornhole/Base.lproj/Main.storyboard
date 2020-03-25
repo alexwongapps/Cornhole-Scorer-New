@@ -1919,14 +1919,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchInfoCell" id="27o-2i-Hwx" customClass="MatchesViewControllerMatchInfoTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44.333332061767578"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="27o-2i-Hwx" id="nbQ-jt-u36">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.333332061767578"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0 - 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZv-Za-guc">
-                                                            <rect key="frame" x="196" y="11" width="164" height="22"/>
+                                                            <rect key="frame" x="196" y="10.999999999999998" width="164" height="22.333333333333329"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="164" id="CJL-yd-79X">
                                                                     <variation key="heightClass=regular-widthClass=regular" constant="200"/>
@@ -2612,6 +2612,22 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UI9-xV-N7S">
+                                        <rect key="frame" x="74.666666666666671" y="113" width="83.000000000000014" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Get PRO"/>
+                                        <connections>
+                                            <action selector="getPro:" destination="OpN-La-XAe" eventType="touchUpInside" id="VaZ-BO-MQI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcb-6T-r9Z">
+                                        <rect key="frame" x="217.66666666666666" y="113" width="71.999999999999972" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Restore"/>
+                                        <connections>
+                                            <action selector="restore:" destination="OpN-La-XAe" eventType="touchUpInside" id="dBY-Pz-uOS"/>
+                                        </connections>
+                                    </button>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arC-ac-Ujw">
                                         <rect key="frame" x="0.0" y="157" width="375" height="760"/>
                                         <subviews>
@@ -2814,16 +2830,6 @@
                                         <viewLayoutGuide key="contentLayoutGuide" id="MlZ-K0-e0u"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="Xr9-S2-koN"/>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UI9-xV-N7S">
-                                        <rect key="frame" x="74.666666666666671" y="113" width="83.000000000000014" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Get PRO"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcb-6T-r9Z">
-                                        <rect key="frame" x="217.66666666666666" y="113" width="71.999999999999972" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Restore"/>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2895,6 +2901,8 @@
                     <size key="freeformSize" width="375" height="1000"/>
                     <connections>
                         <outlet property="portraitView" destination="i08-PS-3SQ" id="YZV-y2-1Ok"/>
+                        <outlet property="proButton" destination="UI9-xV-N7S" id="2Xz-Rf-Ykh"/>
+                        <outlet property="restoreButton" destination="Rcb-6T-r9Z" id="MrH-fC-juL"/>
                         <outlet property="scrollView" destination="arC-ac-Ujw" id="8qi-hd-EvL"/>
                         <outletCollection property="backgroundImageView" destination="cGm-HM-6bE" collectionClass="NSMutableArray" id="NZw-Ul-WFH"/>
                         <outletCollection property="backgroundImageView" destination="QHf-uN-gnO" collectionClass="NSMutableArray" id="6CS-gL-Er3"/>
@@ -3087,9 +3095,6 @@
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
                                 </variation>
-                                <connections>
-                                    <action selector="exportData:" destination="uQZ-18-tki" eventType="touchUpInside" id="zNX-BI-oCs"/>
-                                </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJG-iH-6eb">
                                 <rect key="frame" x="241" y="98" width="114" height="34"/>
@@ -3098,9 +3103,6 @@
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
                                 </variation>
-                                <connections>
-                                    <action selector="exportData:" destination="uQZ-18-tki" eventType="touchUpInside" id="sWz-0x-sGj"/>
-                                </connections>
                             </button>
                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vyo-pC-qjw">
                                 <rect key="frame" x="193" y="44" width="162" height="100"/>
@@ -3120,9 +3122,9 @@
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3QG-c5-r0m">
                                 <rect key="frame" x="319" y="112" width="72" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                <state key="normal" title="Refresh"/>
+                                <state key="normal" title="Options"/>
                                 <connections>
-                                    <action selector="refresh:" destination="uQZ-18-tki" eventType="touchUpInside" id="Npx-yb-DsA"/>
+                                    <action selector="options:" destination="uQZ-18-tki" eventType="touchUpInside" id="qJ3-uv-wet"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EjA-xm-ys6">
@@ -3259,9 +3261,9 @@
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Refresh"/>
+                                        <state key="normal" title="Options"/>
                                         <connections>
-                                            <action selector="refresh:" destination="uQZ-18-tki" eventType="touchUpInside" id="4AQ-Xp-ADq"/>
+                                            <action selector="options:" destination="uQZ-18-tki" eventType="touchUpInside" id="a8k-iD-9V2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYO-Vg-OU0">
@@ -3378,10 +3380,10 @@
                         <outletCollection property="bagLocationLabel" destination="9Iu-Ur-Mke" collectionClass="NSMutableArray" id="qlA-xR-XS3"/>
                         <outletCollection property="activityIndicator" destination="H0g-wa-KqN" collectionClass="NSMutableArray" id="Uu6-XJ-6r2"/>
                         <outletCollection property="activityIndicator" destination="jpL-1N-jRP" collectionClass="NSMutableArray" id="0oc-Wt-62Z"/>
-                        <outletCollection property="refreshButton" destination="xKn-1A-K3x" collectionClass="NSMutableArray" id="WLg-pB-gS6"/>
-                        <outletCollection property="refreshButton" destination="3QG-c5-r0m" collectionClass="NSMutableArray" id="mZM-QA-fpx"/>
                         <outletCollection property="standingsButton" destination="eYO-Vg-OU0" collectionClass="NSMutableArray" id="vDP-xk-Pby"/>
                         <outletCollection property="standingsButton" destination="EjA-xm-ys6" collectionClass="NSMutableArray" id="Jbq-14-Bcw"/>
+                        <outletCollection property="optionsButton" destination="3QG-c5-r0m" collectionClass="NSMutableArray" id="7u6-8S-BdS"/>
+                        <outletCollection property="optionsButton" destination="xKn-1A-K3x" collectionClass="NSMutableArray" id="L6L-2I-ORp"/>
                         <segue destination="sDH-uo-oQo" kind="show" identifier="standingsSegue" id="S5B-oF-cdV"/>
                     </connections>
                 </viewController>

@@ -10,6 +10,7 @@
 		00B7C5CFDBAA341BB5363785 /* Pods_Cornhole_ScorerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8642E931DCCEDFF5C2C18 /* Pods_Cornhole_ScorerTests.framework */; };
 		54DABE1001C6368E8D992886 /* Pods_Cornhole_Scorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F9A766BA04AFB8D1372560 /* Pods_Cornhole_Scorer.framework */; };
 		5718783E20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */; };
+		571A9A04242C167F007B36CB /* CornholeUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571A9A03242C167F007B36CB /* CornholeUnitTests.swift */; };
 		57217385227FD0C400C95351 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57217384227FD0C400C95351 /* WebKit.framework */; };
 		57229FAA242830CA00B5F62B /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57229FA9242830CA00B5F62B /* LoadingViewController.swift */; };
 		57239AC6234FDB9800B655DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57239AC5234FDB9800B655DB /* GoogleService-Info.plist */; };
@@ -46,6 +47,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		571A9A06242C167F007B36CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57D6187020EADC1400A72C9C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57D6187720EADC1400A72C9C;
+			remoteInfo = "Cornhole Scorer";
+		};
 		57C76D162412DF9200F1D91B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57D6187020EADC1400A72C9C /* Project object */;
@@ -67,6 +75,9 @@
 		3BDEAE40A974F0796C00EEC8 /* Pods-Cornhole Scorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cornhole Scorer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cornhole Scorer/Pods-Cornhole Scorer.debug.xcconfig"; sourceTree = "<group>"; };
 		45F9A766BA04AFB8D1372560 /* Pods_Cornhole_Scorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cornhole_Scorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5718783D20EDBB8F00E67C53 /* MatchesViewControllerMatchInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewControllerMatchInfoTableViewCell.swift; sourceTree = "<group>"; };
+		571A9A01242C167F007B36CB /* CornholeUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CornholeUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		571A9A03242C167F007B36CB /* CornholeUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholeUnitTests.swift; sourceTree = "<group>"; };
+		571A9A05242C167F007B36CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		571B821B23345DDF002E8F70 /* Cornhole v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cornhole v2.xcdatamodel"; sourceTree = "<group>"; };
 		57217384227FD0C400C95351 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		57229FA9242830CA00B5F62B /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +125,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		571A99FE242C167F007B36CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		57C76D0E2412DF9200F1D91B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -152,6 +170,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		571A9A02242C167F007B36CB /* CornholeUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				571A9A03242C167F007B36CB /* CornholeUnitTests.swift */,
+				571A9A05242C167F007B36CB /* Info.plist */,
+			);
+			path = CornholeUnitTests;
+			sourceTree = "<group>";
+		};
 		57C76D122412DF9200F1D91B /* CornholeUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +195,7 @@
 				57D6187A20EADC1400A72C9C /* Cornhole */,
 				57D6189120EADC1500A72C9C /* CornholeTests */,
 				57C76D122412DF9200F1D91B /* CornholeUITests */,
+				571A9A02242C167F007B36CB /* CornholeUnitTests */,
 				57D6187920EADC1400A72C9C /* Products */,
 				15243D4BE3AE2F3BA5D192EC /* Pods */,
 				EBF2746E9F308829743D1F29 /* Frameworks */,
@@ -180,6 +208,7 @@
 				57D6187820EADC1400A72C9C /* Cornhole Scorer.app */,
 				57D6188E20EADC1500A72C9C /* Cornhole ScorerTests.xctest */,
 				57C76D112412DF9200F1D91B /* CornholeUITests.xctest */,
+				571A9A01242C167F007B36CB /* CornholeUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,6 +290,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		571A9A00242C167F007B36CB /* CornholeUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 571A9A0A242C167F007B36CB /* Build configuration list for PBXNativeTarget "CornholeUnitTests" */;
+			buildPhases = (
+				571A99FD242C167F007B36CB /* Sources */,
+				571A99FE242C167F007B36CB /* Frameworks */,
+				571A99FF242C167F007B36CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				571A9A07242C167F007B36CB /* PBXTargetDependency */,
+			);
+			name = CornholeUnitTests;
+			productName = CornholeUnitTests;
+			productReference = 571A9A01242C167F007B36CB /* CornholeUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		57C76D102412DF9200F1D91B /* CornholeUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 57C76D1A2412DF9200F1D91B /* Build configuration list for PBXNativeTarget "CornholeUITests" */;
@@ -329,6 +376,10 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Kids Can Code";
 				TargetAttributes = {
+					571A9A00242C167F007B36CB = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 57D6187720EADC1400A72C9C;
+					};
 					57C76D102412DF9200F1D91B = {
 						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = 57D6187720EADC1400A72C9C;
@@ -371,11 +422,19 @@
 				57D6187720EADC1400A72C9C /* Cornhole Scorer */,
 				57D6188D20EADC1500A72C9C /* Cornhole ScorerTests */,
 				57C76D102412DF9200F1D91B /* CornholeUITests */,
+				571A9A00242C167F007B36CB /* CornholeUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		571A99FF242C167F007B36CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		57C76D0F2412DF9200F1D91B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -486,6 +545,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		571A99FD242C167F007B36CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				571A9A04242C167F007B36CB /* CornholeUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		57C76D0D2412DF9200F1D91B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,6 +597,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		571A9A07242C167F007B36CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57D6187720EADC1400A72C9C /* Cornhole Scorer */;
+			targetProxy = 571A9A06242C167F007B36CB /* PBXContainerItemProxy */;
+		};
 		57C76D172412DF9200F1D91B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57D6187720EADC1400A72C9C /* Cornhole Scorer */;
@@ -562,6 +634,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		571A9A08242C167F007B36CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H5H633W272;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = CornholeUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexwongapps.CornholeUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cornhole Scorer.app/Cornhole Scorer";
+			};
+			name = Debug;
+		};
+		571A9A09242C167F007B36CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H5H633W272;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = CornholeUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexwongapps.CornholeUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cornhole Scorer.app/Cornhole Scorer";
+			};
+			name = Release;
+		};
 		57C76D182412DF9200F1D91B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -814,6 +933,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		571A9A0A242C167F007B36CB /* Build configuration list for PBXNativeTarget "CornholeUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				571A9A08242C167F007B36CB /* Debug */,
+				571A9A09242C167F007B36CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		57C76D1A2412DF9200F1D91B /* Build configuration list for PBXNativeTarget "CornholeUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

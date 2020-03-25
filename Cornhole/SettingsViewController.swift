@@ -23,6 +23,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     var isLoggedIn = false
     
     @IBOutlet var settingsLabel: [UILabel]!
+    @IBOutlet weak var proButton: UIButton!
+    @IBOutlet weak var restoreButton: UIButton!
     @IBOutlet var loginButton: [UIButton]!
     @IBOutlet var editLeaguesButton: [UIButton]!
     @IBOutlet var resetMatchesButton: [UIButton]!
@@ -98,6 +100,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             if bigDevice() {
                 
                 settingsLabel[i].font = UIFont(name: systemFont, size: 75)
+                proButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+                restoreButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
                 loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 editLeaguesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -116,6 +120,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             } else if smallDevice() {
                 
                 settingsLabel[i].font = UIFont(name: systemFont, size: 30)
+                proButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+                restoreButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
                 loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 editLeaguesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -134,6 +140,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             } else {
                 
                 settingsLabel[i].font = UIFont(name: systemFont, size: 30)
+                proButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+                restoreButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
                 loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 editLeaguesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -293,6 +301,15 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     
     func settingsReloadPermissions() {
         reloadPermissions()
+    }
+    
+    // pro
+    
+    @IBAction func getPro(_ sender: Any) {
+        proPaid = true
+    }
+    
+    @IBAction func restore(_ sender: Any) {
     }
     
     // login

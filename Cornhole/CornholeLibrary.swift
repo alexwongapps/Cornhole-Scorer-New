@@ -60,6 +60,9 @@ var entryTab: Int = SCOREBOARD_TAB_INDEX
 
 var cachedLeagues: [League] = []
 
+var leaguesPaid = false // todo: IAP
+var proPaid = false // todo: IAP
+
 class Board {
     var bagsIn: Int
     var bagsOn: Int
@@ -373,11 +376,8 @@ class Match: CustomStringConvertible {
             let startDate = matchInfo["startDate"] as? Date,
             let endDate = matchInfo["endDate"] as? Date,
             let redColorRGBA = matchInfo["redColorRGBA"] as? [CGFloat],
-            let blueColorRGBA = matchInfo["blueColorRGBA"] as? [CGFloat]/*,
-            let gameType = matchInfo["gameType"] as? Int,
-            let winningScore = matchInfo["winningScore"] as? Int,
-            let bustScore = matchInfo["bustScore"] as? Int,
-            let roundLimit = matchInfo["roundLimit"] as? Int*/ else {
+            let blueColorRGBA = matchInfo["blueColorRGBA"] as? [CGFloat]
+            else {
                 return
         }
         
@@ -1115,15 +1115,14 @@ class CornholeFirestore {
         }
     }
     
-    static func getDataFromMatch(leagueID: String, match: Match) -> [String: Any] {
+    static func getDataFromMatch(leagueID: String, match: Match) -> [String : Any] {
         var ret: [String : Any] = [:]
         ret["leagueID"] = leagueID
         ret["playerNamesArray"] = match.redPlayers + match.bluePlayers
-        ret["roundPlayersArray"] = match.getRoundPlayers()
-        ret["roundDataArray"] = match.getRoundData()
+        ret["roundPlayersArray"] = encodeRoundPlayers(roundPlayers: match.getRoundPlayers(), redPlayers: match.redPlayers, bluePlayers: match.bluePlayers)
+        ret["roundDataArray"] = encodeRoundData(roundData: match.getRoundData())
         ret["matchID"] = match.id
-        ret["redColor"] = [match.redColor.rgba.red, match.redColor.rgba.green, match.redColor.rgba.blue, match.redColor.rgba.alpha]
-        ret["blueColor"] = [match.blueColor.rgba.red, match.blueColor.rgba.green, match.blueColor.rgba.blue, match.blueColor.rgba.alpha]
+        ret["colors"] = encodeColors(redColor: match.redColor, blueColor: match.blueColor)
         ret["startDate"] = Timestamp.init(date: match.startDate)
         ret["endDate"] = Timestamp.init(date: match.endDate)
         ret["gameType"] = match.gameSettings.gameType.rawValue
@@ -1133,19 +1132,79 @@ class CornholeFirestore {
         return ret
     }
     
+    static private func encodeRoundPlayers(roundPlayers: [String], redPlayers: [String], bluePlayers: [String]) -> String {
+        var playerCodes = [String : String]()
+        if redPlayers.count == 1 {
+            playerCodes[redPlayers[0]] = "0"
+            playerCodes[bluePlayers[0]] = "1"
+        } else {
+            playerCodes[redPlayers[0]] = "0"
+            playerCodes[redPlayers[1]] = "1"
+            playerCodes[bluePlayers[0]] = "2"
+            playerCodes[bluePlayers[1]] = "3"
+        }
+        var ret = ""
+        for player in roundPlayers {
+            ret += playerCodes[player] ?? ""
+        }
+        return ret
+    }
+    
+    static private func decodeRoundPlayers(encoded: String, allPlayers: [String]) -> [String] {
+        var playerCodes = [String : String]()
+        for i in 0..<allPlayers.count {
+            playerCodes["\(i)"] = allPlayers[i]
+        }
+        var ret = [String]()
+        for char in encoded {
+            ret.append(playerCodes[String(char)] ?? "")
+        }
+        return ret
+    }
+    
+    static private func encodeRoundData(roundData: [Int]) -> String {
+        var ret = ""
+        for val in roundData {
+            ret += "\(val)"
+        }
+        return ret
+    }
+    
+    static private func decodeRoundData(encoded: String) -> [Int] {
+        var ret = [Int]()
+        for char in encoded {
+            ret.append(Int(String(char)) ?? 0)
+        }
+        return ret
+    }
+    
+    // red, blue in hex
+    static private func encodeColors(redColor: UIColor, blueColor: UIColor) -> String {
+        let red = redColor.toHex()!
+        let blue = blueColor.toHex()!
+        return red + blue
+    }
+    
+    // [red, blue]
+    static private func decodeColors(colors: String) -> [UIColor] {
+        let redString = String(colors.prefix(6))
+        let blueString = String(colors.suffix(6))
+        return [UIColor(hex: redString)!, UIColor(hex: blueString)!]
+    }
+    
     static func getMatchFromDocument(document: QueryDocumentSnapshot) -> Match {
         let snapshotData = document.data()
-        
+
         // get match data
         let _playerNamesArray = snapshotData["playerNamesArray"] as! [String]
-        let _roundPlayersArray = snapshotData["roundPlayersArray"] as! [String]
-        let _roundData = snapshotData["roundDataArray"] as! [Int]
+        let _roundPlayersArray = decodeRoundPlayers(encoded: snapshotData["roundPlayersArray"] as! String, allPlayers: _playerNamesArray)
+        let _roundData = decodeRoundData(encoded: snapshotData["roundDataArray"] as! String)
         let _matchID = snapshotData["matchID"] as! Int
-        
         let _startDate = (snapshotData["startDate"] as! Timestamp).dateValue()
         let _endDate = (snapshotData["endDate"] as! Timestamp).dateValue()
-        let _redColor = UIColor.init(red: (snapshotData["redColor"] as! [CGFloat])[0], green: (snapshotData["redColor"] as! [CGFloat])[1], blue: (snapshotData["redColor"] as! [CGFloat])[2], alpha: (snapshotData["redColor"] as! [CGFloat])[3])
-        let _blueColor = UIColor.init(red: (snapshotData["blueColor"] as! [CGFloat])[0], green: (snapshotData["blueColor"] as! [CGFloat])[1], blue: (snapshotData["blueColor"] as! [CGFloat])[2], alpha: (snapshotData["blueColor"] as! [CGFloat])[3])
+        let _colors = decodeColors(colors: snapshotData["colors"] as! String)
+        let _redColor = _colors[0]
+        let _blueColor = _colors[1]
         let _gameType = snapshotData["gameType"] as! Int
         let _winningScore = snapshotData["winningScore"] as! Int
         let _bustScore = snapshotData["bustScore"] as! Int
@@ -1403,6 +1462,60 @@ extension UIColor {
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
 
         return (red, green, blue, alpha)
+    }
+    
+    convenience init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+
+        var rgb: UInt32 = 0
+
+        var r: CGFloat = 0.0
+        var g: CGFloat = 0.0
+        var b: CGFloat = 0.0
+        var a: CGFloat = 1.0
+
+        let length = hexSanitized.count
+
+        guard Scanner(string: hexSanitized).scanHexInt32(&rgb) else { return nil }
+
+        if length == 6 {
+            r = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+            g = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+            b = CGFloat(rgb & 0x0000FF) / 255.0
+
+        } else if length == 8 {
+            r = CGFloat((rgb & 0xFF000000) >> 24) / 255.0
+            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255.0
+            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255.0
+            a = CGFloat(rgb & 0x000000FF) / 255.0
+
+        } else {
+            return nil
+        }
+
+        self.init(red: r, green: g, blue: b, alpha: a)
+    }
+    
+    func toHex(alpha: Bool = false) -> String? {
+        guard let components = cgColor.components, components.count >= 3 else {
+            return nil
+        }
+
+        let r = Float(components[0])
+        let g = Float(components[1])
+        let b = Float(components[2])
+        var a = Float(1.0)
+
+        if components.count >= 4 {
+            a = Float(components[3])
+        }
+
+        if alpha {
+            return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
+        } else {
+            return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+        }
     }
 }
 
