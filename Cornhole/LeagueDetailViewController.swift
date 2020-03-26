@@ -92,7 +92,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func addPlayer(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Player", message: "Enter the player's name", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add Player(s)", message: "Enter player names, separated by semicolons (;)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addTextField { (textField) in
             textField.placeholder = "Name"
@@ -101,13 +101,30 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField?.text != "" {
-                let newPlayer = textField!.text!
-                if (self.league?.players.contains(newPlayer))! {
-                    let repeatAlert = UIAlertController(title: "Invalid name", message: "\(newPlayer) already in league", preferredStyle: .alert)
-                    repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.self.present(repeatAlert, animated: true, completion: nil)
-                } else {
-                    CornholeFirestore.addPlayerToLeague(leagueID: self.league?.firebaseID ?? League.NEW_ID_FAILED, playerName: newPlayer)
+                
+                // parse
+                let newPlayers = textField!.text!
+                let arr = newPlayers.split(separator: Character(";"))
+                var players = [String]()
+                for p in arr {
+                    let q = p.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if q.count > 0 {
+                        players.append(q)
+                    }
+                }
+                
+                var actuals = [String]()
+                for newPlayer in players {
+                    if (self.league?.players.contains(newPlayer))! {
+                        let repeatAlert = UIAlertController(title: "Invalid name", message: "\(newPlayer) already in league", preferredStyle: .alert)
+                        repeatAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.self.present(repeatAlert, animated: true, completion: nil)
+                    } else {
+                        actuals.append(newPlayer)
+                    }
+                }
+                if actuals.count > 0 {
+                    CornholeFirestore.addPlayersToLeague(leagueID: self.league?.firebaseID ?? League.NEW_ID_FAILED, playerNames: actuals)
                     self.playersTableView.reloadData()
                 }
             }
@@ -216,15 +233,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
             
-            self.activityIndicator.startAnimating()
-            CornholeFirestore.deleteLeague(id: self.league!.firebaseID) { (errString) in
-                self.activityIndicator.stopAnimating()
-                if errString != nil {
-                    self.present(createBasicAlert(title: "Error", message: "Unable to delete league"), animated: true, completion: nil)
-                } else {
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
-            }
+            CornholeFirestore.deleteLeague(id: self.league!.firebaseID)
+            _ = self.navigationController?.popViewController(animated: true)
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {(action) in

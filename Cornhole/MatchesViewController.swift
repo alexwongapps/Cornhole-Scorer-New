@@ -10,7 +10,11 @@ import UIKit
 import CoreData
 import FirebaseAuth
 
-class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol MatchSettingsHandler {
+    func matchSettingsDismissed()
+}
+
+class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MatchSettingsHandler {
 
     var matches: [Match] = []
     var currentMatch: Match?
@@ -22,6 +26,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var matchView: UIView!
     @IBOutlet weak var matchInfoLabel: UILabel!
     @IBOutlet weak var roundsLabel: UILabel!
+    @IBOutlet weak var editPlayersButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -54,6 +59,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if bigDevice() {
             matchListLabel.font = UIFont(name: systemFont, size: 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
+            editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -61,6 +67,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             matchListLabel.font = UIFont(name: systemFont, size: 30)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
+            editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -73,7 +80,6 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if !isLeagueActive() { // no league
             matchListLabel.text = "Match List"
             matches = getMatchesFromCoreData()
@@ -210,14 +216,9 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if !(league?.isEditor(user: Auth.auth().currentUser))! {
                         self.present(createBasicAlert(title: "Unable to delete match", message: "Log in to an editor account for this league"), animated: true, completion: nil)
                     } else {
-                        CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), matchID: matches[indexPath.row].firebaseID) { (err) in
-                            if let err = err {
-                                print("error deleting match: \(err)")
-                            } else {
-                                self.matches.remove(at: indexPath.row)
-                                self.matchesTableView.deleteRows(at: [indexPath], with: .fade)
-                            }
-                        }
+                        CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), index: indexPath.row)
+                        self.matches.remove(at: indexPath.row)
+                        self.matchesTableView.deleteRows(at: [indexPath], with: .fade)
                     }
                 }
             }
@@ -275,6 +276,33 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             UserDefaults.standard.set(true, forKey: "alreadySharedWithDataModelTwo")
             return true
+        }
+    }
+    
+    // edit match players
+    
+    @IBAction func editPlayers(_ sender: Any) {
+        performSegue(withIdentifier: "matchSettingsSegue", sender: nil)
+    }
+    
+    func matchSettingsDismissed() {
+        matchView.isHidden = true
+        viewWillAppear(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "matchSettingsSegue":
+            let controller = segue.destination as! MatchSettingsViewController
+            controller.match = currentMatch
+            if isLeagueActive() {
+                if let league = UserDefaults.getActiveLeague() {
+                    controller.league = league
+                }
+            }
+            controller.delegate = self
+        default:
+            break
         }
     }
 }

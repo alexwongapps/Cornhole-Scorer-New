@@ -81,16 +81,30 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("cached leagues: \(cachedLeagues.count)")
+        var allIDs = [String]()
+        for l in cachedLeagues {
+            allIDs.append(l.firebaseID)
+        }
+        
+        print("cached leagues: \(allIDs)")
         print("active league: \(!isLeagueActive() ? "NONE" : UserDefaults.getActiveLeagueID())")
         
         leagues.removeAll()
         
         activityIndicator.startAnimating()
-        CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
+        CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
             self.activityIndicator.stopAnimating()
-            if let m = message {
-                self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+            if error != nil {
+                self.present(createBasicAlert(title: "Error", message: "Unable to access joined leagues"), animated: true, completion: nil)
+            }
+            if let ids = unables {
+                if ids.count > 0 {
+                    self.present(createBasicAlert(title: "Error", message: deletedLeagueMessage(ids: ids)), animated: true, completion: nil)
+                    for id in ids {
+                        UserDefaults.removeLeagueID(id: id)
+                    }
+                    CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                }
             }
             for league in cachedLeagues {
                 self.leagues.append(league)
@@ -178,12 +192,9 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             return true
         }
     }
-    
-    // todo: animator doesn't spin on qr
 
     func joinPull(name: String) {
         let alreadyThere = cachedLeagues.contains { $0.firebaseID == name }
-        print(alreadyThere)
         if name != "" {
             if alreadyThere {
                 self.present(createBasicAlert(title: "Error", message: "League already added"), animated: true, completion: nil)
@@ -205,6 +216,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                             UserDefaults.addLeagueID(id: league.firebaseID)
                             UserDefaults.setActiveLeagueID(id: league.firebaseID)
                             CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                            print(cachedLeagues.count)
                             self.forcePermissionsReload()
                         }
                     }
@@ -275,11 +287,20 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func refresh(_ sender: Any) {
         activityIndicator.startAnimating()
         refreshButton.isHidden = true
-        CornholeFirestore.pullAndCacheLeagues(force: true) { (message) in
+        CornholeFirestore.pullAndCacheLeagues(force: true) { (error, unables) in
             self.activityIndicator.stopAnimating()
             self.refreshButton.isHidden = false
-            if let m = message {
-                self.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
+            if let ids = unables {
+                if ids.count > 0 {
+                    self.present(createBasicAlert(title: "Error", message: deletedLeagueMessage(ids: ids)), animated: true, completion: nil)
+                    for id in ids {
+                        UserDefaults.removeLeagueID(id: id)
+                    }
+                    CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                }
+            }
+            if error != nil {
+                self.present(createBasicAlert(title: "Error", message: "Unable to access joined leagues"), animated: true, completion: nil)
             } else {
                 self.viewWillAppear(true)
                 self.forcePermissionsReload()

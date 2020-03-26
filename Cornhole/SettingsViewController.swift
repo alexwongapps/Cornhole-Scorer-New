@@ -377,11 +377,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             if !isLeagueActive() {
                 coreDataDeleteAll(entity: "Matches")
             } else {
-                CornholeFirestore.deleteAllMatchesFromLeague(leagueID: UserDefaults.getActiveLeagueID()) { (error) in
-                    if error != nil {
-                        self.present(createBasicAlert(title: "Error", message: "Unable to reset matches. Check your internet connection."), animated: true, completion: nil)
-                    }
-                }
+                CornholeFirestore.deleteAllMatchesFromLeague(leagueID: UserDefaults.getActiveLeagueID())
             }
         }))
         
@@ -531,13 +527,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     print("Error")
                 }
             } else {
-                CornholeFirestore.changePlayerName(leagueID: UserDefaults.getActiveLeagueID(), from: editingPlayerName, to: nameTextField[0].text!) { (error) in
-                    if error != nil {
-                        self.present(createBasicAlert(title: "Error", message: "Unable to change player name"), animated: true, completion: nil)
-                    } else {
-                        self.editingPlayerName = self.nameTextField[0].text!
-                    }
-                }
+                CornholeFirestore.changePlayerName(leagueID: UserDefaults.getActiveLeagueID(), from: editingPlayerName, to: nameTextField[0].text!)
+                self.editingPlayerName = self.nameTextField[0].text!
             }
         }
         

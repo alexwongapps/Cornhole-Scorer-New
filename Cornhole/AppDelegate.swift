@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseUI
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -124,24 +125,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
+                // todo: this crashes if app not in background
                 if isLeagueActive() {
-                    matchesViewController.activityIndicator.startAnimating()
-                    CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
-                        matchesViewController.activityIndicator.stopAnimating()
-                        if let m = message {
-                            matchesViewController.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
-                        }
-                        if let league = UserDefaults.getActiveLeague() {
-                            matchesViewController.league = league
-                            matchesViewController.matchListLabel.text = league.name
-                            matchesViewController.matches = league.matches
-                            matchesViewController.matchesTableView.reloadData()
-                        } else {
-                            matchesViewController.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()) yo"), animated: true, completion: nil)
-                        }
-                        matchesViewController.viewWillAppear(true)
-                    }
+                    matchesViewController.refresh(matchesViewController.refreshButton!)
                 }
+                
             case STATS_TAB_INDEX:
                 
                 guard let tabVC = self.window?.rootViewController as? UITabBarController,
@@ -150,27 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
                 if isLeagueActive() {
-                    for i in 0..<statsViewController.matchRecordLabel.count {
-                        statsViewController.activityIndicator[i].startAnimating()
-                    }
-                    CornholeFirestore.pullAndCacheLeagues(force: false) { (message) in
-                        for i in 0..<statsViewController.matchRecordLabel.count {
-                            statsViewController.activityIndicator[i].stopAnimating()
-                        }
-                        if let m = message {
-                            statsViewController.present(createBasicAlert(title: "Error", message: m), animated: true, completion: nil)
-                        }
-                        if let league = UserDefaults.getActiveLeague() {
-                            for i in 0..<statsViewController.matchRecordLabel.count {
-                                statsViewController.statsLabel[i].text = league.name
-                            }
-                            statsViewController.matches = league.matches
-                            statsViewController.loadData()
-                        } else {
-                            statsViewController.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()) yo"), animated: true, completion: nil)
-                        }
-                        statsViewController.viewWillAppear(true)
-                    }
+                    statsViewController.refresh()
                 }
             default:
                 print("defaults")
