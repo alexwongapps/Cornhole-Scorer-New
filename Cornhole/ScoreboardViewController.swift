@@ -321,6 +321,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                         self.players = self.players.sorted()
                         for i in 0..<self.help0Label.count {
                             self.playerTableView[i].reloadData()
+                            self.selectPlayersLabel[i].text = league.name
                         }
                     }
                 }
@@ -603,6 +604,23 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             newPlayerTextField[i].layer.borderColor = UIColor.black.cgColor
             
             playerTableView[i].backgroundColor = .clear
+            
+            selectPlayersLabel[i].adjustsFontSizeToFitWidth = true
+            selectPlayersLabel[i].baselineAdjustment = .alignCenters
+            selectExistingPlayerLabel[i].adjustsFontSizeToFitWidth = true
+            selectExistingPlayerLabel[i].baselineAdjustment = .alignCenters
+            redPlayer1Label[i].adjustsFontSizeToFitWidth = true
+            redPlayer1Label[i].baselineAdjustment = .alignCenters
+            redPlayer1Button[i].contentHorizontalAlignment = .right
+            redPlayer2Label[i].adjustsFontSizeToFitWidth = true
+            redPlayer2Label[i].baselineAdjustment = .alignCenters
+            redPlayer2Button[i].contentHorizontalAlignment = .right
+            bluePlayer1Label[i].adjustsFontSizeToFitWidth = true
+            bluePlayer1Label[i].baselineAdjustment = .alignCenters
+            bluePlayer1Button[i].contentHorizontalAlignment = .right
+            bluePlayer2Label[i].adjustsFontSizeToFitWidth = true
+            bluePlayer2Label[i].baselineAdjustment = .alignCenters
+            bluePlayer2Button[i].contentHorizontalAlignment = .right
         }
  
         helpView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
@@ -614,6 +632,19 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if let alert = alert30 {
             self.present(alert, animated: true, completion: nil)
+            alert30 = nil
+        }
+        
+        for i in 0..<help0Label.count {
+            if !isLeagueActive() {
+                selectPlayersLabel[i].text = "Select Players"
+            } else {
+                if let league = UserDefaults.getActiveLeague() {
+                    selectPlayersLabel[i].text = league.name
+                } else {
+                    selectPlayersLabel[i].text = "Select Players"
+                }
+            }
         }
     }
 
@@ -913,18 +944,17 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func setColors() {
-        
-        // todo: what about custom colors for colors dict?
-        
         for i in 0..<help0Label.count {
             
             teamRedLabel[i].textColor = redColor
-            teamRedLabel[i].text = "Team \(COLORS[redColor]!)"
+            let red = COLORS[redColor] != nil ? COLORS[redColor]! : "1"
+            teamRedLabel[i].text = "Team \(red)"
             redPlayer1Label[i].textColor = redColor
             redPlayer2Label[i].textColor = redColor
             
             teamBlueLabel[i].textColor = blueColor
-            teamBlueLabel[i].text = "Team \(COLORS[blueColor]!)"
+            let blue = COLORS[blueColor] != nil ? COLORS[blueColor]! : "2"
+            teamBlueLabel[i].text = "Team \(blue)"
             bluePlayer1Label[i].textColor = blueColor
             bluePlayer2Label[i].textColor = blueColor
         }
@@ -1439,7 +1469,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             
             var hasAskedForReview = defaults.bool(forKey: "hasAskedForReview")
             
-            if timesPlayed >= 3 && currentDate > fourthOfJulyDate && !hasAskedForReview {
+            if timesPlayed >= 5 && currentDate > fourthOfJulyDate && !hasAskedForReview {
                 if #available(iOS 10.3, *) {
                     SKStoreReviewController.requestReview()
                 }
@@ -1459,36 +1489,42 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             case .standard:
                 if redTotalScore >= gameSettings.winningScore {
                     for i in 0..<help0Label.count {
-                        roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                        let team = COLORS[redColor] != nil ? COLORS[redColor]! : "Team 1"
+                        roundCompleteButton[i].setTitle("\(team) Wins!", for: .normal)
                         roundCompleteButton[i].setTitleColor(redColor, for: .normal)
                     }
                 } else {
                     for i in 0..<help0Label.count {
-                        roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                        let team = COLORS[blueColor] != nil ? COLORS[blueColor]! : "Team 2"
+                        roundCompleteButton[i].setTitle("\(team) Wins!", for: .normal)
                         roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
                     }
                 }
             case .bust:
                 if redTotalScore >= gameSettings.winningScore {
                     for i in 0..<help0Label.count {
-                        roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                        let team = COLORS[redColor] != nil ? COLORS[redColor]! : "Team 1"
+                        roundCompleteButton[i].setTitle("\(team) Wins!", for: .normal)
                         roundCompleteButton[i].setTitleColor(redColor, for: .normal)
                     }
                 } else if blueTotalScore >= gameSettings.winningScore {
                     for i in 0..<help0Label.count {
-                        roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                        let team = COLORS[blueColor] != nil ? COLORS[blueColor]! : "Team 2"
+                        roundCompleteButton[i].setTitle("\(team) Wins!", for: .normal)
                         roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
                     }
                 }
             case .rounds:
                 if redTotalScore > blueTotalScore {
                     for i in 0..<help0Label.count {
-                        roundCompleteButton[i].setTitle("\(COLORS[redColor]!) Wins!", for: .normal)
+                        let team = COLORS[redColor] != nil ? COLORS[redColor]! : "Team 1"
+                        roundCompleteButton[i].setTitle("\(team) Wins!", for: .normal)
                         roundCompleteButton[i].setTitleColor(redColor, for: .normal)
                     }
                 } else if blueTotalScore > redTotalScore {
                     for i in 0..<help0Label.count {
-                        roundCompleteButton[i].setTitle("\(COLORS[blueColor]!) Wins!", for: .normal)
+                        let team = COLORS[blueColor] != nil ? COLORS[blueColor]! : "Team 2"
+                        roundCompleteButton[i].setTitle("\(team) Wins!", for: .normal)
                         roundCompleteButton[i].setTitleColor(blueColor, for: .normal)
                     }
                 } else { // tie, playing round limited

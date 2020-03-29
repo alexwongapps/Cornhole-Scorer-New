@@ -45,6 +45,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     @IBOutlet var setting2Label: [UILabel]!
     @IBOutlet var setting2Stepper: [UIStepper]!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var innerScrollView: UIView!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -72,6 +73,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self
         let providers: [FUIAuthProvider] = [
+            FUIEmailAuth(),
             FUIGoogleAuth()
         ]
         self.authUI?.providers = providers
@@ -88,6 +90,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             nameTextField[i].autocorrectionType = .no
             nameTextField[i].backgroundColor = .clear
             nameTextField[i].layer.borderColor = UIColor.black.cgColor
+            
+            settingsLabel[i].adjustsFontSizeToFitWidth = true
+            settingsLabel[i].baselineAdjustment = .alignCenters
         
             // version
             
@@ -160,6 +165,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             }
         }
         
+        innerScrollView.layer.borderColor = UIColor.black.cgColor
+        innerScrollView.layer.borderWidth = 2
+        
         if !isLeagueActive() {
             // defaults
             updateSettingsFromDefaults()
@@ -171,6 +179,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 firstThrowWinners = ftw
             }
         }
+        
         reloadPermissions()
     }
     
@@ -178,11 +187,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         super.viewWillAppear(animated)
         
         portraitView.isHidden = false
-        /*
-        AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
- */
         AppUtility.lockOrientation(.portrait)
         
         players.removeAll()
@@ -215,6 +219,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         } else {
             if let league = UserDefaults.getActiveLeague() {
                 players = league.players
+                for i in 0..<backgroundImageView.count {
+                    settingsLabel[i].text = league.name
+                }
             }
         }
         
@@ -390,7 +397,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     
     @IBAction func editPlayerName(_ sender: UIButton) {
         
-        print(players.count)
+        // refresh players
+        if isLeagueActive() {
+            if let league = UserDefaults.getActiveLeague() {
+                players = league.players.sorted()
+            }
+        }
+        
         if players.count > 0 { // if there are players to edit
             
             editingPlayerIndex = 0
@@ -527,8 +540,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     print("Error")
                 }
             } else {
-                CornholeFirestore.changePlayerName(leagueID: UserDefaults.getActiveLeagueID(), from: editingPlayerName, to: nameTextField[0].text!)
-                self.editingPlayerName = self.nameTextField[0].text!
+                if nameTextField[0].text!.firstIndex(of: CornholeFirestore.PLAYER_NAMES_DELIMITER) != nil {
+                    self.present(createBasicAlert(title: "Invalid name", message: "Please do not include semicolons in names"), animated: true, completion: nil)
+                } else {
+                    CornholeFirestore.changePlayerName(leagueID: UserDefaults.getActiveLeagueID(), from: editingPlayerName, to: nameTextField[0].text!)
+                    self.editingPlayerName = self.nameTextField[0].text!
+                }
             }
         }
         

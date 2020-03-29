@@ -70,6 +70,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             backgroundImageView[i].image = backgroundImage
             statsLabel[i].text = ""
             statsLabel[i].adjustsFontSizeToFitWidth = true
+            statsLabel[i].baselineAdjustment = .alignCenters
         }
         
         if bigDevice() {

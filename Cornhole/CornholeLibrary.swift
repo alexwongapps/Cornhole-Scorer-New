@@ -54,6 +54,7 @@ let systemFont: String = "Century Gothic"
 // "Hiragino Maru Gothic ProN"
 // "Khmer Sangam MN"
 // "Gill Sans"
+let systemFontItalic: String = "CenturyGothic-BoldItalic"
 var backgroundImage: UIImage = UIImage(named: "CornholeBackground5.jpg")!
 
 var entryTab: Int = SCOREBOARD_TAB_INDEX
@@ -944,6 +945,35 @@ extension UserDefaults {
     static func getActiveLeague() -> League? {
         return getCachedLeague(id: getActiveLeagueID())
     }
+    
+    static func setColors(colors: [UIColor], forKey key: String) {
+        var data = [Data]()
+        for color in colors {
+            do {
+                let d = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) as Data
+                data.append(d)
+            } catch {
+                print("Error saving colors")
+            }
+        }
+        UserDefaults.standard.set(data, forKey: key)
+    }
+    
+    static func colorsForKey(key: String) -> [UIColor] {
+        var colors = [UIColor]()
+        if let colorsData = UserDefaults.standard.array(forKey: key) as? [Data] {
+            do {
+                for colorData in colorsData {
+                    if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+                        colors.append(color)
+                    }
+                }
+            } catch {
+                return colors
+            }
+        }
+        return colors
+    }
 }
 
 // firebase
@@ -1096,10 +1126,13 @@ class CornholeFirestore {
         }
     }
     
-    static func deleteMatchFromLeague(leagueID: String, index: Int) {
+    static func deleteMatchesFromLeague(leagueID: String, indices: [Int]) {
         let db = Firestore.firestore()
         if let league = getCachedLeague(id: leagueID) {
-            league.matches.remove(at: index)
+            let sortedIndices = indices.sorted { $0 > $1 }
+            for i in 0..<sortedIndices.count {
+                league.matches.remove(at: sortedIndices[i])
+            }
             db.collection("leagues").document(leagueID).updateData(getDataFromMatches(matches: league.matches))
         }
     }
@@ -1172,18 +1205,21 @@ class CornholeFirestore {
                 "matchWinningScores": _matchWinningScores]
     }
     
+    static let DELIMITER_NAME_PLURAL = "semicolons"
+    static let PLAYER_NAMES_DELIMITER: Character = ";"
+    
     static private func encodePlayerNames(playerNames: [String]) -> String {
         var ret = ""
         for player in playerNames {
             ret += player
-            ret += ";"
+            ret += String(PLAYER_NAMES_DELIMITER)
         }
         return ret
     }
     
     static private func decodePlayerNames(encoded: String) -> [String] {
         var ret = [String]()
-        let e = encoded.split(separator: ";")
+        let e = encoded.split(separator: PLAYER_NAMES_DELIMITER)
         for p in e {
             let s = String(p)
             if s.count > 0 {

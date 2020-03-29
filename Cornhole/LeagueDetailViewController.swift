@@ -65,7 +65,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         } else if smallDevice() {
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             qrButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-            idLabel.font = UIFont(name: "Courier", size: 14)
+            idLabel.font = UIFont(name: "Courier", size: 12)
             playersLabel.font = UIFont(name: systemFont, size: 17)
             addButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editorsLabel.font = UIFont(name: systemFont, size: 17)
@@ -92,7 +92,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func addPlayer(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Player(s)", message: "Enter player names, separated by semicolons (;)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add Player(s)", message: "Enter player names, separated by \(CornholeFirestore.DELIMITER_NAME_PLURAL) (\(CornholeFirestore.PLAYER_NAMES_DELIMITER))", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addTextField { (textField) in
             textField.placeholder = "Name"
@@ -104,7 +104,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                 
                 // parse
                 let newPlayers = textField!.text!
-                let arr = newPlayers.split(separator: Character(";"))
+                let arr = newPlayers.split(separator: CornholeFirestore.PLAYER_NAMES_DELIMITER)
                 var players = [String]()
                 for p in arr {
                     let q = p.trimmingCharacters(in: .whitespacesAndNewlines)

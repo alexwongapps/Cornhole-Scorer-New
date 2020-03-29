@@ -19,10 +19,14 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     var matches: [Match] = []
     var currentMatch: Match?
     var league: League?
+    var editMode = false
 
     @IBOutlet weak var matchListLabel: UILabel!
     @IBOutlet weak var matchesTableView: UITableView!
     @IBOutlet weak var matchInfoTableView: UITableView!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var shareMatchesButton: UIButton!
+    @IBOutlet weak var deleteMatchesButton: UIButton!
     @IBOutlet weak var matchView: UIView!
     @IBOutlet weak var matchInfoLabel: UILabel!
     @IBOutlet weak var roundsLabel: UILabel!
@@ -59,6 +63,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if bigDevice() {
             matchListLabel.font = UIFont(name: systemFont, size: 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
+            editButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            deleteMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
@@ -67,6 +73,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             matchListLabel.font = UIFont(name: systemFont, size: 30)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
+            editButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            deleteMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -74,8 +82,11 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         matchListLabel.adjustsFontSizeToFitWidth = true
+        matchListLabel.baselineAdjustment = .alignCenters
         matchInfoLabel.adjustsFontSizeToFitWidth = true
+        matchInfoLabel.baselineAdjustment = .alignCenters
         backButton.titleLabel?.textAlignment = .right
+        deleteMatchesButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +96,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             matches = getMatchesFromCoreData()
             shareButton.isHidden = false
             refreshButton.isHidden = true
+            editButton.isHidden = false
+            editPlayersButton.isHidden = false
         } else { // league
             shareButton.isHidden = true
             refreshButton.isHidden = false
@@ -93,6 +106,9 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.matchListLabel.text = league.name
                 self.matches = league.matches
                 self.matchesTableView.reloadData()
+                let editor = league.isEditor(user: Auth.auth().currentUser)
+                self.editButton.isHidden = !editor
+                self.editPlayersButton.isHidden = !editor
             }
         }
         
@@ -143,16 +159,25 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.backgroundColor = .clear
             cell.matchLabel.attributedText = colorDescription(str: match.description, size: bigDevice() ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
             cell.matchLabel.adjustsFontSizeToFitWidth = true
+            cell.matchLabel.baselineAdjustment = .alignCenters
             cell.selectionStyle = .none
             cell.arrowLabel.font = UIFont(name: systemFont, size: 25)
+            cell.arrowLabel.isHidden = editMode
+            
+            if editMode {
+                let selectedIndexPaths = tableView.indexPathsForSelectedRows
+                let rowIsSelected = selectedIndexPaths != nil && selectedIndexPaths!.contains(indexPath)
+                cell.accessoryType = rowIsSelected ? .checkmark : .none
+            }
             return cell
         } else if let match = currentMatch { // in match view
             
             let cell = matchInfoTableView.dequeueReusableCell(withIdentifier: "matchInfoCell", for: indexPath) as! MatchesViewControllerMatchInfoTableViewCell
             cell.backgroundColor = .clear
-            cell.matchLabel.attributedText = colorDescription(str: match.rounds[indexPath.row].description, size: hasTraits(view: matchView, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.attributedText = colorDescription(str: match.rounds[indexPath.row].description, size: bigDevice() ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
             cell.matchLabel.adjustsFontSizeToFitWidth = true
-            let scoreText = colorDescription(str: "Score: \(match.getScoreAfterRound(round: indexPath.row + 1))", size: hasTraits(view: matchView, width: UIUserInterfaceSizeClass.regular, height: UIUserInterfaceSizeClass.regular) ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.baselineAdjustment = .alignCenters
+            let scoreText = colorDescription(str: "Score: \(match.getScoreAfterRound(round: indexPath.row + 1))", size: bigDevice() ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
             scoreText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: "Score: ".count))
             cell.matchScoreLabel.attributedText = scoreText
             cell.selectionStyle = .none
@@ -165,14 +190,25 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if tableView.tag == 0 { // on main view
-        
-            currentMatch = matches[indexPath.row] // used for info
-            print(currentMatch!.redPlayers)
-            print(currentMatch?.id ?? "No id")
-            
-            matchView.isHidden = false
-            matchInfoLabel.attributedText = colorDescription(str: (currentMatch?.description)!, size: bigDevice() ? 25 : 17, redColor: (currentMatch?.redColor)!, blueColor: (currentMatch?.blueColor)!)
-            self.matchInfoTableView.reloadData()
+            if !editMode {
+                currentMatch = matches[indexPath.row] // used for info
+                print(currentMatch!.redPlayers)
+                print(currentMatch?.id ?? "No id")
+                
+                matchView.isHidden = false
+                matchInfoLabel.attributedText = colorDescription(str: (currentMatch?.description)!, size: bigDevice() ? 60 : 30, redColor: (currentMatch?.redColor)!, blueColor: (currentMatch?.blueColor)!)
+                self.matchInfoTableView.reloadData()
+            } else {
+                let cell = tableView.cellForRow(at: indexPath)!
+                cell.accessoryType = .checkmark
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.tag == 0 {
+            let cell = tableView.cellForRow(at: indexPath)!
+            cell.accessoryType = .none
         }
     }
     
@@ -182,47 +218,106 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if tableView.tag == 0 { // in main view
             if editingStyle == .delete {
                 if !isLeagueActive() {
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    let context = appDelegate.persistentContainer.viewContext
-                    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
-                    request.returnsObjectsAsFaults = false
-                    
-                    // delete
-                    do {
-                        let results = try context.fetch(request)
-                        
-                        for result in results as! [NSManagedObject] {
-                            let match = matches[indexPath.row]
-                            
-                            if result.value(forKey: "id") as! Int == match.id {
-                                context.delete(result)
-                            }
-                        }
-                    } catch {
-                        let saveError = error as NSError
-                        print(saveError)
-                    }
-                    
-                    // save
-                    do {
-                        try context.save()
-                        matches.remove(at: indexPath.row)
-                        matchesTableView.deleteRows(at: [indexPath], with: .fade)
-                    } catch {
-                        let saveError = error as NSError
-                        print(saveError)
-                    }
+                    deleteMatches(at: [indexPath])
                 } else {
                     if !(league?.isEditor(user: Auth.auth().currentUser))! {
                         self.present(createBasicAlert(title: "Unable to delete match", message: "Log in to an editor account for this league"), animated: true, completion: nil)
                     } else {
-                        CornholeFirestore.deleteMatchFromLeague(leagueID: UserDefaults.getActiveLeagueID(), index: indexPath.row)
-                        self.matches.remove(at: indexPath.row)
-                        self.matchesTableView.deleteRows(at: [indexPath], with: .fade)
+                        deleteMatches(at: [indexPath])
                     }
                 }
             }
         }
+    }
+    
+    func deleteMatches(at: [IndexPath]) {
+        // put indices in reverse order
+        let indices = at.sorted { $0.row > $1.row }
+        
+        if !isLeagueActive() {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
+            request.returnsObjectsAsFaults = false
+            
+            // delete
+            do {
+                let results = try context.fetch(request)
+
+                // collect match ids
+                var matchIDs = [Int]()
+                for path in indices {
+                    matchIDs.append(matches[path.row].id)
+                }
+                
+                for result in results as! [NSManagedObject] {
+                    if matchIDs.contains(result.value(forKey: "id") as! Int) {
+                        context.delete(result)
+                    }
+                }
+            } catch {
+                let saveError = error as NSError
+                print(saveError)
+            }
+            
+            // save
+            do {
+                try context.save()
+                for i in 0..<indices.count {
+                    matches.remove(at: indices[i].row)
+                    matchesTableView.deleteRows(at: [indices[i]], with: .fade)
+                }
+            } catch {
+                let saveError = error as NSError
+                print(saveError)
+            }
+        } else {
+            if let league = UserDefaults.getActiveLeague() {
+                var rows = [Int]()
+                for ind in indices {
+                    rows.append(ind.row)
+                }
+                rows = rows.sorted { $0 > $1 }
+                CornholeFirestore.deleteMatchesFromLeague(leagueID: league.firebaseID, indices: rows)
+                for i in 0..<indices.count {
+                    matches.remove(at: indices[i].row)
+                    matchesTableView.deleteRows(at: [indices[i]], with: .fade)
+                }
+            }
+        }
+    }
+    
+    @IBAction func editMatches(_ sender: Any) {
+        // deselect all rows
+        for i in 0..<matchesTableView.numberOfRows(inSection: 0) {
+            matchesTableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
+            matchesTableView.cellForRow(at: IndexPath(row: i, section: 0))!.accessoryType = .none
+        }
+        editMode = !editMode
+        shareMatchesButton.isHidden = true // todo: this
+        deleteMatchesButton.isHidden = !editMode
+        if editMode {
+            matchesTableView.allowsMultipleSelection = true
+            editButton.setTitle("Done", for: .normal)
+            editButton.setTitle("Done", for: .selected)
+        } else {
+            matchesTableView.allowsMultipleSelection = false
+            editButton.setTitle("Edit", for: .normal)
+            editButton.setTitle("Edit", for: .selected)
+        }
+        matchesTableView.reloadData()
+    }
+    
+    @IBAction func shareMatches(_ sender: Any) {
+        
+    }
+    
+    @IBAction func deleteMatches(_ sender: Any) {
+        let selectedRows = matchesTableView.indexPathsForSelectedRows
+        if let rs = selectedRows {
+            deleteMatches(at: rs)
+        }
+        editMatches(editButton!)
     }
     
     @IBAction func back(_ sender: UIButton) {
@@ -264,7 +359,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // ipad support
         if let popover = vc.popoverPresentationController {
-            popover.sourceView = self.view
+            popover.sourceView = shareButton
         }
     }
     

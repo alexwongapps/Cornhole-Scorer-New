@@ -125,9 +125,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
-                // todo: this crashes if app not in background
                 if isLeagueActive() {
-                    matchesViewController.refresh(matchesViewController.refreshButton!)
+                    matchesViewController.activityIndicator.startAnimating()
+                    CornholeFirestore.pullLeagues(ids: [UserDefaults.getActiveLeagueID()]) { (leagues, error) in
+                        matchesViewController.activityIndicator.stopAnimating()
+                        if error != nil {
+                            matchesViewController.present(createBasicAlert(title: "Error", message: "Unable to pull league"), animated: true, completion: nil)
+                        } else {
+                            print(cachedLeagues.count)
+                            matchesViewController.viewDidLoad()
+                            matchesViewController.viewWillAppear(true)
+                        }
+                    }
                 }
                 
             case STATS_TAB_INDEX:

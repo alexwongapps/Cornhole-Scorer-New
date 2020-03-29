@@ -67,6 +67,7 @@
 	<array>
 		<string>CenturyGothic.ttf</string>
 		<string>SourceSansPro-Bold.ttf</string>
+		<string>CenturyGothicItalic.ttf</string>
 	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>

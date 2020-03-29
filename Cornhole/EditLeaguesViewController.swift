@@ -74,7 +74,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
-        // todo: paid stuff
         joinUnlimitedLeaguesButton.isHidden = false
     }
     
@@ -234,19 +233,20 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         cell.league = leagues[indexPath.row]
         cell.nameLabel.text = cell.league.name
         cell.nameLabel.adjustsFontSizeToFitWidth = true
+        cell.nameLabel.baselineAdjustment = .alignCenters
         cell.makeActiveButton.setTitle(UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? "Deactivate" : "Activate", for: .normal)
         cell.backgroundColor = .clear
         
         // fonts
+        let fontToUse = UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? systemFontItalic : systemFont
         if bigDevice() {
-            
-            cell.nameLabel.font = UIFont(name: systemFont, size: 30)
+            cell.nameLabel.font = UIFont(name: fontToUse, size: 30)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
-            cell.nameLabel.font = UIFont(name: systemFont, size: 17)
+            cell.nameLabel.font = UIFont(name: fontToUse, size: 17)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
-            cell.nameLabel.font = UIFont(name: systemFont, size: 17)
+            cell.nameLabel.font = UIFont(name: fontToUse, size: 17)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
@@ -365,7 +365,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func joinUnlimitedLeagues(_ sender: Any) {
-        // todo: paid
         leaguesPaid = true
     }
 }
