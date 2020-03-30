@@ -2523,7 +2523,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEo-nB-7Lc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEo-nB-7Lc">
                                 <rect key="frame" x="0.0" y="171.66666666666663" width="375" height="219.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -2542,20 +2542,30 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-GE-9kO">
-                                <rect key="frame" x="123" y="117.66666666666669" width="129" height="34"/>
+                                <rect key="frame" x="93" y="117.66666666666669" width="207" height="34"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEI-8d-c5h">
-                                        <rect key="frame" x="0.0" y="0.0" width="69" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-Xs-eue">
-                                        <rect key="frame" x="89" y="0.0" width="40" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Add"/>
                                         <connections>
                                             <action selector="addPlayer:" destination="PqI-1d-WPr" eventType="touchUpInside" id="KY0-lc-pEQ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEI-8d-c5h">
+                                        <rect key="frame" x="60" y="0.0" width="69" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNO-WV-t5f">
+                                        <rect key="frame" x="149" y="0.0" width="58" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deletePlayers:" destination="PqI-1d-WPr" eventType="touchUpInside" id="frY-kG-ANF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2572,20 +2582,30 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="FkU-K7-ifh">
-                                <rect key="frame" x="122.33333333333331" y="411" width="130.33333333333337" height="34"/>
+                                <rect key="frame" x="92.333333333333329" y="411" width="208.33333333333337" height="34"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Editors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poP-6A-6u7">
-                                        <rect key="frame" x="0.0" y="0.0" width="70.333333333333329" height="34"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odF-Nk-1yq">
-                                        <rect key="frame" x="90.333333333333329" y="0.0" width="39.999999999999986" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Add"/>
                                         <connections>
                                             <action selector="addEditor:" destination="PqI-1d-WPr" eventType="touchUpInside" id="AUk-gX-Q8H"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Editors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poP-6A-6u7">
+                                        <rect key="frame" x="60.000000000000021" y="0.0" width="70.333333333333314" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9V-Rm-E2i">
+                                        <rect key="frame" x="150.33333333333331" y="0.0" width="58" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteEditors:" destination="PqI-1d-WPr" eventType="touchUpInside" id="sV2-fG-48m"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2600,7 +2620,7 @@
                                     <action selector="deleteLeague:" destination="PqI-1d-WPr" eventType="touchUpInside" id="0Q2-Rz-qgP"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="etJ-CO-kfx">
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="etJ-CO-kfx">
                                 <rect key="frame" x="0.0" y="465" width="375" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2634,10 +2654,10 @@
                         <constraints>
                             <constraint firstItem="pbg-hJ-wbO" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="0LA-od-AMh"/>
                             <constraint firstItem="Ut0-oj-mJK" firstAttribute="top" secondItem="DB9-aY-igI" secondAttribute="top" id="3or-wT-PON"/>
+                            <constraint firstItem="cEI-8d-c5h" firstAttribute="centerX" secondItem="cPl-Df-o77" secondAttribute="centerX" id="48c-GS-Q4H"/>
                             <constraint firstItem="XEA-5r-AbN" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="6ln-fQ-Y6F"/>
                             <constraint firstItem="cPl-Df-o77" firstAttribute="trailing" secondItem="QSA-lT-tsF" secondAttribute="trailing" constant="30" id="9cr-RD-Ckb"/>
                             <constraint firstItem="QSA-lT-tsF" firstAttribute="centerY" secondItem="OvW-kH-W2N" secondAttribute="centerY" id="BN7-DL-0fh"/>
-                            <constraint firstItem="8ld-GE-9kO" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="C5c-M9-Ff2"/>
                             <constraint firstItem="pbg-hJ-wbO" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" constant="20" id="DC1-9S-JGm"/>
                             <constraint firstItem="FkU-K7-ifh" firstAttribute="top" secondItem="gEo-nB-7Lc" secondAttribute="bottom" constant="20" id="EBo-ON-8bM"/>
                             <constraint firstItem="gEo-nB-7Lc" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" id="MQj-Bn-bwP"/>
@@ -2649,8 +2669,8 @@
                             <constraint firstItem="etJ-CO-kfx" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" id="byQ-w7-raW"/>
                             <constraint firstItem="OvW-kH-W2N" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="dVH-UG-P1o"/>
                             <constraint firstItem="s5q-5B-udp" firstAttribute="leading" secondItem="cPl-Df-o77" secondAttribute="leading" constant="30" id="fef-Vh-dsa"/>
-                            <constraint firstItem="FkU-K7-ifh" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="iBX-Rm-SkA"/>
                             <constraint firstAttribute="trailing" secondItem="Ut0-oj-mJK" secondAttribute="trailing" id="ieR-AE-K1l"/>
+                            <constraint firstItem="poP-6A-6u7" firstAttribute="centerX" secondItem="cPl-Df-o77" secondAttribute="centerX" id="ldv-yy-F8o"/>
                             <constraint firstItem="XEA-5r-AbN" firstAttribute="top" secondItem="etJ-CO-kfx" secondAttribute="bottom" constant="15" id="nDJ-Lz-Med"/>
                             <constraint firstItem="etJ-CO-kfx" firstAttribute="top" secondItem="FkU-K7-ifh" secondAttribute="bottom" constant="20" id="qYM-R4-3Tk"/>
                             <constraint firstItem="Ut0-oj-mJK" firstAttribute="leading" secondItem="DB9-aY-igI" secondAttribute="leading" id="w0P-Fr-CjC"/>
@@ -2667,10 +2687,12 @@
                         <outlet property="backgroundImageView" destination="Ut0-oj-mJK" id="UjE-zA-uWl"/>
                         <outlet property="deleteLeagueButton" destination="XEA-5r-AbN" id="UxH-0A-FQM"/>
                         <outlet property="editorsAddButton" destination="odF-Nk-1yq" id="XWH-rz-bwa"/>
+                        <outlet property="editorsDeleteButton" destination="d9V-Rm-E2i" id="6TN-dz-dHw"/>
                         <outlet property="editorsLabel" destination="poP-6A-6u7" id="h7D-PY-4V4"/>
                         <outlet property="editorsTableView" destination="etJ-CO-kfx" id="yd0-vj-Yrm"/>
                         <outlet property="helpButton" destination="QSA-lT-tsF" id="gWx-cS-YZn"/>
                         <outlet property="idLabel" destination="bOb-DJ-PjY" id="EvA-lN-eGm"/>
+                        <outlet property="playersDeleteButton" destination="zNO-WV-t5f" id="Fsc-iU-Ly0"/>
                         <outlet property="playersLabel" destination="cEI-8d-c5h" id="rFm-T8-Waw"/>
                         <outlet property="playersTableView" destination="gEo-nB-7Lc" id="Kpi-fp-n1e"/>
                         <outlet property="qrButton" destination="s5q-5B-udp" id="fpL-ra-yKA"/>
@@ -3254,10 +3276,20 @@
                                         </constraints>
                                         <viewLayoutGuide key="contentLayoutGuide" id="MlZ-K0-e0u"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="Xr9-S2-koN"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="OpN-La-XAe" id="5so-SO-giq"/>
+                                        </connections>
                                     </scrollView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjo-iy-eHS">
+                                        <rect key="frame" x="172.66666666666666" y="849" width="30" height="38"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="gjo-iy-eHS" secondAttribute="bottom" constant="30" id="3x2-8h-IN2"/>
                                     <constraint firstItem="arC-ac-Ujw" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" id="5k8-NX-jaM"/>
                                     <constraint firstAttribute="bottom" secondItem="arC-ac-Ujw" secondAttribute="bottom" id="75d-yc-YJf"/>
                                     <constraint firstItem="arC-ac-Ujw" firstAttribute="top" secondItem="UI9-xV-N7S" secondAttribute="bottom" constant="10" id="D1x-vf-nVH"/>
@@ -3266,6 +3298,7 @@
                                     <constraint firstItem="Jkx-mv-6tY" firstAttribute="centerX" secondItem="i08-PS-3SQ" secondAttribute="centerX" id="RlT-hM-QOt"/>
                                     <constraint firstItem="qbb-dU-PMb" firstAttribute="width" secondItem="i08-PS-3SQ" secondAttribute="width" id="UWu-v7-UW6"/>
                                     <constraint firstAttribute="trailing" secondItem="Jkx-mv-6tY" secondAttribute="trailing" constant="10" id="YcB-Cp-Ifz"/>
+                                    <constraint firstItem="gjo-iy-eHS" firstAttribute="centerX" secondItem="i08-PS-3SQ" secondAttribute="centerX" id="YgW-c1-doe"/>
                                     <constraint firstItem="Rcb-6T-r9Z" firstAttribute="centerY" secondItem="UI9-xV-N7S" secondAttribute="centerY" id="bPc-iZ-70Y"/>
                                     <constraint firstAttribute="trailing" secondItem="QHf-uN-gnO" secondAttribute="trailing" id="f54-0r-ZTx"/>
                                     <constraint firstItem="QHf-uN-gnO" firstAttribute="leading" secondItem="i08-PS-3SQ" secondAttribute="leading" id="gQv-ru-7ae"/>
@@ -3326,6 +3359,7 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="Settings" selectedImage="Settings" id="ynV-s8-icK"/>
                     <size key="freeformSize" width="375" height="1000"/>
                     <connections>
+                        <outlet property="downArrow" destination="gjo-iy-eHS" id="q1n-J1-JD9"/>
                         <outlet property="innerScrollView" destination="qbb-dU-PMb" id="0M0-Wc-Qnj"/>
                         <outlet property="portraitView" destination="i08-PS-3SQ" id="YZV-y2-1Ok"/>
                         <outlet property="proButton" destination="UI9-xV-N7S" id="2Xz-Rf-Ykh"/>
@@ -3569,7 +3603,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                                     </imageView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7o-EP-R9y">
-                                        <rect key="frame" x="25.666666666666686" y="68" width="162" height="100"/>
+                                        <rect key="frame" x="25.666666666666671" y="68" width="162" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="15a-jf-eK9">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="150"/>

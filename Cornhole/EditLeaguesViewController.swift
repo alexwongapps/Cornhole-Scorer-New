@@ -281,7 +281,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "Create: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing in the rest of the app. To view local data, make sure all leagues are not active"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "Create: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing in the rest of the app. To view local data (non-league matches), make sure all leagues are deactivated\n\nThe active league is in italics\n\nNote: Leagues require an internet connection to use."), animated: true, completion: nil)
     }
     
     @IBAction func refresh(_ sender: Any) {

@@ -517,7 +517,7 @@ class League {
     var players: [String] = []
     var matches: [Match] = []
     var ownerID: String = ""
-    var editorEmails: [String] = []
+    var editorEmails: [String] = [] // or user ids
     var firebaseID: String = ""
     var firstThrowWinners: Bool = true
     var gameSettings: GameSettings = GameSettings.init()
@@ -531,14 +531,14 @@ class League {
         self.name = name
         self.firebaseID = League.NEW_ID_FAILED // placeholder if fails
         self.ownerID = owner.uid
-        self.editorEmails = [owner.email!]
+        self.editorEmails = [(owner.email ?? owner.uid)]
     }
     
     init(name: String, firebaseID: String, owner: User) {
         self.name = name
         self.firebaseID = firebaseID
         self.ownerID = owner.uid
-        self.editorEmails = [owner.email!]
+        self.editorEmails = [(owner.email ?? owner.uid)]
     }
     
     func isOwner(user: User?) -> Bool {
@@ -549,8 +549,10 @@ class League {
     }
     
     func isEditor(user: User?) -> Bool {
-        if let email = user?.email {
-            return editorEmails.contains(email)
+        if let user = user {
+            if let email = user.email {
+                return editorEmails.contains(email) || editorEmails.contains(user.uid)
+            }
         }
         return false
     }
@@ -1055,10 +1057,26 @@ class CornholeFirestore {
         }
     }
     
+    static func addEditorsToLeague(leagueID: String, editorEmails: [String]) {
+        let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.editorEmails.append(contentsOf: editorEmails)
+            db.collection("leagues").document(league.firebaseID).updateData(["editorEmails": league.editorEmails])
+        }
+    }
+    
     static func deleteEditorFromLeague(leagueID: String, editorEmail: String) {
         let db = Firestore.firestore()
         if let league = getCachedLeague(id: leagueID) {
             league.editorEmails.removeAll { $0 == editorEmail }
+            db.collection("leagues").document(league.firebaseID).updateData(["editorEmails": league.editorEmails])
+        }
+    }
+    
+    static func deleteEditorsFromLeague(leagueID: String, editorEmails: [String]) {
+        let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.editorEmails.removeAll { editorEmails.contains($0) }
             db.collection("leagues").document(league.firebaseID).updateData(["editorEmails": league.editorEmails])
         }
     }
@@ -1083,6 +1101,14 @@ class CornholeFirestore {
         let db = Firestore.firestore()
         if let league = getCachedLeague(id: leagueID) {
             league.players.removeAll { $0 == playerName }
+            db.collection("leagues").document(league.firebaseID).updateData(["players": league.players])
+        }
+    }
+    
+    static func deletePlayersFromLeague(leagueID: String, playerNames: [String]) {
+        let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.players.removeAll { playerNames.contains($0) }
             db.collection("leagues").document(league.firebaseID).updateData(["players": league.players])
         }
     }
@@ -1206,20 +1232,20 @@ class CornholeFirestore {
     }
     
     static let DELIMITER_NAME_PLURAL = "semicolons"
-    static let PLAYER_NAMES_DELIMITER: Character = ";"
+    static let DELIMITER: Character = ";"
     
     static private func encodePlayerNames(playerNames: [String]) -> String {
         var ret = ""
         for player in playerNames {
             ret += player
-            ret += String(PLAYER_NAMES_DELIMITER)
+            ret += String(DELIMITER)
         }
         return ret
     }
     
     static private func decodePlayerNames(encoded: String) -> [String] {
         var ret = [String]()
-        let e = encoded.split(separator: PLAYER_NAMES_DELIMITER)
+        let e = encoded.split(separator: DELIMITER)
         for p in e {
             let s = String(p)
             if s.count > 0 {

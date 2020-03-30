@@ -41,6 +41,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // alert
     var alert30: UIAlertController?
+    let alert30Title = "New in 3.0: Leagues, Colors, and PRO!"
+    let alert30Message = "Introducing Leagues: Leagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\nMore Colors: Click \"Select Color\" before playing to choose from one of 10 bag colors.\n\nCornhole Scorer PRO: Pay once to make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!\n\nNote: Leagues require an internet connection to use."
     
     // outlets
     @IBOutlet var selectPlayersLabel: [UILabel]!
@@ -232,6 +234,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             redPlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
             bluePlayer1Button[i].setTitleColor(self.view.tintColor, for: .normal)
             bluePlayer2Button[i].setTitleColor(self.view.tintColor, for: .normal)
+            
+            // reset player names if necessary
+            if let r1 = redPlayer1Label[i].text {
+                if let b1 = bluePlayer1Label[i].text {
+                    if !players.contains(r1) || !players.contains(b1) {
+                        redPlayer1Label[i].text = "Player 1"
+                        bluePlayer1Label[i].text = "Player 1"
+                    }
+                }
+            }
         }
         
         playersSegmentedControl[0].accessibilityIdentifier = "NumberOfPlayers"
@@ -590,11 +602,13 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             gameBackgroundImageView[i].image = backgroundImage
             loginBackgroundImageView[i].image = backgroundImage
             
-            if firstLaunch() {
-                help(helpButton[i])
-            } else {
-                if first30Launch() && i == 0 {
-                    alert30 = createBasicAlert(title: "New in 3.0: Leagues!", message: "Leagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\nNote: Leagues require an internet connection to use.")
+            if i == 0 {
+                if firstLaunch() {
+                    help(helpButton[i])
+                } else {
+                    if first30Launch() {
+                        alert30 = createBasicAlert(title: alert30Title, message: alert30Message)
+                    }
                 }
             }
             
@@ -1198,7 +1212,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             helpViewPortrait.isHidden = true
             helpState = 0
             if first30Launch() {
-                self.present(createBasicAlert(title: "New in 3.0: Leagues!", message: "Leagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\nNote: Leagues require an internet connection to use."), animated: true, completion: nil)
+                print("here")
+                self.present(createBasicAlert(title: alert30Title, message: alert30Message), animated: true, completion: nil)
             }
         break
             
@@ -1932,6 +1947,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func first30Launch() -> Bool {
         let alreadyLaunched = UserDefaults.standard.bool(forKey: "alreadyLaunched30")
+        print(alreadyLaunched)
         if alreadyLaunched {
             return false
         } else {

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import FirebaseUI
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate, DataToSettingsProtocol {
+class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate, DataToSettingsProtocol, UIScrollViewDelegate {
     
     var players: [String] = []
     var editingPlayerIndex: Int = 0 // player currently editing
@@ -44,6 +44,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     @IBOutlet var setting1Stepper: [UIStepper]!
     @IBOutlet var setting2Label: [UILabel]!
     @IBOutlet var setting2Stepper: [UIStepper]!
+    @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScrollView: UIView!
     
@@ -72,10 +73,15 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         // firebase
         authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self
-        let providers: [FUIAuthProvider] = [
+        var providers: [FUIAuthProvider] = [
             FUIEmailAuth(),
             FUIGoogleAuth()
         ]
+        if #available(iOS 13.0, *) {
+            providers.append(FUIOAuth.appleAuthProvider())
+        } else {
+            // Fallback on earlier versions
+        }
         self.authUI?.providers = providers
         
         if let user = Auth.auth().currentUser {
@@ -121,6 +127,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 setting1Label[i].font = UIFont(name: systemFont, size: 30)
                 setting2Label[i].font = UIFont(name: systemFont, size: 30)
+                downArrow.font = UIFont(name: systemFont, size: 60)
                 
             } else if smallDevice() {
                 
@@ -141,6 +148,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 setting1Label[i].font = UIFont(name: systemFont, size: 17)
                 setting2Label[i].font = UIFont(name: systemFont, size: 17)
+                downArrow.font = UIFont(name: systemFont, size: 30)
 
             } else {
                 
@@ -161,12 +169,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 setting1Label[i].font = UIFont(name: systemFont, size: 17)
                 setting2Label[i].font = UIFont(name: systemFont, size: 17)
+                downArrow.font = UIFont(name: systemFont, size: 30)
                 
             }
         }
-        
-        innerScrollView.layer.borderColor = UIColor.black.cgColor
-        innerScrollView.layer.borderWidth = 2
         
         if !isLeagueActive() {
             // defaults
@@ -540,7 +546,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     print("Error")
                 }
             } else {
-                if nameTextField[0].text!.firstIndex(of: CornholeFirestore.PLAYER_NAMES_DELIMITER) != nil {
+                if nameTextField[0].text!.firstIndex(of: CornholeFirestore.DELIMITER) != nil {
                     self.present(createBasicAlert(title: "Invalid name", message: "Please do not include semicolons in names"), animated: true, completion: nil)
                 } else {
                     CornholeFirestore.changePlayerName(leagueID: UserDefaults.getActiveLeagueID(), from: editingPlayerName, to: nameTextField[0].text!)
@@ -673,5 +679,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 }
             }
         }
+    }
+    
+    // scroll view
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let scrollViewHeight = scrollView.bounds.height
+        let scrollContentSizeHeight = scrollView.contentSize.height
+        let bottomInset = scrollView.contentInset.bottom
+        let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+        downArrow.isHidden = scrollView.contentOffset.y + 1 >= scrollViewBottomOffset
     }
 }
