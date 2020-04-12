@@ -3211,7 +3211,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pt-oX-QZk">
-                                                        <rect key="frame" x="154.66666666666666" y="10" width="66" height="34"/>
+                                                        <rect key="frame" x="10" y="10" width="355" height="34"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Log In"/>
                                                         <connections>
@@ -3232,6 +3232,7 @@
                                                     </stepper>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="5pt-oX-QZk" secondAttribute="trailing" constant="10" id="056-I2-SWe"/>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="top" secondItem="68B-zh-x6C" secondAttribute="bottom" constant="10" id="0fJ-oJ-Vge"/>
                                                     <constraint firstItem="5pt-oX-QZk" firstAttribute="top" secondItem="qbb-dU-PMb" secondAttribute="top" constant="10" id="2Lw-g2-sjw"/>
                                                     <constraint firstItem="4qN-xj-AXw" firstAttribute="top" secondItem="rfl-bU-Lfw" secondAttribute="bottom" constant="15" id="4Yy-zy-Y6e"/>
@@ -3240,6 +3241,7 @@
                                                     <constraint firstItem="GsR-cO-mwj" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="CYP-hc-RsX"/>
                                                     <constraint firstItem="kmO-Z1-Obq" firstAttribute="top" secondItem="zVt-rI-fQ7" secondAttribute="bottom" constant="15" id="Etk-MW-6UF"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="top" secondItem="4qN-xj-AXw" secondAttribute="bottom" constant="10" id="Hhl-yE-dcK"/>
+                                                    <constraint firstItem="5pt-oX-QZk" firstAttribute="leading" secondItem="qbb-dU-PMb" secondAttribute="leading" constant="10" id="JRb-9m-WlG"/>
                                                     <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="wlS-fz-hcx" secondAttribute="bottom" constant="15" id="K3m-vU-0lQ"/>
                                                     <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="Oto-6z-o3S"/>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="QGz-0U-y6S"/>

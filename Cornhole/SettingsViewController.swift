@@ -99,6 +99,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             
             settingsLabel[i].adjustsFontSizeToFitWidth = true
             settingsLabel[i].baselineAdjustment = .alignCenters
+            loginButton[i].titleLabel?.adjustsFontSizeToFitWidth = true
+            loginButton[i].titleLabel?.baselineAdjustment = .alignCenters
         
             // version
             
@@ -288,6 +290,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     canEdit = true
                 }
             }
+            for i in 0..<backgroundImageView.count {
+                settingsLabel[i].text = league.name
+            }
         } else {
             updateSettingsFromDefaults()
             canEdit = true
@@ -347,6 +352,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         isLoggedIn = true
         for i in 0..<backgroundImageView.count {
             loginButton[i].setTitle("\(user.email ?? user.uid) (Sign out)", for: .normal)
+            settingsLabel[i].text = "Settings"
         }
         reloadPermissions()
     }
@@ -356,6 +362,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         isLoggedIn = false
         for i in 0..<backgroundImageView.count {
             loginButton[i].setTitle("Log In", for: .normal)
+            settingsLabel[i].text = "Settings"
         }
         UserDefaults.setLeagueIDs(ids: [])
         UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)

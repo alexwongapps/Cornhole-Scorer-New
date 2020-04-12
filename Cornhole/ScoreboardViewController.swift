@@ -110,7 +110,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             if gameSettings.gameType == .rounds {
                 roundLabel[i].text = "Round 1/\(gameSettings.roundLimit)"
             } else {
-                roundLabel[i].text = "Round"
+                roundLabel[i].text = "Round 1"
             }
             
             // reset player select button colors
@@ -1446,11 +1446,13 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // update first tosser
         round += 1
-        if gameSettings.gameType == .rounds {
-            for i in 0..<help0Label.count {
+        for i in 0..<help0Label.count {
+            if gameSettings.gameType == .rounds {
                 if round <= gameSettings.roundLimit {
                     roundLabel[i].text = "Round \(round)/\(gameSettings.roundLimit)"
                 }
+            } else if !matchComplete() {
+                roundLabel[i].text = "Round \(round)"
             }
         }
         
@@ -1659,6 +1661,15 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         round -= 1
         rounds.removeLast()
         printFirstToss(undoing: true)
+        
+        for i in 0..<help0Label.count {
+             // round label
+             if gameSettings.gameType == .rounds {
+                 roundLabel[i].text = "Round \(round)/\(gameSettings.roundLimit)"
+             } else {
+                 roundLabel[i].text = "Round \(round)"
+             }
+        }
     }
     
     
@@ -1722,7 +1733,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             if gameSettings.gameType == .rounds {
                 roundLabel[i].text = "Round 1/\(gameSettings.roundLimit)"
             } else {
-                roundLabel[i].text = "Round"
+                roundLabel[i].text = "Round 1"
             }
             
             redTotalScoreLabel[i].text = "\(redTotalScore)"
