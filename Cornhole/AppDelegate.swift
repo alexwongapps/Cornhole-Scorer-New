@@ -11,6 +11,7 @@ import CoreData
 import Firebase
 import FirebaseUI
 import FirebaseAuth
+import KeychainSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "alreadyLaunched30LD": false
             ])
         FirebaseApp.configure()
+        
+        let keychain = KeychainSwift()
+        keychain.accessGroup = "H5H633W272.CornholeScorer"
+        if let lP = keychain.getBool("leaguesPaid"), let pP = keychain.getBool("proPaid") {
+            leaguesPaid = lP
+            proPaid = pP
+        }
+        
         return true
     }
     
@@ -103,6 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        IAPManager.shared.stopObserving()
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {

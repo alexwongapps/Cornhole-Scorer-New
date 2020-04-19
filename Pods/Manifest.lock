@@ -345,6 +345,7 @@ PODS:
   - GTMSessionFetcher/Core (1.3.1)
   - GTMSessionFetcher/Full (1.3.1):
     - GTMSessionFetcher/Core (= 1.3.1)
+  - KeychainSwift (19.0.0)
   - leveldb-library (1.22)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
@@ -360,6 +361,7 @@ DEPENDENCIES:
   - Charts
   - Firebase/Analytics
   - FirebaseUI
+  - KeychainSwift
 
 SPEC REPOS:
   trunk:
@@ -390,6 +392,7 @@ SPEC REPOS:
     - gRPC-Core
     - GTMAppAuth
     - GTMSessionFetcher
+    - KeychainSwift
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -423,11 +426,12 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 21b19f56b4226cdfe3aefe4e6848dc43ed129a86
 
-PODFILE CHECKSUM: aa642d25843b657f8e5b75b7c0268fdc71fb67fb
+PODFILE CHECKSUM: a325878f017d0d4df50b1e57d0ca048e00bcc347
 
 COCOAPODS: 1.8.3

@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import AVFoundation
+import StoreKit
 
 let FREE_LEAGUE_LIMIT = 3
 
@@ -74,7 +75,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
-        joinUnlimitedLeaguesButton.isHidden = false
+        joinUnlimitedLeaguesButton.isHidden = leaguesPaid
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +95,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
             self.activityIndicator.stopAnimating()
             if error != nil {
-                self.present(createBasicAlert(title: "Error", message: "Unable to access joined leagues"), animated: true, completion: nil)
+                self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
             }
             if let ids = unables {
                 if ids.count > 0 {
@@ -157,13 +158,13 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func joinLeague(_ sender: Any) {
         if canAddLeague() {
-            let alert = UIAlertController(title: "Join League", message: "Enter the league ID or scan its QR code (available in the league settings)", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Add League", message: "Enter the league ID or scan its QR code (available in the league settings)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addTextField { (textField) in
                 textField.keyboardType = .default
                 textField.placeholder = "ID"
             }
-            alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
+            alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak alert] (_) in
                 let textField = alert?.textFields![0]
                 let trimmed = textField!.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                 self.joinPull(name: trimmed)
@@ -185,7 +186,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     
     func canAddLeague() -> Bool {
         if leagues.count >= FREE_LEAGUE_LIMIT && !leaguesPaid {
-            self.present(createBasicAlert(title: "League limit reached", message: "To follow more than \(FREE_LEAGUE_LIMIT) leagues at a time, get Cornhole Scorer PRO from the Settings menu or click Join Unlimited Leagues at the bottom of the screen\n\nTo unfollow a league without deleting its data, swipe left on it and press delete"), animated: true, completion: nil)
+            self.present(createBasicAlert(title: "League limit reached", message: "To follow more than \(FREE_LEAGUE_LIMIT) leagues at a time, click Follow Unlimited Leagues at the bottom of the screen\n\nTo unfollow a league without deleting its data, swipe left on it and press delete"), animated: true, completion: nil)
             return false
         } else {
             return true
@@ -203,9 +204,9 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                     self.activityIndicator.stopAnimating()
                     if let err = err {
                         print("error pulling league: \(err)")
-                        self.present(createBasicAlert(title: "Error", message: "Unable to join league. Make sure you entered a valid league ID (20 characters) and check your internet connection."), animated: true, completion: nil)
+                        self.present(createBasicAlert(title: "Error", message: "Unable to add league. Make sure you entered a valid league ID (20 characters) and check your internet connection."), animated: true, completion: nil)
                     } else if leagues!.count == 0 {
-                        self.present(createBasicAlert(title: "Error", message: "Unable to join league. Make sure you entered a valid league ID (20 characters) and check your internet connection."), animated: true, completion: nil)
+                        self.present(createBasicAlert(title: "Error", message: "Unable to add league. Make sure you entered a valid league ID (20 characters) and check your internet connection."), animated: true, completion: nil)
                     } else if let league = leagues?[0] {
                         if league.name == "" {
                             self.present(createBasicAlert(title: "League not found", message: "A league with this ID was not found"), animated: true, completion: nil)
@@ -256,7 +257,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let alert = UIAlertController(title: "Are you sure?", message: "This will NOT delete the league or its data, it will just remove it from your joined leagues. If you want to join this league again later, save its ID", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "Are you sure?", message: "This will NOT delete the league or its data, it will just remove it from your followed leagues. If you want to follow this league again later, save its ID", preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
                 alert.dismiss(animated: true, completion: nil)
@@ -281,7 +282,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "Create: Create a new league\n\nJoin: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing in the rest of the app. To view local data (non-league matches), make sure all leagues are deactivated\n\nThe active league is in italics\n\nNote: Leagues require an internet connection to use."), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "Create: Create a new league\n\nAdd: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing in the rest of the app. To view local data (non-league matches), make sure all leagues are deactivated\n\nTo view or edit league info, click on its row in the table. The active league is in italics.\n\nNote: Leagues require an internet connection to use."), animated: true, completion: nil)
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -300,7 +301,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
             if error != nil {
-                self.present(createBasicAlert(title: "Error", message: "Unable to access joined leagues"), animated: true, completion: nil)
+                self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
             } else {
                 self.viewWillAppear(true)
                 self.forcePermissionsReload()
@@ -365,6 +366,68 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func joinUnlimitedLeagues(_ sender: Any) {
-        leaguesPaid = true
+        activityIndicator.startAnimating()
+        IAPManager.shared.startObserving()
+        
+        IAPManager.shared.getProducts { (result) in
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                switch result {
+                case .success(let products):
+                    var product: SKProduct?
+                    for p in products {
+                        if p.productIdentifier == IAP_UNLIMITED_LEAGUES {
+                            product = p
+                        }
+                    }
+                    if product != nil {
+                        self.unlimitedLeaguesAlert(product: product!)
+                    } else {
+                        self.present(createBasicAlert(title: "Error", message: "Could not access in-app purchase."), animated: true)
+                    }
+                case .failure(let error):
+                    self.present(createBasicAlert(title: "Error", message: error.errorDescription ?? ""), animated: true)
+                    IAPManager.shared.stopObserving()
+                }
+            }
+        }
+    }
+    
+    func unlimitedLeaguesAlert(product: SKProduct) {
+        guard let price = IAPManager.shared.getPriceFormatted(for: product) else { return }
+        
+        let alert = UIAlertController(title: "Follow Unlimited Leagues", message: "This one-time purchase for \(price) will allow you to follow unlimited leagues at the same time.\n\nThis does NOT include Cornhole Scorer PRO, which can be purchased in the main Settings tab.\n\nTo restore a previous purchase, click Restore in the main Settings tab.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Buy Now", style: .default, handler: { (action) in
+            if !self.purchase(product: product) {
+                self.present(createBasicAlert(title: "Error", message: "In-App Purchases are not allowed in this device."), animated: true)
+                IAPManager.shared.stopObserving()
+            }
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func purchase(product: SKProduct) -> Bool {
+        if !IAPManager.shared.canMakePayments() {
+            return false
+        } else {
+            activityIndicator.startAnimating()
+            IAPManager.shared.buy(product: product) { (result) in
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    switch result {
+                    case .success(_):
+                        print("success")
+                        self.present(createBasicAlert(title: "Purchase Complete", message: "You can now follow unlimited leagues."), animated: true)
+                        self.joinUnlimitedLeaguesButton.isHidden = true
+                    case .failure(let error):
+                        self.present(createBasicAlert(title: "Error", message: error.localizedDescription), animated: true)
+                    }
+                    IAPManager.shared.stopObserving()
+                }
+            }
+        }
+     
+        return true
     }
 }

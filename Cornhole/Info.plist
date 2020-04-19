@@ -63,6 +63,8 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>The Cornhole Scorer needs the camera to scan QR codes.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CenturyGothic.ttf</string>
@@ -150,7 +152,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>The Cornhole Scorer needs the camera to scan QR codes.</string>
 </dict>
 </plist>

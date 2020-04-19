@@ -322,7 +322,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 if error != nil {
                     self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID())"), animated: true, completion: nil)
                 } else if leagues!.count == 0 {
-                    self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()), it may have been deleted. If you think this is a mistake, note down the ID and try to rejoin."), animated: true, completion: nil)
+                    self.present(createBasicAlert(title: "Error", message: "Unable to pull league \(UserDefaults.getActiveLeagueID()), it may have been deleted. If you think this is a mistake, note down the ID and try to re-add."), animated: true, completion: nil)
                     UserDefaults.removeLeagueID(id: UserDefaults.getActiveLeagueID())
                     CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
                     UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)

@@ -116,7 +116,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             matchView.isHidden = true
         }
         
-        self.matchesTableView.reloadData()
+        matchesTableView.reloadData()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

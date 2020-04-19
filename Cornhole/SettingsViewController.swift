@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import FirebaseUI
+import StoreKit
 
 class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate, DataToSettingsProtocol, UIScrollViewDelegate {
     
@@ -47,6 +48,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScrollView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var faqButton: UIButton!
     
     // background
     @IBOutlet var backgroundImageView: [UIImageView]!
@@ -130,6 +133,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Label[i].font = UIFont(name: systemFont, size: 30)
                 setting2Label[i].font = UIFont(name: systemFont, size: 30)
                 downArrow.font = UIFont(name: systemFont, size: 60)
+                faqButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
                 
             } else if smallDevice() {
                 
@@ -151,6 +155,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Label[i].font = UIFont(name: systemFont, size: 17)
                 setting2Label[i].font = UIFont(name: systemFont, size: 17)
                 downArrow.font = UIFont(name: systemFont, size: 30)
+                faqButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
 
             } else {
                 
@@ -172,6 +177,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 setting1Label[i].font = UIFont(name: systemFont, size: 17)
                 setting2Label[i].font = UIFont(name: systemFont, size: 17)
                 downArrow.font = UIFont(name: systemFont, size: 30)
+                faqButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
                 
             }
         }
@@ -280,6 +286,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     }
     
     func reloadPermissions() {
+        proButton.isHidden = proPaid
+        restoreButton.isHidden = leaguesPaid && proPaid
         var canEdit = false
         if let league = UserDefaults.getActiveLeague() {
             players = league.players
@@ -324,10 +332,99 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     // pro
     
     @IBAction func getPro(_ sender: Any) {
-        proPaid = true
+        activityIndicator.startAnimating()
+        IAPManager.shared.startObserving()
+        
+        IAPManager.shared.getProducts { (result) in
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                switch result {
+                case .success(let products):
+                    var product: SKProduct?
+                    for p in products {
+                        if p.productIdentifier == IAP_PRO {
+                            product = p
+                        }
+                    }
+                    if product != nil {
+                        self.proAlert(product: product!)
+                    } else {
+                        self.present(createBasicAlert(title: "Error", message: "Could not access in-app purchase."), animated: true)
+                    }
+                case .failure(let error):
+                    self.present(createBasicAlert(title: "Error", message: error.errorDescription ?? ""), animated: true)
+                    IAPManager.shared.stopObserving()
+                }
+            }
+        }
+    }
+    
+    func proAlert(product: SKProduct) {
+        guard let price = IAPManager.shared.getPriceFormatted(for: product) else { return }
+        
+        let alert = UIAlertController(title: "Get PRO", message: "This one-time purchase for \(price) will give you access to all current and future PRO features, including custom colors and data exporting.\n\nThis does NOT include unlimited leagues, which can be purchased in the Edit Leagues menu.\n\nTo restore a previous purchase, click Restore.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Buy Now", style: .default, handler: { (action) in
+            if !self.purchase(product: product) {
+                self.present(createBasicAlert(title: "Error", message: "In-App Purchases are not allowed in this device."), animated: true)
+                IAPManager.shared.stopObserving()
+            }
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func purchase(product: SKProduct) -> Bool {
+        if !IAPManager.shared.canMakePayments() {
+            return false
+        } else {
+            activityIndicator.startAnimating()
+            IAPManager.shared.buy(product: product) { (result) in
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    switch result {
+                    case .success(_):
+                        print("success")
+                        self.present(createBasicAlert(title: "Purchase Complete", message: "You can now access PRO features."), animated: true)
+                        self.proButton.isHidden = true
+                    case .failure(let error):
+                        self.present(createBasicAlert(title: "Error", message: error.localizedDescription), animated: true)
+                    }
+                    IAPManager.shared.stopObserving()
+                }
+            }
+        }
+     
+        return true
     }
     
     @IBAction func restore(_ sender: Any) {
+        let alert = UIAlertController(title: "Restore Purchases", message: "This will restore any purchases made by this device's Apple ID. Purchases cannot be restored just from the same Cornhole Scorer account.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Restore", style: .default, handler: { (action) in
+            self.activityIndicator.startAnimating()
+            IAPManager.shared.startObserving()
+            IAPManager.shared.restorePurchases { (result) in
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                 
+                    switch result {
+                    case .success(let success):
+                        if success {
+                            self.present(createBasicAlert(title: "Success", message: "PRO: \(proPaid ? "Purchased" : "Not Purchased")\nUnlimited Leagues: \(leaguesPaid ? "Purchased" : "Not Purchased")"), animated: true)
+                            self.proButton.isHidden = proPaid
+                            self.restoreButton.isHidden = leaguesPaid && proPaid
+                        } else {
+                           self.present(createBasicAlert(title: "Error", message: "Unable to restore purchases"), animated: true)
+                        }
+                        IAPManager.shared.stopObserving()
+                    case .failure(let error):
+                        self.present(createBasicAlert(title: "Error", message: error.localizedDescription), animated: true)
+                        IAPManager.shared.stopObserving()
+                    }
+                }
+            }
+        }))
+        self.present(alert, animated: true)
     }
     
     // login
@@ -376,7 +473,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             updateLeagueSettings()
             performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
         } else {
-            self.present(createBasicAlert(title: "Log In", message: "To create and join leagues, please log in"), animated: true, completion: nil)
+            self.present(createBasicAlert(title: "Log In", message: "To create and add leagues, please log in"), animated: true, completion: nil)
         }
     }
     
@@ -685,6 +782,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                     defaults.set(GameType.rounds.rawValue, forKey: "gameType")
                 }
             }
+        }
+    }
+    
+    @IBAction func openFAQs(_ sender: Any) {
+        if let url = URL(string: "http://alexwongapps.wordpress.com/the-cornhole-scorer/faqs/") {
+            UIApplication.shared.open(url)
         }
     }
     

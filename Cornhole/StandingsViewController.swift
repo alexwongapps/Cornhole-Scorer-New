@@ -66,9 +66,11 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         let thisData = sortedData[indexPath.row]
         let cell = standingsTableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath) as! StandingsViewControllerRowTableViewCell
         
-        cell.rankLabel.font = UIFont(name: systemFont, size: 17)
-        cell.playerLabel.font = UIFont(name: systemFont, size: 17)
-        cell.recordLabel.font = UIFont(name: systemFont, size: 17)
+        let size: CGFloat = bigDevice() ? 30 : 17
+        
+        cell.rankLabel.font = UIFont(name: systemFont, size: size)
+        cell.playerLabel.font = UIFont(name: systemFont, size: size)
+        cell.recordLabel.font = UIFont(name: systemFont, size: size)
         
         cell.rankLabel.text = "\(indexPath.row + 1)."
         cell.playerLabel.text = thisData.key

@@ -16,4 +16,5 @@ target 'Cornhole Scorer' do
   pod 'Charts'
   pod 'Firebase/Analytics'
   pod 'FirebaseUI'
+  pod 'KeychainSwift'
 end

@@ -45,8 +45,12 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         let isEditor = (league?.isEditor(user: Auth.auth().currentUser))!
         
         addButton.isHidden = !isEditor
+        playersDeleteButton.isHidden = !isEditor
+        playersTableView.allowsSelection = isEditor
         editorsLabel.isHidden = !isEditor
         editorsAddButton.isHidden = !isOwner
+        editorsDeleteButton.isHidden = !isOwner
+        editorsTableView.allowsSelection = isOwner
         editorsTableView.isHidden = !isEditor
         deleteLeagueButton.isHidden = !isOwner
     
@@ -348,7 +352,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "Players: Participants in the games (these are not connected to accounts or email addresses)\n\nEditors: Emails of users who can add players or play games for the league\n\nQR: Join this league from another device by scanning this code\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
+        self.present(createBasicAlert(title: "Help", message: "Players: Participants in the games (these are not connected to accounts or email addresses)\n\nEditors: Emails of users who can add players or play games for the league\n\nQR: Add this league from another device by scanning this code\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
     }
     
     @IBAction func generateQR(_ sender: Any) {

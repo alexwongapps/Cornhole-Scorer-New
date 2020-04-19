@@ -24,7 +24,7 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var color: UIColor = UIColor.black
     var customColors: [UIColor] = []
-    let itemsPerRow = 5
+    let itemsPerRow = bigDevice() ? 10 : 5
     let edgeInset: CGFloat = 10
     let colorsBorder: CGFloat = 10
     

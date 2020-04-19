@@ -481,6 +481,13 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     UIActivity.ActivityType.saveToCameraRoll
                 ]
                 self.present(vc, animated: true, completion: nil)
+                if let popover = vc.popoverPresentationController {
+                    if self.portraitView.isHidden {
+                        popover.sourceView = self.optionsButton[1]
+                    } else {
+                        popover.sourceView = self.optionsButton[0]
+                    }
+                }
             } catch {
                 print("Failed to create file")
                 print("\(error)")
@@ -521,6 +528,13 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     UIActivity.ActivityType.saveToCameraRoll
                 ]
                 self.present(vc, animated: true, completion: nil)
+                if let popover = vc.popoverPresentationController {
+                    if self.portraitView.isHidden {
+                        popover.sourceView = self.optionsButton[1]
+                    } else {
+                        popover.sourceView = self.optionsButton[0]
+                    }
+                }
             } catch {
                 print("Failed to create file")
                 print("\(error)")

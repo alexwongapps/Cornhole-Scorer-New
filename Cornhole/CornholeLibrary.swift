@@ -61,8 +61,10 @@ var entryTab: Int = SCOREBOARD_TAB_INDEX
 
 var cachedLeagues: [League] = []
 
-var leaguesPaid = false // todo: IAP
-var proPaid = false // todo: IAP
+var leaguesPaid = false
+var proPaid = false
+let IAP_UNLIMITED_LEAGUES = "com.kidscancode.CornholeScorer.unlimitedleagues"
+let IAP_PRO = "com.kidscancode.CornholeScorer.cornholescorerpro"
 
 class Board {
     var bagsIn: Int
@@ -1557,7 +1559,7 @@ func getCachedLeague(id: String) -> League? {
 
 func deletedLeagueMessage(ids: [String]) -> String {
     if ids.count == 1 {
-        return "Unable to pull league \(ids[0]), it may have been deleted. If you think this is a mistake, note down the ID and try to rejoin."
+        return "Unable to pull league \(ids[0]), it may have been deleted. If you think this is a mistake, note down the ID and try to re-add."
     } else {
         var strs = ""
         for i in 0..<ids.count - 1 {
@@ -1565,7 +1567,7 @@ func deletedLeagueMessage(ids: [String]) -> String {
             strs += ", "
         }
         strs += ids[ids.count - 1]
-        return "Unable to pull leagues \(strs), they may have been deleted. If you think this is a mistake, note down these IDs and try to rejoin."
+        return "Unable to pull leagues \(strs), they may have been deleted. If you think this is a mistake, note down these IDs and try to re-add."
     }
 }
 
