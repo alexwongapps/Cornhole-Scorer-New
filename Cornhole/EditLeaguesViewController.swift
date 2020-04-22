@@ -118,7 +118,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidAppear(animated)
         
         if first30Launch() {
-            help(helpButton!)
+            firstHelp()
         }
     }
     
@@ -158,7 +158,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func joinLeague(_ sender: Any) {
         if canAddLeague() {
-            let alert = UIAlertController(title: "Add League", message: "Enter the league ID or scan its QR code (available in the league settings)", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Add League", message: "Enter the league ID (NOT the league name) or scan its QR code (available in the league settings)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addTextField { (textField) in
                 textField.keyboardType = .default
@@ -281,8 +281,37 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    let helpTitles = ["Create a New League", "Add an Existing League", "Activate/Deactivate Leagues", "View League Info", "Internet"]
+    let helpMessages = ["Click the Create button and enter your league name", "Click the Add button, then either:\n\n1. Enter the league ID (20 characters)\n2. Scan the league QR code", "To view a league in the rest of the app, click the Activate button next to its name\n\nTo view local (non-league) matches, deactivate all leagues", "Click the league's row in the table", "Leagues require an internet connection to use"]
+    
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "Create: Create a new league\n\nAdd: Add a league to view — whether or not you can edit it is determined by the league owner\n\nActivate/Deactivate: Sets which league you are currently viewing/editing in the rest of the app. To view local data (non-league matches), make sure all leagues are deactivated\n\nTo view or edit league info, click on its row in the table. The active league is in italics.\n\nNote: Leagues require an internet connection to use."), animated: true, completion: nil)
+        let alert = UIAlertController()
+        for i in 0..<helpTitles.count {
+            alert.addAction(UIAlertAction(title: accessHelp(index: i)[0], style: .default, handler: { (action) in
+                self.multipleHelp(titles: [self.accessHelp(index: i)[0]], messages: [self.accessHelp(index: i)[1]])
+            }))
+        }
+        self.present(alert, animated: true)
+    }
+    
+    func firstHelp() {
+        multipleHelp(titles: helpTitles, messages: helpMessages)
+    }
+    
+    func multipleHelp(titles: [String], messages: [String]) {
+        let alert = UIAlertController(title: titles[0], message: messages[0], preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: titles.count == 1 ? "Done" : "Next", style: .default, handler: { (action) in
+            if titles.count == 1 {
+                return
+            } else {
+                self.multipleHelp(titles: titles.suffix(titles.count - 1), messages: messages.suffix(messages.count - 1))
+            }
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func accessHelp(index: Int) -> [String] {
+        return [helpTitles[index], helpMessages[index]]
     }
     
     @IBAction func refresh(_ sender: Any) {

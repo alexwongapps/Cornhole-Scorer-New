@@ -42,7 +42,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // alert
     var alert30: UIAlertController?
     let alert30Title = "New in 3.0: Leagues, Colors, and PRO!"
-    let alert30Message = "Introducing Leagues: Leagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\nMore Colors: Click \"Select Color\" before playing to choose from one of 10 bag colors.\n\nCornhole Scorer PRO: Pay once to make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!\n\nNote: Leagues require an internet connection to use."
+    let alert30Message = "\n——— Introducing Leagues ———\nLeagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\n——— More Colors ———\nClick \"Select Color\" before playing to choose from one of 10 bag colors.\n\n——— Cornhole Scorer PRO ———\nPay once to make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!\n\nNote: Leagues require an internet connection to use."
     
     // outlets
     @IBOutlet var selectPlayersLabel: [UILabel]!
@@ -999,8 +999,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
  
     @IBAction func help(_ sender: UIButton) {
         helpState = 1
-        helpView.isHidden = !UIDevice.current.orientation.isLandscape
-        helpViewPortrait.isHidden = UIDevice.current.orientation.isLandscape
+        helpView.isHidden = !gameViewPortrait.isHidden
+        helpViewPortrait.isHidden = gameViewPortrait.isHidden
         
         helpView.layer.mask = nil
         helpViewPortrait.layer.mask = nil
@@ -1238,7 +1238,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func createHoleIPad(inView: UIView, aroundView: UIView) {
         let path = CGMutablePath()
-        path.addRect(CGRect(x: aroundView.frame.origin.x, y: aroundView.frame.origin.y - self.view.safeAreaInsets.top, width: aroundView.frame.width, height: aroundView.frame.height))
+        path.addRect(CGRect(x: aroundView.frame.origin.x, y: aroundView.frame.origin.y, width: aroundView.frame.width, height: aroundView.frame.height))
         path.addRect(CGRect(origin: .zero, size: inView.frame.size))
         
         let maskLayer = CAShapeLayer()

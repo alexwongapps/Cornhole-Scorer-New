@@ -109,7 +109,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidAppear(animated)
         
         if first30Launch() {
-            help(helpButton!)
+            firstHelp()
         }
     }
     
@@ -257,6 +257,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             cell.textLabel!.text = league?.players[indexPath.row]
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.textLabel?.textAlignment = .center
             let selectedIndexPaths = tableView.indexPathsForSelectedRows
             let rowIsSelected = selectedIndexPaths != nil && selectedIndexPaths!.contains(indexPath)
             cell.accessoryType = rowIsSelected ? .checkmark : .none
@@ -277,6 +278,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             cell.textLabel?.text = league?.editorEmails[indexPath.row]
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.textLabel?.textAlignment = .center
             let selectedIndexPaths = tableView.indexPathsForSelectedRows
             let rowIsSelected = selectedIndexPaths != nil && selectedIndexPaths!.contains(indexPath)
             cell.accessoryType = rowIsSelected ? .checkmark : .none
@@ -351,8 +353,37 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         self.present(alert, animated: true, completion: nil)
     }
     
+    let helpTitles = ["Players", "Editors", "QR Code", "Permissions", "Delete League"]
+    let helpMessages = ["Participants in the games (these are not connected to accounts or email addresses)", "Emails or IDs of users who can add players or play games for the league", "Add this league from another device by scanning this code", "Only the owner (league creator) can add/delete editors\n\nOnly editors can add/delete players and play/delete matches", "Deletes the league and all of its data permanently\n\nThis cannot be undone"]
+    
     @IBAction func help(_ sender: Any) {
-        self.present(createBasicAlert(title: "Help", message: "Players: Participants in the games (these are not connected to accounts or email addresses)\n\nEditors: Emails of users who can add players or play games for the league\n\nQR: Add this league from another device by scanning this code\n\nOnly the owner (league creator) can add/delete editors"), animated: true, completion: nil)
+        let alert = UIAlertController()
+        for i in 0..<helpTitles.count {
+            alert.addAction(UIAlertAction(title: accessHelp(index: i)[0], style: .default, handler: { (action) in
+                self.multipleHelp(titles: [self.accessHelp(index: i)[0]], messages: [self.accessHelp(index: i)[1]])
+            }))
+        }
+        self.present(alert, animated: true)
+    }
+    
+    func firstHelp() {
+        multipleHelp(titles: helpTitles, messages: helpMessages)
+    }
+    
+    func multipleHelp(titles: [String], messages: [String]) {
+        let alert = UIAlertController(title: titles[0], message: messages[0], preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: titles.count == 1 ? "Done" : "Next", style: .default, handler: { (action) in
+            if titles.count == 1 {
+                return
+            } else {
+                self.multipleHelp(titles: titles.suffix(titles.count - 1), messages: messages.suffix(messages.count - 1))
+            }
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func accessHelp(index: Int) -> [String] {
+        return [helpTitles[index], helpMessages[index]]
     }
     
     @IBAction func generateQR(_ sender: Any) {
