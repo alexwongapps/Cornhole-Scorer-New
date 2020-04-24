@@ -292,10 +292,15 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             }))
         }
         self.present(alert, animated: true)
+        
+        // ipad support
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = helpButton
+        }
     }
     
     func firstHelp() {
-        multipleHelp(titles: helpTitles, messages: helpMessages)
+        multipleHelp(titles: ["Help"] + helpTitles, messages: ["Click Next to learn how to use leagues!"] + helpMessages)
     }
     
     func multipleHelp(titles: [String], messages: [String]) {
@@ -376,6 +381,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             let controller = segue.destination as! LeagueDetailViewController
             controller.title = selectedLeague!.name
             controller.league = selectedLeague
+            controller.delegate = delegate
         case "qrScanSegue":
             let controller = segue.destination as! QRScanViewController
             controller.delegate = self

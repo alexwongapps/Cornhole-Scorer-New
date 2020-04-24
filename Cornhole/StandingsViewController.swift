@@ -74,7 +74,12 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         cell.rankLabel.text = "\(indexPath.row + 1)."
         cell.playerLabel.text = thisData.key
-        cell.recordLabel.text = "\(Int(thisData.value[0]))–\(Int(thisData.value[1]))"
+        cell.recordLabel.text = "\(Int(thisData.value[0])) – \(Int(thisData.value[1]))"
+        
+        cell.rankLabel.adjustsFontSizeToFitWidth = true
+        cell.playerLabel.adjustsFontSizeToFitWidth = true
+        cell.recordLabel.adjustsFontSizeToFitWidth = true
+        
         return cell
     }
 }

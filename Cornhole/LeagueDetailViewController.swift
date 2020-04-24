@@ -13,6 +13,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
 
     var league: League?
     
+    var delegate: DataToSettingsProtocol? = nil
+    
     @IBOutlet weak var playersTableView: UITableView!
     @IBOutlet weak var editorsTableView: UITableView!
     @IBOutlet weak var qrButton: UIButton!
@@ -343,6 +345,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             alert.dismiss(animated: true, completion: nil)
             
             CornholeFirestore.deleteLeague(id: self.league!.firebaseID)
+            self.forcePermissionsReload()
             _ = self.navigationController?.popViewController(animated: true)
         }))
         
@@ -351,6 +354,12 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func forcePermissionsReload() {
+        if self.delegate != nil {
+            self.delegate?.settingsReloadPermissions()
+        }
     }
     
     let helpTitles = ["Players", "Editors", "QR Code", "Permissions", "Delete League"]
@@ -364,10 +373,15 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             }))
         }
         self.present(alert, animated: true)
+        
+        // ipad support
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = helpButton
+        }
     }
     
     func firstHelp() {
-        multipleHelp(titles: helpTitles, messages: helpMessages)
+        multipleHelp(titles: ["League Help"] + helpTitles, messages: ["Click next to learn how to edit a league!"] + helpMessages)
     }
     
     func multipleHelp(titles: [String], messages: [String]) {

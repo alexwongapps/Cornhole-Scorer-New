@@ -41,12 +41,12 @@ class CustomColorViewController: UIViewController {
         
         if bigDevice() {
             customColorLabel.font = UIFont(name: systemFont, size: 60)
-            rLabel.font = UIFont(name: systemFont, size: 60)
-            gLabel.font = UIFont(name: systemFont, size: 60)
-            bLabel.font = UIFont(name: systemFont, size: 60)
-            rNumber.font = UIFont(name: systemFont, size: 60)
-            gNumber.font = UIFont(name: systemFont, size: 60)
-            bNumber.font = UIFont(name: systemFont, size: 60)
+            rLabel.font = UIFont(name: systemFont, size: 40)
+            gLabel.font = UIFont(name: systemFont, size: 40)
+            bLabel.font = UIFont(name: systemFont, size: 40)
+            rNumber.font = UIFont(name: systemFont, size: 40)
+            gNumber.font = UIFont(name: systemFont, size: 40)
+            bNumber.font = UIFont(name: systemFont, size: 40)
             doneButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else {
             customColorLabel.font = UIFont(name: systemFont, size: 30)
@@ -71,6 +71,10 @@ class CustomColorViewController: UIViewController {
         gSlider.value = Float(g)
         bSlider.value = Float(b)
         
+        rNumber.text = "\(Int(rSlider.value * 255))"
+        gNumber.text = "\(Int(gSlider.value * 255))"
+        bNumber.text = "\(Int(bSlider.value * 255))"
+        
         colorView.layer.masksToBounds = true
         colorView.layer.cornerRadius = colorView.bounds.width / 2
         colorView.backgroundColor = defaultColor
@@ -78,6 +82,10 @@ class CustomColorViewController: UIViewController {
 
     @IBAction func colorChanged(_ sender: Any) {
         colorView.backgroundColor = UIColor(red: CGFloat(rSlider.value), green: CGFloat(gSlider.value), blue: CGFloat(bSlider.value), alpha: 1)
+        
+        rNumber.text = "\(Int(rSlider.value * 255))"
+        gNumber.text = "\(Int(gSlider.value * 255))"
+        bNumber.text = "\(Int(bSlider.value * 255))"
     }
     
     @IBAction func saveColor(_ sender: Any) {

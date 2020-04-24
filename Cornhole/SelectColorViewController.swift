@@ -61,6 +61,15 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
         
         presetsCollectionView.collectionViewLayout = layout
         
+        let layout2 = UICollectionViewFlowLayout()
+        layout2.sectionInset = UIEdgeInsets(top: edgeInset, left: edgeInset, bottom: edgeInset, right: edgeInset)
+        layout2.itemSize = CGSize(width: cellSize, height: cellSize)
+        
+        layout2.minimumInteritemSpacing = colorsBorder
+        layout2.minimumLineSpacing = colorsBorder
+        
+        customsCollectionView.collectionViewLayout = layout2
+        
         customColors = UserDefaults.colorsForKey(key: "customColors")
         
         presetsCollectionView.reloadData()

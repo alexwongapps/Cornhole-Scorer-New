@@ -42,7 +42,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // alert
     var alert30: UIAlertController?
     let alert30Title = "New in 3.0: Leagues, Colors, and PRO!"
-    let alert30Message = "\n——— Introducing Leagues ———\nLeagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\n——— More Colors ———\nClick \"Select Color\" before playing to choose from one of 10 bag colors.\n\n——— Cornhole Scorer PRO ———\nPay once to make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!\n\nNote: Leagues require an internet connection to use."
+    let alert30Message = "\n— Introducing Leagues —\nLeagues let you and your friends play and view matches from different devices. For more information, log in at the Settings tab and click \"Edit Leagues\"\n\n— More Colors —\nClick \"Select Color\" before playing to choose from one of 10 bag colors.\n\n— Cornhole Scorer PRO —\nPay once to make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!"
     
     // outlets
     @IBOutlet var selectPlayersLabel: [UILabel]!

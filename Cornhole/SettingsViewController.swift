@@ -246,6 +246,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             editStackView[i].isHidden = true
             doneEditingButton[i].isHidden = true
         }
+        
+        scrollViewDidEndDecelerating(scrollView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -303,6 +305,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             }
         } else {
             updateSettingsFromDefaults()
+            for i in 0..<backgroundImageView.count {
+                settingsLabel[i].text = "Settings"
+            }
             canEdit = true
         }
         for i in 0..<backgroundImageView.count {
@@ -486,7 +491,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     
     @IBAction func resetMatches(_ sender: UIButton) {
         // make sure
-        let alert = UIAlertController(title: "Are you sure?", message: "This will delete all matches and stats", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Are you sure?", message: isLeagueActive() ? "This will delete all matches and stats for this league" :  "This will delete all matches and stats", preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
