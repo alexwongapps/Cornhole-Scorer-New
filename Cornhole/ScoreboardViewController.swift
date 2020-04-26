@@ -1672,7 +1672,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    
     @IBAction func resetAlert(_ sender: UIButton) {
         
         if !matchComplete() {
