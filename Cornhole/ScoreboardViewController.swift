@@ -174,6 +174,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         loginView.isHidden = true
         // animateCloseLogin()
+        
+        Analytics.logEvent("start_game", parameters: [
+            "league_game": isLeagueActive() as NSObject,
+            "singles": oneVOne as NSObject
+        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
