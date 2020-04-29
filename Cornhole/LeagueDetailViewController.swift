@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseAnalytics
 
 class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -343,6 +344,8 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
+            
+            Analytics.logEvent("delete_league", parameters: [:])
             
             CornholeFirestore.deleteLeague(id: self.league!.firebaseID)
             self.forcePermissionsReload()

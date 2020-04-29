@@ -174,11 +174,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         loginView.isHidden = true
         // animateCloseLogin()
-        
-        Analytics.logEvent("start_game", parameters: [
-            "league_game": isLeagueActive() as NSObject,
-            "singles": oneVOne as NSObject
-        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1471,6 +1466,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // check for win
         if matchComplete() {
+            
+            Analytics.logEvent("finish_game", parameters: [
+                "league_game": isLeagueActive() as NSObject,
+                "singles": oneVOne as NSObject,
+                "tracking_stats": trackingStats as NSObject
+            ])
             
             // reviews
             

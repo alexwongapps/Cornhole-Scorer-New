@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import FirebaseAnalytics
 
 class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -488,6 +489,11 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                         popover.sourceView = self.optionsButton[0]
                     }
                 }
+                
+                // todo: test
+                Analytics.logEvent("export_data", parameters: [
+                    "sort_type": "match" as NSObject
+                ])
             } catch {
                 print("Failed to create file")
                 print("\(error)")
@@ -535,6 +541,10 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                         popover.sourceView = self.optionsButton[0]
                     }
                 }
+                
+                Analytics.logEvent("export_data", parameters: [
+                    "sort_type": "player" as NSObject
+                ])
             } catch {
                 print("Failed to create file")
                 print("\(error)")

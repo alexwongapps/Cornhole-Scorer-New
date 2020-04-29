@@ -24,12 +24,14 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var matchListLabel: UILabel!
     @IBOutlet weak var matchesTableView: UITableView!
     @IBOutlet weak var matchInfoTableView: UITableView!
+    @IBOutlet weak var addMatchesToLeagueButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var shareMatchesButton: UIButton!
     @IBOutlet weak var deleteMatchesButton: UIButton!
     @IBOutlet weak var matchView: UIView!
     @IBOutlet weak var matchInfoLabel: UILabel!
     @IBOutlet weak var roundsLabel: UILabel!
+    @IBOutlet weak var addToLeagueButton: UIButton!
     @IBOutlet weak var editPlayersButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
@@ -63,18 +65,21 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if bigDevice() {
             matchListLabel.font = UIFont(name: systemFont, size: 60)
             roundsLabel.font = UIFont(name: systemFont, size: 30)
+            addMatchesToLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             editButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             deleteMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            addToLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-            
         } else {
             matchListLabel.font = UIFont(name: systemFont, size: 30)
             roundsLabel.font = UIFont(name: systemFont, size: 20)
+            addMatchesToLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             deleteMatchesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            addToLeagueButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             editPlayersButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             shareButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
@@ -86,6 +91,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         matchInfoLabel.adjustsFontSizeToFitWidth = true
         matchInfoLabel.baselineAdjustment = .alignCenters
         backButton.titleLabel?.textAlignment = .right
+        addMatchesToLeagueButton.isHidden = true
         deleteMatchesButton.isHidden = true
     }
     
@@ -98,7 +104,9 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             refreshButton.isHidden = true
             editButton.isHidden = false
             editPlayersButton.isHidden = false
+            addToLeagueButton.isHidden = false
         } else { // league
+            addToLeagueButton.isHidden = true
             shareButton.isHidden = true
             refreshButton.isHidden = false
             if let league = UserDefaults.getActiveLeague() {
@@ -294,6 +302,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             matchesTableView.cellForRow(at: IndexPath(row: i, section: 0))!.accessoryType = .none
         }
         editMode = !editMode
+        addMatchesToLeagueButton.isHidden = !editMode || isLeagueActive()
         shareMatchesButton.isHidden = true // todo: this
         deleteMatchesButton.isHidden = !editMode
         if editMode {
@@ -398,6 +407,108 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             controller.delegate = self
         default:
             break
+        }
+    }
+    
+    // add to league
+    @IBAction func addMatchToLeague(_ sender: Any) {
+        if let user = Auth.auth().currentUser {
+            activityIndicator.startAnimating()
+            CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
+                self.activityIndicator.stopAnimating()
+                if error != nil {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
+                }
+                if let ids = unables {
+                    if ids.count > 0 {
+                        self.present(createBasicAlert(title: "Error", message: deletedLeagueMessage(ids: ids)), animated: true, completion: nil)
+                        for id in ids {
+                            UserDefaults.removeLeagueID(id: id)
+                        }
+                        CornholeFirestore.setLeagues(user: user)
+                    }
+                }
+                if cachedLeagues.count == 0 {
+                    self.present(createBasicAlert(title: "No Leagues Added", message: "Create or add a league from the Edit Leagues menu"), animated: true)
+                } else {
+                    let alert = UIAlertController(title: "Select League", message: "Don't see a league? You may not be an editor for it", preferredStyle: .alert)
+                    for league in cachedLeagues {
+                        if league.isEditor(user: user) {
+                            alert.addAction(UIAlertAction(title: league.name, style: .default, handler: { (action) in
+                                CornholeFirestore.addMatchToLeague(leagueID: league.firebaseID, match: self.currentMatch!)
+                            }))
+                        }
+                    }
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                    
+                    // ipad support
+                    if let popover = alert.popoverPresentationController {
+                        popover.sourceView = self.addToLeagueButton
+                    }
+                }
+            }
+        } else {
+            self.present(createBasicAlert(title: "Not Logged In", message: "Log in from the Settings tab to add this match to a league"), animated: true)
+        }
+    }
+    
+    @IBAction func addMatchesToLeague(_ sender: Any) {
+        let selectedRows = matchesTableView.indexPathsForSelectedRows
+        if let rs = selectedRows {
+            addLeagueMatches(at: rs)
+        } else {
+            self.present(createBasicAlert(title: "No Matches Selected", message: "Select the matches to be added"), animated: true)
+        }
+        editMatches(editButton!)
+    }
+    
+    func addLeagueMatches(at: [IndexPath]) {
+        if let user = Auth.auth().currentUser {
+            activityIndicator.startAnimating()
+            CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
+                self.activityIndicator.stopAnimating()
+                if error != nil {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
+                }
+                if let ids = unables {
+                    if ids.count > 0 {
+                        self.present(createBasicAlert(title: "Error", message: deletedLeagueMessage(ids: ids)), animated: true, completion: nil)
+                        for id in ids {
+                            UserDefaults.removeLeagueID(id: id)
+                        }
+                        CornholeFirestore.setLeagues(user: user)
+                    }
+                }
+                if cachedLeagues.count == 0 {
+                    self.present(createBasicAlert(title: "No Leagues Added", message: "Create or add a league from the Edit Leagues menu"), animated: true)
+                } else {
+                    let alert = UIAlertController(title: "Select League", message: "Don't see a league? You may not be an editor for it", preferredStyle: .alert)
+                    for league in cachedLeagues {
+                        if league.isEditor(user: user) {
+                            alert.addAction(UIAlertAction(title: league.name, style: .default, handler: { (action) in
+
+                                // collect matches
+                                var toAdd = [Match]()
+                                for indexPath in at {
+                                    toAdd.append(self.matches[indexPath.row])
+                                }
+                                
+                                CornholeFirestore.addMatchesToLeague(leagueID: league.firebaseID, matches: toAdd)
+                            }))
+                        }
+                    }
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                    
+                    // ipad support
+                    if let popover = alert.popoverPresentationController {
+                        popover.sourceView = self.editButton
+                    }
+                }
+            }
+        } else {
+            self.present(createBasicAlert(title: "Not Logged In", message: "Log in from the Settings tab to add this match to a league"), animated: true)
         }
     }
 }

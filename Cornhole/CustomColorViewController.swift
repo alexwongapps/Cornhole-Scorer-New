@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class CustomColorViewController: UIViewController {
 
@@ -98,6 +99,9 @@ class CustomColorViewController: UIViewController {
         var customs = UserDefaults.colorsForKey(key: "customColors")
         customs.insert(newColor, at: 0)
         UserDefaults.setColors(colors: customs, forKey: "customColors")
+        
+        // todo: test
+        Analytics.logEvent("new_custom_color", parameters: [:])
         
         controller?.viewDidLoad()
         dismiss(animated: true, completion: nil)

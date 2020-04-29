@@ -1146,6 +1146,14 @@ class CornholeFirestore {
         }
     }
     
+    static func addMatchesToLeague(leagueID: String, matches: [Match]) {
+        let db = Firestore.firestore()
+        if let league = getCachedLeague(id: leagueID) {
+            league.matches.append(contentsOf: matches)
+            db.collection("leagues").document(leagueID).updateData(getDataFromMatches(matches: league.matches))
+        }
+    }
+    
     static func setLeagueMatches(leagueID: String, matches: [Match]) {
         let db = Firestore.firestore()
         if let league = getCachedLeague(id: leagueID) {

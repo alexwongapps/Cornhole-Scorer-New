@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import AVFoundation
 import StoreKit
+import FirebaseAnalytics
 
 let FREE_LEAGUE_LIMIT = 3
 
@@ -138,6 +139,9 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                  alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
                      let textField = alert?.textFields![0]
                      if textField?.text != "" {
+                        
+                         Analytics.logEvent("create_league", parameters: [:])
+                        
                          let newLeague = League(name: textField!.text!, owner: user)
                          self.leagues.append(newLeague)
                          self.leaguesTableView.reloadData()
