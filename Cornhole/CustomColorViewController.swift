@@ -100,8 +100,11 @@ class CustomColorViewController: UIViewController {
         customs.insert(newColor, at: 0)
         UserDefaults.setColors(colors: customs, forKey: "customColors")
         
-        // todo: test
-        Analytics.logEvent("new_custom_color", parameters: [:])
+        Analytics.logEvent("new_custom_color", parameters: [
+            "red": r as NSObject,
+            "green": g as NSObject,
+            "blue": b as NSObject
+        ])
         
         controller?.viewDidLoad()
         dismiss(animated: true, completion: nil)

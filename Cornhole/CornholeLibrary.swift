@@ -22,28 +22,28 @@ let WINNING_SCORE: Int = 21
 
 let colorKeys = [
     UIColor.red,
-    UIColor(red: 0.9, green: 0.45, blue: 0, alpha: 1),
-    UIColor(red: 0.5, green: 0.5, blue: 0, alpha: 1),
-    UIColor(red: 0, green: 0.6, blue: 0.1, alpha: 1),
+    UIColor(red: 230/255, green: 115/255, blue: 0, alpha: 1),
+    UIColor(red: 128/255, green: 128/255, blue: 0, alpha: 1),
+    UIColor(red: 0, green: 0.6, blue: 26/255, alpha: 1),
     UIColor.blue,
-    UIColor.purple,
-    UIColor(red: 1, green: 0.08, blue: 0.58, alpha: 1),
-    UIColor(red: 0.4, green: 0.26, blue: 0.13, alpha: 1),
-    UIColor.darkGray,
-    UIColor.black
+    UIColor(red: 128/255, green: 0, blue: 128/255, alpha: 1),
+    UIColor(red: 1, green: 20/255, blue: 148/255, alpha: 1),
+    UIColor(red: 0.4, green: 66/255, blue: 33/255, alpha: 1),
+    UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1),
+    UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 ]
 
 let COLORS = [
     UIColor.red: "Red",
-    UIColor(red: 0.9, green: 0.45, blue: 0, alpha: 1): "Orange",
-    UIColor(red: 0.5, green: 0.5, blue: 0, alpha: 1): "Yellow",
-    UIColor(red: 0, green: 0.6, blue: 0.1, alpha: 1): "Green",
+    UIColor(red: 230/255, green: 115/255, blue: 0, alpha: 1): "Orange",
+    UIColor(red: 128/255, green: 128/255, blue: 0, alpha: 1): "Yellow",
+    UIColor(red: 0, green: 0.6, blue: 26/255, alpha: 1): "Green",
     UIColor.blue: "Blue",
-    UIColor.purple: "Purple",
-    UIColor(red: 1, green: 0.08, blue: 0.58, alpha: 1): "Pink",
-    UIColor(red: 0.4, green: 0.26, blue: 0.13, alpha: 1): "Brown",
-    UIColor.darkGray: "Gray",
-    UIColor.black: "Black"
+    UIColor(red: 128/255, green: 0, blue: 128/255, alpha: 1): "Purple",
+    UIColor(red: 1, green: 20/255, blue: 148/255, alpha: 1): "Pink",
+    UIColor(red: 0.4, green: 66/255, blue: 33/255, alpha: 1): "Brown",
+    UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1): "Gray",
+    UIColor(red: 0, green: 0, blue: 0, alpha: 1): "Black"
 ]
 
 let systemFont: String = "Century Gothic"
@@ -810,27 +810,12 @@ func getCSVText(matches: [Match]) -> String {
         for r in 0..<thisMatch.rounds.count {
             let thisRound = thisMatch.rounds[r]
             
-            let redString = "\(m + 1),\(r + 1),\(thisRound.redPlayer),Red,\(thisRound.red.bagsIn),\(thisRound.red.bagsOn),\(thisRound.red.bagsOff),\(thisRound.red.score),\(thisRound.redMatchScore),\(thisMatch.getTeamScoreAfterRound(team: Match.RED, round: r + 1))\n"
+            let redString = "\(m + 1),\(r + 1),\(thisRound.redPlayer),\(COLORS[thisMatch.redColor] ?? "Custom"),\(thisRound.red.bagsIn),\(thisRound.red.bagsOn),\(thisRound.red.bagsOff),\(thisRound.red.score),\(thisRound.redMatchScore),\(thisMatch.getTeamScoreAfterRound(team: Match.RED, round: r + 1))\n"
             
-            let blueString = "\(m + 1),\(r + 1),\(thisRound.bluePlayer),Blue,\(thisRound.blue.bagsIn),\(thisRound.blue.bagsOn),\(thisRound.blue.bagsOff),\(thisRound.blue.score),\(thisRound.blueMatchScore),\(thisMatch.getTeamScoreAfterRound(team: Match.BLUE, round: r + 1))\n"
+            let blueString = "\(m + 1),\(r + 1),\(thisRound.bluePlayer),\(COLORS[thisMatch.blueColor] ?? "Custom"),\(thisRound.blue.bagsIn),\(thisRound.blue.bagsOn),\(thisRound.blue.bagsOff),\(thisRound.blue.score),\(thisRound.blueMatchScore),\(thisMatch.getTeamScoreAfterRound(team: Match.BLUE, round: r + 1))\n"
             
-            if thisMatch.redPlayers.count == 1 { // 1v1
-                if r % 2 == 0 { // red first
-                    csvText.append(redString)
-                    csvText.append(blueString)
-                } else { // blue first
-                    csvText.append(blueString)
-                    csvText.append(redString)
-                }
-            } else { // 2v2
-                if r % 4 == 0 || r % 4 == 1 { // red first
-                    csvText.append(redString)
-                    csvText.append(blueString)
-                } else {
-                    csvText.append(blueString)
-                    csvText.append(redString)
-                }
-            }
+            csvText.append(redString)
+            csvText.append(blueString)
         }
     }
     
@@ -1624,17 +1609,33 @@ extension UIColor {
     }
     
     func toHex(alpha: Bool = false) -> String? {
-        guard let components = cgColor.components, components.count >= 3 else {
+        
+        print(cgColor.components!)
+        
+        guard let components = cgColor.components else {
             return nil
         }
+        
+        var r: Float
+        var g: Float
+        var b: Float
+        var a: Float
+        
+        if components.count < 4 {
+            r = Float(components[0])
+            g = Float(components[0])
+            b = Float(components[0])
+            a = Float(components[1])
+        } else {
 
-        let r = Float(components[0])
-        let g = Float(components[1])
-        let b = Float(components[2])
-        var a = Float(1.0)
+            r = Float(components[0])
+            g = Float(components[1])
+            b = Float(components[2])
+            a = Float(1.0)
 
-        if components.count >= 4 {
-            a = Float(components[3])
+            if components.count >= 4 {
+                a = Float(components[3])
+            }
         }
 
         if alpha {
