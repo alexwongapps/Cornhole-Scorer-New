@@ -139,6 +139,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         pickerViewTimes[MONTH] = "\(monthName). \(year)"
         pickerViewTimes[YEAR] = year
+        
+        activityIndicator[0].accessibilityIdentifier = "StatsActivity"
+        activityIndicator[1].accessibilityIdentifier = "StatsActivityP"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -256,9 +259,12 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func options(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Refresh", style: .default, handler: { (action) in
-            self.refresh()
-        }))
+        
+        if isLeagueActive() {
+            alert.addAction(UIAlertAction(title: "Refresh", style: .default, handler: { (action) in
+                self.refresh()
+            }))
+        }
         
         alert.addAction(UIAlertAction(title: "Export Data", style: .default, handler: { (action) in
             if proPaid {
@@ -490,7 +496,6 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     }
                 }
                 
-                // todo: test
                 Analytics.logEvent("export_data", parameters: [
                     "sort_type": "match" as NSObject
                 ])

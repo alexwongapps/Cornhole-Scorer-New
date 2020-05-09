@@ -20,10 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if CommandLine.arguments.contains("--uitesting") {
-            resetState()
-        }
-        
         // Override point for customization after application launch.
         UserDefaults.standard.register(defaults: [
             "gameType": 0,
@@ -38,6 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ])
         FirebaseApp.configure()
         
+        if CommandLine.arguments.contains("--uitesting") {
+            resetToUIState()
+            return true
+        }
+        
         let keychain = KeychainSwift()
         keychain.accessGroup = "H5H633W272.CornholeScorer"
         if let lP = keychain.getBool("leaguesPaid"), let pP = keychain.getBool("proPaid") {
@@ -48,11 +49,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func resetState() {
+    func resetToUIState() {
         let defaultsName = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: defaultsName)
         coreDataDeleteAll(entity: "Matches")
         coreDataDeleteAll(entity: "Players")
+        UserDefaults.standard.set(true, forKey: "alreadyLaunched")
+        UserDefaults.standard.set(true, forKey: "alreadyLaunched30")
+        UserDefaults.standard.set(true, forKey: "alreadyLaunched30EL")
+        UserDefaults.standard.set(true, forKey: "alreadyLaunched30LD")
+        leaguesPaid = true
+        proPaid = true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

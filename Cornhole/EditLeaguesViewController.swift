@@ -77,6 +77,9 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         joinUnlimitedLeaguesButton.isHidden = leaguesPaid
+        
+        activityIndicator.accessibilityIdentifier = "ELActivity"
+        leaguesTableView.accessibilityIdentifier = "ELTable"
     }
     
     override func viewWillAppear(_ animated: Bool) {

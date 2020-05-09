@@ -246,8 +246,20 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         
-        playersSegmentedControl[0].accessibilityIdentifier = "NumberOfPlayers"
-        playersSegmentedControl[1].accessibilityIdentifier = "NumberOfPlayersP"
+        playersSegmentedControl[0].accessibilityIdentifier = "LoginNumberOfPlayers"
+        playersSegmentedControl[1].accessibilityIdentifier = "LoginNumberOfPlayersP"
+        playerTableView[0].accessibilityIdentifier = "LoginTable"
+        playerTableView[1].accessibilityIdentifier = "LoginTableP"
+        activityIndicator[0].accessibilityIdentifier = "LoginActivity"
+        activityIndicator[1].accessibilityIdentifier = "LoginActivityP"
+        redInStepper[0].accessibilityIdentifier = "GameRedInStepper"
+        redInStepper[1].accessibilityIdentifier = "GameRedInStepperP"
+        redOnStepper[0].accessibilityIdentifier = "GameRedOnStepper"
+        redOnStepper[1].accessibilityIdentifier = "GameRedOnStepperP"
+        blueInStepper[0].accessibilityIdentifier = "GameBlueInStepper"
+        blueInStepper[1].accessibilityIdentifier = "GameBlueInStepperP"
+        blueOnStepper[0].accessibilityIdentifier = "GameBlueOnStepper"
+        blueOnStepper[1].accessibilityIdentifier = "GameBlueOnStepperP"
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

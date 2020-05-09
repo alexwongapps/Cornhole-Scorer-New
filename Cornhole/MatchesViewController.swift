@@ -93,6 +93,10 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         backButton.titleLabel?.textAlignment = .right
         addMatchesToLeagueButton.isHidden = true
         deleteMatchesButton.isHidden = true
+        
+        matchesTableView.accessibilityIdentifier = "ListTable"
+        matchInfoTableView.accessibilityIdentifier = "InfoTable"
+        activityIndicator.accessibilityIdentifier = "ListActivity"
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -74,6 +74,9 @@ class SelectColorViewController: UIViewController, UICollectionViewDelegate, UIC
         
         presetsCollectionView.reloadData()
         customsCollectionView.reloadData()
+        
+        presetsCollectionView.accessibilityIdentifier = "SCPresets"
+        customsCollectionView.accessibilityIdentifier = "SCCustoms"
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

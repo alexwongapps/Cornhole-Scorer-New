@@ -12,12 +12,17 @@
 		<key>Cornhole Scorer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Cornhole.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>CornholeUITests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>43</integer>
 		</dict>
 		<key>CornholeUnitTests.xcscheme_^#shared#^_</key>
 		<dict>

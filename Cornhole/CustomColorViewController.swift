@@ -103,7 +103,8 @@ class CustomColorViewController: UIViewController {
         Analytics.logEvent("new_custom_color", parameters: [
             "red": r as NSObject,
             "green": g as NSObject,
-            "blue": b as NSObject
+            "blue": b as NSObject,
+            "hex": newColor.toHex()! as NSObject
         ])
         
         controller?.viewDidLoad()

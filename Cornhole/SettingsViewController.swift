@@ -195,6 +195,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         }
         
         reloadPermissions()
+        
+        activityIndicator.accessibilityIdentifier = "SetTabActivity"
+        scrollView.accessibilityIdentifier = "SetTabScroll"
+        setting1Stepper[1].accessibilityIdentifier = "SetTabS1Stepper"
+        setting2Stepper[1].accessibilityIdentifier = "SetTabS2Stepper"
     }
     
     override func viewWillAppear(_ animated: Bool) {

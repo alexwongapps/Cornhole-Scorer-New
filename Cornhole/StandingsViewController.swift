@@ -38,6 +38,8 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
             standingsLabel.font = UIFont(name: systemFont, size: 30)
             backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
+        
+        standingsTableView.accessibilityIdentifier = "StandingsTable"
     }
 
     @IBAction func back(_ sender: Any) {

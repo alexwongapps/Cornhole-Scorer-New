@@ -66,6 +66,11 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         for i in 0..<editorsTableView.numberOfRows(inSection: 0) {
             editorsTableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
         }
+        
+        activityIndicator.accessibilityIdentifier = "LDActivity"
+        playersTableView.accessibilityIdentifier = "LDPlayersTable"
+        editorsTableView.accessibilityIdentifier = "LDEditorsTable"
+        navigationController?.navigationBar.items![0].backBarButtonItem?.accessibilityIdentifier = "LDBack"
     }
     
     override func viewWillAppear(_ animated: Bool) {
