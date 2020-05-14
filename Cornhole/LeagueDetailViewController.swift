@@ -186,10 +186,10 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func addEditor(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Editor(s)", message: "Enter the editors' emails or IDs (found in the Settings menu above the Edit Leagues button), separated by \(CornholeFirestore.DELIMITER_NAME_PLURAL) (\(CornholeFirestore.DELIMITER))", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add Editor(s)", message: "Enter the editors' emails, usernames, or IDs separated by \(CornholeFirestore.DELIMITER_NAME_PLURAL) (\(CornholeFirestore.DELIMITER))", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addTextField { (textField) in
-            textField.placeholder = "Emails or IDs"
+            textField.placeholder = "Emails, usernames, or IDs"
         }
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
@@ -371,7 +371,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     let helpTitles = ["Players", "Editors", "QR Code", "Permissions", "Delete League"]
-    let helpMessages = ["Participants in the games (these are not connected to accounts or email addresses)", "Emails or IDs of users who can add players or play games for the league", "Add this league from another device by scanning this code", "Only the owner (league creator) can add/delete editors\n\nOnly editors can add/delete players and play/delete matches", "Deletes the league and all of its data permanently\n\nThis cannot be undone"]
+    let helpMessages = ["Participants in the games (these are not connected to accounts or email addresses)", "Emails, usernames, or IDs of users who can add players or play games for the league", "Add this league from another device by scanning this code", "Only the owner (league creator) can add/delete editors\n\nOnly editors can add/delete players and play/delete matches", "Deletes the league and all of its data permanently\n\nThis cannot be undone"]
     
     @IBAction func help(_ sender: Any) {
         let alert = UIAlertController()

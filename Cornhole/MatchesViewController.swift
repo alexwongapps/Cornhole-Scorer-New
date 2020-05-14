@@ -42,6 +42,8 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var matchBackgroundImageView: UIImageView!
     
+    // todo: reorder matches?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -166,10 +168,17 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if tableView.tag == 0 { // in main view
             let match = matches[indexPath.row]
+            let fontSize: CGFloat = bigDevice() ? 25 : 17
             
             let cell = matchesTableView.dequeueReusableCell(withIdentifier: "matchCell", for: indexPath) as! MatchesViewControllerMatchTableViewCell
             cell.backgroundColor = .clear
-            cell.matchLabel.attributedText = colorDescription(str: match.description, size: bigDevice() ? 25 : 17, redColor: match.redColor, blueColor: match.blueColor)
+            // let formatter = DateFormatter()
+            // formatter.dateStyle = .short
+            // let dateString = NSMutableAttributedString(string: formatter.string(from: match.startDate) + " ", attributes: [NSAttributedString.Key.font: UIFont(name: systemFont, size: fontSize)!])
+            // dateString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: dateString.length))
+            // dateString.append(colorDescription(str: match.description, size: fontSize, redColor: match.redColor, blueColor: match.blueColor))
+            let dateString = colorDescription(str: match.description, size: fontSize, redColor: match.redColor, blueColor: match.blueColor)
+            cell.matchLabel.attributedText = dateString
             cell.matchLabel.adjustsFontSizeToFitWidth = true
             cell.matchLabel.baselineAdjustment = .alignCenters
             cell.selectionStyle = .none

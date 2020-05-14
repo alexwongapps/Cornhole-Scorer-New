@@ -12,8 +12,6 @@ class CornholeUITests: XCTestCase {
     var app: XCUIApplication!
     static let dummyApp = XCUIApplication()
     
-    // todo: elements inside of table views, like buttons and labels
-    
     private struct Scoreboard {
         struct Game {
             struct Landscape {

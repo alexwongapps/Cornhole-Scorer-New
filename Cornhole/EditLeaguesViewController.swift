@@ -163,6 +163,7 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    // todo: only enter 10 chars
     @IBAction func joinLeague(_ sender: Any) {
         if canAddLeague() {
             let alert = UIAlertController(title: "Add League", message: "Enter the league ID (NOT the league name) or scan its QR code (available in the league settings)", preferredStyle: .alert)

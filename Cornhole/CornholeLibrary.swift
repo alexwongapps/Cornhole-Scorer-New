@@ -552,9 +552,9 @@ class League {
     
     func isEditor(user: User?) -> Bool {
         if let user = user {
-            if let email = user.email {
-                return editorEmails.contains(email) || editorEmails.contains(user.uid)
-            }
+            return (user.email != nil && editorEmails.contains(user.email!))
+                || editorEmails.contains(user.uid)
+                || (UserDefaults.getUsername() != nil && editorEmails.contains(UserDefaults.getUsername()!))
         }
         return false
     }
@@ -962,6 +962,20 @@ extension UserDefaults {
             }
         }
         return colors
+    }
+    
+    static func setUsername(username: String?) {
+        let defaults = UserDefaults.standard
+        if let u = username {
+            defaults.set(u, forKey: "username")
+        } else {
+            defaults.removeObject(forKey: "username")
+        }
+    }
+    
+    static func getUsername() -> String? {
+        let defaults = UserDefaults.standard
+        return defaults.string(forKey: "username")
     }
 }
 
@@ -1533,6 +1547,39 @@ class CornholeFirestore {
             league.firstThrowWinners = firstThrowWinners
             league.gameSettings = settings
             db.collection("leagues").document(league.firebaseID).updateData(["firstThrowWinners": firstThrowWinners, "gameType": settings.gameType.rawValue, "winningScore": settings.winningScore, "bustScore": settings.bustScore, "roundLimit": settings.roundLimit])
+        }
+    }
+    
+    static func getUsername(user: User, completion: @escaping (String?, Error?) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("users").document(user.uid).getDocument { (snapshot, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            if let snapshot = snapshot {
+                if let data = snapshot.data() {
+                    completion(data["username"] as? String, nil)
+                }
+            }
+        }
+    }
+    
+    static func setUsername(user: User, username: String, completion: @escaping (Bool?, Error?) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("users").whereField("username", isEqualTo: username).getDocuments { (snapshot, error) in
+            if error != nil {
+                completion(nil, error)
+            }
+            if let snapshot = snapshot {
+                if snapshot.documents.count == 0 {
+                    db.collection("users").document(user.uid).updateData(["username": username])
+                    completion(true, nil)
+                } else {
+                    completion(false, nil)
+                }
+            }
         }
     }
 }

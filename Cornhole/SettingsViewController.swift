@@ -27,6 +27,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     @IBOutlet weak var proButton: UIButton!
     @IBOutlet weak var restoreButton: UIButton!
     @IBOutlet var loginButton: [UIButton]!
+    @IBOutlet weak var setUsernameButton: UIButton!
     @IBOutlet var editLeaguesButton: [UIButton]!
     @IBOutlet var resetMatchesButton: [UIButton]!
     @IBOutlet var editPlayerNameButton: [UIButton]!
@@ -88,7 +89,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         self.authUI?.providers = providers
         
         if let user = Auth.auth().currentUser {
-            loggedIn(user: user)
+            loggedIn(user: user, fromButton: false)
         }
 
         for i in 0..<backgroundImageView.count {
@@ -253,6 +254,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         }
         
         scrollViewDidEndDecelerating(scrollView)
+        
+        setUsernameButton.isHidden = !isLoggedIn
+        if let username = UserDefaults.getUsername() {
+            setUsernameButton.setTitle(username, for: .normal)
+            setUsernameButton.setTitle(username, for: .selected)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -450,16 +457,28 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     
     func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
         if let user = authDataResult?.user {
-            loggedIn(user: user)
+            loggedIn(user: user, fromButton: true)
         }
     }
     
     // what to do when logged in
-    func loggedIn(user: User) {
+    func loggedIn(user: User, fromButton: Bool) {
         isLoggedIn = true
         for i in 0..<backgroundImageView.count {
             loginButton[i].setTitle("\(user.email ?? user.uid) (Sign out)", for: .normal)
             settingsLabel[i].text = "Settings"
+        }
+        setUsernameButton.isHidden = false
+        if fromButton {
+            activityIndicator.startAnimating()
+            CornholeFirestore.getUsername(user: user) { (username, error) in
+                self.activityIndicator.stopAnimating()
+                if let uname = username {
+                    UserDefaults.setUsername(username: uname)
+                    self.setUsernameButton.setTitle(uname, for: .normal)
+                    self.setUsernameButton.setTitle(uname, for: .selected)
+                }
+            }
         }
         reloadPermissions()
     }
@@ -475,7 +494,54 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
         CornholeFirestore.forceNextPull()
         updateLeagueSettings()
+        setUsernameButton.isHidden = true
+        UserDefaults.setUsername(username: nil)
         reloadPermissions()
+    }
+    
+    @IBAction func setUsername(_ sender: Any) {
+        if !isLoggedIn {
+            self.present(createBasicAlert(title: "Log In", message: "Please log in to set your username"), animated: true)
+        } else {
+            let currentUser = Auth.auth().currentUser!
+            let oldUsername = UserDefaults.getUsername()
+            let alert = UIAlertController(title: "Enter new username", message: "Current username: \(oldUsername == nil ? "none" : oldUsername!)\nAny spaces will be removed.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addTextField { (textField) in
+                textField.autocapitalizationType = .none
+                textField.placeholder = "Username"
+            }
+            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+                let textField = alert?.textFields![0]
+                if let text = textField?.text {
+                    let filtered = text.filter { !$0.isNewline && !$0.isWhitespace }
+                    if filtered.count == 0 {
+                        self.present(createBasicAlert(title: "Error", message: "Please enter a username"), animated: true)
+                    } else {
+                        self.activityIndicator.startAnimating()
+                        CornholeFirestore.setUsername(user: currentUser, username: filtered) { (success, error) in
+                            self.activityIndicator.stopAnimating()
+                            if error != nil {
+                                self.present(createBasicAlert(title: "Error", message: "Unable to access usernames"), animated: true)
+                            } else {
+                                if let success = success {
+                                    if !success {
+                                        self.present(createBasicAlert(title: "Error", message: "Username already taken"), animated: true)
+                                    } else {
+                                        self.present(createBasicAlert(title: "Successful", message: "Username changed to \(filtered). To see updated username on other devices, log out and re-log in on those devices"), animated: true)
+                                        UserDefaults.setUsername(username: filtered)
+                                        self.setUsernameButton.setTitle(filtered, for: .normal)
+                                        self.setUsernameButton.setTitle(filtered, for: .selected)
+                                        self.reloadPermissions()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }))
+            self.present(alert, animated: true)
+        }
     }
     
     @IBAction func editLeagues(_ sender: Any) {
@@ -807,6 +873,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         let scrollContentSizeHeight = scrollView.contentSize.height
         let bottomInset = scrollView.contentInset.bottom
         let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+        // todo: doesn't show up at start
         downArrow.isHidden = scrollView.contentOffset.y + 1 >= scrollViewBottomOffset
     }
 }

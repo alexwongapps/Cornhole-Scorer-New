@@ -3421,6 +3421,15 @@
                                                             <action selector="openFAQs:" destination="OpN-La-XAe" eventType="touchUpInside" id="4Yc-f8-uzy"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lw-uK-wjN">
+                                                        <rect key="frame" x="-25" y="52" width="172" height="34"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <state key="normal" title="Change Username"/>
+                                                        <connections>
+                                                            <action selector="setUsername:" destination="OpN-La-XAe" eventType="touchUpInside" id="VJT-Ge-bYa"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="5pt-oX-QZk" secondAttribute="trailing" constant="10" id="056-I2-SWe"/>
@@ -3565,6 +3574,7 @@
                         <outlet property="proButton" destination="UI9-xV-N7S" id="2Xz-Rf-Ykh"/>
                         <outlet property="restoreButton" destination="Rcb-6T-r9Z" id="MrH-fC-juL"/>
                         <outlet property="scrollView" destination="arC-ac-Ujw" id="8qi-hd-EvL"/>
+                        <outlet property="setUsernameButton" destination="4Lw-uK-wjN" id="K10-tz-njA"/>
                         <outletCollection property="backgroundImageView" destination="cGm-HM-6bE" collectionClass="NSMutableArray" id="NZw-Ul-WFH"/>
                         <outletCollection property="backgroundImageView" destination="QHf-uN-gnO" collectionClass="NSMutableArray" id="6CS-gL-Er3"/>
                         <outletCollection property="settingsLabel" destination="SB0-8k-T8g" collectionClass="NSMutableArray" id="BOr-zR-fd8"/>
