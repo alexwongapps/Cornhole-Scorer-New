@@ -462,7 +462,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         } else {
-            self.present(createBasicAlert(title: "Not Logged In", message: "Log in from the Settings tab to add this match to a league"), animated: true)
+            self.present(createBasicAlert(title: "Not Logged In", message: "Log in from the Leagues tab to add this match to a league"), animated: true)
         }
     }
     
@@ -521,7 +521,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         } else {
-            self.present(createBasicAlert(title: "Not Logged In", message: "Log in from the Settings tab to add this match to a league"), animated: true)
+            self.present(createBasicAlert(title: "Not Logged In", message: "Log in from the Leagues tab to add this match to a league"), animated: true)
         }
     }
 }

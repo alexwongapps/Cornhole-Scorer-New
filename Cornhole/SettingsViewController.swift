@@ -8,10 +8,10 @@
 
 import UIKit
 import CoreData
-import FirebaseUI
 import StoreKit
+import FirebaseAuth
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDelegate, DataToSettingsProtocol, UIScrollViewDelegate {
+class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
     var players: [String] = []
     var editingPlayerIndex: Int = 0 // player currently editing
@@ -19,16 +19,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
     var firstThrowWinners: Bool = false // do winners throw first? (or does it alternate?)
     var gameSettings = GameSettings()
     
-    // firebase
-    var authUI: FUIAuth?
-    var isLoggedIn = false
-    
     @IBOutlet var settingsLabel: [UILabel]!
     @IBOutlet weak var proButton: UIButton!
     @IBOutlet weak var restoreButton: UIButton!
-    @IBOutlet var loginButton: [UIButton]!
-    @IBOutlet weak var setUsernameButton: UIButton!
-    @IBOutlet var editLeaguesButton: [UIButton]!
     @IBOutlet var resetMatchesButton: [UIButton]!
     @IBOutlet var editPlayerNameButton: [UIButton]!
     @IBOutlet var versionLabel: [UILabel]!
@@ -73,24 +66,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         // for update to settings
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        
-        // firebase
-        authUI = FUIAuth.defaultAuthUI()
-        authUI?.delegate = self
-        var providers: [FUIAuthProvider] = [
-            FUIEmailAuth(),
-            FUIGoogleAuth()
-        ]
-        if #available(iOS 13.0, *) {
-            providers.append(FUIOAuth.appleAuthProvider())
-        } else {
-            // Fallback on earlier versions
-        }
-        self.authUI?.providers = providers
-        
-        if let user = Auth.auth().currentUser {
-            loggedIn(user: user, fromButton: false)
-        }
 
         for i in 0..<backgroundImageView.count {
         
@@ -103,8 +78,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             
             settingsLabel[i].adjustsFontSizeToFitWidth = true
             settingsLabel[i].baselineAdjustment = .alignCenters
-            loginButton[i].titleLabel?.adjustsFontSizeToFitWidth = true
-            loginButton[i].titleLabel?.baselineAdjustment = .alignCenters
         
             // version
             
@@ -119,8 +92,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 settingsLabel[i].font = UIFont(name: systemFont, size: 75)
                 proButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
                 restoreButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
-                loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
-                editLeaguesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 editPlayerNameButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 editInstructionsLabel[i].font = UIFont(name: systemFont, size: 25)
@@ -141,8 +112,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 settingsLabel[i].font = UIFont(name: systemFont, size: 30)
                 proButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
                 restoreButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-                loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
-                editLeaguesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 editPlayerNameButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 editInstructionsLabel[i].font = UIFont(name: systemFont, size: 12)
@@ -163,8 +132,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 settingsLabel[i].font = UIFont(name: systemFont, size: 30)
                 proButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
                 restoreButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
-                loginButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
-                editLeaguesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 resetMatchesButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 editPlayerNameButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 editInstructionsLabel[i].font = UIFont(name: systemFont, size: 15)
@@ -194,8 +161,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
                 firstThrowWinners = ftw
             }
         }
-        
-        reloadPermissions()
         
         activityIndicator.accessibilityIdentifier = "SetTabActivity"
         scrollView.accessibilityIdentifier = "SetTabScroll"
@@ -255,11 +220,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
         
         scrollViewDidEndDecelerating(scrollView)
         
-        setUsernameButton.isHidden = !isLoggedIn
-        if let username = UserDefaults.getUsername() {
-            setUsernameButton.setTitle(username, for: .normal)
-            setUsernameButton.setTitle(username, for: .selected)
-        }
+        reloadPermissions()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -442,122 +403,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FUIAuthDele
             }
         }))
         self.present(alert, animated: true)
-    }
-    
-    // login
-    @IBAction func login(_ sender: Any) {
-        if !isLoggedIn {
-            let authViewController = authUI?.authViewController()
-            present(authViewController!, animated: true, completion: nil)
-        } else {
-            try! authUI?.signOut()
-            loggedOut()
-        }
-    }
-    
-    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
-        if let user = authDataResult?.user {
-            loggedIn(user: user, fromButton: true)
-        }
-    }
-    
-    // what to do when logged in
-    func loggedIn(user: User, fromButton: Bool) {
-        isLoggedIn = true
-        for i in 0..<backgroundImageView.count {
-            loginButton[i].setTitle("\(user.email ?? user.uid) (Sign out)", for: .normal)
-            settingsLabel[i].text = "Settings"
-        }
-        setUsernameButton.isHidden = false
-        if fromButton {
-            activityIndicator.startAnimating()
-            CornholeFirestore.getUsername(user: user) { (username, error) in
-                self.activityIndicator.stopAnimating()
-                if let uname = username {
-                    UserDefaults.setUsername(username: uname)
-                    self.setUsernameButton.setTitle(uname, for: .normal)
-                    self.setUsernameButton.setTitle(uname, for: .selected)
-                }
-            }
-        }
-        reloadPermissions()
-    }
-    
-    // what to do when logged out
-    func loggedOut() {
-        isLoggedIn = false
-        for i in 0..<backgroundImageView.count {
-            loginButton[i].setTitle("Log In", for: .normal)
-            settingsLabel[i].text = "Settings"
-        }
-        UserDefaults.setLeagueIDs(ids: [])
-        UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
-        CornholeFirestore.forceNextPull()
-        updateLeagueSettings()
-        setUsernameButton.isHidden = true
-        UserDefaults.setUsername(username: nil)
-        reloadPermissions()
-    }
-    
-    @IBAction func setUsername(_ sender: Any) {
-        if !isLoggedIn {
-            self.present(createBasicAlert(title: "Log In", message: "Please log in to set your username"), animated: true)
-        } else {
-            let currentUser = Auth.auth().currentUser!
-            let oldUsername = UserDefaults.getUsername()
-            let alert = UIAlertController(title: "Enter new username", message: "Current username: \(oldUsername == nil ? "none" : oldUsername!)\nAny spaces will be removed.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addTextField { (textField) in
-                textField.autocapitalizationType = .none
-                textField.placeholder = "Username"
-            }
-            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
-                let textField = alert?.textFields![0]
-                if let text = textField?.text {
-                    let filtered = text.filter { !$0.isNewline && !$0.isWhitespace }
-                    if filtered.count == 0 {
-                        self.present(createBasicAlert(title: "Error", message: "Please enter a username"), animated: true)
-                    } else {
-                        self.activityIndicator.startAnimating()
-                        CornholeFirestore.setUsername(user: currentUser, username: filtered) { (success, error) in
-                            self.activityIndicator.stopAnimating()
-                            if error != nil {
-                                self.present(createBasicAlert(title: "Error", message: "Unable to access usernames"), animated: true)
-                            } else {
-                                if let success = success {
-                                    if !success {
-                                        self.present(createBasicAlert(title: "Error", message: "Username already taken"), animated: true)
-                                    } else {
-                                        self.present(createBasicAlert(title: "Successful", message: "Username changed to \(filtered). To see updated username on other devices, log out and re-log in on those devices"), animated: true)
-                                        UserDefaults.setUsername(username: filtered)
-                                        self.setUsernameButton.setTitle(filtered, for: .normal)
-                                        self.setUsernameButton.setTitle(filtered, for: .selected)
-                                        self.reloadPermissions()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }))
-            self.present(alert, animated: true)
-        }
-    }
-    
-    @IBAction func editLeagues(_ sender: Any) {
-        if isLoggedIn {
-            updateLeagueSettings()
-            performSegue(withIdentifier: "editLeaguesSegue", sender: nil)
-        } else {
-            self.present(createBasicAlert(title: "Log In", message: "To create and add leagues, please log in"), animated: true, completion: nil)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editLeaguesSegue" {
-            let editVC: EditLeaguesViewController = (segue.destination as! UINavigationController).viewControllers.first as! EditLeaguesViewController
-            editVC.delegate = self
-        }
     }
     
     @IBAction func resetMatches(_ sender: UIButton) {

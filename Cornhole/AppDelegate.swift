@@ -41,8 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let keychain = KeychainSwift()
         keychain.accessGroup = "H5H633W272.CornholeScorer"
-        if let lP = keychain.getBool("leaguesPaid"), let pP = keychain.getBool("proPaid") {
+        if let lP = keychain.getBool("leaguesPaid") {
             leaguesPaid = lP
+        }
+        
+        if let pP = keychain.getBool("proPaid") {
             proPaid = pP
         }
         

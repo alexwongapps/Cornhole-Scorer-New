@@ -2623,12 +2623,13 @@
             </objects>
             <point key="canvasLocation" x="1944.8" y="940.64039408866995"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Leagues-->
         <scene sceneID="p24-2t-Rwz">
             <objects>
                 <navigationController id="Mc0-mc-sTz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Leagues" image="Leagues" id="P7R-Ug-BrA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Fs-wq-nau">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -2644,15 +2645,15 @@
             <objects>
                 <viewController id="PqI-1d-WPr" customClass="LeagueDetailViewController" customModule="Cornhole_Scorer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DB9-aY-igI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ut0-oj-mJK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDBackground"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OvW-kH-W2N">
-                                <rect key="frame" x="148" y="76" width="118" height="21.666666666666671"/>
+                                <rect key="frame" x="148" y="108" width="118" height="21.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Getting ID..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOb-DJ-PjY" customClass="KGCopyableLabel" customModule="Cornhole_Scorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="118" height="21.666666666666668"/>
@@ -2664,7 +2665,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEo-nB-7Lc">
-                                <rect key="frame" x="0.0" y="171.66666666666666" width="414" height="303.33333333333337"/>
+                                <rect key="frame" x="0.0" y="203.66666666666666" width="414" height="276.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leaguePlayerCell" id="Snq-b9-jfG">
@@ -2682,7 +2683,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-GE-9kO">
-                                <rect key="frame" x="112.66666666666669" y="117.66666666666669" width="207" height="34"/>
+                                <rect key="frame" x="112.66666666666669" y="149.66666666666666" width="207" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-Xs-eue">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
@@ -2715,10 +2716,10 @@
                                 <variation key="heightClass=regular-widthClass=regular" spacing="40"/>
                             </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pbg-hJ-wbO">
-                                <rect key="frame" x="20" y="76" width="20" height="20"/>
+                                <rect key="frame" x="20" y="108" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSA-lT-tsF">
-                                <rect key="frame" x="344" y="70" width="40" height="34"/>
+                                <rect key="frame" x="344" y="102" width="40" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDHelp"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Help"/>
@@ -2727,7 +2728,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="FkU-K7-ifh">
-                                <rect key="frame" x="112.00000000000001" y="495" width="208.33333333333337" height="34"/>
+                                <rect key="frame" x="112.00000000000001" y="500" width="208.33333333333337" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odF-Nk-1yq">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
@@ -2760,7 +2761,7 @@
                                 <variation key="heightClass=regular-widthClass=regular" spacing="40"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEA-5r-AbN">
-                                <rect key="frame" x="140.66666666666666" y="764" width="132.99999999999997" height="34"/>
+                                <rect key="frame" x="140.66666666666666" y="769" width="132.99999999999997" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDDeleteLeague"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Delete League">
@@ -2771,7 +2772,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="etJ-CO-kfx">
-                                <rect key="frame" x="0.0" y="549" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="554" width="414" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="IlF-IV-Rx9"/>
@@ -2792,7 +2793,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-5B-udp">
-                                <rect key="frame" x="30" y="70" width="30" height="34"/>
+                                <rect key="frame" x="30" y="102" width="30" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDQR"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="QR"/>
@@ -2853,20 +2854,20 @@
             </objects>
             <point key="canvasLocation" x="-3599.1999999999998" y="345.81280788177344"/>
         </scene>
-        <!--Edit Leagues-->
+        <!--Leagues-->
         <scene sceneID="MLh-vt-VIb">
             <objects>
                 <viewController id="gKc-Cx-ueO" customClass="EditLeaguesViewController" customModule="Cornhole_Scorer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4jZ-0p-t5R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fnj-Yy-v0j">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ELBackground"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9o6-ht-qgn">
-                                <rect key="frame" x="0.0" y="130" width="414" height="604"/>
+                                <rect key="frame" x="0.0" y="260" width="414" height="479"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leagueCell" id="4jh-G5-vcT" customClass="EditLeaguesViewControllerLeagueTableViewCell" customModule="Cornhole_Scorer" customModuleProvider="target">
@@ -2918,22 +2919,10 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ASE-Oq-ysH">
-                                <rect key="frame" x="57" y="76" width="300" height="34"/>
+                                <rect key="frame" x="52.666666666666657" y="206" width="309" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-Sk-Pk4">
-                                        <rect key="frame" x="0.0" y="0.0" width="46" height="34"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="ELBack"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Back">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="AI9-dE-Pak"/>
-                                            <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="9J2-AL-z1O"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtk-5F-SDh">
-                                        <rect key="frame" x="56" y="0.0" width="62" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="62" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELCreate"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Create"/>
@@ -2942,7 +2931,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW9-l9-1zG">
-                                        <rect key="frame" x="128" y="0.0" width="40" height="34"/>
+                                        <rect key="frame" x="72" y="0.0" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELAdd"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Add"/>
@@ -2951,7 +2940,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anf-PP-OpM">
-                                        <rect key="frame" x="178" y="0.0" width="72" height="34"/>
+                                        <rect key="frame" x="122" y="0.0" width="72" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELRefresh"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Refresh"/>
@@ -2960,7 +2949,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-wG-778">
-                                        <rect key="frame" x="260" y="0.0" width="40" height="34"/>
+                                        <rect key="frame" x="204.00000000000003" y="0.0" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELHelp"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Help"/>
@@ -2968,19 +2957,43 @@
                                             <action selector="help:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="FYI-hh-6Xm"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfO-qH-z3c">
+                                        <rect key="frame" x="254" y="0.0" width="55" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="About"/>
+                                        <connections>
+                                            <action selector="about:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="h2N-dk-7tV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <variation key="heightClass=regular-widthClass=regular" spacing="20"/>
                             </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="FKC-MO-Wyk">
-                                <rect key="frame" x="20" y="76" width="20" height="20"/>
+                                <rect key="frame" x="20" y="108" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2s-0B-6s5">
-                                <rect key="frame" x="80" y="754" width="254" height="34"/>
+                                <rect key="frame" x="80" y="759" width="254" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ELUnlimited"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Follow Unlimited Leagues"/>
                                 <connections>
                                     <action selector="joinUnlimitedLeagues:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="Es0-1R-yCd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcJ-Ot-eYU">
+                                <rect key="frame" x="20" y="152" width="374" height="34"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <state key="normal" title="Set Username"/>
+                                <connections>
+                                    <action selector="setUsername:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="VrA-b8-41l"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cx-3A-kvY">
+                                <rect key="frame" x="60" y="108" width="294" height="34"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="login:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="bfS-l0-owd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2989,45 +3002,53 @@
                             <constraint firstItem="9o6-ht-qgn" firstAttribute="top" secondItem="ASE-Oq-ysH" secondAttribute="bottom" constant="20" id="6pE-hw-jzU"/>
                             <constraint firstItem="FKC-MO-Wyk" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" constant="20" id="Bsu-TQ-2y1"/>
                             <constraint firstItem="FKC-MO-Wyk" firstAttribute="top" secondItem="bVd-uv-GNa" secondAttribute="top" constant="20" id="CGk-QB-puZ"/>
+                            <constraint firstItem="ASE-Oq-ysH" firstAttribute="top" secondItem="mcJ-Ot-eYU" secondAttribute="bottom" constant="20" id="H9n-u1-B09"/>
                             <constraint firstItem="Fnj-Yy-v0j" firstAttribute="bottom" secondItem="4jZ-0p-t5R" secondAttribute="bottom" id="LOF-WU-Qgw"/>
                             <constraint firstItem="I2s-0B-6s5" firstAttribute="centerX" secondItem="4jZ-0p-t5R" secondAttribute="centerX" id="LZK-Te-Qng"/>
                             <constraint firstItem="bVd-uv-GNa" firstAttribute="trailing" secondItem="9o6-ht-qgn" secondAttribute="trailing" id="OEd-a7-zvZ"/>
                             <constraint firstItem="9o6-ht-qgn" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" id="PXb-XS-mDD"/>
                             <constraint firstItem="Fnj-Yy-v0j" firstAttribute="top" secondItem="4jZ-0p-t5R" secondAttribute="top" id="Pob-jb-2ew"/>
+                            <constraint firstItem="2cx-3A-kvY" firstAttribute="centerX" secondItem="4jZ-0p-t5R" secondAttribute="centerX" id="Q2n-KL-yXB"/>
+                            <constraint firstItem="mcJ-Ot-eYU" firstAttribute="top" secondItem="2cx-3A-kvY" secondAttribute="bottom" constant="10" id="QsW-IJ-SSQ"/>
+                            <constraint firstItem="2cx-3A-kvY" firstAttribute="top" secondItem="bVd-uv-GNa" secondAttribute="top" constant="20" id="SYK-mS-iQ5"/>
                             <constraint firstItem="I2s-0B-6s5" firstAttribute="top" secondItem="9o6-ht-qgn" secondAttribute="bottom" constant="20" id="fl4-a6-xbb"/>
-                            <constraint firstItem="ASE-Oq-ysH" firstAttribute="top" secondItem="bVd-uv-GNa" secondAttribute="top" constant="20" id="l9B-vE-6lK"/>
+                            <constraint firstItem="mcJ-Ot-eYU" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" constant="20" id="gDW-Gr-S3h"/>
                             <constraint firstItem="ASE-Oq-ysH" firstAttribute="centerX" secondItem="4jZ-0p-t5R" secondAttribute="centerX" id="o9W-kn-qiq"/>
                             <constraint firstItem="bVd-uv-GNa" firstAttribute="bottom" secondItem="I2s-0B-6s5" secondAttribute="bottom" constant="20" id="oKe-4R-QSA"/>
                             <constraint firstItem="Fnj-Yy-v0j" firstAttribute="trailing" secondItem="4jZ-0p-t5R" secondAttribute="trailing" id="piQ-BY-oMD"/>
+                            <constraint firstItem="2cx-3A-kvY" firstAttribute="leading" secondItem="FKC-MO-Wyk" secondAttribute="trailing" constant="20" id="qfR-gR-ZEh"/>
+                            <constraint firstItem="mcJ-Ot-eYU" firstAttribute="centerX" secondItem="4jZ-0p-t5R" secondAttribute="centerX" id="sbx-Tl-gFk"/>
                             <constraint firstItem="Fnj-Yy-v0j" firstAttribute="leading" secondItem="4jZ-0p-t5R" secondAttribute="leading" id="xB4-sE-IIz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bVd-uv-GNa"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit Leagues" id="CID-5p-y31"/>
+                    <navigationItem key="navigationItem" title="Leagues" id="CID-5p-y31"/>
                     <connections>
+                        <outlet property="aboutButton" destination="LfO-qH-z3c" id="l3n-ge-nv8"/>
                         <outlet property="activityIndicator" destination="FKC-MO-Wyk" id="qoz-8b-0jd"/>
-                        <outlet property="backButton" destination="fn0-Sk-Pk4" id="8hc-fz-xeX"/>
                         <outlet property="backgroundImageView" destination="Fnj-Yy-v0j" id="VCg-Iy-j0U"/>
                         <outlet property="createButton" destination="gtk-5F-SDh" id="0uo-03-PqW"/>
                         <outlet property="helpButton" destination="2WS-wG-778" id="m8M-gd-KeR"/>
                         <outlet property="joinButton" destination="TW9-l9-1zG" id="hiK-q0-qim"/>
                         <outlet property="joinUnlimitedLeaguesButton" destination="I2s-0B-6s5" id="tfV-ii-dXe"/>
                         <outlet property="leaguesTableView" destination="9o6-ht-qgn" id="xkU-pK-FU1"/>
+                        <outlet property="loginButton" destination="2cx-3A-kvY" id="gN3-r3-Ha7"/>
                         <outlet property="refreshButton" destination="anf-PP-OpM" id="QAt-l9-cRz"/>
+                        <outlet property="setUsernameButton" destination="mcJ-Ot-eYU" id="MKJ-Nb-0CV"/>
                         <segue destination="PqI-1d-WPr" kind="show" identifier="leagueDetailSegue" id="iD4-pi-W9h"/>
                         <segue destination="8Jy-Vw-I4e" kind="show" identifier="qrScanSegue" id="WT5-rJ-M15"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqC-HT-Lv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2791.1999999999998" y="345.81280788177344"/>
+            <point key="canvasLocation" x="-2791.304347826087" y="345.53571428571428"/>
         </scene>
         <!--Scan View Controller-->
         <scene sceneID="xWR-mx-CnV">
             <objects>
                 <viewController id="8Jy-Vw-I4e" customClass="QRScanViewController" customModule="Cornhole_Scorer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmv-W3-zRS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="M3f-HQ-NuB"/>
@@ -3055,24 +3076,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoM-D0-7S3">
-                                <rect key="frame" x="136" y="329" width="66" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                <state key="normal" title="Log In"/>
-                                <connections>
-                                    <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="fDB-05-YJP"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24k-No-btZ">
-                                <rect key="frame" x="107" y="358" width="125" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                <state key="normal" title="Edit Leagues"/>
-                                <connections>
-                                    <action selector="editLeagues:" destination="OpN-La-XAe" eventType="touchUpInside" id="rNY-yU-cwg"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-ua-KDL">
                                 <rect key="frame" x="64" y="102" width="133" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3248,14 +3251,14 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="831"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Tosser:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmO-Z1-Obq">
-                                                        <rect key="frame" x="29.999999999999993" y="152" width="117.33333333333331" height="21.666666666666657"/>
+                                                        <rect key="frame" x="29.999999999999993" y="49" width="117.33333333333331" height="21.666666666666671"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabFT"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="68B-zh-x6C" userLabel="Edit Stack View">
-                                                        <rect key="frame" x="58" y="285.66666666666669" width="259" height="34"/>
+                                                        <rect key="frame" x="58" y="182.66666666666669" width="259" height="34"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqG-A2-KzP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
@@ -3298,7 +3301,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the name you want to edit, change it, then press done" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-xj-AXw">
-                                                        <rect key="frame" x="47.666666666666657" y="237.66666666666669" width="280" height="38"/>
+                                                        <rect key="frame" x="47.666666666666657" y="134.66666666666669" width="280" height="38"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabEPNInstructions"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="280" id="2fk-67-pih">
@@ -3310,7 +3313,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT7-NL-7tq">
-                                                        <rect key="frame" x="166" y="329.66666666666669" width="43" height="31"/>
+                                                        <rect key="frame" x="166" y="226.66666666666669" width="43" height="31"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabEPNDone"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
                                                         <state key="normal" title="Done"/>
@@ -3319,7 +3322,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-xF-sda">
-                                                        <rect key="frame" x="162.33333333333334" y="146" width="76" height="34"/>
+                                                        <rect key="frame" x="162.33333333333334" y="43" width="76" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabFTButton"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Winners"/>
@@ -3328,7 +3331,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVt-rI-fQ7">
-                                                        <rect key="frame" x="30" y="103" width="133" height="34"/>
+                                                        <rect key="frame" x="30" y="0.0" width="133" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabReset"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Reset Matches"/>
@@ -3337,7 +3340,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfl-bU-Lfw">
-                                                        <rect key="frame" x="30" y="188.66666666666669" width="170" height="34"/>
+                                                        <rect key="frame" x="30" y="85.666666666666657" width="170" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabEPN"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Edit Player Name"/>
@@ -3346,14 +3349,14 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuI-dy-AbA">
-                                                        <rect key="frame" x="30.000000000000007" y="375.66666666666663" width="114.66666666666669" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30.000000000000007" y="272.66666666666669" width="114.66666666666669" height="21.666666666666686"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabType"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZL-Tj-sKw">
-                                                        <rect key="frame" x="159.66666666666666" y="369.66666666666663" width="87" height="34"/>
+                                                        <rect key="frame" x="159.66666666666666" y="266.66666666666669" width="87" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabTypeButton"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Standard"/>
@@ -3362,58 +3365,40 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winning Score: 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsR-cO-mwj">
-                                                        <rect key="frame" x="30" y="418.66666666666663" width="170.33333333333334" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30" y="315.66666666666669" width="170.33333333333334" height="21.666666666666686"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabS1"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bust Score: 15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llz-Ie-iVO">
-                                                        <rect key="frame" x="30" y="465.33333333333337" width="134.33333333333334" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30" y="362.33333333333337" width="134.33333333333334" height="21.666666666666686"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabS2"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="HwE-Ii-sOh">
-                                                        <rect key="frame" x="225.33333333333337" y="460" width="94" height="32"/>
+                                                        <rect key="frame" x="225.33333333333337" y="357" width="94" height="32"/>
                                                         <connections>
                                                             <action selector="changeSetting2:" destination="OpN-La-XAe" eventType="valueChanged" id="tv6-IQ-7Az"/>
                                                         </connections>
                                                     </stepper>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlS-fz-hcx">
-                                                        <rect key="frame" x="125" y="54" width="125" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="SetTabEditLeagues"/>
-                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                        <state key="normal" title="Edit Leagues"/>
-                                                        <connections>
-                                                            <action selector="editLeagues:" destination="OpN-La-XAe" eventType="touchUpInside" id="0Wa-El-Kor"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pt-oX-QZk">
-                                                        <rect key="frame" x="10" y="10" width="355" height="34"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="SetTabLogin"/>
-                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                        <state key="normal" title="Log In"/>
-                                                        <connections>
-                                                            <action selector="login:" destination="OpN-La-XAe" eventType="touchUpInside" id="3Yg-my-QU5"/>
-                                                        </connections>
-                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cornhole Scorer Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOx-rr-kik">
-                                                        <rect key="frame" x="30" y="542" width="276.66666666666669" height="21.666666666666629"/>
+                                                        <rect key="frame" x="30" y="439" width="276.66666666666669" height="21.666666666666686"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabVersion"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="21" minimumValue="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5g-iK-b87">
-                                                        <rect key="frame" x="225.33333333333337" y="413.33333333333337" width="94" height="32"/>
+                                                        <rect key="frame" x="225.33333333333337" y="310.33333333333331" width="94" height="32"/>
                                                         <connections>
                                                             <action selector="changeSetting1:" destination="OpN-La-XAe" eventType="valueChanged" id="uC7-Bp-FIN"/>
                                                         </connections>
                                                     </stepper>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vc7-DD-gRF">
-                                                        <rect key="frame" x="30" y="583.66666666666663" width="269" height="34"/>
+                                                        <rect key="frame" x="30" y="480.66666666666663" width="269" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabFAQ"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Frequently Asked Questions"/>
@@ -3421,20 +3406,9 @@
                                                             <action selector="openFAQs:" destination="OpN-La-XAe" eventType="touchUpInside" id="4Yc-f8-uzy"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lw-uK-wjN">
-                                                        <rect key="frame" x="-25" y="52" width="172" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                        <state key="normal" title="Change Username"/>
-                                                        <connections>
-                                                            <action selector="setUsername:" destination="OpN-La-XAe" eventType="touchUpInside" id="VJT-Ge-bYa"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="5pt-oX-QZk" secondAttribute="trailing" constant="10" id="056-I2-SWe"/>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="top" secondItem="68B-zh-x6C" secondAttribute="bottom" constant="10" id="0fJ-oJ-Vge"/>
-                                                    <constraint firstItem="5pt-oX-QZk" firstAttribute="top" secondItem="qbb-dU-PMb" secondAttribute="top" constant="10" id="2Lw-g2-sjw"/>
                                                     <constraint firstItem="4qN-xj-AXw" firstAttribute="top" secondItem="rfl-bU-Lfw" secondAttribute="bottom" constant="15" id="4Yy-zy-Y6e"/>
                                                     <constraint firstItem="Llz-Ie-iVO" firstAttribute="top" secondItem="GsR-cO-mwj" secondAttribute="bottom" constant="25" id="5Q8-sX-cuh"/>
                                                     <constraint firstItem="vc7-DD-gRF" firstAttribute="leading" secondItem="hOx-rr-kik" secondAttribute="leading" id="5R1-Wq-6UQ"/>
@@ -3442,8 +3416,6 @@
                                                     <constraint firstItem="GsR-cO-mwj" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="CYP-hc-RsX"/>
                                                     <constraint firstItem="kmO-Z1-Obq" firstAttribute="top" secondItem="zVt-rI-fQ7" secondAttribute="bottom" constant="15" id="Etk-MW-6UF"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="top" secondItem="4qN-xj-AXw" secondAttribute="bottom" constant="10" id="Hhl-yE-dcK"/>
-                                                    <constraint firstItem="5pt-oX-QZk" firstAttribute="leading" secondItem="qbb-dU-PMb" secondAttribute="leading" constant="10" id="JRb-9m-WlG"/>
-                                                    <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="wlS-fz-hcx" secondAttribute="bottom" constant="15" id="K3m-vU-0lQ"/>
                                                     <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="Oto-6z-o3S"/>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="QGz-0U-y6S"/>
                                                     <constraint firstItem="rfl-bU-Lfw" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="QUR-qf-tz6"/>
@@ -3451,18 +3423,16 @@
                                                     <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerY" secondItem="Llz-Ie-iVO" secondAttribute="centerY" id="SnN-cC-VTr"/>
                                                     <constraint firstItem="hOx-rr-kik" firstAttribute="leading" secondItem="Llz-Ie-iVO" secondAttribute="leading" id="TLZ-ev-ExN"/>
                                                     <constraint firstItem="vc7-DD-gRF" firstAttribute="top" secondItem="hOx-rr-kik" secondAttribute="bottom" constant="20" id="VFX-Q6-nvr"/>
-                                                    <constraint firstItem="wlS-fz-hcx" firstAttribute="top" secondItem="5pt-oX-QZk" secondAttribute="bottom" constant="10" id="Vvi-9g-Ryw"/>
                                                     <constraint firstItem="CZL-Tj-sKw" firstAttribute="centerY" secondItem="yuI-dy-AbA" secondAttribute="centerY" id="WrN-Qa-e55"/>
                                                     <constraint firstItem="Ah7-xF-sda" firstAttribute="centerY" secondItem="kmO-Z1-Obq" secondAttribute="centerY" id="XFY-29-J5F"/>
                                                     <constraint firstItem="Llz-Ie-iVO" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="aZk-ya-fD5"/>
                                                     <constraint firstItem="Ah7-xF-sda" firstAttribute="leading" secondItem="kmO-Z1-Obq" secondAttribute="trailing" constant="15" id="gFr-M7-s6p"/>
-                                                    <constraint firstItem="5pt-oX-QZk" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="j57-hv-Y8Q"/>
                                                     <constraint firstItem="zVt-rI-fQ7" firstAttribute="leading" secondItem="qbb-dU-PMb" secondAttribute="leading" constant="30" id="lcu-4I-Ltp"/>
                                                     <constraint firstItem="rfl-bU-Lfw" firstAttribute="top" secondItem="kmO-Z1-Obq" secondAttribute="bottom" constant="15" id="mMv-4x-4RK"/>
                                                     <constraint firstItem="GsR-cO-mwj" firstAttribute="top" secondItem="CZL-Tj-sKw" secondAttribute="bottom" constant="15" id="mfs-ie-T0W"/>
-                                                    <constraint firstItem="wlS-fz-hcx" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="nJI-gp-nwL"/>
                                                     <constraint firstItem="yuI-dy-AbA" firstAttribute="top" secondItem="GT7-NL-7tq" secondAttribute="bottom" constant="15" id="nMm-cn-SMC"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="oOE-sI-3rv"/>
+                                                    <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="qbb-dU-PMb" secondAttribute="top" id="rf6-Sv-Y7g"/>
                                                     <constraint firstAttribute="height" constant="831" id="tDQ-TO-BOs"/>
                                                     <constraint firstItem="yuI-dy-AbA" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="tEY-8s-Fiu"/>
                                                     <constraint firstItem="g5g-iK-b87" firstAttribute="leading" secondItem="GsR-cO-mwj" secondAttribute="trailing" constant="25" id="tjb-rp-aos"/>
@@ -3574,7 +3544,6 @@
                         <outlet property="proButton" destination="UI9-xV-N7S" id="2Xz-Rf-Ykh"/>
                         <outlet property="restoreButton" destination="Rcb-6T-r9Z" id="MrH-fC-juL"/>
                         <outlet property="scrollView" destination="arC-ac-Ujw" id="8qi-hd-EvL"/>
-                        <outlet property="setUsernameButton" destination="4Lw-uK-wjN" id="K10-tz-njA"/>
                         <outletCollection property="backgroundImageView" destination="cGm-HM-6bE" collectionClass="NSMutableArray" id="NZw-Ul-WFH"/>
                         <outletCollection property="backgroundImageView" destination="QHf-uN-gnO" collectionClass="NSMutableArray" id="6CS-gL-Er3"/>
                         <outletCollection property="settingsLabel" destination="SB0-8k-T8g" collectionClass="NSMutableArray" id="BOr-zR-fd8"/>
@@ -3613,11 +3582,6 @@
                         <outletCollection property="setting2Label" destination="Llz-Ie-iVO" collectionClass="NSMutableArray" id="0Vt-0z-m23"/>
                         <outletCollection property="setting2Stepper" destination="HwE-Ii-sOh" collectionClass="NSMutableArray" id="gIN-Ex-MYa"/>
                         <outletCollection property="setting1Stepper" destination="g5g-iK-b87" collectionClass="NSMutableArray" id="30J-Uj-zpW"/>
-                        <outletCollection property="loginButton" destination="5pt-oX-QZk" collectionClass="NSMutableArray" id="hGl-cC-o9x"/>
-                        <outletCollection property="editLeaguesButton" destination="wlS-fz-hcx" collectionClass="NSMutableArray" id="0cF-oB-2BA"/>
-                        <outletCollection property="editLeaguesButton" destination="24k-No-btZ" collectionClass="NSMutableArray" id="k1s-bA-SVo"/>
-                        <outletCollection property="loginButton" destination="KoM-D0-7S3" collectionClass="NSMutableArray" id="YC2-Bq-sYp"/>
-                        <segue destination="Mc0-mc-sTz" kind="presentation" identifier="editLeaguesSegue" id="p6I-oa-aDE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DlA-x6-ANa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3644,6 +3608,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="uQZ-18-tki" kind="relationship" relationship="viewControllers" id="f9I-vr-cAs"/>
+                        <segue destination="Mc0-mc-sTz" kind="relationship" relationship="viewControllers" id="tXJ-zR-a9Y"/>
                         <segue destination="OpN-La-XAe" kind="relationship" relationship="viewControllers" id="Hvd-Zi-tf2"/>
                     </connections>
                 </tabBarController>
@@ -4220,6 +4185,7 @@
     </scenes>
     <color key="tintColor" red="0.0" green="0.40784313725490196" blue="0.23137254901960785" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
+        <image name="Leagues" width="30" height="30"/>
         <image name="Matches" width="22" height="30"/>
         <image name="Scoreboard" width="16.333333969116211" height="30"/>
         <image name="Settings" width="30" height="30"/>

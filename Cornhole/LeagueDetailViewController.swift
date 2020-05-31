@@ -14,8 +14,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
 
     var league: League?
     
-    var delegate: DataToSettingsProtocol? = nil
-    
     @IBOutlet weak var playersTableView: UITableView!
     @IBOutlet weak var editorsTableView: UITableView!
     @IBOutlet weak var qrButton: UIButton!
@@ -353,7 +351,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
             Analytics.logEvent("delete_league", parameters: [:])
             
             CornholeFirestore.deleteLeague(id: self.league!.firebaseID)
-            self.forcePermissionsReload()
             _ = self.navigationController?.popViewController(animated: true)
         }))
         
@@ -362,12 +359,6 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
         }))
         
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    func forcePermissionsReload() {
-        if self.delegate != nil {
-            self.delegate?.settingsReloadPermissions()
-        }
     }
     
     let helpTitles = ["Players", "Editors", "QR Code", "Permissions", "Delete League"]

@@ -11,30 +11,30 @@ import FirebaseAuth
 import AVFoundation
 import StoreKit
 import FirebaseAnalytics
+import FirebaseUI
 
 let FREE_LEAGUE_LIMIT = 3
 
-protocol DataToSettingsProtocol {
-    func settingsReloadPermissions()
-}
-
-class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVCaptureMetadataOutputObjectsDelegate, ScanViewControllerDelegate {
+class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVCaptureMetadataOutputObjectsDelegate, ScanViewControllerDelegate, FUIAuthDelegate {
 
     var leagues: [League] = []
     
-    var delegate: DataToSettingsProtocol? = nil
+    var authUI: FUIAuth?
+    var isLoggedIn = false
 
     var captureSession: AVCaptureSession?
     var capturePhotoOutput: AVCapturePhotoOutput?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var setUsernameButton: UIButton!
     @IBOutlet weak var leaguesTableView: UITableView!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var aboutButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var joinUnlimitedLeaguesButton: UIButton!
     
@@ -47,36 +47,64 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             // Fallback on earlier versions
         }
         
+        // firebase
+        authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self
+        var providers: [FUIAuthProvider] = [
+            FUIEmailAuth(),
+            FUIGoogleAuth()
+        ]
+        if #available(iOS 13.0, *) {
+            providers.append(FUIOAuth.appleAuthProvider())
+        } else {
+            // Fallback on earlier versions
+        }
+        self.authUI?.providers = providers
+        
+        if let user = Auth.auth().currentUser {
+            loggedIn(user: user, fromButton: false)
+        }
+        
         // Do any additional setup after loading the view.
         backgroundImageView.image = backgroundImage
         
         // devices
         
         if bigDevice() {
-            
-            backButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            loginButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            setUsernameButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
+            aboutButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
             joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
-            backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            loginButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            setUsernameButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            aboutButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
-            backButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            loginButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            setUsernameButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             createButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             helpButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             refreshButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
+            aboutButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
             joinUnlimitedLeaguesButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
         joinUnlimitedLeaguesButton.isHidden = leaguesPaid
+        
+        loginButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        loginButton.titleLabel?.baselineAdjustment = .alignCenters
+        setUsernameButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        setUsernameButton.titleLabel?.baselineAdjustment = .alignCenters
         
         activityIndicator.accessibilityIdentifier = "ELActivity"
         leaguesTableView.accessibilityIdentifier = "ELTable"
@@ -85,36 +113,50 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        var allIDs = [String]()
-        for l in cachedLeagues {
-            allIDs.append(l.firebaseID)
+        if isLoggedIn {
+        
+            var allIDs = [String]()
+            for l in cachedLeagues {
+                allIDs.append(l.firebaseID)
+            }
+            
+            print("cached leagues: \(allIDs)")
+            print("active league: \(!isLeagueActive() ? "NONE" : UserDefaults.getActiveLeagueID())")
+            
+            leagues.removeAll()
+            
+            view.isUserInteractionEnabled = false
+            activityIndicator.startAnimating()
+            CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
+                self.view.isUserInteractionEnabled = true
+                self.activityIndicator.stopAnimating()
+                if error != nil {
+                    self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
+                }
+                if let ids = unables {
+                    if ids.count > 0 {
+                        self.present(createBasicAlert(title: "Error", message: deletedLeagueMessage(ids: ids)), animated: true, completion: nil)
+                        for id in ids {
+                            UserDefaults.removeLeagueID(id: id)
+                        }
+                        CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
+                    }
+                }
+                for league in cachedLeagues {
+                    self.leagues.append(league)
+                }
+                self.leagues = self.leagues.sorted(by: { $0.name < $1.name })
+                self.leaguesTableView.reloadData()
+            }
+        } else {
+            leagues.removeAll()
+            leaguesTableView.reloadData()
         }
         
-        print("cached leagues: \(allIDs)")
-        print("active league: \(!isLeagueActive() ? "NONE" : UserDefaults.getActiveLeagueID())")
-        
-        leagues.removeAll()
-        
-        activityIndicator.startAnimating()
-        CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
-            self.activityIndicator.stopAnimating()
-            if error != nil {
-                self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
-            }
-            if let ids = unables {
-                if ids.count > 0 {
-                    self.present(createBasicAlert(title: "Error", message: deletedLeagueMessage(ids: ids)), animated: true, completion: nil)
-                    for id in ids {
-                        UserDefaults.removeLeagueID(id: id)
-                    }
-                    CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
-                }
-            }
-            for league in cachedLeagues {
-                self.leagues.append(league)
-            }
-            self.leagues = self.leagues.sorted(by: { $0.name < $1.name })
-            self.leaguesTableView.reloadData()
+        setUsernameButton.isHidden = !isLoggedIn
+        if let username = UserDefaults.getUsername() {
+            setUsernameButton.setTitle("Username: \(username)", for: .normal)
+            setUsernameButton.setTitle("Username: \(username)", for: .selected)
         }
     }
     
@@ -126,11 +168,11 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    @IBAction func back(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func createLeague(_ sender: Any) {
+        if !isLoggedIn {
+            self.present(createBasicAlert(title: "Log In", message: "Log in to use leagues!"), animated: true)
+        } else {
+        
         if canAddLeague() {
              if let user = Auth.auth().currentUser {
                  let alert = UIAlertController(title: "Create League", message: "Enter the league name", preferredStyle: .alert)
@@ -152,7 +194,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                          UserDefaults.addLeagueID(id: newLeague.firebaseID)
                          UserDefaults.setActiveLeagueID(id: newLeague.firebaseID)
                          CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
-                         self.forcePermissionsReload()
                          self.openDetail(indexPath: IndexPath(row: self.leagues.count - 1, section: 0))
                      }
                  }))
@@ -161,10 +202,16 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                  self.present(createBasicAlert(title: "Not logged in", message: "Must be logged in to create a league"), animated: true, completion: nil)
             }
         }
+            
+        }
     }
     
     // todo: only enter 10 chars
     @IBAction func joinLeague(_ sender: Any) {
+        if !isLoggedIn {
+            self.present(createBasicAlert(title: "Log In", message: "Log in to use leagues!"), animated: true)
+        } else {
+        
         if canAddLeague() {
             let alert = UIAlertController(title: "Add League", message: "Enter the league ID (NOT the league name) or scan its QR code (available in the league settings)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -184,6 +231,8 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             }))
             
             self.present(alert, animated: true, completion: nil)
+        }
+            
         }
     }
     
@@ -225,7 +274,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                             UserDefaults.setActiveLeagueID(id: league.firebaseID)
                             CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
                             print(cachedLeagues.count)
-                            self.forcePermissionsReload()
                         }
                     }
                 }
@@ -244,18 +292,17 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         cell.nameLabel.adjustsFontSizeToFitWidth = true
         cell.nameLabel.baselineAdjustment = .alignCenters
         cell.makeActiveButton.setTitle(UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? "Deactivate" : "Activate", for: .normal)
-        cell.backgroundColor = .clear
+        cell.backgroundColor = UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? UIColor(red: 255/255, green: 217/255, blue: 179/255, alpha: 1) : .clear
         
         // fonts
-        let fontToUse = UserDefaults.getActiveLeagueID() == cell.league.firebaseID ? systemFontItalic : systemFont
         if bigDevice() {
-            cell.nameLabel.font = UIFont(name: fontToUse, size: 30)
+            cell.nameLabel.font = UIFont(name: systemFont, size: 30)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
         } else if smallDevice() {
-            cell.nameLabel.font = UIFont(name: fontToUse, size: 17)
+            cell.nameLabel.font = UIFont(name: systemFont, size: 17)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         } else {
-            cell.nameLabel.font = UIFont(name: fontToUse, size: 17)
+            cell.nameLabel.font = UIFont(name: systemFont, size: 17)
             cell.makeActiveButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
         }
         
@@ -267,18 +314,23 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             
             let alert = UIAlertController(title: "Are you sure?", message: "This will NOT delete the league or its data, it will just remove it from your followed leagues. If you want to follow this league again later, save its ID", preferredStyle: UIAlertController.Style.alert)
             
+            alert.addTextField { (textField) in
+                textField.text = self.leagues[indexPath.row].firebaseID
+                textField.textAlignment = .center
+            }
+            
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
                 alert.dismiss(animated: true, completion: nil)
                 
                 if self.leagues[indexPath.row].firebaseID == UserDefaults.getActiveLeagueID() {
                     UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
                 }
+                UserDefaults.removeLeagueID(id: self.leagues[indexPath.row].firebaseID)
                 self.leagues.remove(at: indexPath.row)
                 self.leaguesTableView.deleteRows(at: [indexPath], with: .fade)
                 self.leaguesTableView.reloadData()
-                UserDefaults.removeLeagueID(at: indexPath.row)
                 CornholeFirestore.setLeagues(user: Auth.auth().currentUser!)
-                self.forcePermissionsReload()
+                print("IDs: \(UserDefaults.getLeagueIDs())")
             }))
             
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {(action) in
@@ -289,8 +341,8 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    let helpTitles = ["Create a New League", "Add an Existing League", "Activate/Deactivate Leagues", "View League Info", "Internet"]
-    let helpMessages = ["Click the Create button and enter your league name", "Click the Add button, then either:\n\n1. Enter the league ID (20 characters)\n2. Scan the league QR code", "To view a league in the rest of the app, click the Activate button next to its name\n\nTo view local (non-league) matches, deactivate all leagues", "Click the league's row in the table", "Leagues require an internet connection to use"]
+    let helpTitles = ["Create a New League", "Add an Existing League", "Activate/Deactivate Leagues", "View League Info", "Share Games with Friends", "Internet"]
+    let helpMessages = ["Click the Create button and enter your league name", "Click the Add button, then either:\n\n1. Enter the league ID (20 characters)\n2. Scan the league QR code", "To view a league in the rest of the app, click the Activate button next to its name\n\nTo view local (non-league) matches, deactivate all leagues", "Click the league's row in the table", "Have your friends download The Cornhole Scorer and Add your leagues", "Leagues require an internet connection to use"]
     
     @IBAction func help(_ sender: Any) {
         let alert = UIAlertController()
@@ -328,6 +380,10 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func refresh(_ sender: Any) {
+        if !isLoggedIn {
+            self.present(createBasicAlert(title: "Log In", message: "Log in to use leagues!"), animated: true)
+        } else {
+        
         activityIndicator.startAnimating()
         refreshButton.isHidden = true
         CornholeFirestore.pullAndCacheLeagues(force: true) { (error, unables) in
@@ -346,8 +402,9 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
                 self.present(createBasicAlert(title: "Error", message: "Unable to access leagues"), animated: true, completion: nil)
             } else {
                 self.viewWillAppear(true)
-                self.forcePermissionsReload()
             }
+        }
+            
         }
     }
     
@@ -363,13 +420,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             print(UserDefaults.getActiveLeagueID())
         }
         leaguesTableView.reloadData()
-        forcePermissionsReload()
-    }
-    
-    func forcePermissionsReload() {
-        if self.delegate != nil {
-            self.delegate?.settingsReloadPermissions()
-        }
     }
     
     var selectedLeague: League?
@@ -389,7 +439,6 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             let controller = segue.destination as! LeagueDetailViewController
             controller.title = selectedLeague!.name
             controller.league = selectedLeague
-            controller.delegate = delegate
         case "qrScanSegue":
             let controller = segue.destination as! QRScanViewController
             controller.delegate = self
@@ -406,6 +455,10 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
             UserDefaults.standard.set(true, forKey: "alreadyLaunched30EL")
             return true
         }
+    }
+    
+    @IBAction func about(_ sender: Any) {
+        self.present(createBasicAlert(title: "About Leagues", message: "Leagues make it easy to play games and share them with friends! Click Help to learn how to use them."), animated: true)
     }
     
     @IBAction func joinUnlimitedLeagues(_ sender: Any) {
@@ -472,5 +525,98 @@ class EditLeaguesViewController: UIViewController, UITableViewDataSource, UITabl
         }
      
         return true
+    }
+    
+    // login
+    
+    @IBAction func login(_ sender: Any) {
+        if !isLoggedIn {
+            let authViewController = authUI?.authViewController()
+            present(authViewController!, animated: true, completion: nil)
+        } else {
+            try! authUI?.signOut()
+            loggedOut()
+        }
+    }
+    
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        if let user = authDataResult?.user {
+            loggedIn(user: user, fromButton: true)
+        }
+    }
+    
+    // what to do when logged in
+    func loggedIn(user: User, fromButton: Bool) {
+        isLoggedIn = true
+        loginButton.setTitle("\(user.email ?? user.uid) (Sign out)", for: .normal)
+        setUsernameButton.isHidden = false
+        if fromButton {
+            activityIndicator.startAnimating()
+            CornholeFirestore.getUsername(user: user) { (username, error) in
+                self.activityIndicator.stopAnimating()
+                if let uname = username {
+                    UserDefaults.setUsername(username: uname)
+                    self.setUsernameButton.setTitle("Username: \(uname)", for: .normal)
+                    self.setUsernameButton.setTitle("Username: \(uname)", for: .selected)
+                }
+            }
+        }
+        viewWillAppear(true)
+    }
+    
+    // what to do when logged out
+    func loggedOut() {
+        isLoggedIn = false
+        loginButton.setTitle("Log In", for: .normal)
+        UserDefaults.setLeagueIDs(ids: [])
+        UserDefaults.setActiveLeagueID(id: CornholeFirestore.TEST_LEAGUE_ID)
+        CornholeFirestore.forceNextPull()
+        setUsernameButton.isHidden = true
+        UserDefaults.setUsername(username: nil)
+        viewWillAppear(true)
+    }
+    
+    @IBAction func setUsername(_ sender: Any) {
+        if !isLoggedIn {
+            self.present(createBasicAlert(title: "Log In", message: "Please log in to set your username"), animated: true)
+        } else {
+            let currentUser = Auth.auth().currentUser!
+            let oldUsername = UserDefaults.getUsername()
+            let alert = UIAlertController(title: "Enter new username", message: "Current username: \(oldUsername == nil ? "none" : oldUsername!)\nAny spaces and semicolons will be removed.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addTextField { (textField) in
+                textField.autocapitalizationType = .none
+                textField.placeholder = "Username"
+            }
+            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+                let textField = alert?.textFields![0]
+                if let text = textField?.text {
+                    let filtered = text.filter { !$0.isNewline && !$0.isWhitespace && !($0 == ";") }
+                    if filtered.count == 0 {
+                        self.present(createBasicAlert(title: "Error", message: "Please enter a username"), animated: true)
+                    } else {
+                        self.activityIndicator.startAnimating()
+                        CornholeFirestore.setUsername(user: currentUser, username: filtered) { (success, error) in
+                            self.activityIndicator.stopAnimating()
+                            if error != nil {
+                                self.present(createBasicAlert(title: "Error", message: "Unable to access usernames"), animated: true)
+                            } else {
+                                if let success = success {
+                                    if !success {
+                                        self.present(createBasicAlert(title: "Error", message: "Username already taken"), animated: true)
+                                    } else {
+                                        self.present(createBasicAlert(title: "Successful", message: "Username changed to \(filtered). To see updated username on other devices, log out and re-log in on those devices"), animated: true)
+                                        UserDefaults.setUsername(username: filtered)
+                                        self.setUsernameButton.setTitle("Username: \(filtered)", for: .normal)
+                                        self.setUsernameButton.setTitle("Username: \(filtered)", for: .selected)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }))
+            self.present(alert, animated: true)
+        }
     }
 }
