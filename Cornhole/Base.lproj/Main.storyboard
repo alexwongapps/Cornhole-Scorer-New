@@ -591,6 +591,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginBackground"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zF8-eO-cXJ">
+                                        <rect key="frame" x="150" y="776" width="103" height="34"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Ghost: Off"/>
+                                        <connections>
+                                            <action selector="changeGhost:" destination="9pv-A4-QxB" eventType="touchUpInside" id="eTd-dC-8xt"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na7-WR-di5">
                                         <rect key="frame" x="184" y="118" width="135" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginRedChange"/>
@@ -617,7 +625,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tnS-R2-qg9">
-                                        <rect key="frame" x="354" y="150.33333333333331" width="40" height="652.66666666666674"/>
+                                        <rect key="frame" x="354" y="150.33333333333331" width="40" height="625.66666666666674"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerCell" id="ehg-ri-u5X">
@@ -788,15 +796,6 @@
                                             <action selector="hideLogin:" destination="9pv-A4-QxB" eventType="touchUpInside" id="CYR-S9-ujV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZc-aD-XzI">
-                                        <rect key="frame" x="152" y="776" width="175" height="34"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="LoginTracking"/>
-                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                        <state key="normal" title="Tracking Stats: On"/>
-                                        <connections>
-                                            <action selector="changeStatsTracking:" destination="9pv-A4-QxB" eventType="touchUpInside" id="04W-zP-TRu"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnI-61-9Fr">
                                         <rect key="frame" x="20" y="22" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginHelp"/>
@@ -851,6 +850,15 @@
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ByU-V6-mbo">
                                         <rect key="frame" x="306" y="83.666666666666671" width="20" height="20"/>
                                     </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZc-aD-XzI">
+                                        <rect key="frame" x="303" y="776" width="175" height="34"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="LoginTracking"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                        <state key="normal" title="Tracking Stats: On"/>
+                                        <connections>
+                                            <action selector="changeStatsTracking:" destination="9pv-A4-QxB" eventType="touchUpInside" id="04W-zP-TRu"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7y-Pq-30e">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                         <subviews>
@@ -1118,6 +1126,14 @@
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zVT-Z0-xiu">
                                                 <rect key="frame" x="292" y="123.66666666666669" width="20" height="20"/>
                                             </activityIndicatorView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-D3-Z9e">
+                                                <rect key="frame" x="86" y="767" width="103" height="34"/>
+                                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                <state key="normal" title="Ghost: Off"/>
+                                                <connections>
+                                                    <action selector="changeGhost:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Zrq-wc-KGG"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1213,6 +1229,10 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="f2b-Me-F7d" firstAttribute="leading" secondItem="VSk-yw-DTF" secondAttribute="leading" id="w8W-2u-LdV"/>
+                                            <constraint firstItem="FBV-RB-beG" firstAttribute="centerY" secondItem="lM6-D3-Z9e" secondAttribute="centerY" id="wJj-lF-CKX"/>
+                                            <constraint firstItem="FBV-RB-beG" firstAttribute="leading" secondItem="lM6-D3-Z9e" secondAttribute="trailing" constant="20" id="xaY-a8-43p">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
                                             <constraint firstItem="O2e-Pa-IVN" firstAttribute="trailing" secondItem="Huv-TN-b4e" secondAttribute="trailing" id="ylY-U7-ztF"/>
                                         </constraints>
                                     </view>
@@ -1265,6 +1285,7 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                     </constraint>
                                     <constraint firstItem="Rlc-cR-M1Z" firstAttribute="leading" secondItem="nwM-p5-5A1" secondAttribute="trailing" constant="20" id="Ocy-4Z-RKp"/>
+                                    <constraint firstItem="zF8-eO-cXJ" firstAttribute="leading" secondItem="RS1-sW-kPm" secondAttribute="trailing" constant="50" id="QZa-bK-SsK"/>
                                     <constraint firstItem="hPT-Ff-Jf5" firstAttribute="trailing" secondItem="Na7-WR-di5" secondAttribute="trailing" id="SkX-vN-zFm"/>
                                     <constraint firstItem="vJ1-QQ-JOK" firstAttribute="trailing" secondItem="jYw-Ys-hhE" secondAttribute="trailing" id="Tb7-eC-QDz"/>
                                     <constraint firstAttribute="bottom" secondItem="RS1-sW-kPm" secondAttribute="bottom" constant="1" id="Uv1-s8-zh1">
@@ -1275,6 +1296,7 @@
                                     <constraint firstItem="Rlc-cR-M1Z" firstAttribute="centerY" secondItem="nwM-p5-5A1" secondAttribute="centerY" id="WHt-ZN-mxI"/>
                                     <constraint firstItem="dGc-Kc-m1M" firstAttribute="centerY" secondItem="VLO-6X-biU" secondAttribute="centerY" id="WUO-Hr-0ux"/>
                                     <constraint firstAttribute="trailing" secondItem="CnP-ri-RRi" secondAttribute="trailing" id="WcB-QN-NVc"/>
+                                    <constraint firstItem="zF8-eO-cXJ" firstAttribute="centerY" secondItem="RS1-sW-kPm" secondAttribute="centerY" id="a4r-6l-nr0"/>
                                     <constraint firstAttribute="trailing" secondItem="E7y-Pq-30e" secondAttribute="trailing" id="beG-Bo-11f"/>
                                     <constraint firstItem="jYw-Ys-hhE" firstAttribute="leading" secondItem="hPT-Ff-Jf5" secondAttribute="leading" id="cNu-44-NWW"/>
                                     <constraint firstItem="Na7-WR-di5" firstAttribute="centerY" secondItem="rGf-2e-HEn" secondAttribute="centerY" id="cp8-jC-Ibz"/>
@@ -1286,15 +1308,12 @@
                                     <constraint firstItem="im8-w7-zZu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ISr-1L-Y6J" secondAttribute="leading" constant="220" id="eOZ-4q-3tJ"/>
                                     <constraint firstItem="vJ1-QQ-JOK" firstAttribute="leading" secondItem="jYw-Ys-hhE" secondAttribute="leading" id="em0-Fr-ZfA"/>
                                     <constraint firstItem="mD0-UA-cby" firstAttribute="centerX" secondItem="ISr-1L-Y6J" secondAttribute="centerX" id="eos-sQ-C0l"/>
-                                    <constraint firstItem="NZc-aD-XzI" firstAttribute="leading" secondItem="RS1-sW-kPm" secondAttribute="trailing" constant="52" id="eqf-Wc-BOc">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
-                                    </constraint>
                                     <constraint firstItem="vJ1-QQ-JOK" firstAttribute="centerY" secondItem="ihV-Or-Zhb" secondAttribute="centerY" id="ffS-nA-0Im"/>
                                     <constraint firstItem="ihV-Or-Zhb" firstAttribute="trailing" secondItem="S0M-bZ-X54" secondAttribute="trailing" id="fwz-mh-vgL"/>
                                     <constraint firstItem="ihV-Or-Zhb" firstAttribute="leading" secondItem="S0M-bZ-X54" secondAttribute="leading" id="g9F-nk-yBY"/>
                                     <constraint firstItem="E7y-Pq-30e" firstAttribute="top" secondItem="ISr-1L-Y6J" secondAttribute="top" id="gO0-3G-Exe"/>
                                     <constraint firstItem="VgY-i8-Cwd" firstAttribute="leading" secondItem="mD0-UA-cby" secondAttribute="trailing" constant="10" id="ghZ-lq-OCL"/>
-                                    <constraint firstAttribute="bottom" secondItem="tnS-R2-qg9" secondAttribute="bottom" constant="10" id="hkB-fd-RVA">
+                                    <constraint firstItem="NZc-aD-XzI" firstAttribute="top" secondItem="tnS-R2-qg9" secondAttribute="bottom" id="hkB-fd-RVA">
                                         <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="tnS-R2-qg9" secondAttribute="trailing" constant="20" id="igb-Cv-P4s"/>
@@ -1324,6 +1343,7 @@
                                     <constraint firstItem="mD0-UA-cby" firstAttribute="centerY" secondItem="JnI-61-9Fr" secondAttribute="centerY" id="w8O-kj-vRw"/>
                                     <constraint firstItem="S0M-bZ-X54" firstAttribute="trailing" secondItem="yCl-Zx-amY" secondAttribute="trailing" id="x3O-xd-YAi"/>
                                     <constraint firstItem="dGc-Kc-m1M" firstAttribute="trailing" secondItem="vJ1-QQ-JOK" secondAttribute="trailing" id="xBa-Td-8pX"/>
+                                    <constraint firstItem="NZc-aD-XzI" firstAttribute="leading" secondItem="zF8-eO-cXJ" secondAttribute="trailing" constant="50" id="xcU-WN-BVG"/>
                                     <constraint firstItem="im8-w7-zZu" firstAttribute="centerX" secondItem="tnS-R2-qg9" secondAttribute="centerX" id="yUc-vl-R4F"/>
                                     <constraint firstItem="rGf-2e-HEn" firstAttribute="leading" secondItem="ISr-1L-Y6J" secondAttribute="leading" constant="40" id="yiG-1f-plX"/>
                                 </constraints>
@@ -1367,7 +1387,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or select it from the list" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTh-pa-wQs">
-                                        <rect key="frame" x="54" y="465" width="280" height="23"/>
+                                        <rect key="frame" x="54" y="451.66666666666669" width="280" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="280" id="Smf-IH-TDL">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="350"/>
@@ -1377,8 +1397,8 @@
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Click this toggle to set whether or not you want to track stats from this game" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U81-iE-14u">
-                                        <rect key="frame" x="141" y="730.33333333333337" width="197" height="45.666666666666629"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click this toggle to set whether or not you want to track stats from this game" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U81-iE-14u">
+                                        <rect key="frame" x="292" y="730.33333333333337" width="197" height="45.666666666666629"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="197" id="6Yf-jx-4L7">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="250"/>
@@ -1459,7 +1479,6 @@
                                 <accessibility key="accessibilityConfiguration" identifier="HelpView"/>
                                 <constraints>
                                     <constraint firstItem="f9x-qp-UwK" firstAttribute="centerX" secondItem="zsd-U3-VCe" secondAttribute="centerX" id="7Gk-Sv-uWn"/>
-                                    <constraint firstItem="Zbd-fZ-5Da" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U81-iE-14u" secondAttribute="trailing" constant="169" id="DMp-BO-ksW"/>
                                     <constraint firstItem="f9x-qp-UwK" firstAttribute="centerY" secondItem="zsd-U3-VCe" secondAttribute="centerY" id="MgM-nM-e3C"/>
                                     <constraint firstItem="ZBn-CD-Rnn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zsd-U3-VCe" secondAttribute="leading" constant="16" id="YLq-6C-Ocm"/>
                                     <constraint firstItem="MHI-xC-mZv" firstAttribute="centerX" secondItem="zsd-U3-VCe" secondAttribute="centerX" id="w6p-4h-TyT"/>
@@ -1865,12 +1884,14 @@
                         <outletCollection property="changeBlueButton" destination="UQM-a8-vIn" collectionClass="NSMutableArray" id="Qu9-pJ-sFz"/>
                         <outletCollection property="changeRedButton" destination="Na7-WR-di5" collectionClass="NSMutableArray" id="UdU-4h-7xT"/>
                         <outletCollection property="changeBlueButton" destination="bux-PU-5sc" collectionClass="NSMutableArray" id="ksl-Qe-aT5"/>
+                        <outletCollection property="ghostButton" destination="zF8-eO-cXJ" collectionClass="NSMutableArray" id="A2M-Lb-MWd"/>
+                        <outletCollection property="ghostButton" destination="lM6-D3-Z9e" collectionClass="NSMutableArray" id="qAq-pS-Rjf"/>
                         <segue destination="boB-d8-0M9" kind="show" identifier="changeColorSegue" id="opG-aM-udH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.26108374384239" y="-322.39999999999998"/>
+            <point key="canvasLocation" x="748.66071428571422" y="-323.1884057971015"/>
         </scene>
         <!--Select Color View Controller-->
         <scene sceneID="C5Y-dw-AWJ">

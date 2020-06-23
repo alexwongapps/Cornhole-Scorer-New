@@ -112,7 +112,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             editPlayersButton.isHidden = false
             addToLeagueButton.isHidden = false
         } else { // league
-            addToLeagueButton.isHidden = true
+            addToLeagueButton.isHidden = false
             shareButton.isHidden = true
             refreshButton.isHidden = false
             if let league = UserDefaults.getActiveLeague() {
@@ -312,10 +312,12 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // deselect all rows
         for i in 0..<matchesTableView.numberOfRows(inSection: 0) {
             matchesTableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
-            matchesTableView.cellForRow(at: IndexPath(row: i, section: 0))!.accessoryType = .none
+            if let cell = matchesTableView.cellForRow(at: IndexPath(row: i, section: 0)) {
+                cell.accessoryType = .none
+            }
         }
         editMode = !editMode
-        addMatchesToLeagueButton.isHidden = !editMode || isLeagueActive()
+        addMatchesToLeagueButton.isHidden = !editMode
         shareMatchesButton.isHidden = true // todo: this
         deleteMatchesButton.isHidden = !editMode
         if editMode {
@@ -446,7 +448,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 } else {
                     let alert = UIAlertController(title: "Select League", message: "Don't see a league? You may not be an editor for it", preferredStyle: .alert)
                     for league in cachedLeagues {
-                        if league.isEditor(user: user) {
+                        if league.firebaseID != UserDefaults.getActiveLeagueID() && league.isEditor(user: user) {
                             alert.addAction(UIAlertAction(title: league.name, style: .default, handler: { (action) in
                                 CornholeFirestore.addMatchToLeague(leagueID: league.firebaseID, match: self.currentMatch!)
                             }))
@@ -498,12 +500,16 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 } else {
                     let alert = UIAlertController(title: "Select League", message: "Don't see a league? You may not be an editor for it", preferredStyle: .alert)
                     for league in cachedLeagues {
-                        if league.isEditor(user: user) {
+                        if league.firebaseID != UserDefaults.getActiveLeagueID() && league.isEditor(user: user) {
                             alert.addAction(UIAlertAction(title: league.name, style: .default, handler: { (action) in
 
+                                let s = at.sorted { (a, b) -> Bool in
+                                    a.row < b.row
+                                }
+                                
                                 // collect matches
                                 var toAdd = [Match]()
-                                for indexPath in at {
+                                for indexPath in s {
                                     toAdd.append(self.matches[indexPath.row])
                                 }
                                 

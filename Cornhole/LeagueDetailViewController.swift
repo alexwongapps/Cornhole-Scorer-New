@@ -175,7 +175,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                         playersTableView.deleteRows(at: [ips[i]], with: .fade)
                     }
                 }
-                if let l = UserDefaults.getActiveLeague() {
+                if let l = league {
                     CornholeFirestore.deletePlayersFromLeague(leagueID: l.firebaseID, playerNames: names)
                 }
                 playersLabel.text = self.league == nil ? "Players" : "Players (\(self.league!.players.count))"
@@ -243,7 +243,7 @@ class LeagueDetailViewController: UIViewController, UITableViewDataSource, UITab
                         editorsTableView.deleteRows(at: [ips[i]], with: .fade)
                     }
                 }
-                if let l = UserDefaults.getActiveLeague() {
+                if let l = league {
                     CornholeFirestore.deleteEditorsFromLeague(leagueID: l.firebaseID, editorEmails: editors)
                 }
                 editorsLabel.text = self.league == nil ? "Editors" : "Editors (\(self.league!.editorEmails.count))"

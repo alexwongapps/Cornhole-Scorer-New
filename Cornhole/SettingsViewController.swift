@@ -340,7 +340,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
     func proAlert(product: SKProduct) {
         guard let price = IAPManager.shared.getPriceFormatted(for: product) else { return }
         
-        let alert = UIAlertController(title: "Get PRO", message: "This one-time purchase for \(price) will give you access to all current and future PRO features, including custom colors and data exporting from the Stats tab.\n\nThis does NOT include unlimited leagues, which can be purchased in the Edit Leagues menu.\n\nTo restore a previous purchase, click Restore.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Get PRO", message: "This one-time purchase for \(price) will give you access to all current and future PRO features, including single player ghost mode, custom colors and data exporting from the Stats tab.\n\nThis does NOT include unlimited leagues, which can be purchased in the Edit Leagues menu.\n\nTo restore a previous purchase, click Restore.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Buy Now", style: .default, handler: { (action) in
             if !self.purchase(product: product) {

@@ -1042,7 +1042,7 @@ class CornholeFirestore {
                "matchWinningScores": emptyInts
         ]) { err in
             if let err = err {
-                print("error adding match: \(err)")
+                print("error adding league: \(err)")
             }
         }
         updateField(collection: "leagues", document: ref!.documentID, field: "id", value: ref!.documentID)

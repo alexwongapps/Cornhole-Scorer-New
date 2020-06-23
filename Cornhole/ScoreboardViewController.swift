@@ -22,6 +22,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var players: [String] = [] // list of saved players
     var oneVOne: Bool = true // is the match 1v1 or 2v2
+    var ghostValue: Int? = nil
     var trackingStats: Bool = true // are we tracking stats in this match
     var buttonSelect: Int = 0 // which select button was clicked
     
@@ -32,6 +33,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     var redPlayer2: String = ""
     var bluePlayer1: String = ""
     var bluePlayer2: String = ""
+    let defaultNames = ["Player 1", "Player 2"]
+    let ghostNames = ["Ghost Player 1", "Ghost Player 2"]
     
     // match data
     var startDate: Date?
@@ -42,7 +45,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     // alert
     var alert30: UIAlertController?
     let alert30Title = "New in 3.0: Leagues, Colors, and PRO!"
-    let alert30Message = "\n— Introducing Leagues —\nLeagues let you and your friends play and view matches from different devices. For more information, head over to the Leagues tab!\n\n— More Colors —\nClick \"Select Color\" before playing to choose from one of 10 bag colors.\n\n— Cornhole Scorer PRO —\nPay once to make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!"
+    let alert30Message = "\n— Introducing Leagues —\nLeagues let you and your friends play and view matches from different devices. For more information, head over to the Leagues tab!\n\n— More Colors —\nClick \"Select Color\" before playing to choose from one of 10 bag colors.\n\n— Cornhole Scorer PRO —\nPay once to play single player ghost mode, make your own custom bag colors, export your data to a .csv file, and gain access to all future PRO features!"
     
     // outlets
     @IBOutlet var selectPlayersLabel: [UILabel]!
@@ -58,6 +61,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var bluePlayer2Label: [UILabel]!
     @IBOutlet var bluePlayer1Button: [UIButton]!
     @IBOutlet var bluePlayer2Button: [UIButton]!
+    @IBOutlet var ghostButton: [UIButton]!
     @IBOutlet var trackingStatsButton: [UIButton]!
     @IBOutlet var selectExistingPlayerLabel: [UILabel]!
     @IBOutlet var playerTableView: [UITableView]!
@@ -145,6 +149,16 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 redTeamLabel[i].text = "\(redPlayer1) •\n\(redPlayer2)"
                 blueTeamLabel[i].text = "✕ \(bluePlayer1)\n\(bluePlayer2)"
             }
+        }
+        
+        // ghost mode
+        resetSteppers()
+        let ghostMode = ghostValue != nil
+        for i in 0..<help0Label.count {
+            blueInLabel[i].isHidden = ghostMode
+            blueOnLabel[i].isHidden = ghostMode
+            blueInStepper[i].isHidden = ghostMode
+            blueOnStepper[i].isHidden = ghostMode
         }
         
         // read max bags text field
@@ -238,9 +252,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             // reset player names if necessary
             if let r1 = redPlayer1Label[i].text {
                 if let b1 = bluePlayer1Label[i].text {
-                    if !players.contains(r1) || !players.contains(b1) {
-                        redPlayer1Label[i].text = "Player 1"
-                        bluePlayer1Label[i].text = "Player 1"
+                    let ps = players + ghostNames + defaultNames
+                    if !ps.contains(r1) || !ps.contains(b1) {
+                        redPlayer1Label[i].text = defaultNames[0]
+                        bluePlayer1Label[i].text = defaultNames[0]
                     }
                 }
             }
@@ -404,7 +419,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
-                playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 50)
+                playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 40)
+                ghostButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 25)
                 
@@ -483,6 +499,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 redPlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
+                ghostButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 sePlayButton[i].titleLabel?.font = UIFont(name: systemFont, size: 15)
                 sePlayButton[i].isHidden = false
@@ -570,6 +587,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 bluePlayer1Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 bluePlayer2Button[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 playButton[i].titleLabel?.font = UIFont(name: systemFont, size: 20)
+                ghostButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 trackingStatsButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 addNewPlayerButton[i].titleLabel?.font = UIFont(name: systemFont, size: 14)
                 
@@ -673,7 +691,53 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-
+    
+    @IBAction func changeGhost(_ sender: Any) {
+        if !proPaid {
+            present(createBasicAlert(title: "PRO Feature", message: "In this single player mode, play against a ghost who will score a set number of points every round\n\nTo get Cornhole Scorer PRO, go to the Settings tab"), animated: true)
+        } else {
+            if ghostValue == nil {
+                let alert = UIAlertController(title: "Enter ghost score", message: "The ghost will score this many points per round", preferredStyle: .alert)
+                alert.addTextField { (textField) in
+                    textField.keyboardType = .numberPad
+                    textField.placeholder = "Number between 0 and 12"
+                }
+                alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+                    let textField = alert?.textFields![0]
+                    if let text = textField?.text {
+                        if let value = Int(text) {
+                            if value < 0 || value > 12 {
+                                self.present(createBasicAlert(title: "Invalid number", message: "Enter a number between 0 and 12"), animated: true)
+                            } else {
+                                self.ghostValue = value
+                                for i in 0..<self.help0Label.count {
+                                    self.bluePlayer1Label[i].text = self.ghostNames[0]
+                                    self.bluePlayer2Label[i].text = self.ghostNames[1]
+                                    self.bluePlayer1Button[i].isUserInteractionEnabled = false
+                                    self.bluePlayer2Button[i].isUserInteractionEnabled = false
+                                    self.ghostButton[i].setTitle("Ghost: \(value)", for: .normal)
+                                    self.showSelectPlayerMenu(show: false)
+                                }
+                            }
+                        } else {
+                            self.present(createBasicAlert(title: "Not a number", message: "Enter a number between 0 and 12"), animated: true)
+                        }
+                    }
+                }))
+                self.present(alert, animated: true)
+            } else {
+                ghostValue = nil
+                for i in 0..<help0Label.count {
+                    bluePlayer1Label[i].text = defaultNames[0]
+                    bluePlayer2Label[i].text = defaultNames[1]
+                    bluePlayer1Button[i].isUserInteractionEnabled = true
+                    bluePlayer2Button[i].isUserInteractionEnabled = true
+                    ghostButton[i].setTitle("Ghost: Off", for: .normal)
+                }
+            }
+        }
+    }
+    
     // dtermine if stats are tracked or not
     @IBAction func changeStatsTracking(_ sender: UIButton) {
         trackingStats = !trackingStats
@@ -1647,6 +1711,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // go back to login screen
     func selectNewPlayers() {
+    
+        if ghostValue != nil {
+            changeGhost(ghostButton[0])
+        }
         
         loginView.isHidden = false
         // animateOpenLogin()
@@ -1656,10 +1724,10 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         showSelectPlayerMenu(show: false)
         
         for i in 0..<help0Label.count {
-            redPlayer1Label[i].text = "Player 1"
-            redPlayer2Label[i].text = "Player 2"
-            bluePlayer1Label[i].text = "Player 1"
-            bluePlayer2Label[i].text = "Player 2"
+            redPlayer1Label[i].text = defaultNames[0]
+            redPlayer2Label[i].text = defaultNames[1]
+            bluePlayer1Label[i].text = defaultNames[0]
+            bluePlayer2Label[i].text = defaultNames[1]
         }
     }
     
@@ -1788,8 +1856,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         for i in 0..<help0Label.count {
             redInStepper[i].value = 0
             redOnStepper[i].value = 0
-            blueInStepper[i].value = 0
-            blueOnStepper[i].value = 0
+            blueInStepper[i].value = Double(ghostValue == nil ? 0 : ghostValue! / 3)
+            blueOnStepper[i].value = Double(ghostValue == nil ? 0 : ghostValue! % 3)
             
             redInStepper[i].maximumValue = Double(maxBags)
             redOnStepper[i].maximumValue = Double(maxBags)
@@ -1801,6 +1869,11 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             redOnLabel[i].text = "On: \(Int(redOnStepper[0].value))"
             blueInLabel[i].text = "In: \(Int(blueInStepper[0].value))"
             blueOnLabel[i].text = "On: \(Int(blueOnStepper[0].value))"
+        }
+        
+        if ghostValue != nil {
+            print("here")
+            stepperChanged(redInStepper[0])
         }
     }
     
