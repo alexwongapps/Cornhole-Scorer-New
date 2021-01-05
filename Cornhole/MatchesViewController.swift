@@ -427,6 +427,11 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // add to league
     @IBAction func addMatchToLeague(_ sender: Any) {
+        if let m = self.currentMatch {
+            if m.rounds[0].totalBags() != 4 {
+                present(createBasicAlert(title: "Cannot add match to league", message: "This match does not have 4 bags per round"), animated: true, completion: nil)
+            }
+        }
         if let user = Auth.auth().currentUser {
             activityIndicator.startAnimating()
             CornholeFirestore.pullAndCacheLeagues(force: false) { (error, unables) in
@@ -513,7 +518,18 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                                     toAdd.append(self.matches[indexPath.row])
                                 }
                                 
-                                CornholeFirestore.addMatchesToLeague(leagueID: league.firebaseID, matches: toAdd)
+                                var valid = true
+                                for m in toAdd {
+                                    if m.rounds[0].totalBags() != 4 {
+                                        valid = false
+                                    }
+                                }
+                                
+                                if valid {
+                                    CornholeFirestore.addMatchesToLeague(leagueID: league.firebaseID, matches: toAdd)
+                                } else {
+                                    self.present(createBasicAlert(title: "Cannot add matches to league", message: "At least one of these matches does not have 4 bags per round"), animated: true, completion: nil)
+                                }
                             }))
                         }
                     }

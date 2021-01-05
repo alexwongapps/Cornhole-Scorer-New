@@ -134,6 +134,10 @@ class Round: CustomStringConvertible {
         return [redPlayer, bluePlayer].contains(player)
     }
     
+    func totalBags() -> Int {
+        return red.bagsIn + red.bagsOn + red.bagsOff
+    }
+    
     public var description: String {
         return "\(redPlayer) \(red.score) - \(blue.score) \(bluePlayer)"
     }

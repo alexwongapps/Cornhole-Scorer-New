@@ -39,6 +39,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
     @IBOutlet var setting1Stepper: [UIStepper]!
     @IBOutlet var setting2Label: [UILabel]!
     @IBOutlet var setting2Stepper: [UIStepper]!
+    @IBOutlet weak var bagsRoundLabel: UILabel!
+    @IBOutlet weak var bagsRoundStepper: UIStepper!
     @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScrollView: UIView!
@@ -104,6 +106,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
                 gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 30)
                 setting1Label[i].font = UIFont(name: systemFont, size: 30)
                 setting2Label[i].font = UIFont(name: systemFont, size: 30)
+                bagsRoundLabel.font = UIFont(name: systemFont, size: 30)
                 downArrow.font = UIFont(name: systemFont, size: 60)
                 faqButton.titleLabel?.font = UIFont(name: systemFont, size: 30)
                 
@@ -124,6 +127,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
                 gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 setting1Label[i].font = UIFont(name: systemFont, size: 17)
                 setting2Label[i].font = UIFont(name: systemFont, size: 17)
+                bagsRoundLabel.font = UIFont(name: systemFont, size: 17)
                 downArrow.font = UIFont(name: systemFont, size: 30)
                 faqButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
 
@@ -144,6 +148,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
                 gameTypeButton[i].titleLabel?.font = UIFont(name: systemFont, size: 17)
                 setting1Label[i].font = UIFont(name: systemFont, size: 17)
                 setting2Label[i].font = UIFont(name: systemFont, size: 17)
+                bagsRoundLabel.font = UIFont(name: systemFont, size: 17)
                 downArrow.font = UIFont(name: systemFont, size: 30)
                 faqButton.titleLabel?.font = UIFont(name: systemFont, size: 17)
                 
@@ -268,6 +273,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
             players = league.players
             firstThrowWinners = league.firstThrowWinners
             gameSettings = league.gameSettings
+            bagsRoundLabel.isHidden = true
+            bagsRoundStepper.isHidden = true
             if let user = Auth.auth().currentUser {
                 if league.isEditor(user: user) {
                     canEdit = true
@@ -281,6 +288,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
             for i in 0..<backgroundImageView.count {
                 settingsLabel[i].text = "Settings"
             }
+            bagsRoundLabel.isHidden = false
+            bagsRoundStepper.isHidden = false
             canEdit = true
         }
         for i in 0..<backgroundImageView.count {
@@ -651,6 +660,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
         }
     }
     
+    @IBAction func changeBagsRound(_ sender: UIStepper) {
+        let newValue = Int(sender.value)
+        if !isLeagueActive() {
+            bagsRoundLabel.text = "Bags/Round: \(newValue)"
+            UserDefaults.standard.set(newValue, forKey: "bagsPerRound")
+        }
+    }
+    
     func setFirstThrow(winners: Bool) {
         for i in 0..<backgroundImageView.count {
             if winners {
@@ -704,6 +721,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
                 }
             }
         }
+        bagsRoundLabel.text = "Bags/Round: \(defaults.integer(forKey: "bagsPerRound"))"
+        bagsRoundStepper.value = Double(defaults.integer(forKey: "bagsPerRound"))
     }
     
     @IBAction func openFAQs(_ sender: Any) {

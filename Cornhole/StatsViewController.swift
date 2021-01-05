@@ -108,7 +108,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 onPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
                 offPerRoundLabel[i].font = UIFont(name: systemFont, size: 11)
                 
-                 boardPieChartView[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
+                boardPieChartView[i].widthAnchor.constraint(equalToConstant: 180).isActive = true
             }
             
         } else {
@@ -213,7 +213,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1]))-\(Int(s[2])) (\(s[3])%)"
                 doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1]))-\(Int(d[2])) (\(d[3])%)"
                 roundRecordLabel[i].text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
-                pointsPerRoundLabel[i].text = "Points/Round: \(ppr)"
+                pointsPerRoundLabel[i].text = "Points (Per 4 Bags): \(ppr)"
             }
             
             // get bag info
@@ -221,9 +221,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
             for i in 0..<matchRecordLabel.count {
-                inPerRoundLabel[i].text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
-                onPerRoundLabel[i].text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
-                offPerRoundLabel[i].text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+                inPerRoundLabel[i].text = "Bags In (Per 4 Bags): \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
+                onPerRoundLabel[i].text = "Bags On (Per 4 Bags): \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
+                offPerRoundLabel[i].text = "Bags Off (Per 4 Bags): \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
                 
                 boardPieChartView[i].isHidden = false
             }
@@ -404,7 +404,7 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 singlesRecordLabel[i].text = "Singles Record: \(Int(s[0]))-\(Int(s[1]))-\(Int(s[2])) (\(s[3])%)"
                 doublesRecordLabel[i].text = "Doubles Record: \(Int(d[0]))-\(Int(d[1]))-\(Int(d[2])) (\(d[3])%)"
                 roundRecordLabel[i].text = "Round Record: \(Int(r[0]))-\(Int(r[1]))-\(Int(r[2])) (\(r[3])%)"
-                pointsPerRoundLabel[i].text = "Points/Round: \(ppr)"
+                pointsPerRoundLabel[i].text = "Points (Per 4 Bags): \(ppr)"
             }
             
             // get bag info
@@ -412,9 +412,9 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             let bagsThrown = Double(bagData[0] + bagData[1] + bagData[2])
             for i in 0..<matchRecordLabel.count {
-                inPerRoundLabel[i].text = "Bags In/Round: \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
-                onPerRoundLabel[i].text = "Bags On/Round: \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
-                offPerRoundLabel[i].text = "Bags Off/Round: \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
+                inPerRoundLabel[i].text = "Bags In (Per 4 Bags): \(round(number: Double(bagData[0]) / bagsThrown * 4, places: 2))"
+                onPerRoundLabel[i].text = "Bags On (Per 4 Bags): \(round(number: Double(bagData[1]) / bagsThrown * 4, places: 2))"
+                offPerRoundLabel[i].text = "Bags Off (Per 4 Bags): \(round(number: Double(bagData[2]) / bagsThrown * 4, places: 2))"
             }
         
             inDataEntry.value = Double(bagData[0])
@@ -612,10 +612,10 @@ class StatsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             singlesRecordLabel[i].text = "Singles Record: "
             doublesRecordLabel[i].text = "Doubles Record: "
             roundRecordLabel[i].text = "Round Record: "
-            pointsPerRoundLabel[i].text = "Points/Round: "
-            inPerRoundLabel[i].text = "Bags In/Round: "
-            onPerRoundLabel[i].text = "Bags On/Round: "
-            offPerRoundLabel[i].text = "Bags Off/Round: "
+            pointsPerRoundLabel[i].text = "Points (Per 4 Bags): "
+            inPerRoundLabel[i].text = "Bags In (Per 4 Bags): "
+            onPerRoundLabel[i].text = "Bags On (Per 4 Bags): "
+            offPerRoundLabel[i].text = "Bags Off (Per 4 Bags): "
         }
     }
     

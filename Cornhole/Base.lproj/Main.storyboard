@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -191,7 +192,7 @@
                                 <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuD-Xu-BnN">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuD-Xu-BnN">
                                 <rect key="frame" x="367" y="770" width="162" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="GameRoundComplete"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -200,7 +201,7 @@
                                     <action selector="roundComplete:" destination="9pv-A4-QxB" eventType="touchUpInside" id="4NG-AM-vVi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asz-dV-UJi">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asz-dV-UJi">
                                 <rect key="frame" x="730.66666666666663" y="770" width="51" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="GameReset"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -209,7 +210,7 @@
                                     <action selector="resetAlert:" destination="9pv-A4-QxB" eventType="touchUpInside" id="TAL-ZA-aea"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0o-Wo-oLS">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0o-Wo-oLS">
                                 <rect key="frame" x="639.66666666666663" y="770" width="51" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="GameUndo"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -218,7 +219,7 @@
                                     <action selector="undo:" destination="9pv-A4-QxB" eventType="touchUpInside" id="WF5-DU-OAZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wW9-Gc-vto">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wW9-Gc-vto">
                                 <rect key="frame" x="74" y="770" width="263" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="GameSelectNew"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -289,7 +290,7 @@
                                         <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zok-ej-rjM">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zok-ej-rjM">
                                         <rect key="frame" x="263.66666666666669" y="759" width="51" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="GameResetP"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -315,7 +316,7 @@
                                             <action selector="stepperChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="ZGD-v1-EfO"/>
                                         </connections>
                                     </stepper>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaL-Kd-bCz">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaL-Kd-bCz">
                                         <rect key="frame" x="44" y="715" width="162" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="GameRoundCompleteP"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -398,7 +399,7 @@
                                         <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6um-1R-gXP">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6um-1R-gXP">
                                         <rect key="frame" x="263.66666666666669" y="715" width="51" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="GameUndo"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -407,7 +408,7 @@
                                             <action selector="undo:" destination="9pv-A4-QxB" eventType="touchUpInside" id="sJf-OS-fbf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKo-b1-iiX">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKo-b1-iiX">
                                         <rect key="frame" x="36.666666666666657" y="759" width="177" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="GameSelectNewP"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -591,7 +592,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginBackground"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zF8-eO-cXJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zF8-eO-cXJ">
                                         <rect key="frame" x="150" y="776" width="103" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Ghost: Off"/>
@@ -599,7 +600,7 @@
                                             <action selector="changeGhost:" destination="9pv-A4-QxB" eventType="touchUpInside" id="eTd-dC-8xt"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na7-WR-di5">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na7-WR-di5">
                                         <rect key="frame" x="184" y="118" width="135" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginRedChange"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -608,7 +609,7 @@
                                             <action selector="changeColor:" destination="9pv-A4-QxB" eventType="touchUpInside" id="nJc-gZ-2lf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bux-PU-5sc">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bux-PU-5sc">
                                         <rect key="frame" x="184" y="208" width="135" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginBlueChange"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -663,7 +664,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B32-pk-QhA">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B32-pk-QhA">
                                         <rect key="frame" x="371" y="78.666666666666671" width="33" height="30"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginAdd"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="14"/>
@@ -724,7 +725,7 @@
                                         <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPT-Ff-Jf5">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPT-Ff-Jf5">
                                         <rect key="frame" x="264" y="144.66666666666666" width="55" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginSelectRed1"/>
                                         <constraints>
@@ -738,7 +739,7 @@
                                             <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="hk4-8q-Ty4"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYw-Ys-hhE">
+                                    <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYw-Ys-hhE">
                                         <rect key="frame" x="264" y="171.33333333333334" width="55" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginSelectRed2"/>
                                         <constraints>
@@ -752,7 +753,7 @@
                                             <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="gvA-1l-fM6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJ1-QQ-JOK">
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJ1-QQ-JOK">
                                         <rect key="frame" x="264" y="234.66666666666666" width="55" height="33.999999999999972"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginSelectBlue1"/>
                                         <constraints>
@@ -766,7 +767,7 @@
                                             <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="BqN-bw-r81"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGc-Kc-m1M">
+                                    <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGc-Kc-m1M">
                                         <rect key="frame" x="264" y="261.33333333333331" width="55" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginSelectBlue2"/>
                                         <constraints>
@@ -787,7 +788,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-sW-kPm">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-sW-kPm">
                                         <rect key="frame" x="50" y="774" width="50" height="38"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginPlay"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
@@ -796,7 +797,7 @@
                                             <action selector="hideLogin:" destination="9pv-A4-QxB" eventType="touchUpInside" id="CYR-S9-ujV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnI-61-9Fr">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnI-61-9Fr">
                                         <rect key="frame" x="20" y="22" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginHelp"/>
                                         <constraints>
@@ -811,7 +812,7 @@
                                             <action selector="help:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Wcv-Ev-b9U"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMS-43-nkJ">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMS-43-nkJ">
                                         <rect key="frame" x="20" y="777" width="37" height="31"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginSEPlay"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
@@ -820,7 +821,7 @@
                                             <action selector="hideLogin:" destination="9pv-A4-QxB" eventType="touchUpInside" id="fdo-Fu-qEO"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rlc-cR-M1Z">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rlc-cR-M1Z">
                                         <rect key="frame" x="159" y="76.666666666666671" width="117" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginSwap"/>
                                         <constraints>
@@ -832,7 +833,7 @@
                                             <action selector="swapColors:" destination="9pv-A4-QxB" eventType="touchUpInside" id="5sC-3s-NGg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgY-i8-Cwd">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgY-i8-Cwd">
                                         <rect key="frame" x="342" y="22" width="52" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginRules"/>
                                         <constraints>
@@ -850,7 +851,7 @@
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ByU-V6-mbo">
                                         <rect key="frame" x="306" y="83.666666666666671" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZc-aD-XzI">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZc-aD-XzI">
                                         <rect key="frame" x="303" y="776" width="175" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LoginTracking"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -891,7 +892,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KL-xA-yLC">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KL-xA-yLC">
                                                 <rect key="frame" x="239" y="158" width="135" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginRedChangeP"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -900,7 +901,7 @@
                                                     <action selector="changeColor:" destination="9pv-A4-QxB" eventType="touchUpInside" id="0h5-CF-q87"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQM-a8-vIn">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQM-a8-vIn">
                                                 <rect key="frame" x="239" y="248" width="135" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginBlueChangeP"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -930,7 +931,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7l6-Mt-reF">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7l6-Mt-reF">
                                                 <rect key="frame" x="327" y="351.66666666666669" width="33" height="30"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginAddP"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="14"/>
@@ -991,7 +992,7 @@
                                                 <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0z-3z-al0">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0z-3z-al0">
                                                 <rect key="frame" x="319" y="184.66666666666666" width="55" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginSelectRed1P"/>
                                                 <constraints>
@@ -1005,7 +1006,7 @@
                                                     <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="F9G-Rb-Tit"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSk-yw-DTF">
+                                            <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSk-yw-DTF">
                                                 <rect key="frame" x="319" y="211.33333333333334" width="55" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginSelectRed2P"/>
                                                 <constraints>
@@ -1019,7 +1020,7 @@
                                                     <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="nFM-lF-opN"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2b-Me-F7d">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2b-Me-F7d">
                                                 <rect key="frame" x="319" y="274.66666666666669" width="55" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginSelectBlue1P"/>
                                                 <constraints>
@@ -1033,7 +1034,7 @@
                                                     <action selector="selectPlayer:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Rxu-88-cQH"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfE-HG-yvk">
+                                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfE-HG-yvk">
                                                 <rect key="frame" x="319" y="301.33333333333331" width="55" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginSelectBlue2P"/>
                                                 <constraints>
@@ -1054,7 +1055,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZw-9e-DTg">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZw-9e-DTg">
                                                 <rect key="frame" x="30" y="765" width="50" height="38"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginPlayP"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
@@ -1063,7 +1064,7 @@
                                                     <action selector="hideLogin:" destination="9pv-A4-QxB" eventType="touchUpInside" id="4bM-aF-YCE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBV-RB-beG">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBV-RB-beG">
                                                 <rect key="frame" x="209" y="767" width="175" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginTrackingP"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -1072,7 +1073,7 @@
                                                     <action selector="changeStatsTracking:" destination="9pv-A4-QxB" eventType="touchUpInside" id="VUW-UM-vuh"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBC-XD-ly5">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBC-XD-ly5">
                                                 <rect key="frame" x="20" y="62" width="40" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginHelpP"/>
                                                 <constraints>
@@ -1087,7 +1088,7 @@
                                                     <action selector="help:" destination="9pv-A4-QxB" eventType="touchUpInside" id="kcB-vX-WDD"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cmv-sa-7K4">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cmv-sa-7K4">
                                                 <rect key="frame" x="20" y="772" width="37" height="31"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginSEPlayP"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
@@ -1096,7 +1097,7 @@
                                                     <action selector="hideLogin:" destination="9pv-A4-QxB" eventType="touchUpInside" id="92m-c7-EUL"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6F8-zj-dxc">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6F8-zj-dxc">
                                                 <rect key="frame" x="145" y="116.66666666666669" width="117" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginSwapP"/>
                                                 <constraints>
@@ -1108,7 +1109,7 @@
                                                     <action selector="swapColors:" destination="9pv-A4-QxB" eventType="touchUpInside" id="1cV-ZL-P7t"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYS-1i-pbP">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYS-1i-pbP">
                                                 <rect key="frame" x="342" y="62" width="52" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="LoginRulesP"/>
                                                 <constraints>
@@ -1126,7 +1127,7 @@
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zVT-Z0-xiu">
                                                 <rect key="frame" x="292" y="123.66666666666669" width="20" height="20"/>
                                             </activityIndicatorView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-D3-Z9e">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-D3-Z9e">
                                                 <rect key="frame" x="86" y="767" width="103" height="34"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                 <state key="normal" title="Ghost: Off"/>
@@ -1627,6 +1628,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VKo-b1-iiX" firstAttribute="leading" secondItem="qvT-Jl-4ov" secondAttribute="leading" id="1M2-6e-max"/>
@@ -1748,7 +1750,6 @@
                             <constraint firstItem="nuD-Xu-BnN" firstAttribute="top" secondItem="EXf-5r-vsq" secondAttribute="bottom" id="y0b-oa-6VP"/>
                             <constraint firstItem="zsd-U3-VCe" firstAttribute="bottom" secondItem="tsR-hK-woN" secondAttribute="bottom" id="z3p-xM-Ye6"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Scoreboard" image="Scoreboard" selectedImage="Scoreboard" id="acW-dT-cKf"/>
                     <connections>
@@ -1936,7 +1937,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MN0-7z-8Vo">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MN0-7z-8Vo">
                                 <rect key="frame" x="104" y="414" width="206" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="SCCreate"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -1970,7 +1971,8 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Pnk-9A-OW3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8rj-Ay-Q3n" firstAttribute="leading" secondItem="BD9-Xb-V1A" secondAttribute="leading" id="5x1-f7-rVT"/>
                             <constraint firstItem="Pnk-9A-OW3" firstAttribute="bottom" secondItem="8rj-Ay-Q3n" secondAttribute="bottom" constant="30" id="BxS-Ya-xu9"/>
@@ -1990,7 +1992,6 @@
                             <constraint firstItem="Ix7-kh-LH1" firstAttribute="top" secondItem="Pz9-VD-xxk" secondAttribute="top" id="n9C-9G-6z6"/>
                             <constraint firstAttribute="trailing" secondItem="Ix7-kh-LH1" secondAttribute="trailing" id="vVT-1f-zpe"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Pnk-9A-OW3"/>
                     </view>
                     <navigationItem key="navigationItem" id="QtG-J8-PNN"/>
                     <connections>
@@ -2099,14 +2100,14 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7a-N9-pGC">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <accessibility key="accessibilityConfiguration" identifier="CCColorView"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="gzc-Qm-Rh6"/>
                                             <constraint firstAttribute="width" secondItem="l7a-N9-pGC" secondAttribute="height" multiplier="1:1" id="sAr-4h-Gui"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRo-sb-ZTp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRo-sb-ZTp">
                                         <rect key="frame" x="200" y="58" width="48" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="CCDone"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2118,7 +2119,8 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="5nc-iH-3Vx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9B6-cj-OnC" firstAttribute="centerY" secondItem="avk-wx-5WD" secondAttribute="centerY" id="1O3-l1-aah"/>
                             <constraint firstItem="txa-Yb-5Cw" firstAttribute="leading" secondItem="9B6-cj-OnC" secondAttribute="leading" id="39J-J0-x22"/>
@@ -2154,7 +2156,6 @@
                             <constraint firstItem="6Sz-Sb-moc" firstAttribute="leading" secondItem="avk-wx-5WD" secondAttribute="leading" id="xfz-Qx-DXd"/>
                             <constraint firstItem="1GV-1L-hW0" firstAttribute="centerX" secondItem="BSw-YC-cMI" secondAttribute="centerX" id="y36-Or-4vO"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5nc-iH-3Vx"/>
                     </view>
                     <navigationItem key="navigationItem" id="1Z4-eh-7pE"/>
                     <connections>
@@ -2249,7 +2250,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="HXF-Nh-43a">
                                 <rect key="frame" x="14" y="112" width="302" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1b-oA-7ph">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1b-oA-7ph">
                                         <rect key="frame" x="0.0" y="0.0" width="142" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ListAdd"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2258,7 +2259,7 @@
                                             <action selector="addMatchesToLeague:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="dfJ-6C-SNS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYX-ZV-nP4">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYX-ZV-nP4">
                                         <rect key="frame" x="172" y="0.0" width="42" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ListEdit"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2267,18 +2268,18 @@
                                             <action selector="editMatches:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="WXe-mu-UyE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYc-cg-awl">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYc-cg-awl">
                                         <rect key="frame" x="244" y="0.0" width="58" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ListDelete"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Delete">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" systemColor="systemRedColor"/>
                                         </state>
                                         <connections>
                                             <action selector="deleteMatches:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="B7i-px-mm5"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4c-A9-T25">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4c-A9-T25">
                                         <rect key="frame" x="302" y="0.0" width="0.0" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ListShare"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2289,7 +2290,7 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ru-LS-6mB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ru-LS-6mB">
                                 <rect key="frame" x="322" y="66" width="72" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ListRefresh"/>
                                 <constraints>
@@ -2372,7 +2373,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="fn2-Gg-FCa">
                                         <rect key="frame" x="61.666666666666657" y="61" width="291" height="34"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYy-db-oJA">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYy-db-oJA">
                                                 <rect key="frame" x="0.0" y="0.0" width="142" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="InfoAdd"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2381,7 +2382,7 @@
                                                     <action selector="addMatchToLeague:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="GbA-o3-RL3"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPI-9Y-Iog">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPI-9Y-Iog">
                                                 <rect key="frame" x="172" y="0.0" width="119" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="InfoEdit"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2392,7 +2393,7 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTx-H7-rfd">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTx-H7-rfd">
                                         <rect key="frame" x="108" y="95" width="49" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="InfoShare"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2401,12 +2402,12 @@
                                             <action selector="shareMatch:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="bVp-DX-8Yy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YI-ry-Ks9">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YI-ry-Ks9">
                                         <rect key="frame" x="270" y="95" width="46" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="InfoBack"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Back">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" systemColor="systemRedColor"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Oth-wO-sOQ"/>
@@ -2448,6 +2449,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UH0-PP-fHw" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="2qV-6g-7r7"/>
@@ -2472,7 +2474,6 @@
                             <constraint firstItem="14U-kh-B7M" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="sPD-rM-xLE"/>
                             <constraint firstItem="O2u-4p-LGY" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="20" id="wO4-pC-4XV"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Matches" image="Matches" selectedImage="Matches" id="cPa-gy-q4n"/>
                     <connections>
@@ -2585,7 +2586,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuF-cg-qcY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuF-cg-qcY">
                                 <rect key="frame" x="178.66666666666666" y="384" width="57" height="38"/>
                                 <accessibility key="accessibilityConfiguration" identifier="SettingsDone"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
@@ -2595,7 +2596,8 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="OdB-lH-hsf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="g5O-YK-RP0" firstAttribute="centerX" secondItem="YtB-oo-KLY" secondAttribute="centerX" id="4Bg-91-PzU"/>
                             <constraint firstItem="WlO-kd-P2o" firstAttribute="top" secondItem="f8s-Fc-T0b" secondAttribute="bottom" constant="20" id="4oh-Q2-0od"/>
@@ -2624,7 +2626,6 @@
                             <constraint firstItem="YJc-3V-zTO" firstAttribute="centerX" secondItem="4WB-YD-nkG" secondAttribute="centerX" id="roO-dv-Wol"/>
                             <constraint firstItem="4WB-YD-nkG" firstAttribute="centerY" secondItem="5sd-Ag-ikr" secondAttribute="centerY" id="tMU-lO-mUn"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="OdB-lH-hsf"/>
                     </view>
                     <navigationItem key="navigationItem" id="S37-dO-znJ"/>
                     <connections>
@@ -2706,7 +2707,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-GE-9kO">
                                 <rect key="frame" x="112.66666666666669" y="149.66666666666666" width="207" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-Xs-eue">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-Xs-eue">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LDAddPlayers"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2722,12 +2723,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNO-WV-t5f">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNO-WV-t5f">
                                         <rect key="frame" x="149" y="0.0" width="58" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LDDeletePlayers"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Delete">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" systemColor="systemRedColor"/>
                                         </state>
                                         <connections>
                                             <action selector="deletePlayers:" destination="PqI-1d-WPr" eventType="touchUpInside" id="frY-kG-ANF"/>
@@ -2739,7 +2740,7 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pbg-hJ-wbO">
                                 <rect key="frame" x="20" y="108" width="20" height="20"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSA-lT-tsF">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSA-lT-tsF">
                                 <rect key="frame" x="344" y="102" width="40" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDHelp"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2751,7 +2752,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="FkU-K7-ifh">
                                 <rect key="frame" x="112.00000000000001" y="500" width="208.33333333333337" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odF-Nk-1yq">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odF-Nk-1yq">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LDAddEditors"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2767,12 +2768,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9V-Rm-E2i">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9V-Rm-E2i">
                                         <rect key="frame" x="150.33333333333331" y="0.0" width="58" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="LDDeleteEditors"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="Delete">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" systemColor="systemRedColor"/>
                                         </state>
                                         <connections>
                                             <action selector="deleteEditors:" destination="PqI-1d-WPr" eventType="touchUpInside" id="sV2-fG-48m"/>
@@ -2781,12 +2782,12 @@
                                 </subviews>
                                 <variation key="heightClass=regular-widthClass=regular" spacing="40"/>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEA-5r-AbN">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEA-5r-AbN">
                                 <rect key="frame" x="140.66666666666666" y="769" width="132.99999999999997" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDDeleteLeague"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Delete League">
-                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
                                 <connections>
                                     <action selector="deleteLeague:" destination="PqI-1d-WPr" eventType="touchUpInside" id="0Q2-Rz-qgP"/>
@@ -2813,7 +2814,7 @@
                                     <outlet property="delegate" destination="PqI-1d-WPr" id="kDG-m0-jpc"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-5B-udp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-5B-udp">
                                 <rect key="frame" x="30" y="102" width="30" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="LDQR"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2823,7 +2824,8 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="cPl-Df-o77"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="pbg-hJ-wbO" firstAttribute="top" secondItem="cPl-Df-o77" secondAttribute="top" constant="20" id="0LA-od-AMh"/>
                             <constraint firstItem="Ut0-oj-mJK" firstAttribute="top" secondItem="DB9-aY-igI" secondAttribute="top" id="3or-wT-PON"/>
@@ -2851,7 +2853,6 @@
                             <constraint firstItem="cPl-Df-o77" firstAttribute="trailing" secondItem="etJ-CO-kfx" secondAttribute="trailing" id="y67-cv-pKQ"/>
                             <constraint firstItem="OvW-kH-W2N" firstAttribute="centerX" secondItem="DB9-aY-igI" secondAttribute="centerX" id="ywg-TS-SLM"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cPl-Df-o77"/>
                     </view>
                     <navigationItem key="navigationItem" id="LG6-ac-BEk"/>
                     <connections>
@@ -2904,7 +2905,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-BA-jWv">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-BA-jWv">
                                                     <rect key="frame" x="285" y="0.0" width="114" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="42e-0e-VZ0">
@@ -2942,7 +2943,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ASE-Oq-ysH">
                                 <rect key="frame" x="52.666666666666657" y="206" width="309" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtk-5F-SDh">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtk-5F-SDh">
                                         <rect key="frame" x="0.0" y="0.0" width="62" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELCreate"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2951,7 +2952,7 @@
                                             <action selector="createLeague:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="h0e-64-Lxu"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW9-l9-1zG">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW9-l9-1zG">
                                         <rect key="frame" x="72" y="0.0" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELAdd"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2960,7 +2961,7 @@
                                             <action selector="joinLeague:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="5ek-z6-FiI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anf-PP-OpM">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anf-PP-OpM">
                                         <rect key="frame" x="122" y="0.0" width="72" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELRefresh"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2969,7 +2970,7 @@
                                             <action selector="refresh:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="b5g-tS-d2l"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-wG-778">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-wG-778">
                                         <rect key="frame" x="204.00000000000003" y="0.0" width="40" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="ELHelp"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -2978,7 +2979,7 @@
                                             <action selector="help:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="FYI-hh-6Xm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfO-qH-z3c">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfO-qH-z3c">
                                         <rect key="frame" x="254" y="0.0" width="55" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="About"/>
@@ -2992,7 +2993,7 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="FKC-MO-Wyk">
                                 <rect key="frame" x="20" y="108" width="20" height="20"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2s-0B-6s5">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2s-0B-6s5">
                                 <rect key="frame" x="80" y="759" width="254" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ELUnlimited"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3001,7 +3002,7 @@
                                     <action selector="joinUnlimitedLeagues:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="Es0-1R-yCd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcJ-Ot-eYU">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcJ-Ot-eYU">
                                 <rect key="frame" x="20" y="152" width="374" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Set Username"/>
@@ -3009,7 +3010,7 @@
                                     <action selector="setUsername:" destination="gKc-Cx-ueO" eventType="touchUpInside" id="VrA-b8-41l"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cx-3A-kvY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cx-3A-kvY">
                                 <rect key="frame" x="60" y="108" width="294" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Log In"/>
@@ -3018,7 +3019,8 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="bVd-uv-GNa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9o6-ht-qgn" firstAttribute="top" secondItem="ASE-Oq-ysH" secondAttribute="bottom" constant="20" id="6pE-hw-jzU"/>
                             <constraint firstItem="FKC-MO-Wyk" firstAttribute="leading" secondItem="bVd-uv-GNa" secondAttribute="leading" constant="20" id="Bsu-TQ-2y1"/>
@@ -3041,7 +3043,6 @@
                             <constraint firstItem="mcJ-Ot-eYU" firstAttribute="centerX" secondItem="4jZ-0p-t5R" secondAttribute="centerX" id="sbx-Tl-gFk"/>
                             <constraint firstItem="Fnj-Yy-v0j" firstAttribute="leading" secondItem="4jZ-0p-t5R" secondAttribute="leading" id="xB4-sE-IIz"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="bVd-uv-GNa"/>
                     </view>
                     <navigationItem key="navigationItem" title="Leagues" id="CID-5p-y31"/>
                     <connections>
@@ -3071,8 +3072,8 @@
                     <view key="view" contentMode="scaleToFill" id="vmv-W3-zRS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="M3f-HQ-NuB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="zHx-H0-CvJ"/>
                 </viewController>
@@ -3097,7 +3098,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-ua-KDL">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-ua-KDL">
                                 <rect key="frame" x="64" y="102" width="133" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Reset Matches"/>
@@ -3105,7 +3106,7 @@
                                     <action selector="resetMatches:" destination="OpN-La-XAe" eventType="touchUpInside" id="K5O-68-Xgs"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNt-yu-aAD">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNt-yu-aAD">
                                 <rect key="frame" x="64" y="136" width="170" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Edit Player Name"/>
@@ -3116,7 +3117,7 @@
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DnU-qb-R13" userLabel="Edit Stack View">
                                 <rect key="frame" x="291" y="148" width="74" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbe-gw-q2O">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbe-gw-q2O">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="◀"/>
@@ -3140,7 +3141,7 @@
                                             <action selector="textFieldEditingChanged:" destination="OpN-La-XAe" eventType="editingChanged" id="leT-Wi-FOc"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91K-Mk-kK8">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91K-Mk-kK8">
                                         <rect key="frame" x="44" y="0.0" width="30" height="34"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <state key="normal" title="▶"/>
@@ -3164,7 +3165,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MtI-UB-ZRJ">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MtI-UB-ZRJ">
                                 <rect key="frame" x="279.66666666666669" y="187" width="43" height="31"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
                                 <state key="normal" title="Done"/>
@@ -3184,7 +3185,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-H6-Bg7">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-H6-Bg7">
                                 <rect key="frame" x="152.33333333333334" y="174" width="88" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Alternate"/>
@@ -3198,7 +3199,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10r-G6-rLT">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10r-G6-rLT">
                                 <rect key="frame" x="149.66666666666666" y="211.66666666666666" width="87" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Standard"/>
@@ -3247,7 +3248,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UI9-xV-N7S">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UI9-xV-N7S">
                                         <rect key="frame" x="74.666666666666671" y="113" width="83.000000000000014" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="SetTabPro"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3256,7 +3257,7 @@
                                             <action selector="getPro:" destination="OpN-La-XAe" eventType="touchUpInside" id="VaZ-BO-MQI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcb-6T-r9Z">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcb-6T-r9Z">
                                         <rect key="frame" x="217.66666666666666" y="113" width="71.999999999999972" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="SetTabRestore"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3281,7 +3282,7 @@
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="68B-zh-x6C" userLabel="Edit Stack View">
                                                         <rect key="frame" x="58" y="182.66666666666669" width="259" height="34"/>
                                                         <subviews>
-                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqG-A2-KzP">
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqG-A2-KzP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="SetTabEPNLeft"/>
                                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3307,7 +3308,7 @@
                                                                     <action selector="textFieldEditingChanged:" destination="OpN-La-XAe" eventType="editingChanged" id="Y7G-xE-Jpx"/>
                                                                 </connections>
                                                             </textField>
-                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz2-VZ-9ZW">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz2-VZ-9ZW">
                                                                 <rect key="frame" x="229.00000000000003" y="0.0" width="29.999999999999972" height="34"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="SetTabEPNRight"/>
                                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3333,7 +3334,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT7-NL-7tq">
+                                                    <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT7-NL-7tq">
                                                         <rect key="frame" x="166" y="226.66666666666669" width="43" height="31"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabEPNDone"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
@@ -3342,7 +3343,7 @@
                                                             <action selector="saveName:" destination="OpN-La-XAe" eventType="touchUpInside" id="POM-ku-hpY"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-xF-sda">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-xF-sda">
                                                         <rect key="frame" x="162.33333333333334" y="43" width="76" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabFTButton"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3351,7 +3352,7 @@
                                                             <action selector="changeFirstThrow:" destination="OpN-La-XAe" eventType="touchUpInside" id="6qg-47-loA"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVt-rI-fQ7">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVt-rI-fQ7">
                                                         <rect key="frame" x="30" y="0.0" width="133" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabReset"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3360,7 +3361,7 @@
                                                             <action selector="resetMatches:" destination="OpN-La-XAe" eventType="touchUpInside" id="a7W-fG-cge"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfl-bU-Lfw">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfl-bU-Lfw">
                                                         <rect key="frame" x="30" y="85.666666666666657" width="170" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabEPN"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3376,7 +3377,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZL-Tj-sKw">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZL-Tj-sKw">
                                                         <rect key="frame" x="159.66666666666666" y="266.66666666666669" width="87" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabTypeButton"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3406,7 +3407,7 @@
                                                         </connections>
                                                     </stepper>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cornhole Scorer Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOx-rr-kik">
-                                                        <rect key="frame" x="30" y="439" width="276.66666666666669" height="21.666666666666686"/>
+                                                        <rect key="frame" x="30" y="485.66666666666663" width="276.66666666666669" height="21.666666666666686"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabVersion"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -3418,8 +3419,8 @@
                                                             <action selector="changeSetting1:" destination="OpN-La-XAe" eventType="valueChanged" id="uC7-Bp-FIN"/>
                                                         </connections>
                                                     </stepper>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vc7-DD-gRF">
-                                                        <rect key="frame" x="30" y="480.66666666666663" width="269" height="34"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vc7-DD-gRF">
+                                                        <rect key="frame" x="30" y="527.33333333333337" width="269" height="34"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SetTabFAQ"/>
                                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                                         <state key="normal" title="Frequently Asked Questions"/>
@@ -3427,16 +3428,31 @@
                                                             <action selector="openFAQs:" destination="OpN-La-XAe" eventType="touchUpInside" id="4Yc-f8-uzy"/>
                                                         </connections>
                                                     </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bags/Round: 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMe-F6-UJ1">
+                                                        <rect key="frame" x="30" y="409" width="147.33333333333334" height="21.666666666666686"/>
+                                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="DWS-Ya-02x">
+                                                        <rect key="frame" x="225.33333333333337" y="403.66666666666663" width="94" height="32"/>
+                                                        <connections>
+                                                            <action selector="changeBagsRound:" destination="OpN-La-XAe" eventType="valueChanged" id="XZB-HO-1zN"/>
+                                                        </connections>
+                                                    </stepper>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="top" secondItem="68B-zh-x6C" secondAttribute="bottom" constant="10" id="0fJ-oJ-Vge"/>
+                                                    <constraint firstItem="DWS-Ya-02x" firstAttribute="centerX" secondItem="HwE-Ii-sOh" secondAttribute="centerX" id="29H-ju-vBJ"/>
                                                     <constraint firstItem="4qN-xj-AXw" firstAttribute="top" secondItem="rfl-bU-Lfw" secondAttribute="bottom" constant="15" id="4Yy-zy-Y6e"/>
                                                     <constraint firstItem="Llz-Ie-iVO" firstAttribute="top" secondItem="GsR-cO-mwj" secondAttribute="bottom" constant="25" id="5Q8-sX-cuh"/>
                                                     <constraint firstItem="vc7-DD-gRF" firstAttribute="leading" secondItem="hOx-rr-kik" secondAttribute="leading" id="5R1-Wq-6UQ"/>
+                                                    <constraint firstItem="pMe-F6-UJ1" firstAttribute="top" secondItem="Llz-Ie-iVO" secondAttribute="bottom" constant="25" id="727-os-IfF"/>
                                                     <constraint firstItem="kmO-Z1-Obq" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="7e7-Fz-Tv1"/>
                                                     <constraint firstItem="GsR-cO-mwj" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="CYP-hc-RsX"/>
                                                     <constraint firstItem="kmO-Z1-Obq" firstAttribute="top" secondItem="zVt-rI-fQ7" secondAttribute="bottom" constant="15" id="Etk-MW-6UF"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="top" secondItem="4qN-xj-AXw" secondAttribute="bottom" constant="10" id="Hhl-yE-dcK"/>
+                                                    <constraint firstItem="hOx-rr-kik" firstAttribute="top" secondItem="DWS-Ya-02x" secondAttribute="bottom" constant="50" id="MZT-7R-vUg"/>
                                                     <constraint firstItem="g5g-iK-b87" firstAttribute="centerY" secondItem="GsR-cO-mwj" secondAttribute="centerY" id="Oto-6z-o3S"/>
                                                     <constraint firstItem="GT7-NL-7tq" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="QGz-0U-y6S"/>
                                                     <constraint firstItem="rfl-bU-Lfw" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="QUR-qf-tz6"/>
@@ -3444,6 +3460,7 @@
                                                     <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerY" secondItem="Llz-Ie-iVO" secondAttribute="centerY" id="SnN-cC-VTr"/>
                                                     <constraint firstItem="hOx-rr-kik" firstAttribute="leading" secondItem="Llz-Ie-iVO" secondAttribute="leading" id="TLZ-ev-ExN"/>
                                                     <constraint firstItem="vc7-DD-gRF" firstAttribute="top" secondItem="hOx-rr-kik" secondAttribute="bottom" constant="20" id="VFX-Q6-nvr"/>
+                                                    <constraint firstItem="pMe-F6-UJ1" firstAttribute="leading" secondItem="Llz-Ie-iVO" secondAttribute="leading" id="WDx-aZ-6Gw"/>
                                                     <constraint firstItem="CZL-Tj-sKw" firstAttribute="centerY" secondItem="yuI-dy-AbA" secondAttribute="centerY" id="WrN-Qa-e55"/>
                                                     <constraint firstItem="Ah7-xF-sda" firstAttribute="centerY" secondItem="kmO-Z1-Obq" secondAttribute="centerY" id="XFY-29-J5F"/>
                                                     <constraint firstItem="Llz-Ie-iVO" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="aZk-ya-fD5"/>
@@ -3454,10 +3471,10 @@
                                                     <constraint firstItem="yuI-dy-AbA" firstAttribute="top" secondItem="GT7-NL-7tq" secondAttribute="bottom" constant="15" id="nMm-cn-SMC"/>
                                                     <constraint firstItem="68B-zh-x6C" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="oOE-sI-3rv"/>
                                                     <constraint firstItem="zVt-rI-fQ7" firstAttribute="top" secondItem="qbb-dU-PMb" secondAttribute="top" id="rf6-Sv-Y7g"/>
+                                                    <constraint firstItem="DWS-Ya-02x" firstAttribute="centerY" secondItem="pMe-F6-UJ1" secondAttribute="centerY" id="sqe-Dm-XYc"/>
                                                     <constraint firstAttribute="height" constant="831" id="tDQ-TO-BOs"/>
                                                     <constraint firstItem="yuI-dy-AbA" firstAttribute="leading" secondItem="zVt-rI-fQ7" secondAttribute="leading" id="tEY-8s-Fiu"/>
                                                     <constraint firstItem="g5g-iK-b87" firstAttribute="leading" secondItem="GsR-cO-mwj" secondAttribute="trailing" constant="25" id="tjb-rp-aos"/>
-                                                    <constraint firstItem="hOx-rr-kik" firstAttribute="top" secondItem="HwE-Ii-sOh" secondAttribute="bottom" constant="50" id="y2w-l5-s41"/>
                                                     <constraint firstItem="HwE-Ii-sOh" firstAttribute="centerX" secondItem="g5g-iK-b87" secondAttribute="centerX" id="yWM-db-tuB"/>
                                                     <constraint firstItem="4qN-xj-AXw" firstAttribute="centerX" secondItem="qbb-dU-PMb" secondAttribute="centerX" id="zuK-4j-R0F"/>
                                                 </constraints>
@@ -3508,6 +3525,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="3Bm-SL-bP8"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="10r-G6-rLT" firstAttribute="leading" secondItem="6sJ-wf-YiE" secondAttribute="trailing" constant="15" id="0Gl-sM-gGD"/>
@@ -3552,12 +3570,13 @@
                             <constraint firstItem="7v7-dA-NJK" firstAttribute="leading" secondItem="3Bm-SL-bP8" secondAttribute="leading" constant="20" id="zQt-8p-a9E"/>
                             <constraint firstItem="MtI-UB-ZRJ" firstAttribute="top" secondItem="DnU-qb-R13" secondAttribute="bottom" constant="5" id="zWu-Ph-bEg"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="3Bm-SL-bP8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="Settings" selectedImage="Settings" id="ynV-s8-icK"/>
                     <size key="freeformSize" width="375" height="1000"/>
                     <connections>
                         <outlet property="activityIndicator" destination="eKG-Hm-ZK1" id="G6A-IG-mFk"/>
+                        <outlet property="bagsRoundLabel" destination="pMe-F6-UJ1" id="qHw-tZ-usC"/>
+                        <outlet property="bagsRoundStepper" destination="DWS-Ya-02x" id="HeU-af-2lf"/>
                         <outlet property="downArrow" destination="gjo-iy-eHS" id="q1n-J1-JD9"/>
                         <outlet property="faqButton" destination="vc7-DD-gRF" id="J5I-Ie-z8k"/>
                         <outlet property="innerScrollView" destination="qbb-dU-PMb" id="0M0-Wc-Qnj"/>
@@ -3607,7 +3626,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DlA-x6-ANa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-968.79999999999995" y="345.81280788177344"/>
+            <point key="canvasLocation" x="-968.84057971014499" y="345.53571428571428"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -3758,7 +3777,7 @@
                                     <constraint firstAttribute="width" secondItem="eIz-z9-IBO" secondAttribute="height" multiplier="1:1" id="fb7-eR-w6X"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJ7-Vx-OAr">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJ7-Vx-OAr">
                                 <rect key="frame" x="381.66666666666669" y="64" width="12.333333333333314" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Import Data"/>
@@ -3766,7 +3785,7 @@
                                     <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
                                 </variation>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJG-iH-6eb">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJG-iH-6eb">
                                 <rect key="frame" x="280" y="98" width="114" height="34"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Export Data"/>
@@ -3793,7 +3812,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="7p0-pC-hKm">
                                 <rect key="frame" x="109" y="112" width="196" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EjA-xm-ys6">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EjA-xm-ys6">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="StatsStandings"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3802,7 +3821,7 @@
                                             <action selector="openStandings:" destination="uQZ-18-tki" eventType="touchUpInside" id="2Je-UA-aQi"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3QG-c5-r0m">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3QG-c5-r0m">
                                         <rect key="frame" x="124" y="0.0" width="72" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="StatsOptions"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
@@ -3945,7 +3964,7 @@
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="H0g-wa-KqN">
                                         <rect key="frame" x="30" y="40" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKn-1A-K3x">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKn-1A-K3x">
                                         <rect key="frame" x="322" y="42" width="72" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="StatsOptionsP"/>
                                         <constraints>
@@ -3959,7 +3978,7 @@
                                             <action selector="options:" destination="uQZ-18-tki" eventType="touchUpInside" id="a8k-iD-9V2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYO-Vg-OU0">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYO-Vg-OU0">
                                         <rect key="frame" x="20" y="42" width="94" height="34"/>
                                         <accessibility key="accessibilityConfiguration" identifier="StatsStandingsP"/>
                                         <constraints>
@@ -4001,6 +4020,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ASf-Lr-DOo"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="64Q-tK-sAd" firstAttribute="top" secondItem="k2J-ta-kG6" secondAttribute="top" id="01D-Xb-WA2"/>
@@ -4037,7 +4057,6 @@
                             <constraint firstItem="mWK-P7-mnu" firstAttribute="leading" secondItem="ASf-Lr-DOo" secondAttribute="leading" constant="20" id="uc4-mX-XaZ"/>
                             <constraint firstItem="64Q-tK-sAd" firstAttribute="leading" secondItem="k2J-ta-kG6" secondAttribute="leading" id="yaI-Lo-C8y"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ASf-Lr-DOo"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Stats" image="Stats" selectedImage="Stats" id="T9B-fu-y00"/>
                     <connections>
@@ -4102,12 +4121,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVb-zd-E9r">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVb-zd-E9r">
                                 <rect key="frame" x="25" y="42" width="46" height="34"/>
                                 <accessibility key="accessibilityConfiguration" identifier="StandingsBack"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <state key="normal" title="Back">
-                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="sDH-uo-oQo" eventType="touchUpInside" id="gT3-qn-OOG"/>
@@ -4174,7 +4193,8 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="MBW-af-kGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="aVK-vc-XuM" firstAttribute="centerY" secondItem="lVb-zd-E9r" secondAttribute="centerY" id="201-uz-idr"/>
                             <constraint firstItem="MBW-af-kGB" firstAttribute="bottom" secondItem="FNf-ck-EVr" secondAttribute="bottom" constant="30" id="2p2-l6-53d"/>
@@ -4189,7 +4209,6 @@
                             <constraint firstAttribute="bottom" secondItem="1OK-Ke-jGU" secondAttribute="bottom" id="eZo-BV-kb3"/>
                             <constraint firstItem="aVK-vc-XuM" firstAttribute="centerX" secondItem="RMp-Bq-04G" secondAttribute="centerX" id="wG5-oY-aXo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MBW-af-kGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="V8W-c1-Yt8"/>
                     <connections>
@@ -4211,5 +4230,11 @@
         <image name="Scoreboard" width="16.333333969116211" height="30"/>
         <image name="Settings" width="30" height="30"/>
         <image name="Stats" width="30" height="22.333333969116211"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

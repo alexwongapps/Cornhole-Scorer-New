@@ -161,9 +161,6 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             blueOnStepper[i].isHidden = ghostMode
         }
         
-        // read max bags text field
-        maxBags = 4
-        
         // set match data
         startDate = Date()
         
@@ -690,6 +687,12 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
         }
+        
+        // 34 stuff
+        if UserDefaults.standard.bool(forKey: "alreadyLaunched30") && !UserDefaults.standard.bool(forKey: "alreadyLaunched34") {
+            present(createBasicAlert(title: "New in 3.4 — Set Bags Per Round!", message: "Adjust the number of tossed bags per round in the Settings Tab!\n\nNote: only adjustable for non-league matches, for league matches the default value of 4 is used"), animated: true)
+            UserDefaults.standard.setValue(true, forKey: "alreadyLaunched34")
+        }
     }
     
     @IBAction func changeGhost(_ sender: Any) {
@@ -697,17 +700,22 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             present(createBasicAlert(title: "PRO Feature", message: "In this single player mode, play against a ghost who will score a set number of points every round\n\nTo get Cornhole Scorer PRO, go to the Settings tab"), animated: true)
         } else {
             if ghostValue == nil {
+                if !isLeagueActive() {
+                    maxBags = UserDefaults.standard.integer(forKey: "bagsPerRound")
+                } else {
+                    maxBags = 4
+                }
                 let alert = UIAlertController(title: "Enter ghost score", message: "The ghost will score this many points per round", preferredStyle: .alert)
                 alert.addTextField { (textField) in
                     textField.keyboardType = .numberPad
-                    textField.placeholder = "Number between 0 and 12"
+                    textField.placeholder = "Number between 0 and \(3 * self.maxBags)"
                 }
                 alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
                     let textField = alert?.textFields![0]
                     if let text = textField?.text {
                         if let value = Int(text) {
-                            if value < 0 || value > 12 {
-                                self.present(createBasicAlert(title: "Invalid number", message: "Enter a number between 0 and 12"), animated: true)
+                            if value < 0 || value > 3 * self.maxBags {
+                                self.present(createBasicAlert(title: "Invalid number", message: "Enter a number between 0 and \(3 * self.maxBags)"), animated: true)
                             } else {
                                 self.ghostValue = value
                                 for i in 0..<self.help0Label.count {
@@ -720,7 +728,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
                                 }
                             }
                         } else {
-                            self.present(createBasicAlert(title: "Not a number", message: "Enter a number between 0 and 12"), animated: true)
+                            self.present(createBasicAlert(title: "Not a number", message: "Enter a number between 0 and \(3 * self.maxBags)"), animated: true)
                         }
                     }
                 }))
@@ -2008,19 +2016,21 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
             wS = defaults.integer(forKey: "winningScore")
             bS = defaults.integer(forKey: "bustScore")
             rL = defaults.integer(forKey: "roundLimit")
-            
+            maxBags = UserDefaults.standard.integer(forKey: "bagsPerRound")
         } else {
             if let league = UserDefaults.getActiveLeague() {
                 gT = league.gameSettings.gameType
                 wS = league.gameSettings.winningScore
                 bS = league.gameSettings.bustScore
                 rL = league.gameSettings.roundLimit
+                maxBags = 4
             } else {
                 let defaults = UserDefaults.standard
                 gT = GameType(rawValue: defaults.integer(forKey: "gameType")) ?? GameType.standard
                 wS = defaults.integer(forKey: "winningScore")
                 bS = defaults.integer(forKey: "bustScore")
                 rL = defaults.integer(forKey: "roundLimit")
+                maxBags = UserDefaults.standard.integer(forKey: "bagsPerRound")
             }
         }
         
