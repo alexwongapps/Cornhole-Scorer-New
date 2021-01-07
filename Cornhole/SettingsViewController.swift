@@ -411,6 +411,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIScrollVie
                 }
             }
         }))
+        
         self.present(alert, animated: true)
     }
     
